@@ -41,7 +41,7 @@ public class FramePlateau extends JFrame
 		this.setJMenuBar(new MenuBarre(this.ctrl));
 	
         try {
-            BufferedImage img = ImageIO.read(new File("./images/les_aventuriers_du_rail.jpg"));
+            BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
             this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
         }
         catch (Exception e) {e.printStackTrace();}
