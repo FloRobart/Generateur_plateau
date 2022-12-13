@@ -1,5 +1,10 @@
 package ihm;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -8,13 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import java.awt.GridLayout;
-import java.awt.Color;
 
-import java.awt.event.*;
-import java.io.File;
-import java.awt.Graphics;
-import java.awt.Image;
 
 public class PanelGenerateur extends JPanel implements ActionListener
 {
@@ -315,7 +314,7 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION)
 		{
-			File selectedFile = fileChooser.getSelectedFile();
+			//File selectedFile = fileChooser.getSelectedFile();
 			//this.img = selectedFile.getAbsolutePath();
 		} 
 			
