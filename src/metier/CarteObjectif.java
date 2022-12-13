@@ -1,3 +1,5 @@
+package metier;
+
 public class CarteObjectif 
 {
 	private Noeud noeud1;
