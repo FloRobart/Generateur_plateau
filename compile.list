@@ -4,5 +4,5 @@
 ./src/ihm/MenuBarre.java
 ./src/ihm/PanelGenerateur.java
 ./src/ihm/PanelJoueur.java
-
+./src/ihm/PanelPlateau.java
 -d bin

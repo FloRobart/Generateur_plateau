@@ -1,4 +1,4 @@
-
+package ihm;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,7 +15,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
-
+import controleur.Controleur;;
 
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
