@@ -4,18 +4,25 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.GridLayout;
 
+import java.awt.GridLayout;
 import java.awt.Color;
 
 public class PanelGenerateur extends JPanel
 {
 
 	// Attributs
+	private JPanel panelForm;
+	private JPanel panelMappe;
+	private JPanel panelParamPlateau;
+	private JPanel panelParamJeu;
+	private JPanel panelElements;
+	private JPanel panelModif;
+
+
 	private JTextField    DimensionX;
 	private JTextField    DimensionY;
-	private JFileChooser  imgFond;
-	private JColorChooser couleurFond;
+	private JTextField    txtPolice;
 
 	private JTextField    nbJoueursMin;
 	private JTextField    nbJoueursMax;
@@ -29,90 +36,287 @@ public class PanelGenerateur extends JPanel
 
 	private JButton       btnModifPoints;
 	private JButton	      btnModifCoul;
+	private JButton       btnModifObjectif;
+
+	private JButton       btnNoeud;
+	private JButton       btnArete;
+	private JButton       btnCarteObj;
 
 
 	// Constructeur
 	public PanelGenerateur()
 	{
 		this.setLayout(new GridLayout(1,2));
-		this.setBackground(new Color(40, 42, 54));
-
-		JPanel panelForm         = new JPanel();
-		JPanel panelMappe        = new JPanel();
-		JPanel panelParamPlateau = new JPanel();
-		JPanel panelParamJeu     = new JPanel();
+		//this.setBackground(new Color(40, 42, 54));
+        
+		this.panelForm         = new JPanel();
+		this.panelMappe        = new JPanel();
+		this.panelParamPlateau = new JPanel();
+		this.panelParamJeu     = new JPanel();
+		this.panelElements     = new JPanel();
+		this.panelModif        = new JPanel();
 
 		//PanelForm
-		panelForm.setLayout(new GridLayout(4,1));
+		panelForm.setLayout(new GridLayout(8,1));
+		panelForm.setBackground(new Color(40, 42, 54));
+
 
 		//Paramètre du plateau
-		panelParamPlateau.add(new JLabel("Paramètre du plateau"));
+		panelParamPlateau.setLayout(new GridLayout(4,3));
+		panelParamPlateau.setBackground(new Color(68, 71, 90));
+
+
+		//dimensions
+		this.DimensionX = new JTextField("X:", 2);
+		this.DimensionX.setBackground(new Color(58, 60, 76));
+		this.DimensionX.setForeground(Color.GRAY);
 		
-		this.DimensionX = new JTextField("x:", 4);
-		this.DimensionY = new JTextField("y:", 4);
 
-		this.imgFond = new JFileChooser("./");
-		this.couleurFond = new JColorChooser();
+		this.DimensionY = new JTextField("Y:", 2);
+		this.DimensionY.setBackground(new Color(58, 60, 76));
+		this.DimensionY.setForeground(Color.GRAY);
 
-		panelParamPlateau.add(new JLabel("Dimension"));
+		//image de fond
+		JButton btnFile = new JButton("ouvrir fichier");
+		btnFile.setBackground(new Color(58, 60, 76));
+		btnFile.setForeground(Color.GRAY);
+        add(btnFile);
+        btnFile.addActionListener(e -> {
+            selectFile();
+        });
+
+		//couleur de fond
+		JButton btnColor = new JButton("choisir couleur");
+		btnColor.setBackground(new Color(58, 60, 76));
+		btnColor.setForeground(Color.GRAY);
+		add(btnColor);
+		btnColor.addActionListener(e -> {
+			selectColor();
+		});
+
+		//police
+		this.txtPolice = new JTextField(10);
+		this.txtPolice.setBackground(new Color(58, 60, 76));
+		this.txtPolice.setForeground(Color.GRAY);
+
+
+		//alignement des composants
+		JLabel lblDim = new JLabel("Dimensions");
+		lblDim.setForeground(Color.WHITE);
+		panelParamPlateau.add(lblDim);
 		panelParamPlateau.add(this.DimensionX);
 		panelParamPlateau.add(this.DimensionY);
-		panelParamPlateau.add(new JLabel("Image fond"));
-		panelParamPlateau.add(this.imgFond);
-		panelParamPlateau.add(new JLabel("Couleur fond"));
-		panelParamPlateau.add(this.couleurFond);
 
+		JLabel lblImg = new JLabel("Image fond");
+		lblImg.setForeground(Color.WHITE);
+		panelParamPlateau.add(lblImg);
+		panelParamPlateau.add(btnFile);
+		panelParamPlateau.add(new JLabel(" "));
 
+		JLabel lblColor = new JLabel("Couleur de fond");
+		lblColor.setForeground(Color.WHITE);
+		panelParamPlateau.add(lblColor);
+		panelParamPlateau.add(btnColor);
+		panelParamPlateau.add(new JLabel(" "));
 
-		//Paramètre du jeu
-		panelParamJeu.add(new JLabel("Paramètre du jeu"));
+		JLabel lblPolice = new JLabel("Police");
+		lblPolice.setForeground(Color.WHITE);
+		panelParamPlateau.add(lblPolice);
+		panelParamPlateau.add(this.txtPolice);
+		panelParamPlateau.add(new JLabel(" "));
 
-		this.nbJoueursMin = new JTextField("Min:", 4);
-		this.nbJoueursMax = new JTextField("Max:", 4);
+	
+		//paramètre du jeu
+		panelParamJeu.setLayout(new GridLayout(6,4));
+		panelParamJeu.setBackground(new Color(68, 71, 90));
+
+		//nombre de joueurs min
+		this.nbJoueursMin = new JTextField("Min", 4);
+		this.nbJoueursMin.setBackground(new Color(58, 60, 76));
+		this.nbJoueursMin.setForeground(Color.GRAY);
+		//nombre de joueurs max
+		this.nbJoueursMax = new JTextField("Max", 4);
+		this.nbJoueursMax.setBackground(new Color(58, 60, 76));
+		this.nbJoueursMax.setForeground(Color.GRAY);
+		//nombre de carte couleur
+		this.nbCarteCoul = new JTextField(4);
+		this.nbCarteCoul.setBackground(new Color(58, 60, 76));
+		this.nbCarteCoul.setForeground(Color.GRAY);
+		
+		this.btnPlusCoul = new JButton("+");
+		this.btnPlusCoul.setBackground(new Color(217, 217, 217));
 
 		this.btnMoinsCoul = new JButton("-");
-		this.btnPlusCoul  = new JButton("+");
+		this.btnMoinsCoul.setBackground(new Color(217, 217, 217));
+
+		//nombre de carte joker
+		this.nbCarteJoker = new JTextField(4);
+		this.nbCarteJoker.setBackground(new Color(58, 60, 76));
+		this.nbCarteJoker.setForeground(Color.GRAY);
+
+		this.btnPlusJoker = new JButton("+");
+		this.btnPlusJoker.setBackground(new Color(217, 217, 217));	
 
 		this.btnMoinsJoker = new JButton("-");
-		this.btnPlusJoker  = new JButton("+");
+		this.btnMoinsJoker.setBackground(new Color(217, 217, 217));
+		
 
-		this.nbCarteCoul  = new JTextField("0", 4);
-		this.nbCarteJoker = new JTextField("0", 4);
+		
+		//image cartes
+		JButton btnImg = new JButton("Rechercher l'image");
+		btnImg.setBackground(new Color(58, 60, 76));
+		btnImg.setForeground(Color.GRAY);
+        add(btnImg);
+        btnImg.addActionListener(e -> {
+            selectImg();
+        });
 
-		this.btnModifPoints = new JButton("Modifier points");
-		this.btnModifCoul   = new JButton("Modifier couleurs");
+		//couleur 
+		this.btnModifCoul = new JButton("Couleurs");
+		this.btnModifCoul.setBackground(new Color(58, 60, 76));
+		this.btnModifCoul.setForeground(Color.WHITE);
 
-		panelParamJeu.add(new JLabel("Nombre de joueurs"));
+		//points
+		this.btnModifPoints = new JButton("Points");
+		this.btnModifPoints.setBackground(new Color(58, 60, 76));
+		this.btnModifPoints.setForeground(Color.WHITE);
+
+		//objectifs
+		this.btnModifObjectif = new JButton("Objectifs");
+		this.btnModifObjectif.setBackground(new Color(58, 60, 76));
+		this.btnModifObjectif.setForeground(Color.WHITE);
+
+		//alignement des composants
+		JLabel lblNbJoueurs = new JLabel("Nombre de joueurs");
+		lblNbJoueurs.setForeground(Color.WHITE);
+		panelParamJeu.add(lblNbJoueurs);
 		panelParamJeu.add(this.nbJoueursMin);
 		panelParamJeu.add(this.nbJoueursMax);
-		panelParamJeu.add(new JLabel("Cartes wagon : "));
-		panelParamJeu.add(new JLabel("Cartes par couleurs "));
+		panelParamJeu.add(new JLabel(" "));
+
+		JLabel lblCartes = new JLabel("Cartes wagon :");
+		lblCartes.setForeground(Color.WHITE);
+		panelParamJeu.add(lblCartes);
+		panelParamJeu.add(new JLabel(""));
+		panelParamJeu.add(new JLabel(""));	
+		panelParamJeu.add(new JLabel(""));
+
+		JLabel lblNbCarteCoul = new JLabel("cartes par couleurs");
+		lblNbCarteCoul.setForeground(Color.WHITE);
+		panelParamJeu.add(lblNbCarteCoul);
 		panelParamJeu.add(this.btnMoinsCoul);
 		panelParamJeu.add(this.nbCarteCoul);
 		panelParamJeu.add(this.btnPlusCoul);
-		panelParamJeu.add(new JLabel("Cartes multicouleurs "));
+
+		JLabel lblNbCarteJoker = new JLabel("cartes multicouleurs");
+		lblNbCarteJoker.setForeground(Color.WHITE);
+		panelParamJeu.add(lblNbCarteJoker);
 		panelParamJeu.add(this.btnMoinsJoker);
 		panelParamJeu.add(this.nbCarteJoker);
 		panelParamJeu.add(this.btnPlusJoker);
-		panelParamJeu.add(this.btnModifPoints);
+
+		JLabel lblImg2 = new JLabel("Image cartes");
+		lblImg2.setForeground(Color.WHITE);
+		panelParamJeu.add(lblImg2);
+		panelParamJeu.add(btnImg);
+		panelParamJeu.add(new JLabel(""));
+		panelParamJeu.add(new JLabel(""));
+
+
+		JLabel lblModif = new JLabel("Modifier");
+		lblModif.setForeground(Color.WHITE);
+		panelParamJeu.add(lblModif);
 		panelParamJeu.add(this.btnModifCoul);
+		panelParamJeu.add(this.btnModifPoints);
+		panelParamJeu.add(this.btnModifObjectif);
+
+		//Ajouter Elements
+		this.panelElements.setBackground(new Color(58, 60, 76));
+		this.panelElements.setLayout(new GridLayout(1,3));
+
+		this.btnNoeud = new JButton("Noeud");
+		this.btnNoeud.setBackground(new Color(58,60,76));
+		this.btnNoeud.setForeground(Color.WHITE);
+
+		this.btnArete = new JButton("Arete");
+		this.btnArete.setBackground(new Color(58,60,76));
+		this.btnArete.setForeground(Color.WHITE);
+
+		this.btnCarteObj = new JButton("Carte Objectif");
+		this.btnCarteObj.setBackground(new Color(58,60,76));
+		this.btnCarteObj.setForeground(Color.WHITE);
 
 
+		//alignement des composants
+		panelElements.add(this.btnNoeud);
+		panelElements.add(this.btnArete);
+		panelElements.add(this.btnCarteObj);
+
+
+		//Modifier Elements
+		this.panelModif.setBackground(new Color(58, 60, 76));
+		this.panelModif.add(new JLabel("Aucun Element selectionné"));
+
+
+		//ajout des composants à panel Form
+		JLabel lbl = new JLabel("Paramètre du plateau");
+		lbl.setForeground(Color.WHITE);
+		panelForm.add(lbl);
 		panelForm.add(panelParamPlateau);
+
+		JLabel lbl2 = new JLabel("Paramètre du jeu");
+		lbl2.setForeground(Color.WHITE);
+		panelForm.add(lbl2);
 		panelForm.add(panelParamJeu);
 
+		JLabel lbl3 = new JLabel("Ajouter éléments");
+		lbl3.setForeground(Color.WHITE);
+		panelForm.add(lbl3);
+		panelForm.add(panelElements);
 
+		JLabel lbl4 = new JLabel("Modifier l'élément choisit");
+		lbl4.setForeground(Color.WHITE);
+		panelForm.add(lbl4);
+		panelForm.add(panelModif);
+
+		//ajout des composants 
+        this.add(panelForm);
+        this.add(panelMappe);
 		
 	}
 
-	// Fabrique
+	/*
+	 * Méthode qui permet de sélectionner une image
+	 */
+	private void selectImg() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+		}
+	}
 
+	/*
+	 * Méthode qui permet de sélectionner une couleur
+	 */
+	private void selectColor() {
+		Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
+		if (color != null) {
+			this.panelMappe.setBackground(color);
+		}
+	}
 
-	// Accesseurs
-
-	// Modificateurs
-
-
-	// Methodes
+	/*
+	 * Méthode qui permet de sélectionner un fichier (l'image de fond du plateau)
+	 */
+	private void selectFile() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+		}
+	}
 
 }
