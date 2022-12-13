@@ -2,6 +2,8 @@ package ihm;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controleur.Controleur;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
