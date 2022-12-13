@@ -17,7 +17,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
-import controleur.Controleur;;
 
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
@@ -42,7 +41,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     {
 
         this.image = image;
-		this.setBackground(Color.GRAY);
+		this.setBackground(new Color(255, 183, 110));
         initComponent();
         this.ctrl = ctrl;
 
