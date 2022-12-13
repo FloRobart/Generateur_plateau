@@ -3,7 +3,6 @@ package ihm;
 import java.awt.BorderLayout;
 import java.io.File;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileSystemView;
@@ -25,7 +24,7 @@ public class FramePlateau extends JFrame
 		this.setTitle("Générateur de plateau");
 		this.setLocation(50, 50);
 		this.setLayout(new BorderLayout());
-		this.setSize(300, 300);
+		this.setSize(3000, 2000);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(new MenuBarre(this.ctrl));
 
