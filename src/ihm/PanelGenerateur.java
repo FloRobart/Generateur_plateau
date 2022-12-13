@@ -56,7 +56,7 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	// Constructeur
 	public PanelGenerateur()
 	{
-		this.setLayout(new GridLayout(1,2));
+		this.setLayout(new GridLayout(1,1));
 		//this.setBackground(new Color(40, 42, 54));
         
 		this.panelForm         = new JPanel();
@@ -295,7 +295,6 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		/*PANEL                                                                  */
 		/*---------------------------------------------------------------------- */
         this.add(panelForm);
-        this.add(panelMappe);
 
 		this.btnPlusCoul.addActionListener(this);
 		this.btnMoinsCoul.addActionListener(this);

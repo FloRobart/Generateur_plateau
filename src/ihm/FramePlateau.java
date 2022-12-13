@@ -1,10 +1,19 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileSystemView;
 
 import controleur.Controleur;
@@ -16,28 +25,50 @@ public class FramePlateau extends JFrame
 	
 	private PanelGenerateur panelGenerateur;
 	private PanelJoueur panelJoueur;
-	
+	private PanelPlateau panelPlateau;
 	public FramePlateau(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
 
+		Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        int longueurEcran = dimEcran.width * 9/10;
+        int hauteurEcran = dimEcran.height * 9/10;
+
 		this.setTitle("Générateur de plateau");
 		this.setLocation(50, 50);
-		this.setLayout(new BorderLayout());
-		this.setSize(3000, 2000);
+		this.setSize(longueurEcran, hauteurEcran);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(new MenuBarre(this.ctrl));
-
-		this.panelJoueur = new PanelJoueur();
+	
+        try {
+            BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
+            this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
+        }
+        catch (Exception e) {e.printStackTrace();}
+		JPanel panel = new JPanel();
+        panel.setSize(longueurEcran*1/2,hauteurEcran*1/2);
+		panel.setLayout(new GridLayout(1,1));
+        panel.add(this.panelPlateau);
+		// this.panelJoueur = new PanelJoueur();
 		this.panelGenerateur = new PanelGenerateur();
 
-
 		// Positionnement du composent
-		this.add(this.panelJoueur);
-		this.add(this.panelGenerateur);
 
+		//Create a split pane with the two scroll panes in it.
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+								panelGenerateur, panel);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(150);
+
+		//Provide minimum sizes for the two components in the split pane
+		Dimension minimumSize = new Dimension(100, 50);
+		panel.setMinimumSize(minimumSize);
+		panelGenerateur.setMinimumSize(minimumSize);
+
+		this.add(splitPane);
 		//this.pack();
 		this.setVisible ( true );
+
 	}
 
 	//Méthodes 
