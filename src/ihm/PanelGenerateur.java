@@ -1,4 +1,5 @@
 package ihm;
+
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -11,6 +12,9 @@ import java.awt.GridLayout;
 import java.awt.Color;
 
 import java.awt.event.*;
+import java.io.File;
+import java.awt.Graphics;
+import java.awt.Image;
 
 public class PanelGenerateur extends JPanel implements ActionListener
 {
@@ -310,8 +314,12 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		fileChooser.setFileFilter(filter);
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int result = fileChooser.showOpenDialog(this);
-		if (result == JFileChooser.APPROVE_OPTION) 
-			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+		if (result == JFileChooser.APPROVE_OPTION)
+		{
+			File selectedFile = fileChooser.getSelectedFile();
+			//this.img = selectedFile.getAbsolutePath();
+		} 
+			
 		
 	}
 
@@ -320,7 +328,7 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	 */
 	private void selectColor() 
 	{
-		Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
+		Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
 		if (color != null) 
 			this.panelMappe.setBackground(color);
 
@@ -337,7 +345,9 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION)
-			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+		{
+			
+		}
 	}
 
 	@Override
@@ -378,4 +388,5 @@ public class PanelGenerateur extends JPanel implements ActionListener
 			}
 		}
 	}
+
 }
