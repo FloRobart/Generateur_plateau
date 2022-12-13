@@ -1,1 +1,1 @@
-# Générateur de plateau type aventuriers du rail
+# Générateur de plateaux type aventuriers du rail
