@@ -1,6 +1,5 @@
 package ihm;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import java.awt.Dimension;
@@ -24,8 +23,8 @@ public class FramePlateau extends JFrame
 	private Controleur ctrl;
 	
 	private PanelGenerateur panelGenerateur;
-	private PanelJoueur panelJoueur;
 	private PanelPlateau panelPlateau;
+
 	public FramePlateau(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -45,30 +44,26 @@ public class FramePlateau extends JFrame
             this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
         }
         catch (Exception e) {e.printStackTrace();}
+
 		JPanel panel = new JPanel();
         panel.setSize(longueurEcran*1/2,hauteurEcran*1/2);
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
-		// this.panelJoueur = new PanelJoueur();
+
 		this.panelGenerateur = new PanelGenerateur();
 
-		// Positionnement du composent
-
 		//Create a split pane with the two scroll panes in it.
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-								panelGenerateur, panel);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelGenerateur, panel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(150);
 
 		//Provide minimum sizes for the two components in the split pane
-		Dimension minimumSize = new Dimension(100, 50);
+		Dimension minimumSize = new Dimension(longueurEcran*1/6,hauteurEcran);
 		panel.setMinimumSize(minimumSize);
 		panelGenerateur.setMinimumSize(minimumSize);
 
 		this.add(splitPane);
-		//this.pack();
 		this.setVisible ( true );
-
 	}
 
 	//Méthodes 
