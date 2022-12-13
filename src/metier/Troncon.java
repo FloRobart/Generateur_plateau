@@ -1,3 +1,5 @@
+package metier;
+
 public class Troncon 
 {
 	private Arete arete;
