@@ -1,9 +1,21 @@
-import javax.swing.*;
+package ihm;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
-import java.awt.event.*;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
-public class MenuConcepteurPlateau extends JMenuBar implements ActionListener 
+import controleur.Controleur;
+
+
+public class MenuBarre extends JMenuBar implements ActionListener 
 {
 	private Controleur ctrl;
 
@@ -14,7 +26,7 @@ public class MenuConcepteurPlateau extends JMenuBar implements ActionListener
 	private JMenuItem menuiFichierExporterSous;
 	private JMenuItem menuiFichierQuitter;
 
-	public MenuConcepteurPlateau(Controleur ctrl) 
+	public MenuBarre(Controleur ctrl) 
 	{
 		this.ctrl = ctrl;
 		
