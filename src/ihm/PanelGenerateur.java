@@ -10,7 +10,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.GridLayout;
 import java.awt.Color;
 
-public class PanelGenerateur extends JPanel
+import java.awt.event.*;
+
+public class PanelGenerateur extends JPanel implements ActionListener
 {
 
 	// Attributs
@@ -27,6 +29,10 @@ public class PanelGenerateur extends JPanel
 
 	private JTextField    nbJoueursMin;
 	private JTextField    nbJoueursMax;
+
+
+	private int           nbCoul=0;
+	private int           nbJoker=0;
 
 	private JButton       btnPlusCoul;
 	private JButton       btnMoinsCoul;
@@ -141,7 +147,7 @@ public class PanelGenerateur extends JPanel
 		this.nbJoueursMax.setBackground(new Color(58, 60, 76));
 		this.nbJoueursMax.setForeground(Color.GRAY);
 		//nombre de carte couleur
-		this.nbCarteCoul   = new JTextField(4);
+		this.nbCarteCoul   = new JTextField(""+nbCoul, 4);
 		this.nbCarteCoul.setBackground(new Color(58, 60, 76));
 		this.nbCarteCoul.setForeground(Color.GRAY);
 		
@@ -152,7 +158,7 @@ public class PanelGenerateur extends JPanel
 		this.btnMoinsCoul.setBackground(new Color(217, 217, 217));
 
 		//nombre de carte joker
-		this.nbCarteJoker  = new JTextField(4);
+		this.nbCarteJoker  = new JTextField(""+nbJoker, 4);
 		this.nbCarteJoker.setBackground(new Color(58, 60, 76));
 		this.nbCarteJoker.setForeground(Color.GRAY);
 
@@ -286,6 +292,11 @@ public class PanelGenerateur extends JPanel
 		/*---------------------------------------------------------------------- */
         this.add(panelForm);
         this.add(panelMappe);
+
+		this.btnPlusCoul.addActionListener(this);
+		this.btnMoinsCoul.addActionListener(this);
+		this.btnPlusJoker.addActionListener(this);
+		this.btnMoinsJoker.addActionListener(this);
 		
 	}
 
@@ -327,5 +338,44 @@ public class PanelGenerateur extends JPanel
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION)
 			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource().equals(this.btnPlusCoul))
+		{
+			nbCoul = Integer.parseInt(this.nbCarteCoul.getText());
+			nbCoul++;
+			this.nbCarteCoul.setText(Integer.toString(nbCoul));
+		}
+
+		if(e.getSource().equals(this.btnMoinsCoul))
+		{
+			if(nbCoul > 0)
+			{
+				nbCoul = Integer.parseInt(this.nbCarteCoul.getText());
+				nbCoul--;
+				this.nbCarteCoul.setText(Integer.toString(nbCoul));
+			}
+		}
+		
+		if(e.getSource() == this.btnPlusJoker)
+		{
+			nbJoker = Integer.parseInt(this.nbCarteJoker.getText());
+			nbJoker++;
+			this.nbCarteJoker.setText(Integer.toString(nbJoker));
+		}
+
+
+		if(e.getSource() == this.btnMoinsJoker)
+		{
+			if(nbJoker > 0)
+			{
+				nbJoker = Integer.parseInt(this.nbCarteJoker.getText());
+				nbJoker--;
+				this.nbCarteJoker.setText(Integer.toString(nbJoker));
+			}
+		}
 	}
 }
