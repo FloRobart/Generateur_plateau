@@ -4,6 +4,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -12,13 +13,12 @@ public class PanelGenerateur extends JPanel
 {
 
 	// Attributs
-	private JPanel panelForm;
-	private JPanel panelMappe;
-	private JPanel panelParamPlateau;
-	private JPanel panelParamJeu;
-	private JPanel panelElements;
-	private JPanel panelModif;
-
+	private JPanel        panelForm;
+	private JPanel        panelMappe;
+	private JPanel        panelParamPlateau;
+	private JPanel        panelParamJeu;
+	private JPanel        panelElements;
+	private JPanel        panelModif;
 
 	private JTextField    DimensionX;
 	private JTextField    DimensionY;
@@ -42,7 +42,6 @@ public class PanelGenerateur extends JPanel
 	private JButton       btnArete;
 	private JButton       btnCarteObj;
 
-
 	// Constructeur
 	public PanelGenerateur()
 	{
@@ -61,7 +60,9 @@ public class PanelGenerateur extends JPanel
 		panelForm.setBackground(new Color(40, 42, 54));
 
 
-		//Paramètre du plateau
+		/*---------------------------------------------------------------------- */
+		/*PARAMÈTRE PLATEAU                                                      */
+		/*---------------------------------------------------------------------- */
 		panelParamPlateau.setLayout(new GridLayout(4,3));
 		panelParamPlateau.setBackground(new Color(68, 71, 90));
 
@@ -99,7 +100,6 @@ public class PanelGenerateur extends JPanel
 		this.txtPolice.setBackground(new Color(58, 60, 76));
 		this.txtPolice.setForeground(Color.GRAY);
 
-
 		//alignement des composants
 		JLabel lblDim = new JLabel("Dimensions");
 		lblDim.setForeground(Color.WHITE);
@@ -124,43 +124,42 @@ public class PanelGenerateur extends JPanel
 		panelParamPlateau.add(lblPolice);
 		panelParamPlateau.add(this.txtPolice);
 		panelParamPlateau.add(new JLabel(" "));
-
 	
-		//paramètre du jeu
+		/*---------------------------------------------------------------------- */
+		/*PARAMÈTRE JEU                                                          */
+		/*---------------------------------------------------------------------- */
 		panelParamJeu.setLayout(new GridLayout(6,4));
 		panelParamJeu.setBackground(new Color(68, 71, 90));
 
 		//nombre de joueurs min
-		this.nbJoueursMin = new JTextField("Min", 4);
+		this.nbJoueursMin  = new JTextField("Min", 4);
 		this.nbJoueursMin.setBackground(new Color(58, 60, 76));
 		this.nbJoueursMin.setForeground(Color.GRAY);
 		//nombre de joueurs max
-		this.nbJoueursMax = new JTextField("Max", 4);
+		this.nbJoueursMax  = new JTextField("Max", 4);
 		this.nbJoueursMax.setBackground(new Color(58, 60, 76));
 		this.nbJoueursMax.setForeground(Color.GRAY);
 		//nombre de carte couleur
-		this.nbCarteCoul = new JTextField(4);
+		this.nbCarteCoul   = new JTextField(4);
 		this.nbCarteCoul.setBackground(new Color(58, 60, 76));
 		this.nbCarteCoul.setForeground(Color.GRAY);
 		
-		this.btnPlusCoul = new JButton("+");
+		this.btnPlusCoul   = new JButton("+");
 		this.btnPlusCoul.setBackground(new Color(217, 217, 217));
 
-		this.btnMoinsCoul = new JButton("-");
+		this.btnMoinsCoul  = new JButton("-");
 		this.btnMoinsCoul.setBackground(new Color(217, 217, 217));
 
 		//nombre de carte joker
-		this.nbCarteJoker = new JTextField(4);
+		this.nbCarteJoker  = new JTextField(4);
 		this.nbCarteJoker.setBackground(new Color(58, 60, 76));
 		this.nbCarteJoker.setForeground(Color.GRAY);
 
-		this.btnPlusJoker = new JButton("+");
+		this.btnPlusJoker  = new JButton("+");
 		this.btnPlusJoker.setBackground(new Color(217, 217, 217));	
 
 		this.btnMoinsJoker = new JButton("-");
 		this.btnMoinsJoker.setBackground(new Color(217, 217, 217));
-		
-
 		
 		//image cartes
 		JButton btnImg = new JButton("Rechercher l'image");
@@ -172,12 +171,12 @@ public class PanelGenerateur extends JPanel
         });
 
 		//couleur 
-		this.btnModifCoul = new JButton("Couleurs");
+		this.btnModifCoul     = new JButton("Couleurs");
 		this.btnModifCoul.setBackground(new Color(58, 60, 76));
 		this.btnModifCoul.setForeground(Color.WHITE);
 
 		//points
-		this.btnModifPoints = new JButton("Points");
+		this.btnModifPoints   = new JButton("Points");
 		this.btnModifPoints.setBackground(new Color(58, 60, 76));
 		this.btnModifPoints.setForeground(Color.WHITE);
 
@@ -222,15 +221,16 @@ public class PanelGenerateur extends JPanel
 		panelParamJeu.add(new JLabel(""));
 		panelParamJeu.add(new JLabel(""));
 
-
 		JLabel lblModif = new JLabel("Modifier");
 		lblModif.setForeground(Color.WHITE);
 		panelParamJeu.add(lblModif);
 		panelParamJeu.add(this.btnModifCoul);
 		panelParamJeu.add(this.btnModifPoints);
 		panelParamJeu.add(this.btnModifObjectif);
-
-		//Ajouter Elements
+		
+		/*---------------------------------------------------------------------- */
+		/*PANEL ELEMENTS                                                         */
+		/*---------------------------------------------------------------------- */
 		this.panelElements.setBackground(new Color(58, 60, 76));
 		this.panelElements.setLayout(new GridLayout(1,3));
 
@@ -246,19 +246,20 @@ public class PanelGenerateur extends JPanel
 		this.btnCarteObj.setBackground(new Color(58,60,76));
 		this.btnCarteObj.setForeground(Color.WHITE);
 
-
 		//alignement des composants
 		panelElements.add(this.btnNoeud);
 		panelElements.add(this.btnArete);
 		panelElements.add(this.btnCarteObj);
 
-
-		//Modifier Elements
+		/*---------------------------------------------------------------------- */
+		/*PANEL MODIFIER ELEMENTS                                                */
+		/*---------------------------------------------------------------------- */
 		this.panelModif.setBackground(new Color(58, 60, 76));
 		this.panelModif.add(new JLabel("Aucun Element selectionné"));
 
-
-		//ajout des composants à panel Form
+		/*---------------------------------------------------------------------- */
+		/*PANEL FORM                                                             */
+		/*---------------------------------------------------------------------- */
 		JLabel lbl = new JLabel("Paramètre du plateau");
 		lbl.setForeground(Color.WHITE);
 		panelForm.add(lbl);
@@ -279,7 +280,9 @@ public class PanelGenerateur extends JPanel
 		panelForm.add(lbl4);
 		panelForm.add(panelModif);
 
-		//ajout des composants 
+		/*---------------------------------------------------------------------- */
+		/*PANEL                                                                  */
+		/*---------------------------------------------------------------------- */
         this.add(panelForm);
         this.add(panelMappe);
 		
@@ -288,35 +291,40 @@ public class PanelGenerateur extends JPanel
 	/*
 	 * Méthode qui permet de sélectionner une image
 	 */
-	private void selectImg() {
+	private void selectImg() 
+	{
 		JFileChooser fileChooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF & PNG Images", "jpg", "gif", "png", "jpeg");
+		fileChooser.setFileFilter(filter);
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int result = fileChooser.showOpenDialog(this);
-		if (result == JFileChooser.APPROVE_OPTION) {
+		if (result == JFileChooser.APPROVE_OPTION) 
 			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
-		}
+		
 	}
 
 	/*
 	 * Méthode qui permet de sélectionner une couleur
 	 */
-	private void selectColor() {
+	private void selectColor() 
+	{
 		Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
-		if (color != null) {
+		if (color != null) 
 			this.panelMappe.setBackground(color);
-		}
+
 	}
 
 	/*
 	 * Méthode qui permet de sélectionner un fichier (l'image de fond du plateau)
 	 */
-	private void selectFile() {
+	private void selectFile() 
+	{
 		JFileChooser fileChooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF & PNG Images", "jpg", "gif", "png", "jpeg");
+		fileChooser.setFileFilter(filter);
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int result = fileChooser.showOpenDialog(this);
-		if (result == JFileChooser.APPROVE_OPTION) {
+		if (result == JFileChooser.APPROVE_OPTION)
 			System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
-		}
 	}
-
 }
