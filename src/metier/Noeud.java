@@ -1,3 +1,5 @@
+package metier;
+
 import java.awt.Color;
 
 public class Noeud 
