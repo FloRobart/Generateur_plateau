@@ -17,8 +17,7 @@ public class FramePlateau extends JFrame
 	
 	private PanelGenerateur panelGenerateur;
 	private PanelJoueur panelJoueur;
-	private JButton[] tabBtnCuve;
-
+	
 	public FramePlateau(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -31,11 +30,12 @@ public class FramePlateau extends JFrame
 		this.setJMenuBar(new MenuBarre(this.ctrl));
 
 		this.panelJoueur = new PanelJoueur();
+		this.panelGenerateur = new PanelGenerateur();
 
 
 		// Positionnement du composent
 		this.add(this.panelJoueur);
-		//this.add(this.panelGenerateur);
+		this.add(this.panelGenerateur);
 
 		//this.pack();
 		this.setVisible ( true );
