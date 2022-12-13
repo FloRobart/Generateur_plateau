@@ -1,10 +1,15 @@
-import javax.imageio.ImageIO;
-import javax.swing.*;
+package ihm;
+
+import java.awt.BorderLayout;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileSystemView;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import controleur.Controleur;
+
 
 public class FramePlateau extends JFrame
 {
@@ -23,7 +28,7 @@ public class FramePlateau extends JFrame
 		this.setLayout(new BorderLayout());
 		this.setSize(300, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setJMenuBar(new MenuConcepteurPlateau(this.ctrl));
+		this.setJMenuBar(new MenuBarre(this.ctrl));
 
 		this.panelJoueur = new PanelJoueur();
 

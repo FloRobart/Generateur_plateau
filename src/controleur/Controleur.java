@@ -1,4 +1,8 @@
+package controleur;
 import java.io.File;
+
+import ihm.FramePlateau;
+import ihm.PanelGenerateur;
 
 public class Controleur
 {
