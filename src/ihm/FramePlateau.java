@@ -1,10 +1,9 @@
 package ihm;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.io.File;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 import controleur.Controleur;
@@ -22,10 +21,14 @@ public class FramePlateau extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Générateur de plateau");
-		this.setLocation(50, 50);
+		//récuperer la dimension de l'écran
+		Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
+		int longueurEcran = dimEcran.width * 9/10;
+		int hauteurEcran = dimEcran.height * 9/10;
+		//régler la taille de la fram à 9/10 de la taille de l'écran
+		this.setSize(longueurEcran, hauteurEcran);
+		this.setLocation(longueurEcran/18, hauteurEcran/18);
 		this.setLayout(new BorderLayout());
-		this.setSize(3000, 2000);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(new MenuBarre(this.ctrl));
 
 		this.panelJoueur = new PanelJoueur();
@@ -36,7 +39,7 @@ public class FramePlateau extends JFrame
 		this.add(this.panelJoueur);
 		this.add(this.panelGenerateur);
 
-		//this.pack();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible ( true );
 	}
 
