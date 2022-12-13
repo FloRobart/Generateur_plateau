@@ -291,7 +291,6 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		/*PANEL                                                                  */
 		/*---------------------------------------------------------------------- */
         this.add(panelForm);
-        this.add(panelMappe);
 
 		this.btnPlusCoul.addActionListener(this);
 		this.btnMoinsCoul.addActionListener(this);
