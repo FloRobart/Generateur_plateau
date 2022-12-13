@@ -4,6 +4,6 @@ echo Ca compile...
 javac -encoding utf8 @compile.list
 
 echo Lancement du programme...
-java Controleur.java
+java -cp ./bin controleur.Controleur
 
 echo Fin de l\'execution.
