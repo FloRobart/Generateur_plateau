@@ -157,15 +157,16 @@ public class FramePlateau extends JFrame
 	{
 		switch (frame) 
 		{
-			case "couleur":
-				this.frameCouleur.setVisible(true);
-				break;
-			case "objectif":
-				this.frameObjectif.setVisible(true);
-				break;
-			
-			default:
-				break;
+			case "couleur" -> 
+				{
+					this.frameCouleur.setVisible(true);
+					this.frameObjectif.setVisible(false);
+				}
+			case "objectif" -> 
+				{
+					this.frameCouleur.setVisible(false);
+					this.frameObjectif.setVisible(true);
+				}
 		}
 	}
 }
