@@ -77,9 +77,30 @@ public class FramePlateau extends JFrame
 
 	//Méthodes 
 
+	private String nomFichier = "";
 	public void enregistrer() 
 	{
-		String nomFichier;
+
+		// Ouvrir fenetre enregistrement
+		if (nomFichier.isBlank())
+		{
+			JFileChooser choose = new JFileChooser(".");
+			choose.setDialogTitle("Enregistrer un fichier");
+			choose.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			
+			if (choose.showSaveDialog(null) != JFileChooser.APPROVE_OPTION)
+				return;
+			nomFichier = choose.getSelectedFile().getAbsolutePath();
+		}
+
+		// Enregistrement du fichier
+		this.ctrl.getMetier().ecrireFichier(this.nomFichier);
+
+		// Récupération du nom du fichier
+		
+		
+
+
 
 		// Importation du panel en image
 		/*Dimension     d     = this.panelPlateau.getSize();
@@ -117,38 +138,8 @@ public class FramePlateau extends JFrame
 
 	public void exporterSous() 
 	{
-		// Ouvrir le menu pour choisir un répertoire de sauvegarde
-		JFileChooser choose = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
-		String filePath = "";
-
-		int res = choose.showSaveDialog(null);
-
-		if (res == JFileChooser.APPROVE_OPTION) 
-		{
-			// Choix du nom du fichier
-			File file = choose.getSelectedFile();
-			filePath  = file.getAbsolutePath();
-
-			// Importation du panel en image
-			/*Dimension     d     = this.panelPlateau.getSize();
-			BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
-			Graphics2D    g2d   = image.createGraphics();
-			this.panelPlateau.print(g2d);
-			g2d.dispose();*/
-
-			// Enregistrement du fichier dans le répertoire choisi
-			/*try 
-			{
-				ImageIO.write(image, "png", new File(filePath + ".png"));
-				JOptionPane.showMessageDialog(this, "Exportation réussi");
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
-			}*/
-		}
+		this.nomFichier = "";
+		this.enregistrer();
 	}
 
 	public void setCouleur(Color color) {
