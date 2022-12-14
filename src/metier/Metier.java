@@ -45,6 +45,7 @@ public class Metier
 		this.aretes        = new ArrayList<Arete>();
 
 		this.lireFichier(nomFichier);
+		//this.ecrireFichier(nomFichier); // a tester
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -98,7 +99,7 @@ public class Metier
 	{
 		SAXBuilder sxb = new SAXBuilder();
 		try {
-			Document document = sxb.build(new File( "./" + nomFichier + ".xml" ));
+			Document document = new Document();
 
 			/* <jeu> */
 			Element racine = document.getRootElement();
