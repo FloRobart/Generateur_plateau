@@ -40,6 +40,7 @@ public class Metier
 	public Metier(String nomFichier)
 	{
 		this.taillePlateau = new int[2];
+		this.couleurs      = new ArrayList<Color>();
 		this.carteObjectif = new ArrayList<CarteObjectif>();
 		this.noeuds        = new ArrayList<Noeud>();
 		this.aretes        = new ArrayList<Arete>();
@@ -92,7 +93,39 @@ public class Metier
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
 			this.imageCarte        = this.base64ToImage(information.getChild("image-carte").getText());  
 			
+			/* <liste-couleurs> */
+			List listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
+			Iterator itCouleurs = listCouleurs.iterator();
+			
+			while(itCouleurs.hasNext())
+			{
+				Element couleur = (Element)itCouleurs.next();
+				this.couleurs.add(Color.decode(couleur.getText()));
+			}
 
+			/* <liste-noeuds> */
+			Noeud.reinitialiserId();
+			List listNoeuds = plateau.getChild("liste-noeuds").getChildren("noeud");
+			Iterator itNoeuds = listNoeuds.iterator();
+
+			while(itNoeuds.hasNext())
+			{
+				Element noeud = (Element)itNoeuds.next();
+
+				Element position = noeud.getChild("position");
+				int x = Integer.parseInt(position.getAttributeValue("x"));
+				int y = Integer.parseInt(position.getAttributeValue("y"));
+
+				String nom = noeud.getChild("nom").getText();
+
+				Element positionNom = noeud.getChild("position-nom");
+				int xNom = Integer.parseInt(positionNom.getAttributeValue("x"));
+				int yNom = Integer.parseInt(positionNom.getAttributeValue("y"));
+
+				Color couleur = Color.decode(noeud.getChild("couleur").getText());
+
+				this.noeuds.add(new Noeud(nom, x, y, xNom, yNom, couleur));
+			}
 			
 		} catch (Exception e){}
 	}
