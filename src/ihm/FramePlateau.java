@@ -59,10 +59,10 @@ public class FramePlateau extends JFrame
 		//Create a split pane with the two scroll panes in it.
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelGenerateur, panel);
 		splitPane.setOneTouchExpandable(true);
-		splitPane.setDividerLocation(150);
+		splitPane.setDividerLocation(longueurEcran*1/3);
 
 		//Provide minimum sizes for the two components in the split pane
-		Dimension minimumSize = new Dimension(longueurEcran*1/6,hauteurEcran);
+		Dimension minimumSize = new Dimension(longueurEcran*1/4,hauteurEcran);
 		panel.setMinimumSize(minimumSize);
 		panelGenerateur.setMinimumSize(minimumSize);
 

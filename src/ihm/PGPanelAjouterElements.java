@@ -15,15 +15,24 @@ public class PGPanelAjouterElements extends JPanel
 		this.setBackground(new Color(58, 60, 76));
 		this.setLayout(new GridLayout(1,3));
 
-		this.btnNoeud = new JButton("Noeud");
+		Icon iconNoeud = new ImageIcon("./donnees/images/noeud.png");
+		this.btnNoeud = new JButton("Noeud",iconNoeud);
+		this.btnNoeud.setVerticalTextPosition(SwingConstants.BOTTOM);
+		this.btnNoeud.setHorizontalTextPosition(SwingConstants.CENTER); 
 		this.btnNoeud.setBackground(new Color(58,60,76));
 		this.btnNoeud.setForeground(Color.WHITE);
 
-		this.btnArete = new JButton("Arete");
+		Icon iconArete = new ImageIcon("./donnees/images/arete.png");
+		this.btnArete = new JButton("Arete",iconArete);
+		this.btnArete.setVerticalTextPosition(SwingConstants.BOTTOM);
+		this.btnArete.setHorizontalTextPosition(SwingConstants.CENTER); 
 		this.btnArete.setBackground(new Color(58,60,76));
 		this.btnArete.setForeground(Color.WHITE);
 
-		this.btnCarteObj = new JButton("Carte Objectif");
+		Icon iconObjectif = new ImageIcon("./donnees/images/objectif.png");
+		this.btnCarteObj = new JButton("Carte Objectif", iconObjectif);
+		this.btnCarteObj.setVerticalTextPosition(SwingConstants.BOTTOM);
+		this.btnCarteObj.setHorizontalTextPosition(SwingConstants.CENTER); 
 		this.btnCarteObj.setBackground(new Color(58,60,76));
 		this.btnCarteObj.setForeground(Color.WHITE);
 
