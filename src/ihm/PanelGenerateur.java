@@ -22,7 +22,6 @@ public class PanelGenerateur extends JPanel implements ActionListener
 
 	// Attributs
 	private JPanel        panelForm;
-	private JPanel        panelMappe;
 	private JPanel        panelParamPlateau;
 	private JPanel        panelParamJeu;
 	private JPanel        panelElements;
@@ -63,10 +62,8 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	
 	
 		this.setLayout(new GridLayout(1,1));
-		//this.setBackground(new Color(40, 42, 54));
         
 		this.panelForm         = new JPanel();
-		this.panelMappe        = new JPanel();
 		this.panelParamPlateau = new JPanel();
 		this.panelParamJeu     = new JPanel();
 		this.panelElements     = new JPanel();
