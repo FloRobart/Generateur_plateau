@@ -25,7 +25,6 @@ public class MenuBarre extends JMenuBar implements ActionListener
 	private JMenuItem menuiFichierEnregistrer;
 	private JMenuItem menuiFichierEnregistrerSous;
 
-	private JMenu menuiFichierExporter;
 	private JMenuItem menuiFichierExporterGif;
 	private JMenuItem menuiFichierExporterPng;
 	private JMenuItem menuiFichierExporterJpeg;
@@ -41,6 +40,9 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		// Création des composants
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic('F');
+
+		JMenu menuExporter = new JMenu("Exporter");
+		menuExporter.setMnemonic('E');
 
 		JMenu menuPreferences = new JMenu("Préférences");
 		menuFichier.setMnemonic('P');
@@ -60,9 +62,6 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierEnregistrerSous = new JMenuItem("Enregistrer Sous");
 		this.menuiFichierEnregistrerSous.setMnemonic('S');
 
-		this.menuiFichierExporter = new JMenu("Exporter");
-		this.menuiFichierExporter.setMnemonic('E');
-
 		this.menuiFichierExporterGif = new JMenu("gif");
 		this.menuiFichierExporterPng = new JMenu("png");
 		this.menuiFichierExporterJpeg = new JMenu("jpeg");
@@ -77,7 +76,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		menuFichier.addSeparator();
 		menuFichier.add(this.menuiFichierEnregistrer);
 		menuFichier.add(this.menuiFichierEnregistrerSous);
-		menuFichier.add(this.menuiFichierExporter);
+		menuFichier.add(menuExporter);
 		menuFichier.addSeparator();
 		menuFichier.add(this.menuiFichierQuitter);
 		this.add(menuFichier);
@@ -106,7 +105,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierOuvrir      .addActionListener(this);
 		this.menuiFichierEnregistrer    .addActionListener(this);
 		this.menuiFichierEnregistrerSous    .addActionListener(this);
-		this.menuiFichierExporter.addActionListener(this);
+		menuExporter.addActionListener(this);
 		this.menuiFichierExporterGif.addActionListener(this);
 		this.menuiFichierExporterPng.addActionListener(this);
 		this.menuiFichierExporterJpeg.addActionListener(this);
@@ -136,8 +135,8 @@ public class MenuBarre extends JMenuBar implements ActionListener
 			if (e.getSource() == this.menuiFichierEnregistrerSous) 
 				this.ctrl.enregistrerSous();
 
-			if (e.getSource() == this.menuiFichierExporter) 
-				this.ctrl.exporterSous();
+			//if (e.getSource() == this.menuiFichierExporter) 
+				//this.ctrl.exporterSous();
 
 			if (e.getSource() == this.menuiFichierQuitter) 
 				this.ctrl.frameDispose();
