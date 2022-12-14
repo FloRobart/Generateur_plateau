@@ -4,7 +4,7 @@
 #if ![ -d "./bin/"];         then mkdir "./bin/" fi
 #if ![ -d "./bin/donnees/"]; then mkdir "./bin/donnees/" fi
 
-cp ./donnees/ ./bin/
+cp -r ./donnees/ ./bin/
 
 echo Ca compile...
 javac -encoding utf8 @compile.list
