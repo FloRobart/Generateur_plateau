@@ -9,9 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import controleur.Controleur;
 
-public class PanelAjoutObjectif extends JPanel
+public class PanelAjoutObjectif extends JPanel implements ActionListener
 {
     private Controleur ctrl;
     private JComboBox<String> cbA;
@@ -74,5 +77,17 @@ public class PanelAjoutObjectif extends JPanel
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(btnAjout));
 
         layout.setVerticalGroup(vGroup);
+
+        this.btnAjout.addActionListener(this);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == this.btnAjout)
+        {
+            System.out.println("Ajout d'un objectif");
+        }
+        
+    }
+
 }
