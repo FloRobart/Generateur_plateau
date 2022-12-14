@@ -91,7 +91,17 @@ public class Metier
 			this.nbCarteCoul       = Integer.parseInt(nbCarte.getAttributeValue("couleur"));
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
 			this.imageCarte        = this.base64ToImage(information.getChild("image-carte").getText());  
-
+			
+			/* <liste-couleurs> */
+			List listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
+			Iterator itCouleurs = listCouleurs.iterator();
+			
+			while(itCouleurs.hasNext())
+			{
+				Element couleur = (Element)itCouleurs.next();
+				this.couleurs.add(Color.decode(couleur.getText()));
+			}
+			
 		} catch (Exception e){}
 	}
 
