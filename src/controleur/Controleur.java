@@ -16,25 +16,13 @@ public class Controleur
 		this.metier  = null;
 	}
 
-	public void creerMetier(int nbCuves)
-	{
-		//this.metier = new PanelGenerateur(this);
-	}
-
-	//modificateurs
-
-
 	//methodes
 	public void nouveau() 
     {
-        this.ihm.setEnabled(false);
-        new FramePlateau(this);
-    }
-
-    public void finNouveau()
-    {
-        this.ihm.setEnabled(true);
-        this.ihm.setState(this.ihm.NORMAL);
+		this.metier = new Metier();
+		
+        this.ihm.dispose();
+        this.ihm = new FramePlateau(this);
     }
 
     public void ouvrir(File fichier) 
