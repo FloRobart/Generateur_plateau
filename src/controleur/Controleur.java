@@ -27,14 +27,12 @@ public class Controleur
         this.ihm.dispose();
         this.ihm = new FramePlateau(this);
     }
-
-    public void ouvrir(File fichier) 
+	public void ouvrir(String fichier) 
     {
-		//this.metier = new Metier(fichier);
-		//System.out.println(this.metier);
-		/*
+		this.metier = new Metier(new File(fichier));
+		
         this.ihm.dispose();
-        this.ihm = new FrameCuves(this);*/
+        this.ihm = new FramePlateau(this);
     }
 
     public void enregistrer    () { this.ihm.enregistrer (); }

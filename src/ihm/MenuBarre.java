@@ -147,7 +147,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 
 				int res = chooser.showOpenDialog(this);
 				if (res == JFileChooser.APPROVE_OPTION && chooser.getSelectedFile().getPath() != null)
-					this.ctrl.ouvrir(new File(chooser.getSelectedFile().getPath()));
+					this.ctrl.ouvrir(chooser.getSelectedFile().getPath());
 			}
 
 			if (e.getSource() == this.menuiFichierEnregistrer) 

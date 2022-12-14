@@ -10,12 +10,11 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 
 import controleur.Controleur;
-import metier.CarteObjectif;
 import metier.Noeud;
 /**
  * PanelGererObjectif
  */
-public class PanelModifObjectif extends JPanel
+public class PanelGererObjectif extends JPanel
 {
     private Controleur ctrl;
 
@@ -26,7 +25,7 @@ public class PanelModifObjectif extends JPanel
     private JButton           btnSupp;
     private JButton           btnOk;
 
-    public PanelModifObjectif(Controleur ctrl)
+    public PanelGererObjectif(Controleur ctrl)
     {
         this.ctrl = ctrl;
         this.setBackground(new Color(68, 71, 90));

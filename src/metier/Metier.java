@@ -363,8 +363,10 @@ public class Metier
 			}
 
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-			sortie.output(document, new FileOutputStream("./bin/" + nomFichier + ".xml"));
-		} catch (Exception e){}
+			sortie.output(document, new FileOutputStream(nomFichier));
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 
 
 

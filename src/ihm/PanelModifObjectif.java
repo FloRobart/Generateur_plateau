@@ -10,7 +10,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 
 import controleur.Controleur;
-import metier.CarteObjectif;
 import metier.Noeud;
 /**
  * PanelGererObjectif
