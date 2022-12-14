@@ -37,30 +37,50 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.ctrl = ctrl;
 		this.setBackground(new Color(252, 160, 66));
 		
-		// Création des composants
+		/*=========================*/
+		/* Création des composants */
+		/*=========================*/
+
+		/*---------*/
+		/* Fichier */
+		/*---------*/
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic('F');
+
+		/* Nouveau */
+		this.menuiFichierNouveau = new JMenuItem("Nouveau");
+		this.menuiFichierNouveau.setMnemonic('N');
+
+		/* Ouvrir */
+		this.menuiFichierOuvrir = new JMenuItem("Ouvrir");
+		this.menuiFichierOuvrir.setMnemonic('O');
+
+		/* Enregistrer */
+		this.menuiFichierEnregistrer = new JMenuItem("Enregistrer");
+		this.menuiFichierEnregistrer.setMnemonic('S');
+
+		/* Enregistrer sous */
+		this.menuiFichierEnregistrerSous = new JMenuItem("Enregistrer Sous");
+		this.menuiFichierEnregistrerSous.setMnemonic('S');
 
 		JMenu menuExporter = new JMenu("Exporter");
 		menuExporter.setMnemonic('E');
 
+
+		/*------------*/
+		/* Préférence */
+		/*------------*/
 		JMenu menuPreferences = new JMenu("Préférences");
 		menuFichier.setMnemonic('P');
 
+
+		/*------*/
+		/* Aide */
+		/*------*/
 		JMenu menuAide = new JMenu("Aide");
 		menuFichier.setMnemonic('A');
 
-		this.menuiFichierNouveau = new JMenuItem("Nouveau");
-		this.menuiFichierNouveau.setMnemonic('N');
-
-		this.menuiFichierOuvrir = new JMenuItem("Ouvrir");
-		this.menuiFichierOuvrir.setMnemonic('O');
-
-		this.menuiFichierEnregistrer = new JMenuItem("Enregistrer");
-		this.menuiFichierEnregistrer.setMnemonic('S');
-
-		this.menuiFichierEnregistrerSous = new JMenuItem("Enregistrer Sous");
-		this.menuiFichierEnregistrerSous.setMnemonic('S');
+		
 
 		this.menuiFichierExporterGif = new JMenu("gif");
 		this.menuiFichierExporterPng = new JMenu("png");

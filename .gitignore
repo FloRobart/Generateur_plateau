@@ -26,6 +26,10 @@ hs_err_pid*
 # Fichier vscode
 .vscode
 
+<<<<<<< HEAD
 # Images qui se modifie sans raison apparentes
+=======
+# Images qui se modifie sans raisons apparantes
+>>>>>>> 60b6a3e37bc22133302ef04e8366341e4abe04eb
 les_aventuriers_du_rail_USA.jpg
 les_aventuriers_du_rail.jpg

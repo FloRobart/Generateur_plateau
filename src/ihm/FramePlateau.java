@@ -1,7 +1,7 @@
 package ihm;
 
 import java.awt.GridLayout;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -22,8 +22,10 @@ public class FramePlateau extends JFrame
 {
 	private Controleur ctrl;
 	
-	private PanelGenerateur panelGenerateur;
+	private PanelGenerateurTest panelGenerateur;
 	private PanelPlateau panelPlateau;
+
+	private FrameCouleur frameCouleur;
 
 	public FramePlateau(Controleur ctrl)
 	{
@@ -50,7 +52,7 @@ public class FramePlateau extends JFrame
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
 
-		this.panelGenerateur = new PanelGenerateur();
+		this.panelGenerateur = new PanelGenerateurTest(this.ctrl);
 
 		//Create a split pane with the two scroll panes in it.
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelGenerateur, panel);
@@ -61,6 +63,9 @@ public class FramePlateau extends JFrame
 		Dimension minimumSize = new Dimension(longueurEcran*1/6,hauteurEcran);
 		panel.setMinimumSize(minimumSize);
 		panelGenerateur.setMinimumSize(minimumSize);
+
+		/*frames modif */
+		this.frameCouleur = new FrameCouleur(this.ctrl);
 
 		this.add(splitPane);
 		this.setVisible ( true );
@@ -139,6 +144,23 @@ public class FramePlateau extends JFrame
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
 			}*/
+		}
+	}
+
+	public void setCouleur(Color color) {
+		this.panelPlateau.setBackground(color);
+	}
+
+	public void afficher(String frame) 
+	{
+		switch (frame) 
+		{
+			case "couleur":
+				this.frameCouleur.setVisible(true);
+				break;
+			
+			default:
+				break;
 		}
 	}
 }

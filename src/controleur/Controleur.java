@@ -1,4 +1,5 @@
 package controleur;
+import java.awt.Color;
 import java.io.File;
 
 import ihm.FramePlateau;
@@ -17,7 +18,7 @@ public class Controleur
 
 	public void creerMetier(int nbCuves)
 	{
-		this.metier = new PanelGenerateur();
+		this.metier = new PanelGenerateur(this);
 	}
 
 	//modificateurs
@@ -59,5 +60,21 @@ public class Controleur
 
 	//accesseurs
 
-	public static void main(String[] args) { new Controleur(); }   
+	public static void main(String[] args) { new Controleur(); }
+
+    public void setCouleur(Color color) {
+
+		this.ihm.setCouleur(color);
+    }
+
+	public void afficher(String frame) 
+	{
+		switch (frame) {
+			case "couleur": this.ihm.afficher("couleur"); break;
+				
+		
+			default:
+				break;
+		}
+	}   
 }

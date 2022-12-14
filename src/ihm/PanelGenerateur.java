@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controleur.Controleur;
 
 
 public class PanelGenerateur extends JPanel implements ActionListener
@@ -20,18 +21,17 @@ public class PanelGenerateur extends JPanel implements ActionListener
 
 	// Attributs
 	private JPanel        panelForm;
-	private JPanel        panelMappe;
 	private JPanel        panelParamPlateau;
 	private JPanel        panelParamJeu;
 	private JPanel        panelElements;
 	private JPanel        panelModif;
 
-	private JTextField    DimensionX;
-	private JTextField    DimensionY;
+	private JTextField    txtDimensionX;
+	private JTextField    txtDimensionY;
 	private JTextField    txtPolice;
 
-	private JTextField    nbJoueursMin;
-	private JTextField    nbJoueursMax;
+	private JTextField    txtNbJoueursMin;
+	private JTextField    txtNbJoueursMax;
 
 
 	private int           nbCoul=0;
@@ -41,8 +41,8 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	private JButton       btnMoinsCoul;
 	private JButton       btnPlusJoker;
 	private JButton       btnMoinsJoker;
-	private JTextField    nbCarteCoul;
-	private JTextField    nbCarteJoker;
+	private JTextField    txtNbCarteCoul;
+	private JTextField    txtNbCarteJoker;
 
 	private JButton       btnModifPoints;
 	private JButton	      btnModifCoul;
@@ -52,14 +52,17 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	private JButton       btnArete;
 	private JButton       btnCarteObj;
 
+	private Controleur    ctrl;
+
 	// Constructeur
-	public PanelGenerateur()
+	public PanelGenerateur(Controleur ctrl)
 	{
+		this.ctrl = ctrl;
+	
+	
 		this.setLayout(new GridLayout(1,1));
-		//this.setBackground(new Color(40, 42, 54));
         
 		this.panelForm         = new JPanel();
-		this.panelMappe        = new JPanel();
 		this.panelParamPlateau = new JPanel();
 		this.panelParamJeu     = new JPanel();
 		this.panelElements     = new JPanel();
@@ -78,14 +81,13 @@ public class PanelGenerateur extends JPanel implements ActionListener
 
 
 		//dimensions
-		this.DimensionX = new JTextField("X:", 2);
-		this.DimensionX.setBackground(new Color(58, 60, 76));
-		this.DimensionX.setForeground(Color.GRAY);
+		this.txtDimensionX = new JTextField("X:", 2);
+		this.txtDimensionX.setBackground(new Color(58, 60, 76));
+		this.txtDimensionX.setForeground(Color.GRAY);
 		
-
-		this.DimensionY = new JTextField("Y:", 2);
-		this.DimensionY.setBackground(new Color(58, 60, 76));
-		this.DimensionY.setForeground(Color.GRAY);
+		this.txtDimensionY = new JTextField("Y:", 2);
+		this.txtDimensionY.setBackground(new Color(58, 60, 76));
+		this.txtDimensionY.setForeground(Color.GRAY);
 
 		//image de fond
 		JButton btnFile = new JButton("ouvrir fichier");
@@ -114,8 +116,8 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		JLabel lblDim = new JLabel("Dimensions");
 		lblDim.setForeground(Color.WHITE);
 		panelParamPlateau.add(lblDim);
-		panelParamPlateau.add(this.DimensionX);
-		panelParamPlateau.add(this.DimensionY);
+		panelParamPlateau.add(this.txtDimensionX);
+		panelParamPlateau.add(this.txtDimensionY);
 
 		JLabel lblImg = new JLabel("Image fond");
 		lblImg.setForeground(Color.WHITE);
@@ -142,17 +144,17 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		panelParamJeu.setBackground(new Color(68, 71, 90));
 
 		//nombre de joueurs min
-		this.nbJoueursMin  = new JTextField("Min", 4);
-		this.nbJoueursMin.setBackground(new Color(58, 60, 76));
-		this.nbJoueursMin.setForeground(Color.GRAY);
+		this.txtNbJoueursMin  = new JTextField("Min", 4);
+		this.txtNbJoueursMin.setBackground(new Color(58, 60, 76));
+		this.txtNbJoueursMin.setForeground(Color.GRAY);
 		//nombre de joueurs max
-		this.nbJoueursMax  = new JTextField("Max", 4);
-		this.nbJoueursMax.setBackground(new Color(58, 60, 76));
-		this.nbJoueursMax.setForeground(Color.GRAY);
+		this.txtNbJoueursMax  = new JTextField("Max", 4);
+		this.txtNbJoueursMax.setBackground(new Color(58, 60, 76));
+		this.txtNbJoueursMax.setForeground(Color.GRAY);
 		//nombre de carte couleur
-		this.nbCarteCoul   = new JTextField(""+nbCoul, 4);
-		this.nbCarteCoul.setBackground(new Color(58, 60, 76));
-		this.nbCarteCoul.setForeground(Color.GRAY);
+		this.txtNbCarteCoul   = new JTextField(""+nbCoul, 4);
+		this.txtNbCarteCoul.setBackground(new Color(58, 60, 76));
+		this.txtNbCarteCoul.setForeground(Color.GRAY);
 		
 		this.btnPlusCoul   = new JButton("+");
 		this.btnPlusCoul.setBackground(new Color(217, 217, 217));
@@ -161,9 +163,9 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		this.btnMoinsCoul.setBackground(new Color(217, 217, 217));
 
 		//nombre de carte joker
-		this.nbCarteJoker  = new JTextField(""+nbJoker, 4);
-		this.nbCarteJoker.setBackground(new Color(58, 60, 76));
-		this.nbCarteJoker.setForeground(Color.GRAY);
+		this.txtNbCarteJoker  = new JTextField(""+nbJoker, 4);
+		this.txtNbCarteJoker.setBackground(new Color(58, 60, 76));
+		this.txtNbCarteJoker.setForeground(Color.GRAY);
 
 		this.btnPlusJoker  = new JButton("+");
 		this.btnPlusJoker.setBackground(new Color(217, 217, 217));	
@@ -199,8 +201,8 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		JLabel lblNbJoueurs = new JLabel("Nombre de joueurs");
 		lblNbJoueurs.setForeground(Color.WHITE);
 		panelParamJeu.add(lblNbJoueurs);
-		panelParamJeu.add(this.nbJoueursMin);
-		panelParamJeu.add(this.nbJoueursMax);
+		panelParamJeu.add(this.txtNbJoueursMin);
+		panelParamJeu.add(this.txtNbJoueursMax);
 		panelParamJeu.add(new JLabel(" "));
 
 		JLabel lblCartes = new JLabel("Cartes wagon :");
@@ -210,18 +212,18 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		panelParamJeu.add(new JLabel(""));	
 		panelParamJeu.add(new JLabel(""));
 
-		JLabel lblNbCarteCoul = new JLabel("cartes par couleurs");
-		lblNbCarteCoul.setForeground(Color.WHITE);
-		panelParamJeu.add(lblNbCarteCoul);
+		JLabel lbltxtNbCarteCoul = new JLabel("cartes par couleurs");
+		lbltxtNbCarteCoul.setForeground(Color.WHITE);
+		panelParamJeu.add(lbltxtNbCarteCoul);
 		panelParamJeu.add(this.btnMoinsCoul);
-		panelParamJeu.add(this.nbCarteCoul);
+		panelParamJeu.add(this.txtNbCarteCoul);
 		panelParamJeu.add(this.btnPlusCoul);
 
-		JLabel lblNbCarteJoker = new JLabel("cartes multicouleurs");
-		lblNbCarteJoker.setForeground(Color.WHITE);
-		panelParamJeu.add(lblNbCarteJoker);
+		JLabel lbltxtNbCarteJoker = new JLabel("cartes multicouleurs");
+		lbltxtNbCarteJoker.setForeground(Color.WHITE);
+		panelParamJeu.add(lbltxtNbCarteJoker);
 		panelParamJeu.add(this.btnMoinsJoker);
-		panelParamJeu.add(this.nbCarteJoker);
+		panelParamJeu.add(this.txtNbCarteJoker);
 		panelParamJeu.add(this.btnPlusJoker);
 
 		JLabel lblImg2 = new JLabel("Image cartes");
@@ -299,6 +301,8 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		this.btnMoinsCoul.addActionListener(this);
 		this.btnPlusJoker.addActionListener(this);
 		this.btnMoinsJoker.addActionListener(this);
+
+		this.btnModifCoul.addActionListener(this);
 		
 	}
 
@@ -328,7 +332,7 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	{
 		Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
 		if (color != null) 
-			this.panelMappe.setBackground(color);
+			this.ctrl.setCouleur(color);
 
 	}
 
@@ -351,28 +355,28 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(e.getSource().equals(this.btnPlusCoul))
+		if(e.getSource() == this.btnPlusCoul)
 		{
-			nbCoul = Integer.parseInt(this.nbCarteCoul.getText());
+			nbCoul = Integer.parseInt(this.txtNbCarteCoul.getText());
 			nbCoul++;
-			this.nbCarteCoul.setText(Integer.toString(nbCoul));
+			this.txtNbCarteCoul.setText(Integer.toString(nbCoul));
 		}
 
-		if(e.getSource().equals(this.btnMoinsCoul))
+		if(e.getSource() == this.btnMoinsCoul)
 		{
 			if(nbCoul > 0)
 			{
-				nbCoul = Integer.parseInt(this.nbCarteCoul.getText());
+				nbCoul = Integer.parseInt(this.txtNbCarteCoul.getText());
 				nbCoul--;
-				this.nbCarteCoul.setText(Integer.toString(nbCoul));
+				this.txtNbCarteCoul.setText(Integer.toString(nbCoul));
 			}
 		}
 		
 		if(e.getSource() == this.btnPlusJoker)
 		{
-			nbJoker = Integer.parseInt(this.nbCarteJoker.getText());
+			nbJoker = Integer.parseInt(this.txtNbCarteJoker.getText());
 			nbJoker++;
-			this.nbCarteJoker.setText(Integer.toString(nbJoker));
+			this.txtNbCarteJoker.setText(Integer.toString(nbJoker));
 		}
 
 
@@ -380,10 +384,16 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		{
 			if(nbJoker > 0)
 			{
-				nbJoker = Integer.parseInt(this.nbCarteJoker.getText());
+				nbJoker = Integer.parseInt(this.txtNbCarteJoker.getText());
 				nbJoker--;
-				this.nbCarteJoker.setText(Integer.toString(nbJoker));
+				this.txtNbCarteJoker.setText(Integer.toString(nbJoker));
 			}
+		}
+
+		/*Modif couleur panel */
+		if(e.getSource() == this.btnModifCoul)
+		{
+			this.ctrl.afficher("couleur");
 		}
 	}
 

@@ -7,8 +7,16 @@
 ./src/metier/Metier.java
 
 ./src/ihm/FramePlateau.java
+./src/ihm/FrameCouleur.java
 ./src/ihm/MenuBarre.java
 ./src/ihm/PanelGenerateur.java
+./src/ihm/PGPanelAjouterElements.java
+./src/ihm/PGPanelModifier.java
+./src/ihm/PGPanelParamJeu.java
+./src/ihm/PGPanelParamPlateau.java
+./src/ihm/PanelGenerateurTest.java
+
 ./src/ihm/PanelJoueur.java
 ./src/ihm/PanelPlateau.java
+
 -d bin
