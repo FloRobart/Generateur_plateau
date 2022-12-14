@@ -21,11 +21,17 @@ public class FrameCouleur extends JFrame implements ActionListener
     private JButton    btnPlus;
     private JButton    btnOK;
 
-
+    /**
+     * 
+     * @param ctrl
+     */
     public FrameCouleur(Controleur ctrl)
     {
         this.ctrl = ctrl;
 
+        /*----------------------------*/
+        /* Initialisation de la frame */
+        /*----------------------------*/
         this.setTitle("Modifier les couleurs");
         this.setSize(300, 200);
         this.setLocation(500, 300);
@@ -40,10 +46,8 @@ public class FrameCouleur extends JFrame implements ActionListener
         this.tabBtnCoul = new JButton[tabCoul.length];
 
         this.btnPlus = new JButton("+");
-        add(btnPlus);
-		btnPlus.addActionListener(e -> {
-			selectColor();
-		});
+        this.add(btnPlus);
+		this.btnPlus.addActionListener(e -> {selectColor();});
 
         for (int cpt=0; cpt < this.tabBtnCoul.length; cpt++)
         {
