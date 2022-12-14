@@ -77,9 +77,32 @@ public class FramePlateau extends JFrame
 
 	//Méthodes 
 
+	private String nomFichier = "";
 	public void enregistrer() 
 	{
-		String nomFichier;
+
+		// Ouvrir fenetre enregistrement
+		if (nomFichier.isBlank())
+		{
+			JFileChooser choose = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			choose.setDialogTitle("Enregistrer un fichier");
+			choose.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			
+			if (choose.showSaveDialog(null) != JFileChooser.APPROVE_OPTION)
+				return;
+			nomFichier = choose.getSelectedFile().getAbsolutePath();
+		}
+
+		// Enregistrement du fichier
+		this.ctrl.getMetier().ecrireFichier(nomFichier);
+
+
+
+		// Récupération du nom du fichier
+		
+		
+
+
 
 		// Importation du panel en image
 		/*Dimension     d     = this.panelPlateau.getSize();

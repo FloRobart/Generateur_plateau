@@ -4,22 +4,25 @@ import java.io.File;
 
 import ihm.FramePlateau;
 //import metier.Metier;
+import metier.Metier;
 
 public class Controleur
 {
 	private FramePlateau ihm;
-	//private Metier       metier;
+	private Metier       metier;
 
 	public Controleur()
 	{
 		this.ihm     = new FramePlateau(this);
-		//this.metier  = null;
+		this.metier  = null;
 	}
+
+	public Metier getMetier() { return this.metier; }
 
 	//methodes
 	public void nouveau() 
     {
-		//this.metier = new Metier();
+		this.metier = new Metier();
 		
         this.ihm.dispose();
         this.ihm = new FramePlateau(this);

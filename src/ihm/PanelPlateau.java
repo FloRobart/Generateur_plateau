@@ -3,6 +3,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controleur.Controleur;
+import metier.Arete;
+import metier.Metier;
+import metier.Noeud;
+import metier.Troncon;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -113,6 +117,26 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         // All drawings go here
 
         g2.drawImage(image, 0, 0, this);
+
+
+        Metier metier = this.ctrl.getMetier();
+        g2.setFont(metier.getPolicePlateau());
+
+        for (Noeud noeud : metier.getNoeuds())
+        {
+            g2.setColor(noeud.getCouleur());
+            g2.fillOval(noeud.getX(), noeud.getY(), 10, 10);
+            g2.drawString(noeud.getNom(), noeud.getXNom(), noeud.getYNom());
+        }
+
+        for (Arete arete : metier.getAretes())
+        {
+            g2.setColor(arete.getCouleur());
+            for (Troncon troncon : arete.getTroncons())
+            {
+                g2.drawLine(troncon.getX1(), troncon.getY1(), troncon.getX2(), troncon.getY2());
+            }
+        }
 
     }
 

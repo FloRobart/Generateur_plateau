@@ -47,6 +47,20 @@ public class Metier
 		this.carteObjectif = new ArrayList<CarteObjectif>();
 		this.noeuds        = new ArrayList<Noeud>();
 		this.aretes        = new ArrayList<Arete>();
+
+
+		this.noeuds.add(new Noeud("Mon noeud 1", 10, 10, 5, 5, Color.CYAN));
+		this.noeuds.add(new Noeud("Mon noeud 2", 50, 50, 45, 45, Color.RED));
+		this.noeuds.add(new Noeud("Mon noeud 3", 20, 40, 15, 35, Color.CYAN));
+		this.noeuds.add(new Noeud("Mon noeud 4", 40, 30, 35, 25, Color.GREEN));
+		this.noeuds.add(new Noeud("Mon noeud 5", 80, 50, 75, 45, Color.ORANGE));
+
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10));
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2), 5));
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(2), this.noeuds.get(3), 5));
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15));
+		
+
 	}
 
 	public Metier(File fichier)
@@ -184,7 +198,7 @@ public class Metier
 		} catch (Exception e){ System.out.println(e); }
 	}
 
-	private void ecrireFichier(String nomFichier)
+	public void ecrireFichier(String nomFichier)
 	{
 		try {
 			Document document = new Document();

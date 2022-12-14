@@ -67,6 +67,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		menuExporter.setMnemonic('E');
 
 
+
 		/*------------*/
 		/* Préférence */
 		/*------------*/

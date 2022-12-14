@@ -11,8 +11,10 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import controleur.Controleur;
+import metier.Noeud;
 
 public class PanelAjoutObjectif extends JPanel implements ActionListener
 {
@@ -42,10 +44,16 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
         this.txtPoint.setBackground(new Color(58, 60, 76));
         this.txtPoint.setForeground(Color.GRAY);
 
+        List<Noeud> noeuds = this.ctrl.getMetier().getNoeuds();
 
-        String[] tabNoeudA = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] tabNoeudB = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] tabNoeudA   = new String[noeuds.size()]; //{ "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] tabNoeudB   = new String[noeuds.size()]; //{ "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
 
+        for (Noeud noeud : noeuds)
+        {
+            tabNoeudA[noeud.getId() - 1] = noeud.getNom();
+            tabNoeudB[noeud.getId() - 1] = noeud.getNom();
+        }
         cbA = new JComboBox<String>(tabNoeudA);
         cbB = new JComboBox<String>(tabNoeudB);
 
@@ -85,7 +93,7 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.btnAjout)
         {
-            System.out.println("Ajout d'un objectif");
+            System.out.println("Ajout d'un objectif"); //a modifier
         }
         
     }
