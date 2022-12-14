@@ -11,5 +11,6 @@ public class Troncon
 		this.arete = arete;
 		this.x     = x;
 		this.y     = y;
+		//test
 	}
 }
