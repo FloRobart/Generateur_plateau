@@ -25,7 +25,8 @@ public class FramePlateau extends JFrame
 	private PanelGenerateurTest panelGenerateur;
 	private PanelPlateau panelPlateau;
 
-	private FrameCouleur frameCouleur;
+	private FrameCouleur  frameCouleur;
+	private FrameObjectif frameObjectif;
 
 	public FramePlateau(Controleur ctrl)
 	{
@@ -66,6 +67,7 @@ public class FramePlateau extends JFrame
 
 		/*frames modif */
 		this.frameCouleur = new FrameCouleur(this.ctrl);
+		this.frameObjectif = new FrameObjectif(this.ctrl);
 
 		this.add(splitPane);
 		this.setVisible ( true );
@@ -157,6 +159,9 @@ public class FramePlateau extends JFrame
 		{
 			case "couleur":
 				this.frameCouleur.setVisible(true);
+				break;
+			case "objectif":
+				this.frameObjectif.setVisible(true);
 				break;
 			
 			default:

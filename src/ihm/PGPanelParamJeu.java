@@ -141,6 +141,7 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
 		this.btnMoinsJoker.addActionListener(this);
 
 		this.btnModifCoul.addActionListener(this);
+		this.btnModifObjectif.addActionListener(this);
     }
     /*
 	 * Méthode qui permet de sélectionner une image
@@ -202,6 +203,12 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
 		if(e.getSource() == this.btnModifCoul)
 		{
 			this.ctrl.afficher("couleur");
+		}
+
+		/*Modif objectif */
+		if(e.getSource() == this.btnModifObjectif)
+		{
+			this.ctrl.afficher("objectif");
 		}
     }
 }

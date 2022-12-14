@@ -71,7 +71,7 @@ public class Controleur
 	{
 		switch (frame) {
 			case "couleur": this.ihm.afficher("couleur"); break;
-				
+			case "objectif": this.ihm.afficher("objectif"); break;	
 		
 			default:
 				break;

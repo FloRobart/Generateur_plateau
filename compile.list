@@ -8,6 +8,7 @@
 
 ./src/ihm/FramePlateau.java
 ./src/ihm/FrameCouleur.java
+./src/ihm/FrameObjectif.java
 ./src/ihm/MenuBarre.java
 ./src/ihm/PanelGenerateur.java
 ./src/ihm/PGPanelAjouterElements.java
@@ -15,6 +16,7 @@
 ./src/ihm/PGPanelParamJeu.java
 ./src/ihm/PGPanelParamPlateau.java
 ./src/ihm/PanelGenerateurTest.java
+./src/ihm/PanelAjoutObjectif.java
 
 ./src/ihm/PanelJoueur.java
 ./src/ihm/PanelPlateau.java

@@ -3,19 +3,25 @@ package ihm;
 import java.awt.Color;
 
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controleur.Controleur;
+
 public class PanelAjoutObjectif extends JPanel
 {
+    private Controleur ctrl;
     private JComboBox<String> cbA;
     private JComboBox<String> cbB;
     private JTextField        txtPoint;
+    private JButton           btnAjout;
 
-    public PanelAjoutObjectif()
+    public PanelAjoutObjectif(Controleur ctrl)
     {
+        this.ctrl = ctrl;
         this.setBackground(new Color(68, 71, 90));
 
         GroupLayout layout = new GroupLayout(this);
@@ -43,6 +49,9 @@ public class PanelAjoutObjectif extends JPanel
         cbA.setVisible(true);
         cbB.setVisible(true);
 
+        this.btnAjout = new JButton("Ajouter");
+        this.btnAjout.setBackground(new Color(58, 60, 76));
+        this.btnAjout.setForeground(Color.WHITE);
 
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
@@ -53,7 +62,7 @@ public class PanelAjoutObjectif extends JPanel
                 addComponent(lblNoeudA).addComponent(lblNoeudB).addComponent(lblPoint));
         
         hGroup.addGroup(layout.createParallelGroup().
-                addComponent(cbA).addComponent(cbB).addComponent(txtPoint));
+                addComponent(cbA).addComponent(cbB).addComponent(txtPoint).addComponent(btnAjout));
 
         layout.setHorizontalGroup(hGroup);
 
@@ -62,6 +71,7 @@ public class PanelAjoutObjectif extends JPanel
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudA).addComponent(cbA));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudB).addComponent(cbB));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblPoint).addComponent(txtPoint));
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(btnAjout));
 
         layout.setVerticalGroup(vGroup);
     }
