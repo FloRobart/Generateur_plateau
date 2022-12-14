@@ -47,7 +47,7 @@ public class Metier
 		this.aretes        = new ArrayList<Arete>();
 
 		this.lireFichier(nomFichier);
-		//this.ecrireFichier(nomFichier); // a tester
+		this.ecrireFichier(nomFichier + "2"); // a tester
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -66,7 +66,7 @@ public class Metier
 
 	private void lireFichier(String nomFichier)
 	{
-		String lienFichier = "./" + nomFichier + ".xml";
+		String lienFichier = "./bin/" + nomFichier + ".xml";
 
 		SAXBuilder sxb = new SAXBuilder();
 		try {
@@ -216,18 +216,100 @@ public class Metier
 			Element plateau = new Element("plateau");
 			racine.addContent(plateau);
 
-			Element carteObjectif = new Element("liste-objectifs");
-			plateau.addContent(carteObjectif);
+			Element couleurs = new Element("liste-couleurs");
+			plateau.addContent(couleurs);
 
-			Element aretes = new Element("liste-aretes");
-			plateau.addContent(aretes);
+			for (int i = 0; i < this.couleurs.size(); i++)
+			{
+				Element couleur = new Element("couleur");
+				couleurs.addContent(couleur);
+				couleur.setAttribute("id", Integer.toString(i+1));
+				couleur.setText(this.colorToHexa(this.couleurs.get(i)));
+			}
 
 			Element noeuds = new Element("liste-noeuds");
 			plateau.addContent(noeuds);
 
+			for (int i = 0; i < this.noeuds.size(); i++)
+			{
+				Element noeud = new Element("noeud");
+				noeuds.addContent(noeud);
+				noeud.setAttribute("id", Integer.toString(i+1));
+				
+				Element position = new Element("position");
+				noeud.addContent(position);
+				position.setAttribute("x", Integer.toString(this.noeuds.get(i).getX()));
+				position.setAttribute("y", Integer.toString(this.noeuds.get(i).getY()));
+
+				Element nom = new Element("nom");
+				noeud.addContent(nom);
+				nom.setText(this.noeuds.get(i).getNom());
+
+				Element position_nom = new Element("position-nom");
+				noeud.addContent(position_nom);
+				position_nom.setAttribute("x", Integer.toString(this.noeuds.get(i).getXNom()));
+				position_nom.setAttribute("y", Integer.toString(this.noeuds.get(i).getYNom()));
+
+				Element couleur = new Element("couleur");
+				noeud.addContent(couleur);
+				couleur.setText(this.colorToHexa(this.noeuds.get(i).getCouleur()));
+			}
+
+			Element arrets = new Element("liste-aretes");
+			plateau.addContent(arrets);
+
+			for (int i = 0; i < this.aretes.size(); i++)
+			{
+				Element arret = new Element("arete");
+				arrets.addContent(arret);
+
+				Element noeud = new Element("noeud");
+				arret.addContent(noeud);
+				noeud.setAttribute("n1", Integer.toString(this.aretes.get(i).getNoeud1().getId()));
+				noeud.setAttribute("n2", Integer.toString(this.aretes.get(i).getNoeud2().getId()));
+
+				Element couleur = new Element("couleur");
+				arret.addContent(couleur);
+				couleur.setText(this.colorToHexa(this.aretes.get(i).getCouleur()));
+
+				Element distance = new Element("distance");
+				arret.addContent(distance);
+				distance.setText(Integer.toString(this.aretes.get(i).getDistance()));
+
+				Element troncons = new Element("liste-troncons");
+				arret.addContent(troncons);
+
+				for (int j = 0; j < this.aretes.get(i).getTroncons().size(); j++)
+				{
+					Element troncon = new Element("troncon");
+					troncons.addContent(troncon);
+				}
+
+
+			}
+
+			Element objectifs = new Element("liste-objectifs");
+			racine.addContent(objectifs);
+
+			for (int i = 0; i < this.carteObjectif.size(); i++)
+			{
+				Element objectif = new Element("objectif");
+				objectifs.addContent(objectif);
+
+				Element noeud = new Element("noeud");
+				objectif.addContent(noeud);
+				noeud.setAttribute("n1", Integer.toString(this.carteObjectif.get(i).getNoeud1().getId()));
+				noeud.setAttribute("n2", Integer.toString(this.carteObjectif.get(i).getNoeud2().getId()));
+
+				Element points = new Element("points");
+				objectif.addContent(points);
+				points.setText(Integer.toString(this.carteObjectif.get(i).getPoints()));
+			}
+
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-			sortie.output(document, new FileOutputStream("./" + nomFichier + ".xml"));
+			sortie.output(document, new FileOutputStream("./bin/" + nomFichier + ".xml"));
 			
+
 
 		} catch (Exception e){}
 
