@@ -152,7 +152,7 @@ public class FramePlateau extends JFrame
 	}
 
 	public void setCouleur(Color color) {
-		this.panelPlateau.setBackground(color);
+		this.panelPlateau.setCouleur(color);
 	}
 
 	/**

@@ -51,6 +51,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         //this.setImage();
     }
 
+    public void setCouleur(Color color) {
+		this.setBackground(color);
+	}
+
     public void setImage(File fichierImage)
     {
         //this.lblImagePlateau.setIcon(new ImageIcon(fichierImage.getName()));
