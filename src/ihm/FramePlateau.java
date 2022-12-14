@@ -1,7 +1,7 @@
 package ihm;
 
 import java.awt.GridLayout;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -50,7 +50,7 @@ public class FramePlateau extends JFrame
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
 
-		this.panelGenerateur = new PanelGenerateur();
+		this.panelGenerateur = new PanelGenerateur(this.ctrl);
 
 		//Create a split pane with the two scroll panes in it.
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelGenerateur, panel);
@@ -140,5 +140,9 @@ public class FramePlateau extends JFrame
 				JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
 			}*/
 		}
+	}
+
+	public void setCouleur(Color color) {
+		this.panelPlateau.setBackground(color);
 	}
 }

@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controleur.Controleur;
+
 
 
 public class PanelGenerateur extends JPanel implements ActionListener
@@ -52,9 +54,14 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	private JButton       btnArete;
 	private JButton       btnCarteObj;
 
+	private Controleur    ctrl;
+
 	// Constructeur
-	public PanelGenerateur()
+	public PanelGenerateur(Controleur ctrl)
 	{
+		this.ctrl = ctrl;
+	
+	
 		this.setLayout(new GridLayout(1,1));
 		//this.setBackground(new Color(40, 42, 54));
         
@@ -328,7 +335,7 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	{
 		Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
 		if (color != null) 
-			this.panelMappe.setBackground(color);
+			this.ctrl.setCouleur(color);
 
 	}
 
