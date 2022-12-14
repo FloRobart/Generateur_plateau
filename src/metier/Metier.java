@@ -1,19 +1,23 @@
+package metier;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import org.jdom2.*;
 import org.jdom2.input.*;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class Metier 
 {
@@ -88,6 +92,46 @@ public class Metier
 			this.imageCarte        = this.base64ToImage(information.getChild("image-carte").getText());  
 
 		} catch (Exception e){}
+	}
+
+	private void ecrireFichier(String nomFichier)
+	{
+		SAXBuilder sxb = new SAXBuilder();
+		try {
+			Document document = sxb.build(new File( "./" + nomFichier + ".xml" ));
+
+			/* <jeu> */
+			Element racine = document.getRootElement();
+			
+			/* <information> */
+			Element information = racine.getChild("information");
+
+			Element dimension = information.getChild("dimension");
+			dimension.setAttribute("x", Integer.toString(this.taillePlateau[0]));
+			dimension.setAttribute("y", Integer.toString(this.taillePlateau[1]));
+
+			information.getChild("image-fond").setText(this.imageToBase64(this.imagePlateau));
+			information.getChild("image-carte").setText(this.imageToBase64(this.imageCarte));
+
+			information.getChild("couleur-fond").setText(this.colorToHexa(this.couleurPlateau));
+			information.getChild("police").setText(this.policePlateau.getFontName());
+
+			Element nbJoueurs = information.getChild("nombre-joueurs");
+			nbJoueurs.setAttribute("min", Integer.toString(this.nbJoueursMin));
+			nbJoueurs.setAttribute("max", Integer.toString(this.nbJoueursMax));
+
+			Element nbCarte = information.getChild("nombre-carte");
+			nbCarte.setAttribute("couleur", Integer.toString(this.nbCarteCoul));
+			nbCarte.setAttribute("multicouleur", Integer.toString(this.nbCarteLocomotive));
+
+			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+			sortie.output(document, new FileOutputStream("./" + nomFichier + ".xml"));
+			
+
+		} catch (Exception e){}
+
+
+
 	}
 
 	private String imageToBase64(BufferedImage image) throws IOException {
