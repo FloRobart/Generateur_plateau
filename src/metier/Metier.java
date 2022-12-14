@@ -97,33 +97,60 @@ public class Metier
 
 	private void ecrireFichier(String nomFichier)
 	{
-		SAXBuilder sxb = new SAXBuilder();
 		try {
 			Document document = new Document();
-
+			
 			/* <jeu> */
-			Element racine = document.getRootElement();
+			Element racine = new Element("jeu");
+			document.setRootElement(racine);
 			
 			/* <information> */
-			Element information = racine.getChild("information");
+			Element information = new Element("information");
+			racine.addContent(information);
 
-			Element dimension = information.getChild("dimension");
+			Element dimension = new Element("dimension");
+			information.addContent(dimension);
 			dimension.setAttribute("x", Integer.toString(this.taillePlateau[0]));
 			dimension.setAttribute("y", Integer.toString(this.taillePlateau[1]));
 
-			information.getChild("image-fond").setText(this.imageToBase64(this.imagePlateau));
-			information.getChild("image-carte").setText(this.imageToBase64(this.imageCarte));
+			Element imageFond = new Element("image-fond");
+			information.addContent(imageFond);
+			imageFond.setText(this.imageToBase64(this.imagePlateau));
 
-			information.getChild("couleur-fond").setText(this.colorToHexa(this.couleurPlateau));
-			information.getChild("police").setText(this.policePlateau.getFontName());
+			Element couleurFond = new Element("couleur-fond");
+			information.addContent(couleurFond);
+			couleurFond.setText(this.colorToHexa(this.couleurPlateau));
 
-			Element nbJoueurs = information.getChild("nombre-joueurs");
+			Element police = new Element("police");
+			information.addContent(police);
+			police.setText(this.policePlateau.getFontName());
+
+			Element nbJoueurs = new Element("nombre-joueurs");
+			information.addContent(nbJoueurs);
 			nbJoueurs.setAttribute("min", Integer.toString(this.nbJoueursMin));
 			nbJoueurs.setAttribute("max", Integer.toString(this.nbJoueursMax));
 
-			Element nbCarte = information.getChild("nombre-carte");
+			Element nbCarte = new Element("nombre-carte");
+			information.addContent(nbCarte);
 			nbCarte.setAttribute("couleur", Integer.toString(this.nbCarteCoul));
 			nbCarte.setAttribute("multicouleur", Integer.toString(this.nbCarteLocomotive));
+
+			Element imageCarte = new Element("image-carte");
+			information.addContent(imageCarte);
+			imageCarte.setText(this.imageToBase64(this.imageCarte));
+
+			/* <carte-objectif> */
+			Element plateau = new Element("plateau");
+			racine.addContent(plateau);
+
+			Element carteObjectif = new Element("liste-objectifs");
+			plateau.addContent(carteObjectif);
+
+			Element aretes = new Element("liste-aretes");
+			plateau.addContent(aretes);
+
+			Element noeuds = new Element("liste-noeuds");
+			plateau.addContent(noeuds);
 
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(document, new FileOutputStream("./" + nomFichier + ".xml"));
