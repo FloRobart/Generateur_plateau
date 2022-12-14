@@ -1,11 +1,5 @@
 ./src/controleur/Controleur.java
 
-./src/metier/Noeud.java
-./src/metier/Arete.java
-./src/metier/Troncon.java
-./src/metier/CarteObjectif.java
-./src/metier/Metier.java
-
 ./src/ihm/FramePlateau.java
 ./src/ihm/FrameCouleur.java
 ./src/ihm/FrameObjectif.java
