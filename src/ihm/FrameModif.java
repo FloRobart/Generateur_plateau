@@ -26,7 +26,7 @@ public class FrameModif extends JFrame
         this.panelArrete = new PanelArrete();
         //this.add(this.panelArrete);
 
-        this.panelModifObjectif = new PanelAjoutObjectif();
+        this.panelModifObjectif = new PanelAjoutObjectif(ctrl);
         //this.add(this.panelModifObjectif);
 
         this.setVisible(true);
