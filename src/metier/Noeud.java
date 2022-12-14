@@ -14,7 +14,7 @@ public class Noeud
 	private int    yNom;
 	private Color  couleur;
 
-	public Noeud(String nom, int x, int y, int xNom, int yNom, int r, int g, int b)
+	public Noeud(String nom, int x, int y, int xNom, int yNom, Color c)
 	{
 		this.id      = ++Noeud.nbNoeud;
 		this.nom     = nom;
@@ -22,7 +22,7 @@ public class Noeud
 		this.y       = y;
 		this.xNom    = xNom;
 		this.yNom    = yNom;
-		this.couleur = new Color(r, g, b);
+		this.couleur = c;
 	}
 
 	public int    getId     () { return this.id;      }
