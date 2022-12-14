@@ -1,10 +1,11 @@
 package ihm;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import controleur.Controleur;
-
+/*
+ * FrameModif.java
+ * Frame de test pour les panels de modification
+ */
 public class FrameModif extends JFrame
 {
     private static Controleur ctrl;
@@ -26,7 +27,7 @@ public class FrameModif extends JFrame
         //this.add(this.panelArrete);
 
         this.panelModifObjectif = new PanelModifObjectif();
-        this.add(this.panelModifObjectif);
+        //this.add(this.panelModifObjectif);
 
         this.setVisible(true);
         
