@@ -156,7 +156,7 @@ public class FramePlateau extends JFrame
 		switch (frame) 
 		{
 			case "couleur":
-				this.frameCouleur.afficher();
+				this.frameCouleur.setVisible(true);
 				break;
 			
 			default:
