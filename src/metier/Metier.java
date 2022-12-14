@@ -82,20 +82,20 @@ public class Metier
 			this.taillePlateau[0] = Integer.parseInt(dimension.getAttributeValue("x"));
 			this.taillePlateau[1] = Integer.parseInt(dimension.getAttributeValue("y"));
 			this.imagePlateau     = this.base64ToImage(information.getChild("image-fond").getText()); 
-			this.couleurPlateau   = this.hexaToColor(information.getChild("couleur-fond").getText());   
+			this.couleurPlateau   = Color.decode(information.getChild("couleur-fond").getText());   
 			this.policePlateau    = new Font (information.getChild("police").getText(), Font.PLAIN, 12);
 			
 			Element nbJoueurs = information.getChild("nombre-joueurs");
 			this.nbJoueursMin = Integer.parseInt(nbJoueurs.getAttributeValue("min"));
 			this.nbJoueursMax = Integer.parseInt(nbJoueurs.getAttributeValue("max"));
 
-			Element nbCarte        = information.getChild("nombre-carte");
+			Element nbCarte = information.getChild("nombre-carte");
 			this.nbCarteCoul       = Integer.parseInt(nbCarte.getAttributeValue("couleur"));
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
 			this.imageCarte        = this.base64ToImage(information.getChild("image-carte").getText());  
 			
 			Element plateau = racine.getChild("plateau");
-
+			
 			/* <liste-couleurs> */
 			List listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
 			Iterator itCouleurs = listCouleurs.iterator();
@@ -129,8 +129,43 @@ public class Metier
 
 				this.noeuds.add(new Noeud(nom, x, y, xNom, yNom, couleur));
 			}
-			
-		} catch (Exception e){}
+
+			/* <liste-aretes> */
+			List listAretes = plateau.getChild("liste-aretes").getChildren("arete");
+			Iterator itAretes = listAretes.iterator();
+
+			while(itAretes.hasNext())
+			{
+				Element arete = (Element)itAretes.next();
+
+				Element noeud = arete.getChild("noeud");
+				Noeud n1 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
+				Noeud n2 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
+
+				Color couleur = Color.decode(arete.getChild("couleur").getText());
+
+				int distance = Integer.parseInt(arete.getChild("distance").getText());
+
+				this.aretes.add(new Arete(n1, n2, distance, couleur));
+			}
+
+			/* <liste-objectifs> */
+			List listObjectifs = plateau.getChild("liste-objectifs").getChildren("objectif");
+			Iterator itObjectifs = listObjectifs.iterator();
+
+			while(itObjectifs.hasNext())
+			{
+				Element objectif = (Element)itObjectifs.next();
+
+				Element noeud = objectif.getChild("noeud");
+				Noeud n1 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
+				Noeud n2 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
+
+				int points = Integer.parseInt(objectif.getChild("points").getText());
+
+				this.carteObjectif.add(new CarteObjectif(n1, n2, points));
+			}
+		} catch (Exception e){ System.out.println(e); }
 	}
 
 	private void ecrireFichier(String nomFichier)
