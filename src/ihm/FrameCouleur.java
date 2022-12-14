@@ -26,14 +26,14 @@ public class FrameCouleur extends JFrame implements ActionListener
         this.ctrl = ctrl;
 
         this.setTitle("Modifier les couleurs");
-        this.setSize(300, 300);
+        this.setSize(300, 200);
         this.setLocation(500, 300);
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(68, 71, 90));
+        
 
         /*PANEL COULEUR */
         this.panelCouleur = new JPanel();
-        this.panelCouleur.setLayout(new GridLayout(2,5, 5, 5));
+        this.panelCouleur.setLayout(new GridLayout(2,5, 20, 20));
         this.panelCouleur.setBackground(new Color(68, 71, 90));
 
         this.tabBtnCoul = new JButton[tabCoul.length];
@@ -67,7 +67,10 @@ public class FrameCouleur extends JFrame implements ActionListener
 
         /*Panel Ok */
         JPanel panelOk = new JPanel();
+        panelOk.setBackground(new Color(68, 71, 90));
+
         this.btnOK = new JButton("OK");
+        this.btnOK.setBackground(new Color(68, 71, 90));
         
 
         panelOk.add(this.btnOK);
@@ -103,7 +106,5 @@ public class FrameCouleur extends JFrame implements ActionListener
         }
         
     }
-    
-
     
 }
