@@ -11,7 +11,7 @@ public class FrameModif extends JFrame
     private static Controleur ctrl;
     private PanelNoeud panelNoeud;
     private PanelArrete panelArrete;
-    private PanelModifObjectif panelModifObjectif;
+    private PanelAjoutObjectif panelModifObjectif;
     
     public FrameModif(Controleur ctrl)
     {
@@ -26,7 +26,7 @@ public class FrameModif extends JFrame
         this.panelArrete = new PanelArrete();
         //this.add(this.panelArrete);
 
-        this.panelModifObjectif = new PanelModifObjectif();
+        this.panelModifObjectif = new PanelAjoutObjectif();
         //this.add(this.panelModifObjectif);
 
         this.setVisible(true);

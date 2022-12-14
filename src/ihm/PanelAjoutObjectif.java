@@ -8,13 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PanelModifObjectif extends JPanel
+public class PanelAjoutObjectif extends JPanel
 {
     private JComboBox<String> cbA;
     private JComboBox<String> cbB;
     private JTextField        txtPoint;
 
-    public PanelModifObjectif()
+    public PanelAjoutObjectif()
     {
         this.setBackground(new Color(68, 71, 90));
 
