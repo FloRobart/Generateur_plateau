@@ -9,7 +9,7 @@ public class PanelGenerateurTest extends JPanel
     public PanelGenerateurTest(Controleur ctrl)
     {
 		PGPanelParamPlateau     panelParamPlateau       = new PGPanelParamPlateau();
-        PGPanelParamJeu         panelParamJeu           = new PGPanelParamJeu();
+        PGPanelParamJeu         panelParamJeu           = new PGPanelParamJeu(ctrl);
         PGPanelAjouterElements  panelAjouterElements    = new PGPanelAjouterElements();
         PGPanelModifier         panelModif              = new PGPanelModifier();
         this.setLayout(new GridLayout(8,1));
