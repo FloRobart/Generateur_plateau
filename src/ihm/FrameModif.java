@@ -8,14 +8,13 @@ import controleur.Controleur;
  */
 public class FrameModif extends JFrame
 {
-    private static Controleur ctrl;
+    private Controleur ctrl;
     private PanelNoeud panelNoeud;
     private PanelArrete panelArrete;
     private PanelAjoutObjectif panelModifObjectif;
     
     public FrameModif(Controleur ctrl)
     {
-        
         this.setTitle("Modifier l'élément choisit");
         this.setSize(300, 300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,9 +31,4 @@ public class FrameModif extends JFrame
         this.setVisible(true);
         
     }
-
-    public static void main(String[] args) {
-        FrameModif frame = new FrameModif(ctrl);
-    }
-    
 }

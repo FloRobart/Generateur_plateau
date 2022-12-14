@@ -54,7 +54,7 @@ public class Metier
 		this();
 
 		this.lireFichier(fichier);
-		//this.ecrireFichier(nomFichier + "2"); // a tester
+		this.ecrireFichier("renvoi2"); // a tester
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -111,6 +111,16 @@ public class Metier
 				Element couleur = (Element)itCouleurs.next();
 				this.couleurs.add(Color.decode(couleur.getText()));
 			}
+			
+			/* <tableau-points */
+			 List listPoints = plateau.getChild("tableau-points").getChildren("distance");
+			 Iterator itPoints = listPoints.iterator();
+
+			 while(itPoints.hasNext())
+			 {
+				 Element point = (Element)itPoints.next();
+				 this.points.add(Integer.parseInt(point.getText()));
+			 }
 
 			/* <liste-noeuds> */
 			Noeud.reinitialiserId();
@@ -218,10 +228,11 @@ public class Metier
 			information.addContent(imageCarte);
 			imageCarte.setText(this.imageToBase64(this.imageCarte));
 
-			/* <carte-objectif> */
+	
 			Element plateau = new Element("plateau");
 			racine.addContent(plateau);
 
+			/* <liste-couleurs> */
 			Element couleurs = new Element("liste-couleurs");
 			plateau.addContent(couleurs);
 
@@ -233,6 +244,29 @@ public class Metier
 				couleur.setText(this.colorToHexa(this.couleurs.get(i)));
 			}
 
+			/*
+			 * <tableau-points>
+			<distance id="1">1</distance>
+			<distance id="2">2</distance>
+			<distance id="3">3</distance>
+			<distance id="4">4</distance>
+			<distance id="5">5</distance>
+		</tableau-points>
+			 */
+
+			/* <tableau-points> */
+			Element tabPoints = new Element("tableau-points");
+			plateau.addContent(tabPoints);
+
+			for (int i = 0; i < this.points.size(); i++)
+			{
+				Element distance = new Element("distance");
+				tabPoints.addContent(distance);
+				distance.setAttribute("id", Integer.toString(i+1));
+				distance.setText(Integer.toString(this.points.get(i)));
+			}
+
+			/* <liste-noeuds> */
 			Element noeuds = new Element("liste-noeuds");
 			plateau.addContent(noeuds);
 
@@ -261,6 +295,7 @@ public class Metier
 				couleur.setText(this.colorToHexa(this.noeuds.get(i).getCouleur()));
 			}
 
+			/* <liste-aretes> */
 			Element arrets = new Element("liste-aretes");
 			plateau.addContent(arrets);
 
@@ -294,6 +329,7 @@ public class Metier
 
 			}
 
+			/* <liste-objectifs> */
 			Element objectifs = new Element("liste-objectifs");
 			racine.addContent(objectifs);
 
@@ -314,9 +350,6 @@ public class Metier
 
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(document, new FileOutputStream("./bin/" + nomFichier + ".xml"));
-			
-
-
 		} catch (Exception e){}
 
 
@@ -357,6 +390,7 @@ public class Metier
 		s += "taillePlateau : " + this.taillePlateau[0] + "x " + this.taillePlateau[1] + "y\n";
 		s += "imagePlateau : " + this.imagePlateau + "\n";
 		s += "couleurPlateau : " + this.couleurPlateau + "\n";
+		s += "points : " + this.points + "\n";
 		s += "policePlateau : " + this.policePlateau + "\n";
 		s += "nbJoueursMin : " + this.nbJoueursMin + "\n";
 		s += "nbJoueursMax : " + this.nbJoueursMax + "\n";
