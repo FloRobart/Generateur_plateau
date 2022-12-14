@@ -1,14 +1,17 @@
 package ihm;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import controleur.Controleur;
-
+/*
+ * FrameModif.java
+ * Frame de test pour les panels de modification
+ */
 public class FrameModif extends JFrame
 {
     private static Controleur ctrl;
     private PanelNoeud panelNoeud;
+    private PanelArrete panelArrete;
+    private PanelAjoutObjectif panelModifObjectif;
     
     public FrameModif(Controleur ctrl)
     {
@@ -18,7 +21,13 @@ public class FrameModif extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.panelNoeud = new PanelNoeud(ctrl);
-        this.add(this.panelNoeud);
+        //this.add(this.panelNoeud);
+
+        this.panelArrete = new PanelArrete();
+        //this.add(this.panelArrete);
+
+        this.panelModifObjectif = new PanelAjoutObjectif();
+        //this.add(this.panelModifObjectif);
 
         this.setVisible(true);
         

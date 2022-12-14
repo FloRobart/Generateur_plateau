@@ -3,13 +3,17 @@ package ihm;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controleur.Controleur;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.*;
 
 public class PGPanelParamJeu extends JPanel implements ActionListener
 {   
-    private JTextField    txtNbJoueursMin;
+    private Controleur ctrl;
+
+	private JTextField    txtNbJoueursMin;
 	private JTextField    txtNbJoueursMax;
     private JTextField    txtNbCarteCoul;
 	private JTextField    txtNbCarteJoker;
@@ -27,9 +31,10 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
     private int           nbCoul=0;
 	private int           nbJoker=0;
 
-    public PGPanelParamJeu()
+    public PGPanelParamJeu(Controleur ctrl)
     {
-        this.setLayout(new GridLayout(6,4));
+        this.ctrl = ctrl;
+		this.setLayout(new GridLayout(6,4));
 		this.setBackground(new Color(68, 71, 90));
 
 		//nombre de joueurs min
@@ -134,6 +139,9 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
 		this.btnMoinsCoul.addActionListener(this);
 		this.btnPlusJoker.addActionListener(this);
 		this.btnMoinsJoker.addActionListener(this);
+
+		this.btnModifCoul.addActionListener(this);
+		this.btnModifObjectif.addActionListener(this);
     }
     /*
 	 * Méthode qui permet de sélectionner une image
@@ -189,6 +197,18 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
 				nbJoker--;
 				this.txtNbCarteJoker.setText(Integer.toString(nbJoker));
 			}
+		}
+		
+		/*Modif couleur panel */
+		if(e.getSource() == this.btnModifCoul)
+		{
+			this.ctrl.afficher("couleur");
+		}
+
+		/*Modif objectif */
+		if(e.getSource() == this.btnModifObjectif)
+		{
+			this.ctrl.afficher("objectif");
 		}
     }
 }
