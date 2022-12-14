@@ -303,6 +303,8 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		this.btnMoinsCoul.addActionListener(this);
 		this.btnPlusJoker.addActionListener(this);
 		this.btnMoinsJoker.addActionListener(this);
+
+		this.btnModifCoul.addActionListener(this);
 		
 	}
 
@@ -355,14 +357,14 @@ public class PanelGenerateur extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(e.getSource().equals(this.btnPlusCoul))
+		if(e.getSource() == this.btnPlusCoul)
 		{
 			nbCoul = Integer.parseInt(this.nbCarteCoul.getText());
 			nbCoul++;
 			this.nbCarteCoul.setText(Integer.toString(nbCoul));
 		}
 
-		if(e.getSource().equals(this.btnMoinsCoul))
+		if(e.getSource() == this.btnMoinsCoul)
 		{
 			if(nbCoul > 0)
 			{
@@ -388,6 +390,12 @@ public class PanelGenerateur extends JPanel implements ActionListener
 				nbJoker--;
 				this.nbCarteJoker.setText(Integer.toString(nbJoker));
 			}
+		}
+
+		/*Modif couleur panel */
+		if(e.getSource() == this.btnModifCoul)
+		{
+			this.ctrl.afficher("couleur");
 		}
 	}
 

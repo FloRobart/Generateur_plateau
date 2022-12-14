@@ -65,5 +65,16 @@ public class Controleur
     public void setCouleur(Color color) {
 
 		this.ihm.setCouleur(color);
-    }   
+    }
+
+	public void afficher(String frame) 
+	{
+		switch (frame) {
+			case "couleur": this.ihm.afficher("couleur"); break;
+				
+		
+			default:
+				break;
+		}
+	}   
 }
