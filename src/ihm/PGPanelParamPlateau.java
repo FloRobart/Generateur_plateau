@@ -3,17 +3,22 @@ package ihm;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controleur.Controleur;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 public class PGPanelParamPlateau extends JPanel
 {
-    private JTextField txtX;
+    private Controleur ctrl;
+	private JTextField txtX;
     private JTextField txtY;
     private JTextField txtPolice;
 
-    public PGPanelParamPlateau()
+    public PGPanelParamPlateau(Controleur ctrl)
     {
-        this.setLayout(new GridLayout(4,3));
+        this.ctrl = ctrl;
+		
+		this.setLayout(new GridLayout(4,3));
 		this.setBackground(new Color(68, 71, 90));
 
 
@@ -78,8 +83,8 @@ public class PGPanelParamPlateau extends JPanel
     private void selectColor() 
 	{
 		Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
-		// if (color != null) 
-		// 	this.ctrl.setCouleur(color);
+		if (color != null) 
+		 	this.ctrl.setCouleur(color);
 
 	}
     private void selectFile() 
