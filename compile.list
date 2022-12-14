@@ -10,7 +10,7 @@
 ./src/ihm/FrameCouleur.java
 ./src/ihm/MenuBarre.java
 ./src/ihm/PanelGenerateur.java
-./src/ihm/PGPanelAjouterElement.java
+./src/ihm/PGPanelAjouterElements.java
 ./src/ihm/PGPanelModifier.java
 ./src/ihm/PGPanelParamJeu.java
 ./src/ihm/PGPanelParamPlateau.java
