@@ -88,7 +88,7 @@ public class Metier
 			this.taillePlateau[0] = Integer.parseInt(dimension.getAttributeValue("x"));
 			this.taillePlateau[1] = Integer.parseInt(dimension.getAttributeValue("y"));
 			this.imagePlateau     = this.base64ToImage(information.getChild("image-fond").getText()); 
-			this.couleurPlateau   = Color.decode(information.getChild("couleur-fond").getText());   
+			this.couleurPlateau   = hexaToColor(information.getChild("couleur-fond").getText());   
 			this.policePlateau    = new Font (information.getChild("police").getText(), Font.PLAIN, 12);
 			
 			Element nbJoueurs = information.getChild("nombre-joueurs");
@@ -103,8 +103,8 @@ public class Metier
 			Element plateau = racine.getChild("plateau");
 			
 			/* <liste-couleurs> */
-			List listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
-			Iterator itCouleurs = listCouleurs.iterator();
+			List<Element> listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
+			Iterator<Element> itCouleurs = listCouleurs.iterator();
 			
 			while(itCouleurs.hasNext())
 			{
@@ -113,8 +113,8 @@ public class Metier
 			}
 			
 			/* <tableau-points */
-			 List listPoints = plateau.getChild("tableau-points").getChildren("distance");
-			 Iterator itPoints = listPoints.iterator();
+			 List<Element> listPoints = plateau.getChild("tableau-points").getChildren("distance");
+			 Iterator<Element> itPoints = listPoints.iterator();
 
 			 while(itPoints.hasNext())
 			 {
@@ -124,8 +124,8 @@ public class Metier
 
 			/* <liste-noeuds> */
 			Noeud.reinitialiserId();
-			List listNoeuds = plateau.getChild("liste-noeuds").getChildren("noeud");
-			Iterator itNoeuds = listNoeuds.iterator();
+			List<Element> listNoeuds = plateau.getChild("liste-noeuds").getChildren("noeud");
+			Iterator<Element> itNoeuds = listNoeuds.iterator();
 
 			while(itNoeuds.hasNext())
 			{
@@ -147,8 +147,8 @@ public class Metier
 			}
 
 			/* <liste-aretes> */
-			List listAretes = plateau.getChild("liste-aretes").getChildren("arete");
-			Iterator itAretes = listAretes.iterator();
+			List<Element> listAretes = plateau.getChild("liste-aretes").getChildren("arete");
+			Iterator<Element> itAretes = listAretes.iterator();
 
 			while(itAretes.hasNext())
 			{
@@ -166,8 +166,8 @@ public class Metier
 			}
 
 			/* <liste-objectifs> */
-			List listObjectifs = plateau.getChild("liste-objectifs").getChildren("objectif");
-			Iterator itObjectifs = listObjectifs.iterator();
+			List<Element> listObjectifs = plateau.getChild("liste-objectifs").getChildren("objectif");
+			Iterator<Element> itObjectifs = listObjectifs.iterator();
 
 			while(itObjectifs.hasNext())
 			{
