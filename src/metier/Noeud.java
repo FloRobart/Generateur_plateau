@@ -51,4 +51,9 @@ public class Noeud
 	{ 
 		this.couleur = c; 
 	}
+	
+	public static void reinitialiserId()
+	{
+		Noeud.nbNoeud = 0;
+	}
 }
