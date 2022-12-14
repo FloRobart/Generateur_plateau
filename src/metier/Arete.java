@@ -12,12 +12,12 @@ public class Arete
 	private Color         couleur;
 	private List<Troncon> troncons;
 
-	public Arete(Noeud noeud1, Noeud noeud2, int distance, int r, int g, int b)
+	public Arete(Noeud noeud1, Noeud noeud2, int distance, Color c)
 	{
 		this.noeud1   = noeud1;
 		this.noeud2   = noeud2;
 		this.distance = distance;
-		this.couleur  = new Color(r, g, b);
+		this.couleur  = c;
 		this.troncons = new ArrayList<Troncon>();
 	}
 
