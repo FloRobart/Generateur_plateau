@@ -5,7 +5,11 @@ import java.awt.GridLayout;
 
 import controleur.Controleur;
 public class PanelGenerateurTest extends JPanel 
-{
+{	
+	/**
+	 * Constructeur de la classe PanelGenerateurTest
+	 * @param ctrl
+	 */
     public PanelGenerateurTest(Controleur ctrl)
     {
 		PGPanelParamPlateau     panelParamPlateau       = new PGPanelParamPlateau();
