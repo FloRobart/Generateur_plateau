@@ -33,21 +33,28 @@ public class Metier
 	private int           nbCarteLocomotive;
 	private BufferedImage imageCarte;
 	private List<Color>   couleurs;
+	private List<Integer> points;
 
 	private List<CarteObjectif> carteObjectif;
 	private List<Noeud>         noeuds;
 	private List<Arete>         aretes;
 	
-	public Metier(String nomFichier)
+	public Metier()
 	{
 		this.taillePlateau = new int[2];
 		this.couleurs      = new ArrayList<Color>();
+		this.points        = new ArrayList<Integer>();
 		this.carteObjectif = new ArrayList<CarteObjectif>();
 		this.noeuds        = new ArrayList<Noeud>();
 		this.aretes        = new ArrayList<Arete>();
+	}
 
-		this.lireFichier(nomFichier);
-		this.ecrireFichier(nomFichier + "2"); // a tester
+	public Metier(File fichier)
+	{
+		this();
+
+		this.lireFichier(fichier);
+		//this.ecrireFichier(nomFichier + "2"); // a tester
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -64,13 +71,12 @@ public class Metier
 	public List<Noeud>         getNoeuds           () { return this.noeuds;            }
 	public List<Arete>         getAretes           () { return this.aretes;            }
 
-	private void lireFichier(String nomFichier)
+	private void lireFichier(File fichier)
 	{
-		String lienFichier = "./bin/" + nomFichier + ".xml";
-
 		SAXBuilder sxb = new SAXBuilder();
+
 		try {
-			Document document = sxb.build(new File( lienFichier ));
+			Document document = sxb.build(fichier);
 
 			/* <jeu> */
 			Element racine = document.getRootElement();
@@ -317,13 +323,15 @@ public class Metier
 
 	}
 
-	private String imageToBase64(BufferedImage image) throws IOException {
+	private String imageToBase64(BufferedImage image) throws IOException 
+	{
         ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
         ImageIO.write(image, "png", out);
         return Base64.getEncoder().encodeToString(out.toByteArray());
     }
 
-	private BufferedImage base64ToImage(String base64) throws IOException {
+	private BufferedImage base64ToImage(String base64) throws IOException 
+	{
 		byte[] bytes = Base64.getDecoder().decode(base64);
 		return ImageIO.read(new ByteArrayInputStream(bytes));
 	}
@@ -345,6 +353,7 @@ public class Metier
 	public String toString()
 	{
 		String s = "";
+
 		s += "taillePlateau : " + this.taillePlateau[0] + "x " + this.taillePlateau[1] + "y\n";
 		s += "imagePlateau : " + this.imagePlateau + "\n";
 		s += "couleurPlateau : " + this.couleurPlateau + "\n";
@@ -356,12 +365,5 @@ public class Metier
 		s += "imageCarte : " + this.imageCarte + "\n";
 
 		return s;
-	}
-	
-
-	public static void main(String[] args)
-	{
-		Metier m = new Metier("exemple");
-		System.out.println(m);
 	}
 }

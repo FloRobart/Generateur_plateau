@@ -3,12 +3,12 @@ import java.awt.Color;
 import java.io.File;
 
 import ihm.FramePlateau;
-import ihm.PanelGenerateur;
+import metier.Metier;
 
 public class Controleur
 {
 	private FramePlateau ihm;
-	private PanelGenerateur  metier;
+	private Metier       metier;
 
 	public Controleur()
 	{
@@ -18,7 +18,7 @@ public class Controleur
 
 	public void creerMetier(int nbCuves)
 	{
-		this.metier = new PanelGenerateur(this);
+		//this.metier = new PanelGenerateur(this);
 	}
 
 	//modificateurs
@@ -39,10 +39,9 @@ public class Controleur
 
     public void ouvrir(File fichier) 
     {
+		this.metier = new Metier(fichier);
+		System.out.println(this.metier);
 		/*
-        this.metier = new Structure(fichier);
-        this.metier.optimiserPositions();
-
         this.ihm.dispose();
         this.ihm = new FrameCuves(this);*/
     }
