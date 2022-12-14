@@ -9,6 +9,7 @@ public class FrameModif extends JFrame
 {
     private static Controleur ctrl;
     private PanelNoeud panelNoeud;
+    private PanelArrete panelArrete;
     
     public FrameModif(Controleur ctrl)
     {
@@ -18,7 +19,10 @@ public class FrameModif extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.panelNoeud = new PanelNoeud(ctrl);
-        this.add(this.panelNoeud);
+        //this.add(this.panelNoeud);
+
+        this.panelArrete = new PanelArrete();
+        this.add(this.panelArrete);
 
         this.setVisible(true);
         
