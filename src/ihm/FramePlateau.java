@@ -25,6 +25,8 @@ public class FramePlateau extends JFrame
 	private PanelGenerateur panelGenerateur;
 	private PanelPlateau panelPlateau;
 
+	private FrameCouleur frameCouleur;
+
 	public FramePlateau(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -61,6 +63,9 @@ public class FramePlateau extends JFrame
 		Dimension minimumSize = new Dimension(longueurEcran*1/6,hauteurEcran);
 		panel.setMinimumSize(minimumSize);
 		panelGenerateur.setMinimumSize(minimumSize);
+
+		/*frames modif */
+		this.frameCouleur = new FrameCouleur(this.ctrl);
 
 		this.add(splitPane);
 		this.setVisible ( true );
@@ -144,5 +149,18 @@ public class FramePlateau extends JFrame
 
 	public void setCouleur(Color color) {
 		this.panelPlateau.setBackground(color);
+	}
+
+	public void afficher(String frame) 
+	{
+		switch (frame) 
+		{
+			case "couleur":
+				this.frameCouleur.afficher();
+				break;
+			
+			default:
+				break;
+		}
 	}
 }

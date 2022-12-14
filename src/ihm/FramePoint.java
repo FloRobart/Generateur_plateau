@@ -25,7 +25,6 @@ public class FramePoint extends JFrame
         this.panelPoint = new JPanel();
         
         this.tablePoint = new JTable();
-        
 
 
         this.setVisible(false);

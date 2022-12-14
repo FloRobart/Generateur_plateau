@@ -7,6 +7,7 @@
 ./src/metier/Metier.java
 
 ./src/ihm/FramePlateau.java
+./src/ihm/FrameCouleur.java
 ./src/ihm/MenuBarre.java
 ./src/ihm/PanelGenerateur.java
 ./src/ihm/PanelJoueur.java
