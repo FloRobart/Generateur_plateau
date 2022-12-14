@@ -27,6 +27,7 @@ public class FramePlateau extends JFrame
 
 	private FrameCouleur  frameCouleur;
 	private FrameObjectif frameObjectif;
+	private FramePoint    framePoint;
 
 	public FramePlateau(Controleur ctrl)
 	{
@@ -68,6 +69,7 @@ public class FramePlateau extends JFrame
 		/*frames modif */
 		this.frameCouleur = new FrameCouleur(this.ctrl);
 		this.frameObjectif = new FrameObjectif(this.ctrl);
+		this.framePoint = new FramePoint(this.ctrl);
 
 		this.add(splitPane);
 		this.setVisible ( true );
@@ -165,16 +167,19 @@ public class FramePlateau extends JFrame
 				{
 					this.frameCouleur.setVisible(true);
 					this.frameObjectif.setVisible(false);
+					this.framePoint.setVisible(false);
 				}
 			case "objectif" -> 
 				{
 					this.frameCouleur.setVisible(false);
 					this.frameObjectif.setVisible(true);
+					this.framePoint.setVisible(false);
 				}
-			case "point" -> 
+			case "points" -> 
 				{
 					this.frameCouleur.setVisible(false);
 					this.frameObjectif.setVisible(false);
+					this.framePoint.setVisible(true);
 				}
 		}
 	}

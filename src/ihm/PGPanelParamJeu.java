@@ -142,6 +142,7 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
 
 		this.btnModifCoul.addActionListener(this);
 		this.btnModifObjectif.addActionListener(this);
+		this.btnModifPoints.addActionListener(this);
     }
     /*
 	 * Méthode qui permet de sélectionner une image
@@ -209,6 +210,12 @@ public class PGPanelParamJeu extends JPanel implements ActionListener
 		if(e.getSource() == this.btnModifObjectif)
 		{
 			this.ctrl.afficher("objectif");
+		}
+
+		/*Modif points */
+		if(e.getSource() == this.btnModifPoints)
+		{
+			this.ctrl.afficher("points");
 		}
     }
 }

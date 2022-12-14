@@ -15,7 +15,7 @@ public class FrameObjectif extends JFrame
     
         this.setTitle("Objectif");
         this.setSize(300, 300);
-        this.setLocation(100, 100);
+        this.setLocation(500, 300);
         
         this.panelAjoutObjectif = new PanelAjoutObjectif(this.ctrl);
         this.add(this.panelAjoutObjectif);
