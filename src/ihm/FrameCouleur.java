@@ -15,7 +15,7 @@ public class FrameCouleur extends JFrame implements ActionListener
 {
     private Controleur ctrl;
     private JPanel     panelCouleur;
-    private Color[]    tabCoul = { Color.RED,  Color.CYAN, Color.GREEN,   Color.YELLOW, Color.PINK, Color.ORANGE}; 
+    private Color[]    tabCoul = { Color.RED,  Color.CYAN, Color.GREEN, Color.YELLOW, Color.PINK, Color.ORANGE}; 
     private JButton[]  tabBtnCoul;
     private JButton    btnPlus;
     private JButton    btnOK;
@@ -70,7 +70,8 @@ public class FrameCouleur extends JFrame implements ActionListener
         panelOk.setBackground(new Color(68, 71, 90));
 
         this.btnOK = new JButton("OK");
-        this.btnOK.setBackground(new Color(68, 71, 90));
+        this.btnOK.setBackground(new Color(40, 42, 54));
+        this.btnOK.setForeground(Color.WHITE);
         
 
         panelOk.add(this.btnOK);
@@ -79,15 +80,10 @@ public class FrameCouleur extends JFrame implements ActionListener
         this.add(this.panelCouleur, BorderLayout.CENTER);
         this.add(panelOk, BorderLayout.SOUTH);
 
-        this.setVisible(false);
+
 
         this.btnOK.addActionListener(this);
 
-    }
-
-    public void afficher()
-    {
-        this.setVisible(true);
     }
 
     private void selectColor() 
@@ -106,5 +102,6 @@ public class FrameCouleur extends JFrame implements ActionListener
         }
         
     }
+
     
 }

@@ -7,7 +7,7 @@ IF NOT EXIST "./bin/donnees/" ( mkdir "./bin/donnees/" )
 XCOPY "./donnees" "./bin/donnees" /E /Y >NUL
 
 echo Ca compile...
-call javac -encoding utf8 "@compile.list" -d ./bin
+call javac -encoding utf8 "@compile.list"
 
 echo Lancement du programme...
 call java -cp ./bin;./bin/donnees controleur.Controleur

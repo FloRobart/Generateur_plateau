@@ -16,7 +16,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import controleur.Controleur;
 
 
-
 public class PanelGenerateur extends JPanel implements ActionListener
 {
 
@@ -86,7 +85,6 @@ public class PanelGenerateur extends JPanel implements ActionListener
 		this.txtDimensionX.setBackground(new Color(58, 60, 76));
 		this.txtDimensionX.setForeground(Color.GRAY);
 		
-
 		this.txtDimensionY = new JTextField("Y:", 2);
 		this.txtDimensionY.setBackground(new Color(58, 60, 76));
 		this.txtDimensionY.setForeground(Color.GRAY);

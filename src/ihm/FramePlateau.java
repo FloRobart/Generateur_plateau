@@ -22,7 +22,7 @@ public class FramePlateau extends JFrame
 {
 	private Controleur ctrl;
 	
-	private PanelGenerateur panelGenerateur;
+	private PanelGenerateurTest panelGenerateur;
 	private PanelPlateau panelPlateau;
 
 	private FrameCouleur frameCouleur;
@@ -52,7 +52,7 @@ public class FramePlateau extends JFrame
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
 
-		this.panelGenerateur = new PanelGenerateur(this.ctrl);
+		this.panelGenerateur = new PanelGenerateurTest(this.ctrl);
 
 		//Create a split pane with the two scroll panes in it.
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelGenerateur, panel);
@@ -156,7 +156,7 @@ public class FramePlateau extends JFrame
 		switch (frame) 
 		{
 			case "couleur":
-				this.frameCouleur.afficher();
+				this.frameCouleur.setVisible(true);
 				break;
 			
 			default:
