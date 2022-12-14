@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -93,6 +94,8 @@ public class Metier
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
 			this.imageCarte        = this.base64ToImage(information.getChild("image-carte").getText());  
 			
+			Element plateau = racine.getChild("plateau");
+
 			/* <liste-couleurs> */
 			List listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
 			Iterator itCouleurs = listCouleurs.iterator();
