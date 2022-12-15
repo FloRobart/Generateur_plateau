@@ -35,10 +35,10 @@ public class Controleur
         this.ihm = new FramePlateau(this);
     }
 
-    public void enregistrer    () { this.ihm.enregistrer    (); }
-	public void enregistrerSous() { this.ihm.enregistrerSous(); }
-    public void exporterSous   () { this.ihm.exporterSous   (); }
-    public void frameDispose   () { this.ihm.dispose        (); }
+    public void enregistrer    () 					{ this.ihm.enregistrer    (); }
+	public void enregistrerSous() 					{ this.ihm.enregistrerSous(); }
+    public void exporterSous   (String formatImage) { this.ihm.exporterSous (formatImage); }
+    public void frameDispose   () 					{ this.ihm.dispose        (); }
 
 
 	public void genererTxt(String type, String nomFichier)

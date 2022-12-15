@@ -7,10 +7,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import controleur.Controleur;
 
-public class FramePoint extends JFrame
+public class FramePoint extends JFrame implements ActionListener
 {
     private Controleur ctrl;
     private JPanel panelPoint;
@@ -77,6 +78,29 @@ public class FramePoint extends JFrame
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
         this.setVisible(false);
+
+        this.btnAjouter.addActionListener(this);
+        this.btnSupprimer.addActionListener(this);
+        this.btnOk.addActionListener(this);
         
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) 
+    {
+        if(e.getSource() == this.btnAjouter)
+        {
+            
+        }
+        if (e.getSource() == this.btnSupprimer) 
+        {
+
+        }
+
+        if (e.getSource() == this.btnOk) 
+        {
+            this.setVisible(false);
+        }
+
     }
 }
