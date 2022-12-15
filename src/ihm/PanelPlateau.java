@@ -7,7 +7,6 @@ import controleur.Controleur;
 import metier.Arete;
 import metier.Metier;
 import metier.Noeud;
-import metier.Troncon;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
