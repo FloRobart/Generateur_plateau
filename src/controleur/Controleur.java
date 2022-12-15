@@ -38,7 +38,7 @@ public class Controleur
 
     public void enregistrer    () { this.ihm.enregistrer (); }
 	public void enregistrerSous() { this.ihm.enregistrer (); }
-    public void exporterSous   () { this.ihm.exporterSous(); }
+    public void exporterSous   (String formatImage) { this.ihm.exporterSous(formatImage); }
     public void frameDispose   () { this.ihm.dispose     (); }
 
 

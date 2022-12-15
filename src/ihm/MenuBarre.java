@@ -119,7 +119,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierEnregistrerSous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK + 
 			                                      InputEvent.SHIFT_DOWN_MASK )); // pour CTRL+SHIFT+S
 
-		//menuExporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK )); // pour CTRL+SHIFT+E
+		//menuExporterSous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK )); // pour CTRL+SHIFT+E
 		
 		this.menuiFichierFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK)); // pour CTRL+W
 
@@ -157,7 +157,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 					String extention = fichier.getName().substring(fichier.getName().lastIndexOf('.') + 1);
 
 					if (extention.equals("xml"))
-						this.ctrl.ouvrir(fichier);
+						this.ctrl.ouvrir("fichier");
 					else
 						JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format XML", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
