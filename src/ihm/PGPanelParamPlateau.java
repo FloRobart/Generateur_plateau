@@ -1,18 +1,12 @@
 package ihm;
 
-import javax.imageio.ImageIO;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
-
 import controleur.Controleur;
 
-public class PGPanelParamPlateau extends javax.swing.JPanel 
-{
+public class PGPanelParamPlateau extends javax.swing.JPanel {
 
     private Controleur ctrl;
     /**
@@ -243,8 +237,7 @@ public class PGPanelParamPlateau extends javax.swing.JPanel
         // TODO add your handling code here:
     }                                             
 
-    private void btnParcourirImgActionPerformed(java.awt.event.ActionEvent evt) {       
-		String filePath = "";                                         
+    private void btnParcourirImgActionPerformed(java.awt.event.ActionEvent evt) {                                                
         JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF & PNG Images", "jpg", "gif", "png", "jpeg");
 		fileChooser.setFileFilter(filter);
@@ -252,14 +245,7 @@ public class PGPanelParamPlateau extends javax.swing.JPanel
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION)
 		{
-			File file = fileChooser.getSelectedFile();
-			filePath  = file.getAbsolutePath();
-			BufferedImage img;
-			try 
-			{
-				img = ImageIO.read(new File(filePath));
-				this.ctrl.setImageFond(img);
-			} catch (IOException e) {e.printStackTrace();}
+			return;
 		}
     }                                               
 

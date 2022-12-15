@@ -13,6 +13,8 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
     
 	private Controleur ctrl;
+	private int        nbCarteWagon=0;
+	private int        nbJoker=0;
 	/**
      * Creates new form PGPanelParamJeu
      */
@@ -319,17 +321,59 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                            
 
-    private void btnMoinsCoulActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void btnMoinsCoulActionPerformed(java.awt.event.ActionEvent evt) 
+	{ 
+		this.nbCarteWagon = Integer.parseInt(txtNbCarteParCoul.getText());
+		if (this.nbCarteWagon > 0)
+		{	
+			this.nbCarteWagon--;
+			txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
+		}
+		else
+		{
+			this.nbCarteWagon = 0;
+			txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
+		}
+        
     }                                            
-    private void btnPlusCoulActionPerformed(java.awt.event.ActionEvent evt){
+    private void btnPlusCoulActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		this.nbCarteWagon = Integer.parseInt(txtNbCarteParCoul.getText());
+		this.nbCarteWagon++;
+		txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
+
+		if (this.nbCarteWagon < 0)
+		{
+			this.nbCarteWagon = 0;
+			txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
+		}
+    }
+    private void btnMoinsJokerActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		this.nbJoker = Integer.parseInt(txtNbJoker.getText());
+		if (this.nbJoker > 0)
+		{
+			this.nbJoker--;
+			txtNbJoker.setText(Integer.toString(this.nbJoker));
+		}
+		else
+		{
+			this.nbJoker = 0;
+			txtNbJoker.setText(Integer.toString(this.nbJoker));
+		}
 
     }
-    private void btnMoinsJokerActionPerformed(java.awt.event.ActionEvent evt){
+    private void btnPlusJokerActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		this.nbJoker = Integer.parseInt(txtNbJoker.getText());
+		this.nbJoker++;
+		txtNbJoker.setText(Integer.toString(this.nbJoker));
 
-    }
-    private void btnPlusJokerActionPerformed(java.awt.event.ActionEvent evt){
-
+		if (this.nbJoker < 0)
+		{
+			this.nbJoker = 0;
+			txtNbJoker.setText(Integer.toString(this.nbJoker));
+		}
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
