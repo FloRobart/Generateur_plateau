@@ -130,16 +130,6 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             g2.fillOval(noeud.getX(), noeud.getY(), 10, 10);
             g2.drawString(noeud.getNom(), noeud.getXNom(), noeud.getYNom());
         }
-
-        for (Arete arete : metier.getAretes())
-        {
-            g2.setColor(arete.getCouleur());
-            for (Troncon troncon : arete.getTroncons())
-            {
-                g2.drawLine(troncon.getX1(), troncon.getY1(), troncon.getX2(), troncon.getY2());
-            }
-        }
-
     }
 
     @Override
