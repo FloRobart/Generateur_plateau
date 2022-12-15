@@ -66,19 +66,32 @@ public class PanelNoeud extends JPanel implements KeyListener
 
         this.txtPosX.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
                   txtPosX.setEditable(true);
-               } else {
+               }else
+               {
                   txtPosX.setEditable(false);
                }
+               
             }
          });
-
 
 
         this.txtPosY = new JTextField(8);
         this.txtPosY.setBackground(new Color(58, 60, 76));
         this.txtPosY.setForeground(Color.GRAY);
+        this.txtPosY.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
+                  txtPosY.setEditable(true);
+               }else
+               {
+                  txtPosY.setEditable(false);
+               }
+               
+            }
+         });
+
 
         this.txtNom = new JTextField(8);
         this.txtNom.setBackground(new Color(58, 60, 76));
@@ -88,9 +101,35 @@ public class PanelNoeud extends JPanel implements KeyListener
         this.txtPosNomX.setBackground(new Color(58, 60, 76));
         this.txtPosNomX.setForeground(Color.GRAY);
 
+        this.txtPosNomX.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
+                  txtPosNomX.setEditable(true);
+               }else
+               {
+                  txtPosNomX.setEditable(false);
+               }
+               
+            }
+         });
+
+
+
         this.txtPosNomY = new JTextField(8);
         this.txtPosNomY.setBackground(new Color(58, 60, 76));
         this.txtPosNomY.setForeground(Color.GRAY);
+
+        this.txtPosNomY.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
+                  txtPosNomY.setEditable(true);
+               }else
+               {
+                  txtPosNomY.setEditable(false);
+               }
+               
+            }
+         });
 
         this.btnCouleur = new JButton("Couleur");
         add(this.btnCouleur);
