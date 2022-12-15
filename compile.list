@@ -11,6 +11,7 @@
 ./src/ihm/FrameObjectif.java
 ./src/ihm/FramePoint.java
 ./src/ihm/MenuBarre.java
+./src/ihm/PanelGenerateur.java
 ./src/ihm/PGPanelAjouterElements.java
 ./src/ihm/PGPanelModifier.java
 ./src/ihm/PGPanelParamJeu.java
