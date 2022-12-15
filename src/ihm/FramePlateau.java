@@ -37,6 +37,7 @@ public class FramePlateau extends JFrame
 	{
 		this.ctrl = ctrl;
 
+		//Paramètres de la frame
 		Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
         int longueurEcran = dimEcran.width * 9/10;
         int hauteurEcran = dimEcran.height * 9/10;
@@ -47,6 +48,7 @@ public class FramePlateau extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(new MenuBarre(this.ctrl));
 	
+		//Init de panelPlateau
         try {
             this.img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
             this.panelPlateau = new PanelPlateau(this.ctrl, this.img, longueurEcran, hauteurEcran);
@@ -58,6 +60,7 @@ public class FramePlateau extends JFrame
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
 
+		//Init de panelGénérateur
 		this.panelGenerateur = new PanelGenerateurTest(this.ctrl);
 
 		//Create a split pane with the two scroll panes in it.
