@@ -32,30 +32,36 @@ public class Metier
 	private int           nbJoueursMax;
 	private int           nbCarteCoul;
 	private int           nbCarteLocomotive;
-	private BufferedImage imageCarte;
-	private List<Color>   couleurs;
+
+	private List<Color>         couleurs;
+	private BufferedImage       imageVersoCouleur;
+	private BufferedImage       imageRectoLocomotive;
+	private List<BufferedImage> imagesRectoCouleur;
+
 	private List<Integer> points;
 
+	private BufferedImage       imageVersoObjectif;
 	private List<CarteObjectif> carteObjectif;
+
 	private List<Noeud>         noeuds;
 	private List<Arete>         aretes;
 	
 	public Metier()
 	{
-		this.taillePlateau = new int[2];
-		this.couleurs      = new ArrayList<Color>();
-		this.points        = new ArrayList<Integer>();
-		this.carteObjectif = new ArrayList<CarteObjectif>();
-		this.noeuds        = new ArrayList<Noeud>();
-		this.aretes        = new ArrayList<Arete>();
-
+		this.taillePlateau      = new int[2];
+		this.couleurs           = new ArrayList<Color>();
+		this.imagesRectoCouleur = new ArrayList<BufferedImage>();
+		this.points             = new ArrayList<Integer>();
+		this.carteObjectif      = new ArrayList<CarteObjectif>();
+		this.noeuds             = new ArrayList<Noeud>();
+		this.aretes             = new ArrayList<Arete>();
+/*
 		this.policePlateau = new Font("Arial", Font.PLAIN, 12);
 		this.couleurPlateau = Color.WHITE;
 		this.nbJoueursMin = 2;
 		this.nbJoueursMax = 5;
 		this.nbCarteCoul = 12;
 		this.nbCarteLocomotive = 14;
-		this.imageCarte = null;
 		this.taillePlateau[0] = 1000;
 		this.taillePlateau[1] = 1000;
 		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
@@ -68,11 +74,11 @@ public class Metier
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10));
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2), 5));
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(2), this.noeuds.get(3), 5));
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15));
-		
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2),  5, null));
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(2), this.noeuds.get(3),  5, null));
+		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15, null));
+*/
 
 	}
 
@@ -81,7 +87,6 @@ public class Metier
 		this();
 
 		this.lireFichier(fichier);
-		//this.ecrireFichier("renvoi2"); // a tester
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -92,8 +97,12 @@ public class Metier
 	public int                 getNbJoueursMax     () { return this.nbJoueursMax;      }
 	public int                 getNbCarteCoul      () { return this.nbCarteCoul;       }
 	public int                 getNbCarteLocomotive() { return this.nbCarteLocomotive; }
-	public BufferedImage       getImageCarte       () { return this.imageCarte;        }
 	public List<Color>         getCouleurs         () { return this.couleurs;          }
+	public BufferedImage       getImageVersoCouleur() { return this.imageVersoCouleur; }
+	public BufferedImage       getImageRectoLocomotive() { return this.imageRectoLocomotive; }
+	public List<BufferedImage> getImagesRectoCouleur() { return this.imagesRectoCouleur; }
+	public List<Integer>       getPoints           () { return this.points;            }
+	public BufferedImage       getImageVersoObjectif() { return this.imageVersoObjectif; }
 	public List<CarteObjectif> getCarteObjectif    () { return this.carteObjectif;     }
 	public List<Noeud>         getNoeuds           () { return this.noeuds;            }
 	public List<Arete>         getAretes           () { return this.aretes;            }
@@ -125,7 +134,6 @@ public class Metier
 			Element nbCarte = information.getChild("nombre-carte");
 			this.nbCarteCoul       = Integer.parseInt(nbCarte.getAttributeValue("couleur"));
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
-			this.imageCarte        = this.base64ToImage(information.getChild("image-carte").getText());  
 			
 			Element plateau = racine.getChild("plateau");
 			
@@ -137,6 +145,21 @@ public class Metier
 			{
 				Element couleur = (Element)itCouleurs.next();
 				this.couleurs.add(Color.decode(couleur.getText()));
+			}
+
+			/* <liste-image_cartes> */
+			this.imageVersoCouleur = this.base64ToImage(plateau.getChild("liste-image-cartes")
+										.getChild("image-verso").getText());
+
+			List<Element> listImagesCartes = plateau.getChild("liste-image-cartes").getChildren("image-recto");
+			Iterator<Element> itImagesCartes = listImagesCartes.iterator();
+
+			this.imageRectoLocomotive = this.base64ToImage(itImagesCartes.next().getText());
+			while(itImagesCartes.hasNext())
+			{
+				Element imageCarte = (Element)itImagesCartes.next();
+				BufferedImage image = this.base64ToImage(imageCarte.getText());
+				this.imagesRectoCouleur.add(image);
 			}
 			
 			/* <tableau-points */
@@ -193,7 +216,10 @@ public class Metier
 			}
 
 			/* <liste-objectifs> */
-			List<Element> listObjectifs = plateau.getChild("liste-objectifs").getChildren("objectif");
+			this.imageVersoObjectif = this.base64ToImage(racine.getChild("liste-objectifs")
+										.getChild("image-verso").getText());
+
+			List<Element> listObjectifs = racine.getChild("liste-objectifs").getChildren("objectif");
 			Iterator<Element> itObjectifs = listObjectifs.iterator();
 
 			while(itObjectifs.hasNext())
@@ -206,7 +232,9 @@ public class Metier
 
 				int points = Integer.parseInt(objectif.getChild("points").getText());
 
-				this.carteObjectif.add(new CarteObjectif(n1, n2, points));
+				BufferedImage imageRecto = this.base64ToImage(objectif.getChild("image-recto").getText());
+
+				this.carteObjectif.add(new CarteObjectif(n1, n2, points, imageRecto));
 			}
 		} catch (Exception e){ e.printStackTrace(); }
 	}
@@ -250,11 +278,6 @@ public class Metier
 			information.addContent(nbCarte);
 			nbCarte.setAttribute("couleur", Integer.toString(this.nbCarteCoul));
 			nbCarte.setAttribute("multicouleur", Integer.toString(this.nbCarteLocomotive));
-
-			Element imageCarte = new Element("image-carte");
-			information.addContent(imageCarte);
-			imageCarte.setText(this.imageToBase64(this.imageCarte));
-
 	
 			Element plateau = new Element("plateau");
 			racine.addContent(plateau);
@@ -271,16 +294,27 @@ public class Metier
 				couleur.setText(this.colorToHexa(this.couleurs.get(i)));
 			}
 
-			/*
-			 * <tableau-points>
-			<distance id="1">1</distance>
-			<distance id="2">2</distance>
-			<distance id="3">3</distance>
-			<distance id="4">4</distance>
-			<distance id="5">5</distance>
-		</tableau-points>
-			 */
+			/* <liste-image-cartes> */
+			Element imagesCartes = new Element("liste-image-cartes");
+			plateau.addContent(imagesCartes);
 
+			Element imageVersoCoul = new Element("image-verso");
+			imagesCartes.addContent(imageVersoCoul);
+			imageVersoCoul.setText(imageToBase64(this.imageVersoCouleur));
+
+			Element imageRectoLoco = new Element("image-recto");
+			imagesCartes.addContent(imageRectoLoco);
+			imageRectoLoco.setAttribute("id", "locomotive");
+			imageRectoLoco.setText(imageToBase64(this.imageRectoLocomotive));
+
+			for (int i = 0; i < this.imagesRectoCouleur.size(); i++)
+			{
+				Element imageRecto = new Element("image-recto");
+				imagesCartes.addContent(imageRecto);
+				imageRecto.setAttribute("id", Integer.toString(i+1));
+				imageRecto.setText(this.imageToBase64(this.imagesRectoCouleur.get(i)));
+			}
+			
 			/* <tableau-points> */
 			Element tabPoints = new Element("tableau-points");
 			plateau.addContent(tabPoints);
@@ -352,13 +386,15 @@ public class Metier
 					Element troncon = new Element("troncon");
 					troncons.addContent(troncon);
 				}
-
-
 			}
 
 			/* <liste-objectifs> */
 			Element objectifs = new Element("liste-objectifs");
-			plateau.addContent(objectifs);
+			racine.addContent(objectifs);
+
+			Element versoObjectif = new Element("image-verso");
+			objectifs.addContent(versoObjectif);
+			versoObjectif.setText(imageToBase64(this.imageVersoObjectif));
 
 			for (int i = 0; i < this.carteObjectif.size(); i++)
 			{
@@ -373,6 +409,10 @@ public class Metier
 				Element points = new Element("points");
 				objectif.addContent(points);
 				points.setText(Integer.toString(this.carteObjectif.get(i).getPoints()));
+
+				Element rectoObjectif = new Element("image-recto");
+				objectif.addContent(rectoObjectif);
+				rectoObjectif.setText(imageToBase64(this.carteObjectif.get(i).getImageRecto()));
 			}
 
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
@@ -428,16 +468,23 @@ public class Metier
 	{
 		String s = "";
 
-		s += "taillePlateau : " + this.taillePlateau[0] + "x " + this.taillePlateau[1] + "y\n";
-		s += "imagePlateau : " + this.imagePlateau + "\n";
-		s += "couleurPlateau : " + this.couleurPlateau + "\n";
-		s += "points : " + this.points + "\n";
-		s += "policePlateau : " + this.policePlateau + "\n";
-		s += "nbJoueursMin : " + this.nbJoueursMin + "\n";
-		s += "nbJoueursMax : " + this.nbJoueursMax + "\n";
-		s += "nbCarteCoul : " + this.nbCarteCoul + "\n";
-		s += "nbCarteLocomotive : " + this.nbCarteLocomotive + "\n";
-		s += "imageCarte : " + this.imageCarte + "\n";
+		s += "taillePlateau : " + this.taillePlateau[0] + "x " + this.taillePlateau[1] + "y\n\n";
+		s += "imagePlateau : " + this.imagePlateau + "\n\n";
+		s += "couleurPlateau : " + this.couleurPlateau + "\n\n";
+		s += "policePlateau : " + this.policePlateau + "\n\n";
+		s += "nbJoueursMin : " + this.nbJoueursMin + "\n\n";
+		s += "nbJoueursMax : " + this.nbJoueursMax + "\n\n";
+		s += "nbCarteCoul : " + this.nbCarteCoul + "\n\n";
+		s += "nbCarteLocomotive : " + this.nbCarteLocomotive + "\n\n";
+		s += "couleurs : " + this.couleurs + "\n\n";
+		s += "imageVersoCouleur : " + this.imageVersoCouleur + "\n\n";
+		s += "imageRectoLocomotive : " + this.imageRectoLocomotive + "\n\n";
+		s += "imagesRectoCouleur : " + this.imagesRectoCouleur + "\n\n";
+		s += "points : " + this.points + "\n\n";
+		s += "imageVersoObjectif : " + this.imageVersoObjectif + "\n\n";
+		s += "carteObjectif : " + this.carteObjectif + "\n\n";
+		s += "noeuds : " + this.noeuds + "\n\n";
+		s += "aretes : " + this.aretes + "\n\n";
 
 		return s;
 	}
