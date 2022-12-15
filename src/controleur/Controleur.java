@@ -57,12 +57,7 @@ public class Controleur
 	 */
 	public void afficher(String frame) 
 	{
-		switch (frame) {
-			case "couleur" -> this.ihm.afficher(frame);
-			case "objectif"-> this.ihm.afficher(frame); 	
-			case "points"  -> this.ihm.afficher(frame); 
-			
-		}
+		this.ihm.afficher(frame);
 	}
 
 
