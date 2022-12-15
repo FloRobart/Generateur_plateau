@@ -25,12 +25,12 @@ public class MenuBarre extends JMenuBar implements ActionListener
 	private JMenuItem menuiFichierEnregistrer;
 	private JMenuItem menuiFichierEnregistrerSous;
 
-	private JMenuItem menuiFichierExporterGif;
-	private JMenuItem menuiFichierExporterPng;
-	private JMenuItem menuiFichierExporterJpeg;
-	private JMenuItem menuiFichierExporterJpg;
+	private JMenuItem menuiFichierExporterSousGif;
+	private JMenuItem menuiFichierExporterSousPng;
+	private JMenuItem menuiFichierExporterSousJpeg;
+	private JMenuItem menuiFichierExporterSousJpg;
 
-	private JMenuItem menuiFichierQuitter;
+	private JMenuItem menuiFichierFermer;
 
 	public MenuBarre(Controleur ctrl) 
 	{
@@ -63,10 +63,18 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierEnregistrerSous = new JMenuItem("Enregistrer Sous");
 		this.menuiFichierEnregistrerSous.setMnemonic('S');
 
-		JMenu menuExporter = new JMenu("Exporter");
-		menuExporter.setMnemonic('E');
+		/* Exporter */
+		JMenu menuExporterSous = new JMenu("Exporter");
+		menuExporterSous.setMnemonic('E');
 
+		this.menuiFichierExporterSousGif = new JMenuItem("gif");
+		this.menuiFichierExporterSousPng = new JMenuItem("png");
+		this.menuiFichierExporterSousJpeg = new JMenuItem("jpeg");
+		this.menuiFichierExporterSousJpg = new JMenuItem("jpg");
 
+		/* Fermer */
+		this.menuiFichierFermer = new JMenuItem("Fermer");
+		this.menuiFichierFermer.setMnemonic('W');
 
 		/*------------*/
 		/* Préférence */
@@ -81,25 +89,19 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		JMenu menuAide = new JMenu("Aide");
 		menuFichier.setMnemonic('A');
 
-		
-
-		this.menuiFichierExporterGif = new JMenu("gif");
-		this.menuiFichierExporterPng = new JMenu("png");
-		this.menuiFichierExporterJpeg = new JMenu("jpeg");
-		this.menuiFichierExporterJpg = new JMenu("jpg");
-
-		this.menuiFichierQuitter = new JMenuItem("Fermer");
-		this.menuiFichierQuitter.setMnemonic('W');
-
 		// Positionnement des composants
 		menuFichier.add(this.menuiFichierNouveau);
 		menuFichier.add(this.menuiFichierOuvrir);
 		menuFichier.addSeparator();
 		menuFichier.add(this.menuiFichierEnregistrer);
 		menuFichier.add(this.menuiFichierEnregistrerSous);
-		menuFichier.add(menuExporter);
+		menuExporterSous.add(this.menuiFichierExporterSousGif);
+		menuExporterSous.add(this.menuiFichierExporterSousPng);
+		menuExporterSous.add(this.menuiFichierExporterSousJpg);
+		menuExporterSous.add(this.menuiFichierExporterSousJpeg);
+		menuFichier.add(menuExporterSous);
 		menuFichier.addSeparator();
-		menuFichier.add(this.menuiFichierQuitter);
+		menuFichier.add(this.menuiFichierFermer);
 		this.add(menuFichier);
 
 		this.add(menuPreferences);
@@ -115,23 +117,23 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierEnregistrerSous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK + 
 			                                      InputEvent.SHIFT_DOWN_MASK )); // pour CTRL+SHIFT+S
 
-		//this.menuiFichierExporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK )); // pour CTRL+SHIFT+E
+		//menuExporter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK )); // pour CTRL+SHIFT+E
 		
-		this.menuiFichierQuitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK)); // pour CTRL+W
+		this.menuiFichierFermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK)); // pour CTRL+W
 
 		/*-------------------------------*/
 		/* Activation des composants     */
 		/*-------------------------------*/
-		this.menuiFichierNouveau     .addActionListener(this);
-		this.menuiFichierOuvrir      .addActionListener(this);
+		this.menuiFichierNouveau     	.addActionListener(this);
+		this.menuiFichierOuvrir      	.addActionListener(this);
 		this.menuiFichierEnregistrer    .addActionListener(this);
-		this.menuiFichierEnregistrerSous    .addActionListener(this);
-		menuExporter.addActionListener(this);
-		this.menuiFichierExporterGif.addActionListener(this);
-		this.menuiFichierExporterPng.addActionListener(this);
-		this.menuiFichierExporterJpeg.addActionListener(this);
-		this.menuiFichierExporterJpg.addActionListener(this);
-		this.menuiFichierQuitter     .addActionListener(this);
+		this.menuiFichierEnregistrerSous.addActionListener(this);
+		menuExporterSous					.addActionListener(this);
+		this.menuiFichierExporterSousGif	.addActionListener(this);
+		this.menuiFichierExporterSousPng	.addActionListener(this);
+		this.menuiFichierExporterSousJpeg	.addActionListener(this);
+		this.menuiFichierExporterSousJpg	.addActionListener(this);
+		this.menuiFichierFermer     	.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -156,10 +158,16 @@ public class MenuBarre extends JMenuBar implements ActionListener
 			if (e.getSource() == this.menuiFichierEnregistrerSous) 
 				this.ctrl.enregistrerSous();
 
-			//if (e.getSource() == this.menuiFichierExporter) 
-				//this.ctrl.exporterSous();
+			if (e.getSource() == this.menuiFichierExporterSousGif)
+				//this.ctrl.exporter("Gif");
+			if (e.getSource() == this.menuiFichierExporterSousPng) 
+				//this.ctrl.exporter("Png");
+			if (e.getSource() == this.menuiFichierExporterSousJpeg)
+				//this.ctrl.exporter("Jpeg");
+			if (e.getSource() == this.menuiFichierExporterSousJpg) 
+				//this.ctrl.exporter("Jpg");
 
-			if (e.getSource() == this.menuiFichierQuitter) 
+			if (e.getSource() == this.menuiFichierFermer) 
 				this.ctrl.frameDispose();
 		}
 	}
