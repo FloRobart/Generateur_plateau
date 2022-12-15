@@ -27,9 +27,9 @@ public class Controleur
         	this.ihm.dispose();
         this.ihm = new FramePlateau(this);
     }
-	public void ouvrir(String fichier) 
+	public void ouvrir(File fichier) 
     {
-		this.metier = new Metier(new File(fichier));
+		this.metier = new Metier(fichier);
 		if (this.ihm != null)
         	this.ihm.dispose();
         this.ihm = new FramePlateau(this);
