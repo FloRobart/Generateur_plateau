@@ -2,6 +2,7 @@ package metier;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,6 +49,18 @@ public class Metier
 		this.noeuds        = new ArrayList<Noeud>();
 		this.aretes        = new ArrayList<Arete>();
 
+		this.policePlateau = new Font("Arial", Font.PLAIN, 12);
+		this.couleurPlateau = Color.WHITE;
+		this.nbJoueursMin = 2;
+		this.nbJoueursMax = 5;
+		this.nbCarteCoul = 12;
+		this.nbCarteLocomotive = 14;
+		this.imageCarte = null;
+		this.taillePlateau[0] = 1000;
+		this.taillePlateau[1] = 1000;
+		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
+
+
 
 		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 50, 50, Color.CYAN));
 		this.noeuds.add(new Noeud("Mon noeud 2", 500, 500, 450, 450, Color.RED));
@@ -68,7 +81,7 @@ public class Metier
 		this();
 
 		this.lireFichier(fichier);
-		this.ecrireFichier("renvoi2"); // a tester
+		//this.ecrireFichier("renvoi2"); // a tester
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -374,6 +387,7 @@ public class Metier
 
 	private String imageToBase64(BufferedImage image) throws IOException 
 	{
+		if (image == null) return "NULL_IMAGE";
         ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
         ImageIO.write(image, "png", out);
         return Base64.getEncoder().encodeToString(out.toByteArray());
@@ -381,6 +395,16 @@ public class Metier
 
 	private BufferedImage base64ToImage(String base64) throws IOException 
 	{
+		if (base64.equals("NULL_IMAGE"))
+		{
+			BufferedImage imageIO = new BufferedImage(10, 50, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2d = imageIO.createGraphics();
+			g2d.setColor(Color.WHITE);
+			g2d.fillRect(0, 0, 10, 50);
+			g2d.drawString("Image invalide", 0, 10);
+			g2d.dispose();
+			return imageIO;
+		}
 		byte[] bytes = Base64.getDecoder().decode(base64);
 		return ImageIO.read(new ByteArrayInputStream(bytes));
 	}
@@ -396,6 +420,7 @@ public class Metier
 
 	private String colorToHexa(Color color)
 	{
+		if (color == null) return "#0F0F0F";
 		return "#" + Integer.toHexString(color.getRGB()).substring(2);
 	}
 
