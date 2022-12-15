@@ -20,7 +20,7 @@ public class FrameModif extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.panelNoeud = new PanelNoeud(ctrl);
-        this.add(this.panelNoeud);
+        //this.add(this.panelNoeud);
 
         this.panelArrete = new PanelArrete();
         //this.add(this.panelArrete);
