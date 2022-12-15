@@ -43,7 +43,7 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
         
-        String[] data = { "objectif 1","objectif 2", "objectif 3","objectif 4","objectif 5","objectif 6"};
+        String[] data = { "objectif 1","objectif 2", "objectif 3","objectif 4","objectif 5","objectif 6", "objectif 7","objectif 8","objectif 9","objectif 10"};
         this.listObjectif = new JList<String>(data);
 
         this.listObjectif.setBackground(new Color(58, 60, 76));
