@@ -36,11 +36,11 @@ public class PGPanelAjouterElements extends javax.swing.JPanel {
         lblAjouterElements.setText(" Ajouter éléments");
         lblAjouterElements.setOpaque(true);
 
-        imgNode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arete.png"))); // NOI18N
+        imgNode.setIcon(new javax.swing.ImageIcon("donnees/images/noeud.png") ); // NOI18N
 
-        imgArretes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images//noeud.png"))); // NOI18N
+        imgArretes.setIcon(new javax.swing.ImageIcon("donnees/images//noeud.png")); // NOI18N
 
-        imgObjectif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images//objectif.png"))); // NOI18N
+        imgObjectif.setIcon(new javax.swing.ImageIcon("donnees/images//objectif.png")); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
