@@ -178,6 +178,10 @@ public class FramePlateau extends JFrame
 		this.panelPlateau.setCouleur(color);
 	}
 
+	public void setImageFond(BufferedImage img) {
+		this.panelPlateau.setImageFond(img);
+	}
+
 	/**
 	 * Affiche la frame demandée
 	 * @param frame : "couleur" ou "objectif" ou "point"
