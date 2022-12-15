@@ -64,4 +64,3 @@ public class PanelGenerateur extends JPanel
 
     // End of variables declaration                   
 }
-
