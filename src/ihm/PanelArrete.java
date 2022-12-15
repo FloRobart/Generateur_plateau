@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-
+/*Avec la JList, il faudra utiliser le MouseListener avec MousePressed */
 
 public class PanelArrete extends JPanel implements KeyListener
 {
