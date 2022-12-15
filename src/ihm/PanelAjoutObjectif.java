@@ -1,36 +1,63 @@
 package ihm;
 
 import java.awt.Color;
+import java.awt.BorderLayout;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import controleur.Controleur;
 import metier.Noeud;
 
-public class PanelAjoutObjectif extends JPanel implements ActionListener
+public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyListener
 {
     private Controleur ctrl;
+    private JList<String>     listObjectif;
+    
     private JComboBox<String> cbA;
     private JComboBox<String> cbB;
     private JTextField        txtPoint;
     private JButton           btnAjout;
+    private JButton           btnSupp;
 
     public PanelAjoutObjectif(Controleur ctrl)
     {
         this.ctrl = ctrl;
         this.setBackground(new Color(68, 71, 90));
+        this.setLayout(new BorderLayout());
 
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
+        /*Panel liste objectifs */
+        JPanel panelListe = new JPanel();
+        panelListe.setBackground(new Color(68, 71, 90));
+        
+        String[] data = { "objectif 1","objectif 2", "objectif 3","objectif 4","objectif 5","objectif 6"};
+        this.listObjectif = new JList<String>(data);
+
+        this.listObjectif.setBackground(new Color(58, 60, 76));
+        this.listObjectif.setForeground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(this.listObjectif);
+        panelListe.add(scrollPane);
+        
+        /*Panel info objectifs */
+        JPanel panelInfos = new JPanel();
+        panelInfos.setBackground(new Color(68, 71, 90));
+
+        GroupLayout layout = new GroupLayout(panelInfos);
+        panelInfos.setLayout(layout);
 
         JLabel lblNoeudA, lblNoeudB, lblPoint;
         lblNoeudA = new JLabel("Noeud A");
@@ -43,6 +70,18 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
         this.txtPoint = new JTextField();
         this.txtPoint.setBackground(new Color(58, 60, 76));
         this.txtPoint.setForeground(Color.GRAY);
+
+        this.txtPoint.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
+                  txtPoint.setEditable(true);
+               }else
+               {
+                  txtPoint.setEditable(false);
+               }
+               
+            }
+         });
 
         List<Noeud> noeuds = this.ctrl.getMetier().getNoeuds();
 
@@ -60,9 +99,6 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
         cbA.setVisible(true);
         cbB.setVisible(true);
 
-        this.btnAjout = new JButton("Ajouter");
-        this.btnAjout.setBackground(new Color(58, 60, 76));
-        this.btnAjout.setForeground(Color.WHITE);
 
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
@@ -73,7 +109,7 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
                 addComponent(lblNoeudA).addComponent(lblNoeudB).addComponent(lblPoint));
         
         hGroup.addGroup(layout.createParallelGroup().
-                addComponent(cbA).addComponent(cbB).addComponent(txtPoint).addComponent(btnAjout));
+                addComponent(cbA).addComponent(cbB).addComponent(txtPoint));
 
         layout.setHorizontalGroup(hGroup);
 
@@ -82,9 +118,28 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudA).addComponent(cbA));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudB).addComponent(cbB));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblPoint).addComponent(txtPoint));
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(btnAjout));
 
         layout.setVerticalGroup(vGroup);
+
+        /*Panel boutons */
+        JPanel panelBoutons = new JPanel();
+        panelBoutons.setBackground(new Color(68, 71, 90));
+
+        this.btnAjout = new JButton("Ajouter");
+        this.btnAjout.setBackground(new Color(58, 60, 76));
+        this.btnAjout.setForeground(Color.WHITE);
+
+        this.btnSupp = new JButton("Supprimer");
+        this.btnSupp.setBackground(new Color(58, 60, 76));
+        this.btnSupp.setForeground(Color.WHITE);
+
+        panelBoutons.add(this.btnAjout);
+        panelBoutons.add(this.btnSupp);
+
+        /*Panel global */
+        this.add(panelListe, BorderLayout.WEST);
+        this.add(panelInfos, BorderLayout.CENTER);
+        this.add(panelBoutons, BorderLayout.SOUTH);
 
         this.btnAjout.addActionListener(this);
     }
@@ -95,6 +150,24 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener
         {
             System.out.println("Ajout d'un objectif"); //a modifier
         }
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
         
     }
 
