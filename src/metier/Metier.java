@@ -208,7 +208,7 @@ public class Metier
 
 				this.carteObjectif.add(new CarteObjectif(n1, n2, points));
 			}
-		} catch (Exception e){ System.out.println(e); }
+		} catch (Exception e){ e.printStackTrace(); }
 	}
 
 	public void ecrireFichier(String nomFichier)
@@ -358,7 +358,7 @@ public class Metier
 
 			/* <liste-objectifs> */
 			Element objectifs = new Element("liste-objectifs");
-			racine.addContent(objectifs);
+			plateau.addContent(objectifs);
 
 			for (int i = 0; i < this.carteObjectif.size(); i++)
 			{
