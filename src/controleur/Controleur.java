@@ -51,14 +51,17 @@ public class Controleur
 		this.ihm.setCouleur(color);
     }
 
+	/**
+	 * Affiche la frame demandée
+	 * @param frame : String (couleur, objectif, points)	
+	 */
 	public void afficher(String frame) 
 	{
 		switch (frame) {
-			case "couleur": this.ihm.afficher("couleur"); break;
-			case "objectif": this.ihm.afficher("objectif"); break;	
-			case "points": this.ihm.afficher("points"); break;
-			default:
-				break;
+			case "couleur" -> this.ihm.afficher(frame);
+			case "objectif"-> this.ihm.afficher(frame); 	
+			case "points"  -> this.ihm.afficher(frame); 
+			
 		}
 	}
 

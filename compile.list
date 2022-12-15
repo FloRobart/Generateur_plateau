@@ -18,6 +18,7 @@
 ./src/ihm/PGPanelParamPlateau.java
 ./src/ihm/PanelGenerateurTest.java
 ./src/ihm/PanelAjoutObjectif.java
+./src/ihm/PanelGererObjectif.java
 
 ./src/ihm/PanelJoueur.java
 ./src/ihm/PanelPlateau.java
