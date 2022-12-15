@@ -309,16 +309,19 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                                    
 
-    private void btnCouleursActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+    private void btnCouleursActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                            
+        this.ctrl.afficher("couleur");
     }                                           
 
-    private void btnPointsActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+    private void btnPointsActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                          
+        this.ctrl.afficher("points");
     }                                         
 
-    private void btnObjectifsActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void btnObjectifsActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                             
+        this.ctrl.afficher("objectif");
     }                                            
 
     private void btnMoinsCoulActionPerformed(java.awt.event.ActionEvent evt) 
