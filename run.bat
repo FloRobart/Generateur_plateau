@@ -7,13 +7,13 @@ IF NOT EXIST "./bin/donnees/" ( mkdir "./bin/donnees/" )
 XCOPY "./donnees" "./bin/donnees" /E /Y >NUL
 
 echo Ca compile...
-call javac -encoding utf8 "@compile.list"
+javac -encoding utf8 "@compile.list"
 
 echo Lancement du programme...
-call java -cp ./bin;./bin/donnees controleur.Controleur
+java -cp "./jdom.jar;./bin:./bin/donnees" controleur.Controleur
 
 echo Fin de l'execution.
-IF EXIST ".\bin\ihm"        rmdir /q /s ".\bin\ihm"       >NUL
-IF EXIST ".\bin\controleur" rmdir /q /s ".\bin\controleur">NUL
-IF EXIST ".\bin\metier"     rmdir /q /s ".\bin\metier"    >NUL
+@REM IF EXIST ".\bin\ihm"        rmdir /q /s ".\bin\ihm"       >NUL
+@REM IF EXIST ".\bin\controleur" rmdir /q /s ".\bin\controleur">NUL
+@REM IF EXIST ".\bin\metier"     rmdir /q /s ".\bin\metier"    >NUL
 goto :eof

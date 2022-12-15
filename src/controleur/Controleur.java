@@ -11,22 +11,23 @@ public class Controleur
 	private FramePlateau ihm;
 	private Metier       metier;
 
-	public Controleur()
-	{
-		this.ihm     = new FramePlateau(this);
-		this.metier  = null;
-	}
+    public Controleur()
+    {
+        this.nouveau();
+    }
+    public void nouveau() 
+    {
+        this.metier = new Metier();
+        
+        if (this.ihm != null)
+            this.ihm.dispose();
+        this.ihm = new FramePlateau(this);
+    }
 
 	public Metier getMetier() { return this.metier; }
 
 	//methodes
-	public void nouveau() 
-    {
-		this.metier = new Metier();
-		
-        this.ihm.dispose();
-        this.ihm = new FramePlateau(this);
-    }
+
 	public void ouvrir(String fichier) 
     {
 		this.metier = new Metier(new File(fichier));
