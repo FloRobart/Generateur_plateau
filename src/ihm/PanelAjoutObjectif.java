@@ -154,21 +154,10 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void keyTyped(KeyEvent e) {}
     @Override
-    public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void keyPressed(KeyEvent e) {}
     @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void keyReleased(KeyEvent e) {}
 
 }

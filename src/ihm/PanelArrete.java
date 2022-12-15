@@ -41,7 +41,7 @@ public class PanelArrete extends JPanel implements KeyListener
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
 
-        String[] data = {"arete1", "arete2", "arete3", "arete4", "arete5", "arete6", "arete7", "arete8", "arete9", "arete10"};
+        String[] data = {"arete 1", "arete 2", "arete 3", "arete 4", "arete 5", "arete 6", "arete 7", "arete 8", "arete 9", "arete 10"};
         this.listArretes = new JList<String>(data);
 
         this.listArretes.setBackground(new Color(58, 60, 76));
@@ -155,23 +155,10 @@ public class PanelArrete extends JPanel implements KeyListener
 
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
+    public void keyTyped(KeyEvent e) {}
     @Override
-    public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
+    public void keyPressed(KeyEvent e) {}
     @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void keyReleased(KeyEvent e) {}
     
 }
