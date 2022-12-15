@@ -23,7 +23,7 @@ public class FramePoint extends JFrame
     private JButton   btnSupprimer;
     private JButton   btnOk;
     
-    public FramePoint()
+    public FramePoint(Controleur ctrl)
     {
         this.ctrl = ctrl;
         this.setTitle("Modifier les points");
@@ -74,7 +74,6 @@ public class FramePoint extends JFrame
         panelButton.add(this.btnAjouter);
         panelButton.add(this.btnSupprimer);
         panelButton.add(this.btnOk);
-
 
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
