@@ -171,13 +171,13 @@ public class MenuBarre extends JMenuBar implements ActionListener
 				this.ctrl.enregistrerSous();
 
 			if (e.getSource() == this.menuiFichierExporterSousGif)
-				//this.ctrl.exporter("Gif");
+				this.ctrl.exporterSous("gif");
 			if (e.getSource() == this.menuiFichierExporterSousPng) 
-				//this.ctrl.exporter("Png");
+				this.ctrl.exporterSous("png");
 			if (e.getSource() == this.menuiFichierExporterSousJpeg)
-				//this.ctrl.exporter("Jpeg");
+				this.ctrl.exporterSous("jpeg");
 			if (e.getSource() == this.menuiFichierExporterSousJpg) 
-				//this.ctrl.exporter("Jpg");
+				this.ctrl.exporterSous("jpg");
 
 			if (e.getSource() == this.menuiFichierFermer) 
 				this.ctrl.frameDispose();

@@ -3,14 +3,17 @@ package ihm;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileSystemView;
@@ -28,6 +31,7 @@ public class FramePlateau extends JFrame
 	private FrameCouleur  frameCouleur;
 	private FrameObjectif frameObjectif;
 	private FramePoint    framePoint;
+	private BufferedImage img;
 
 	public FramePlateau(Controleur ctrl)
 	{
@@ -44,7 +48,7 @@ public class FramePlateau extends JFrame
 		this.setJMenuBar(new MenuBarre(this.ctrl));
 	
         try {
-            BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
+            this.img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
             this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
         }
         catch (Exception e) {e.printStackTrace();}
@@ -97,10 +101,6 @@ public class FramePlateau extends JFrame
 		this.ctrl.getMetier().ecrireFichier(this.nomFichier);
 
 		// Récupération du nom du fichier
-		
-		
-
-
 
 		// Importation du panel en image
 		/*Dimension     d     = this.panelPlateau.getSize();
@@ -142,9 +142,9 @@ public class FramePlateau extends JFrame
 		this.enregistrer();
 	}
 
-	public void exporterSous() 
+	public void exporterSous(String formatImage) 
 	{
-		/*// Ouvrir le menu pour choisir un répertoire de sauvegarde
+		// Ouvrir le menu pour choisir un répertoire de sauvegarde
 		JFileChooser choose = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
 		String filePath = "";
@@ -158,16 +158,17 @@ public class FramePlateau extends JFrame
 			filePath  = file.getAbsolutePath();
 
 			// Importation du panel en image
-			Dimension     d     = this.panelPeinture.getSize();
+			this.panelPlateau.setSize(this.img.getWidth(),this.img.getHeight());
+			Dimension     d     = this.panelPlateau.getSize();
 			BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
 			Graphics2D    g2d   = image.createGraphics();
-			this.panelPeinture.print(g2d);
+			this.panelPlateau.print(g2d);
 			g2d.dispose();
 
 			// Enregistrement du fichier dans le répertoire choisi
 			try 
 			{
-				ImageIO.write(image, "png", new File(filePath + ".png"));
+				ImageIO.write(image, formatImage, new File(filePath + "." + formatImage));
 				JOptionPane.showMessageDialog(this, "Exportation réussi");
 			} 
 			catch (IOException e) 
@@ -175,7 +176,7 @@ public class FramePlateau extends JFrame
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
 			}
-		}*/
+		}
 	}
 
 	public void setCouleur(Color color) {
