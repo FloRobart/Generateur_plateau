@@ -238,7 +238,15 @@ public class PGPanelParamPlateau extends javax.swing.JPanel {
     }                                             
 
     private void btnParcourirImgActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF & PNG Images", "jpg", "gif", "png", "jpeg");
+		fileChooser.setFileFilter(filter);
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION)
+		{
+			return;
+		}
     }                                               
 
     private void btnChoisirCouleurActionPerformed(java.awt.event.ActionEvent evt) {                                                  

@@ -39,7 +39,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         txtNbJoker = new javax.swing.JTextField();
         txtNbCarteParCoul = new javax.swing.JTextField();
         txtPathImgCarteWagon = new javax.swing.JTextField();
-        btnPlusNBJoker = new javax.swing.JButton();
+        btnPlusJoker = new javax.swing.JButton();
         btnCouleurs = new javax.swing.JButton();
         btnPoints = new javax.swing.JButton();
         btnObjectifs = new javax.swing.JButton();
@@ -126,8 +126,6 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        btnPlusNBJoker.setText("+");
-        btnPlusNBJoker.setToolTipText("+");
 
         btnCouleurs.setBackground(new java.awt.Color(40, 42, 54));
         btnCouleurs.setForeground(new java.awt.Color(255, 255, 255));
@@ -161,10 +159,25 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPlusCoul.setText("+");
         btnPlusCoul.setToolTipText("+");
-
+        btnPlusCoul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusCoulActionPerformed(evt);
+            }
+        });
         btnMoinsJoker.setText("-");
         btnMoinsJoker.setToolTipText("+");
-
+        btnMoinsJoker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoinsJokerActionPerformed(evt);
+            }
+        });
+        btnPlusJoker.setText("+");
+        btnPlusJoker.setToolTipText("+");
+        btnPlusJoker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusJokerActionPerformed(evt);
+            }
+        });
         btnMoinsCoul.setText("-");
         btnMoinsCoul.setToolTipText("+");
         btnMoinsCoul.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +237,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtNbJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnPlusNBJoker))))
+                                .addComponent(btnPlusJoker))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblImgCarte)
                         .addGap(55, 55, 55)
@@ -256,7 +269,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMultiCoul)
                     .addComponent(txtNbJoker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPlusNBJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPlusJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMoinsJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -309,7 +322,15 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private void btnMoinsCoulActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
     }                                            
+    private void btnPlusCoulActionPerformed(java.awt.event.ActionEvent evt){
 
+    }
+    private void btnMoinsJokerActionPerformed(java.awt.event.ActionEvent evt){
+
+    }
+    private void btnPlusJokerActionPerformed(java.awt.event.ActionEvent evt){
+
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
@@ -321,7 +342,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private javax.swing.JButton btnMoinsJoker;
     private javax.swing.JButton btnObjectifs;
     private javax.swing.JButton btnPlusCoul;
-    private javax.swing.JButton btnPlusNBJoker;
+    private javax.swing.JButton btnPlusJoker;
     private javax.swing.JButton btnPoints;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblCartesWagon;
