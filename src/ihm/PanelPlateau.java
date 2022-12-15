@@ -107,11 +107,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
             if (released) 
             {
-                xOffset += xDiff;
+				xOffset += xDiff;
                 yOffset += yDiff;
                 dragger = false;
             }
-
         }
 
         // All drawings go here
@@ -153,7 +152,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             repaint();
         }
         //Zoom out
-        if (e.getWheelRotation() > 0) 
+        if (e.getWheelRotation() > 0 && zoomFactor > 0.5) 
         {
             zoomFactor /= 1.1;
             repaint();
