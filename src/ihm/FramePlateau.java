@@ -136,10 +136,15 @@ public class FramePlateau extends JFrame
 
 	
 
-	public void exporterSous() 
+	public void enregistrerSous() 
 	{
 		this.nomFichier = "";
 		this.enregistrer();
+	}
+
+	public void exporterSous() 
+	{
+		// TODO
 	}
 
 	public void setCouleur(Color color) {
