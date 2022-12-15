@@ -66,10 +66,10 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         lblModif.setText("Modifier");
 
         lblMultiCoul.setForeground(new java.awt.Color(255, 255, 255));
-        lblMultiCoul.setText("multicouleurs");
+        lblMultiCoul.setText(" multicouleurs");
 
         lblNbCarteParCoul.setForeground(new java.awt.Color(255, 255, 255));
-        lblNbCarteParCoul.setText("par couleurs");
+        lblNbCarteParCoul.setText(" nb couleurs");
 
         lblImgCarte.setForeground(new java.awt.Color(255, 255, 255));
         lblImgCarte.setText("image cartes");
