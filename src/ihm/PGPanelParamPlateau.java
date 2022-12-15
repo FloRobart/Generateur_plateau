@@ -1,5 +1,6 @@
 package ihm;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -7,6 +8,10 @@ import controleur.Controleur;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+
 public class PGPanelParamPlateau extends JPanel
 {
     private Controleur ctrl;
@@ -62,24 +67,28 @@ public class PGPanelParamPlateau extends JPanel
 		this.add(this.txtX);
 		this.add(this.txtY);
 
+		//Label image
 		JLabel lblImg = new JLabel("Image fond");
 		lblImg.setForeground(Color.WHITE);
 		this.add(lblImg);
 		this.add(btnFile);
 		this.add(new JLabel(" "));
 
+		//Label Color
 		JLabel lblColor = new JLabel("Couleur de fond");
 		lblColor.setForeground(Color.WHITE);
 		this.add(lblColor);
 		this.add(btnColor);
 		this.add(new JLabel(" "));
 
+		//Label Police
 		JLabel lblPolice = new JLabel("Police");
 		lblPolice.setForeground(Color.WHITE);
 		this.add(lblPolice);
 		this.add(this.txtPolice);
 		this.add(new JLabel(" "));        
     }
+	
     private void selectColor() 
 	{
 		Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
@@ -89,6 +98,7 @@ public class PGPanelParamPlateau extends JPanel
 	}
     private void selectFile() 
 	{
+		String filePath = "";
 		JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF & PNG Images", "jpg", "gif", "png", "jpeg");
 		fileChooser.setFileFilter(filter);
@@ -96,7 +106,14 @@ public class PGPanelParamPlateau extends JPanel
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION)
 		{
-			
+			File file = fileChooser.getSelectedFile();
+			filePath  = file.getAbsolutePath();
+			BufferedImage img;
+			try 
+			{
+				img = ImageIO.read(new File(filePath));
+				this.ctrl.setImageFond(img);
+			} catch (IOException e) {e.printStackTrace();}
 		}
 	}
 }

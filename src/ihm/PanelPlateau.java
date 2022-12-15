@@ -1,4 +1,5 @@
 package ihm;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -10,7 +11,7 @@ import metier.Troncon;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
@@ -28,7 +29,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     JPanel panelPlateau;
     JLabel lblImagePlateau;
 
-    private final BufferedImage image;
+    private BufferedImage image;
 
     private double zoomFactor = 1;
     private double prevZoomFactor = 1;
@@ -56,10 +57,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 		this.setBackground(color);
 	}
 
-    public void setImage(File fichierImage)
+    public void setImageFond(BufferedImage img)
     {
-        //this.lblImagePlateau.setIcon(new ImageIcon(fichierImage.getName()));
-        System.out.println(fichierImage.getName());
+        this.image = img;
+        repaint();
     }
 
     private void initComponent() 

@@ -49,7 +49,7 @@ public class FramePlateau extends JFrame
 	
         try {
             this.img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
-            this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
+            this.panelPlateau = new PanelPlateau(this.ctrl, this.img, longueurEcran, hauteurEcran);
         }
         catch (Exception e) {e.printStackTrace();}
 
@@ -181,6 +181,11 @@ public class FramePlateau extends JFrame
 
 	public void setCouleur(Color color) {
 		this.panelPlateau.setCouleur(color);
+	}
+
+	public void setImageFond(BufferedImage img)
+	{
+		this.panelPlateau.setImageFond(img);
 	}
 
 	/**

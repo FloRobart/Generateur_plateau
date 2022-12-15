@@ -5,6 +5,7 @@ import java.io.File;
 import ihm.FramePlateau;
 //import metier.Metier;
 import metier.Metier;
+import java.awt.image.BufferedImage;
 
 public class Controleur
 {
@@ -40,6 +41,7 @@ public class Controleur
     public void exporterSous   (String formatImage) { this.ihm.exporterSous (formatImage); }
     public void frameDispose   () 					{ this.ihm.dispose        (); }
 
+	public void setImageFond(BufferedImage img){this.ihm.setImageFond(img);}
 
 	public void genererTxt(String type, String nomFichier)
 	{
