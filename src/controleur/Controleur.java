@@ -5,6 +5,7 @@ import java.io.File;
 import ihm.FramePlateau;
 //import metier.Metier;
 import metier.Metier;
+import java.awt.image.BufferedImage;
 
 public class Controleur
 {
@@ -38,7 +39,7 @@ public class Controleur
 
     public void enregistrer    () { this.ihm.enregistrer (); }
 	public void enregistrerSous() { this.ihm.enregistrer (); }
-    public void exporterSous   () { this.ihm.exporterSous(); }
+    public void exporterSous   (String formatImage) { this.ihm.exporterSous(formatImage); }
     public void frameDispose   () { this.ihm.dispose     (); }
 
 
@@ -50,6 +51,11 @@ public class Controleur
     public void setCouleur(Color color) {
 
 		this.ihm.setCouleur(color);
+    }
+
+	public void setImageFond(BufferedImage img) {
+
+		this.ihm.setImageFond(img);
     }
 
 	public void afficher(String frame) 

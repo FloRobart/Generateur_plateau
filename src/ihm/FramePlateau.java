@@ -3,14 +3,17 @@ package ihm;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileSystemView;
@@ -134,16 +137,49 @@ public class FramePlateau extends JFrame
 		}*/
 	}
 
-	
-
-	public void exporterSous() 
+	public void exporterSous(String formatImage) 
 	{
-		this.nomFichier = "";
-		this.enregistrer();
+		// Ouvrir le menu pour choisir un répertoire de sauvegarde
+		JFileChooser choose = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+		String filePath = "";
+
+		int res = choose.showSaveDialog(null);
+
+		if (res == JFileChooser.APPROVE_OPTION) 
+		{
+			// Choix du nom du fichier
+			File file = choose.getSelectedFile();
+			filePath  = file.getAbsolutePath();
+
+			// Importation du panel en image
+			Dimension     d     = new Dimension (this.panelPlateau.getImage().getWidth(), this.panelPlateau.getImage().getHeight()) ;
+			BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+			Graphics2D    g2d   = image.createGraphics();
+			this.panelPlateau.print(g2d);
+			g2d.dispose();
+
+			// Enregistrement du fichier dans le répertoire choisi
+			try 
+			{
+				ImageIO.write(image, formatImage, new File(filePath + "." + formatImage));
+				JOptionPane.showMessageDialog(this, "Exportation réussi");
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
+			}
+		}
+		
 	}
 
 	public void setCouleur(Color color) {
 		this.panelPlateau.setCouleur(color);
+	}
+
+	public void setImageFond(BufferedImage img) {
+		this.panelPlateau.setImageFond(img);
 	}
 
 	/**
