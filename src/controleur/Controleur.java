@@ -35,10 +35,10 @@ public class Controleur
         this.ihm = new FramePlateau(this);
     }
 
-    public void enregistrer    () { this.ihm.enregistrer (); }
-	public void enregistrerSous() { this.ihm.enregistrer (); }
-    public void exporterSous   () { this.ihm.exporterSous(); }
-    public void frameDispose   () { this.ihm.dispose     (); }
+    public void enregistrer    () { this.ihm.enregistrer    (); }
+	public void enregistrerSous() { this.ihm.enregistrerSous(); }
+    public void exporterSous   () { this.ihm.exporterSous   (); }
+    public void frameDispose   () { this.ihm.dispose        (); }
 
 
 	public void genererTxt(String type, String nomFichier)
@@ -57,7 +57,12 @@ public class Controleur
 	 */
 	public void afficher(String frame) 
 	{
-		this.ihm.afficher(frame);
+		switch (frame) {
+			case "couleur" -> this.ihm.afficher(frame);
+			case "objectif"-> this.ihm.afficher(frame); 	
+			case "points"  -> this.ihm.afficher(frame); 
+			
+		}
 	}
 
 
