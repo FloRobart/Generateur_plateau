@@ -29,7 +29,6 @@ public class FramePoint extends JFrame
         this.setTitle("Modifier les points");
         this.setSize(470, 200);
         this.setLocation(500, 300);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
         /*PANEL POINT */
@@ -77,7 +76,7 @@ public class FramePoint extends JFrame
 
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
-        this.setVisible(true);
+        this.setVisible(false);
         
     }
 }
