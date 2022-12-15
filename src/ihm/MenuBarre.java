@@ -11,7 +11,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
 
@@ -144,10 +146,20 @@ public class MenuBarre extends JMenuBar implements ActionListener
 			if (e.getSource() == this.menuiFichierOuvrir) 
 			{
 				JFileChooser chooser = new JFileChooser(".");
+				chooser.setFileFilter(new FileNameExtensionFilter("Fichier XML", "xml"));
 
 				int res = chooser.showOpenDialog(this);
 				if (res == JFileChooser.APPROVE_OPTION && chooser.getSelectedFile().getPath() != null)
-					this.ctrl.ouvrir(chooser.getSelectedFile().getPath());
+				{
+					File fichier = chooser.getSelectedFile();
+					String extention = fichier.getName().substring(fichier.getName().lastIndexOf('.') + 1);
+
+					if (extention.equals("xml"))
+						this.ctrl.ouvrir(fichier);
+					else
+						JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format XML", "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
+					
 			}
 
 			if (e.getSource() == this.menuiFichierEnregistrer) 
