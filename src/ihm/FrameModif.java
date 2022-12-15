@@ -16,11 +16,11 @@ public class FrameModif extends JFrame
     public FrameModif(Controleur ctrl)
     {
         this.setTitle("Modifier l'élément choisit");
-        this.setSize(300, 300);
+        this.setSize(500, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.panelNoeud = new PanelNoeud(ctrl);
-        //this.add(this.panelNoeud);
+        this.add(this.panelNoeud);
 
         this.panelArrete = new PanelArrete();
         //this.add(this.panelArrete);
@@ -30,5 +30,10 @@ public class FrameModif extends JFrame
 
         this.setVisible(true);
         
+    }
+
+    public static void main(String[] args) {
+        Controleur ctrl = new Controleur();
+        FrameModif frame = new FrameModif(ctrl);
     }
 }

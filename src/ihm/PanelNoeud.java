@@ -3,17 +3,25 @@ package ihm;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.GroupLayout;
-
+import java.awt.BorderLayout;
 import controleur.Controleur;
 
-public class PanelNoeud extends JPanel
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class PanelNoeud extends JPanel implements KeyListener
 {
     private Controleur ctrl;
 
+    private JList<String>      listNoeuds;
+    
     private JTextField txtPosX;
     private JTextField txtPosY;
     private JTextField txtNom;
@@ -21,17 +29,52 @@ public class PanelNoeud extends JPanel
     private JTextField txtPosNomY;
     private JButton    btnCouleur;
 
-    public PanelNoeud(Controleur ctrl)
+    private JButton    btnAjouter;
+    private JButton    btnSupprimer;
+
+    public PanelNoeud(Controleur ctrl) 
     {
         this.ctrl = ctrl;
         this.setBackground(new Color(68, 71, 90));
+        this.setLayout(new BorderLayout());
+
+        /*Panel liste villes */
+        JPanel panelListe = new JPanel();
+        panelListe.setBackground(new Color(68, 71, 90));
+
+        String[] data = {"villeefhkjgkblvn1", "ville2", "ville3", "ville4", "ville5", "ville6", "ville7", "ville8", "ville9", "ville10"};
+        this.listNoeuds = new JList<String>(data);
+
+        this.listNoeuds.setBackground(new Color(58, 60, 76));
+        this.listNoeuds.setForeground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(this.listNoeuds);
+
+        panelListe.add(scrollPane);
+  
         
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
+        /*Panel infos villes */
+        JPanel panelInfos = new JPanel();
+        panelInfos.setBackground(new Color(68, 71, 90));
+        
+        GroupLayout layout = new GroupLayout(panelInfos);
+        panelInfos.setLayout(layout);
 
         this.txtPosX = new JTextField();
         this.txtPosX.setBackground(new Color(58, 60, 76));
         this.txtPosX.setForeground(Color.GRAY);
+
+        this.txtPosX.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+                  txtPosX.setEditable(true);
+               } else {
+                  txtPosX.setEditable(false);
+               }
+            }
+         });
+
+
 
         this.txtPosY = new JTextField(8);
         this.txtPosY.setBackground(new Color(58, 60, 76));
@@ -71,23 +114,23 @@ public class PanelNoeud extends JPanel
         GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
 
         hGroup.addGroup(layout.createParallelGroup().
-            addComponent(labelPos).addComponent(labelNom).addComponent(labelPosNom).addComponent(labelCouleur));
+            addComponent(labelNom).addComponent(labelPos).addComponent(labelPosNom).addComponent(labelCouleur));
 
         hGroup.addGroup(layout.createParallelGroup().
-            addComponent(txtPosX).addComponent(txtNom).addComponent(txtPosNomX).addComponent(btnCouleur));
+            addComponent(txtNom).addComponent(txtPosX).addComponent(txtPosNomX).addComponent(btnCouleur));
         
         hGroup.addGroup(layout.createParallelGroup().
             addComponent(txtPosY).addComponent(txtPosNomY));
         layout.setHorizontalGroup(hGroup);
 
         GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+        
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+            addComponent(labelNom).addComponent(txtNom));
 
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
             addComponent(labelPos).addComponent(txtPosX).addComponent(txtPosY));
 
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
-            addComponent(labelNom).addComponent(txtNom));
-        
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
             addComponent(labelPosNom).addComponent(txtPosNomX).addComponent(txtPosNomY));
         
@@ -96,9 +139,40 @@ public class PanelNoeud extends JPanel
         
         layout.setVerticalGroup(vGroup);
 
+        /*Panel boutons */
+        JPanel panelBoutons = new JPanel();
+        panelBoutons.setBackground(new Color(68, 71, 90));
+        
+        this.btnAjouter = new JButton("Ajouter");
+        this.btnAjouter.setBackground(new Color(58, 60, 76));
+        this.btnAjouter.setForeground(Color.WHITE);
+        this.btnAjouter.addActionListener(e -> {
+            ajouterNoeud();
+        });
+        
+        this.btnSupprimer = new JButton("Supprimer");
+        this.btnSupprimer.setBackground(new Color(58, 60, 76));
+        this.btnSupprimer.setForeground(Color.WHITE);
+        this.btnSupprimer.addActionListener(e -> {
+            supprimerNoeud();
+        });
+
+        panelBoutons.add(this.btnAjouter);
+        panelBoutons.add(this.btnSupprimer);
+
+        /*Ajout des panels*/
+        this.add(panelListe, BorderLayout.WEST);
+        this.add(panelInfos, BorderLayout.CENTER);
+        this.add(panelBoutons, BorderLayout.SOUTH);
 
 
 
+    }
+
+    private void supprimerNoeud() {
+    }
+
+    private void ajouterNoeud() {
     }
 
     private void selectColor() 
@@ -106,5 +180,23 @@ public class PanelNoeud extends JPanel
         Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
         System.out.println(color);
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
