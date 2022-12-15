@@ -49,11 +49,11 @@ public class Metier
 		this.aretes        = new ArrayList<Arete>();
 
 
-		this.noeuds.add(new Noeud("Mon noeud 1", 10, 10, 5, 5, Color.CYAN));
-		this.noeuds.add(new Noeud("Mon noeud 2", 50, 50, 45, 45, Color.RED));
-		this.noeuds.add(new Noeud("Mon noeud 3", 20, 40, 15, 35, Color.CYAN));
-		this.noeuds.add(new Noeud("Mon noeud 4", 40, 30, 35, 25, Color.GREEN));
-		this.noeuds.add(new Noeud("Mon noeud 5", 80, 50, 75, 45, Color.ORANGE));
+		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 50, 50, Color.CYAN));
+		this.noeuds.add(new Noeud("Mon noeud 2", 500, 500, 450, 450, Color.RED));
+		this.noeuds.add(new Noeud("Mon noeud 3", 200, 400, 150, 350, Color.CYAN));
+		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
+		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2), 5));

@@ -13,8 +13,7 @@ public class Controleur
 
 	public Controleur()
 	{
-		this.ihm     = new FramePlateau(this);
-		this.metier  = null;
+		this.nouveau();
 	}
 
 	public Metier getMetier() { return this.metier; }
@@ -24,14 +23,15 @@ public class Controleur
     {
 		this.metier = new Metier();
 		
-        this.ihm.dispose();
+		if (this.ihm != null)
+        	this.ihm.dispose();
         this.ihm = new FramePlateau(this);
     }
 	public void ouvrir(String fichier) 
     {
 		this.metier = new Metier(new File(fichier));
-		
-        this.ihm.dispose();
+		if (this.ihm != null)
+        	this.ihm.dispose();
         this.ihm = new FramePlateau(this);
     }
 
