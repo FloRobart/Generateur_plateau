@@ -1,5 +1,6 @@
 package controleur;
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.util.List;
 
@@ -30,11 +31,19 @@ public class Controleur
         this.ihm = new FramePlateau(this);
     }
 
-	public Metier getMetier() { return this.metier; }
+	/* Getters */
+	public Metier getMetier() { return this.metier;}
+	public Font getPolicePlateau() { return this.metier.getPolicePlateau(); }
+	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
+	public List<Arete> getAretes() { return this.metier.getAretes(); }
+	
+
+	/* Setters */
 	public void setPositionNoeud(int id, int x, int y)
 	{
 		this.metier.setPositionNoeud(id, x, y);
 	}
+
 	public void setPositionNomNoeud(int id, int x, int y)
 	{
 		this.metier.setPositionNomNoeud(id, x, y);

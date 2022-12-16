@@ -63,7 +63,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         this.ctrl = ctrl;
 		
 
-        lstNoeudOfIHM =  this.ctrl.getMetier().getNoeuds();
+        lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
 		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
 		this.idNomNoeudDrag = null;
@@ -183,11 +183,21 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         // All drawings go here
 
-        g2.drawImage(image, (int)xOffset, (int)yOffset, this);
+        g2.drawImage(image, (int) xOffset, (int) yOffset, this);
 
+        g2.setFont(this.ctrl.getPolicePlateau());
 
-        Metier metier = this.ctrl.getMetier();
-        g2.setFont(metier.getPolicePlateau());
+		for (Arete arete : this.ctrl.getAretes())
+		{
+			g2.setColor(arete.getCouleur1());
+
+			int x1 = (int) xOffset + arete.getNoeud1().getX();
+			int y1 = (int) yOffset + arete.getNoeud1().getY();
+			int x2 = (int) xOffset + arete.getNoeud2().getX();
+			int y2 = (int) yOffset + arete.getNoeud2().getY();
+
+			g2.drawLine(x1, y1, x2, y2);
+		}
 
 		int i = 0;
         for (Noeud noeud : lstNoeudOfIHM)
@@ -212,7 +222,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			this.tabNomNoeud[i++] = new Rectangle2D.Double(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
 			                                               midY + noeud.getYNom() - 7, 
 			                                               noeud.getNom().length() * 6, 
-			                                             14);
+			                                               14);
 
 			g2.setColor(Color.BLACK);
             g2.drawString(noeud.getNom(), 
@@ -247,12 +257,12 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 		if (SwingUtilities.isLeftMouseButton(e))
 		{
 			if (this.idNoeudDrag != null)
-				this.ctrl.setPositionNoeud(this.idNoeudDrag, e.getX(), e.getY());
+				this.ctrl.setPositionNoeud(this.idNoeudDrag, e.getX() - (int) xOffset, e.getY() - (int) yOffset);
 
 			if (this.idNomNoeudDrag != null)
 			{
-				int x = e.getX() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getX(); 
-				int y = e.getY() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getY(); 
+				int x = e.getX() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getX() - (int) xOffset; 
+				int y = e.getY() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getY() - (int) yOffset; 
 
 				this.ctrl.setPositionNomNoeud(this.idNomNoeudDrag, x, y);
 			}
