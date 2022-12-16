@@ -602,7 +602,7 @@ public class Metier
 		{
 			if (c.getNoeud1().getNom().equals(nom1) && c.getNoeud2().getNom().equals(nom2))
 			{
-				this.aretes.remove(c);
+				this.carteObjectif.remove(c);
 				return;
 			}
 		}
