@@ -35,6 +35,10 @@ public class Controleur
 	{
 		this.metier.setPositionNoeud(id, x, y);
 	}
+	public void setPositionNomNoeud(int id, int x, int y)
+	{
+		this.metier.setPositionNomNoeud(id, x, y);
+	}
 
 	//methodes
 

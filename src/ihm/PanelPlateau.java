@@ -31,6 +31,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.Component;
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
@@ -39,8 +40,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     JLabel lblImagePlateau;
     List<Noeud> lstNoeudOfIHM;
 
-	private Ellipse2D[] tabNoeud;
-	private Integer     idNoeudDrag;
+	private Ellipse2D[]   tabNoeud;
+	private Integer       idNoeudDrag;
+	private Rectangle2D[] tabNomNoeud;
+	private Integer       idNomNoeudDrag;
 
     private BufferedImage image;
 
@@ -58,10 +61,13 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     public PanelPlateau(Controleur ctrl, BufferedImage image, int longueurFrame, int hauteurFrame)
     {
         this.ctrl = ctrl;
-		this.idNoeudDrag = null;
+		
 
         lstNoeudOfIHM =  this.ctrl.getMetier().getNoeuds();
+		this.idNoeudDrag = null;
 		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
+		this.idNomNoeudDrag = null;
+		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
 
         this.image = image;
 		this.setBackground(new Color(255, 183, 110));
@@ -195,9 +201,23 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             g2.setColor(noeud.getCouleur());
             g2.fillOval(midX-10, midY-10, 20, 20);
 
-			this.tabNoeud[i++] = new Ellipse2D.Double(midX-12, midY-12, 24, 24);
+			this.tabNoeud[i] = new Ellipse2D.Double(midX-12, midY-12, 24, 24);
 
-            g2.drawString(noeud.getNom(), (int) xOffset + noeud.getXNom(), (int) yOffset + noeud.getYNom());
+			g2.setColor(Color.WHITE);
+			g2.fillRect(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
+			            midY + noeud.getYNom() - 7, 
+			            noeud.getNom().length() * 6, 
+						14);
+
+			this.tabNomNoeud[i++] = new Rectangle2D.Double(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
+			                                               midY + noeud.getYNom() - 7, 
+			                                               noeud.getNom().length() * 6, 
+			                                             14);
+
+			g2.setColor(Color.BLACK);
+            g2.drawString(noeud.getNom(), 
+			              midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
+			              midY + noeud.getYNom() + 4);
         }
     }
 
@@ -224,9 +244,20 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     @Override
     public void mouseDragged(MouseEvent e) 
     {
-		if (SwingUtilities.isLeftMouseButton(e) && PanelPlateau.this.idNoeudDrag != null)
+		if (SwingUtilities.isLeftMouseButton(e))
 		{
-			this.ctrl.setPositionNoeud(this.idNoeudDrag, e.getX(), e.getY());
+			if (this.idNoeudDrag != null)
+				this.ctrl.setPositionNoeud(this.idNoeudDrag, e.getX(), e.getY());
+
+			if (this.idNomNoeudDrag != null)
+			{
+				int x = e.getX() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getX(); 
+				int y = e.getY() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getY(); 
+
+				this.ctrl.setPositionNomNoeud(this.idNomNoeudDrag, x, y);
+			}
+				
+			
 			this.repaint();
 		}
 
@@ -259,9 +290,15 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     public void mousePressed(MouseEvent e) 
     {
 		if (SwingUtilities.isLeftMouseButton(e))
-			for (int i = 0 ; i < PanelPlateau.this.tabNoeud.length ; i++)
-				if (PanelPlateau.this.tabNoeud[i].contains(e.getPoint()))
-					PanelPlateau.this.idNoeudDrag = i;
+		{
+			for (int i = 0 ; i < this.tabNoeud.length ; i++)
+				if (this.tabNoeud[i].contains(e.getPoint()))
+					this.idNoeudDrag = i;
+
+			for (int i = 0 ; i < this.tabNomNoeud.length ; i++)
+				if (this.tabNomNoeud[i].contains(e.getPoint()))
+					this.idNomNoeudDrag = i;
+		}
 
 		if (SwingUtilities.isRightMouseButton(e))
 		{
@@ -274,7 +311,11 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     public void mouseReleased(MouseEvent e) 
     {
 		if (SwingUtilities.isLeftMouseButton(e))
-			PanelPlateau.this.idNoeudDrag = null;
+		{
+			this.idNoeudDrag = null;
+			this.idNomNoeudDrag = null;
+		}
+			
 
 		if (SwingUtilities.isRightMouseButton(e))
 		{
