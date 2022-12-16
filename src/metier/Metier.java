@@ -28,10 +28,12 @@ public class Metier
 	private Color         couleurPlateau;
 	private Font          policePlateau;
 
-	private int           nbJoueursMin;
-	private int           nbJoueursMax;
-	private int           nbCarteCoul;
-	private int           nbCarteLocomotive;
+	private int nbJoueursMin;
+	private int nbJoueursMax;
+	private int nbCarteCoul;
+	private int nbCarteLocomotive;
+	private int nbJetonJoueur;
+	private int nbJetonFin;
 
 	private List<Color>         couleurs;
 	private BufferedImage       imageVersoCouleur;
@@ -74,6 +76,7 @@ public class Metier
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
+		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 3, Color.BLUE, Color.gray));
 		
 
 /*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
@@ -89,6 +92,7 @@ public class Metier
 		this();
 
 		this.lireFichier(fichier);
+		System.out.println(this);
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -99,6 +103,8 @@ public class Metier
 	public int                 getNbJoueursMax     () { return this.nbJoueursMax;      }
 	public int                 getNbCarteCoul      () { return this.nbCarteCoul;       }
 	public int                 getNbCarteLocomotive() { return this.nbCarteLocomotive; }
+	public int                 getNbJetonJoueur    () { return this.nbJetonJoueur;     }
+	public int                 getNbJetonFin       () { return this.nbJetonFin;        }
 	public List<Color>         getCouleurs         () { return this.couleurs;          }
 	public BufferedImage       getImageVersoCouleur() { return this.imageVersoCouleur; }
 	public BufferedImage       getImageRectoLocomotive() { return this.imageRectoLocomotive; }
@@ -136,6 +142,10 @@ public class Metier
 			Element nbCarte = information.getChild("nombre-carte");
 			this.nbCarteCoul       = Integer.parseInt(nbCarte.getAttributeValue("couleur"));
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
+
+			Element nbJeton = information.getChild("nombre-jeton");
+			this.nbJetonJoueur = Integer.parseInt(nbJeton.getAttributeValue("joueur"));
+			this.nbJetonFin    = Integer.parseInt(nbJeton.getAttributeValue("fin"));
 			
 			Element plateau = racine.getChild("plateau");
 			
@@ -286,6 +296,11 @@ public class Metier
 			information.addContent(nbCarte);
 			nbCarte.setAttribute("couleur", Integer.toString(this.nbCarteCoul));
 			nbCarte.setAttribute("multicouleur", Integer.toString(this.nbCarteLocomotive));
+
+			Element nbJeton = new Element("nombre-jeton");
+			information.addContent(nbJeton);
+			nbJeton.setAttribute("joueur", Integer.toString(this.nbJetonJoueur));
+			nbJeton.setAttribute("fin", Integer.toString(this.nbJetonFin));
 	
 			Element plateau = new Element("plateau");
 			racine.addContent(plateau);
@@ -482,6 +497,8 @@ public class Metier
 		s += "nbJoueursMax : " + this.nbJoueursMax + "\n\n";
 		s += "nbCarteCoul : " + this.nbCarteCoul + "\n\n";
 		s += "nbCarteLocomotive : " + this.nbCarteLocomotive + "\n\n";
+		s += "nbJetonJoueur : " + this.nbJetonJoueur + "\n\n";
+		s += "nbJetonFin : " + this.nbJetonFin + "\n\n";
 		s += "couleurs : " + this.couleurs + "\n\n";
 		s += "imageVersoCouleur : " + this.imageVersoCouleur + "\n\n";
 		s += "imageRectoLocomotive : " + this.imageRectoLocomotive + "\n\n";
@@ -521,6 +538,71 @@ public class Metier
 			if (this.noeuds.get(i).getNom().equals(nom))
 			{
 				this.noeuds.remove(i);
+				return;
+			}
+		}
+    }
+
+    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+	{
+		Noeud nA=null;
+		Noeud nB=null;
+
+		for (Noeud n : this.noeuds)
+		{
+			if (n.getNom().equals(nom1))
+			{
+				nA = n;
+			}
+
+			if(n.getNom().equals(nom2))
+			{
+				nB = n;
+			}
+		}
+
+		this.aretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
+    }
+
+    public void supprimerArete(String nom1, String nom2) 
+	{
+		for(Arete a : this.aretes)
+		{
+			if (a.getNoeud1().getNom().equals(nom1) && a.getNoeud2().getNom().equals(nom2))
+			{
+				this.aretes.remove(a);
+				return;
+			}
+		}
+    }
+
+	public void ajouterObjectif(String nom1, String nom2, int point) 
+	{
+		Noeud nA=null;
+		Noeud nB=null;
+
+		for (Noeud n : this.noeuds)
+		{
+			if (n.getNom().equals(nom1))
+			{
+				nA = n;
+			}
+
+			if(n.getNom().equals(nom2))
+			{
+				nB = n;
+			}
+		}
+		this.carteObjectif.add(new CarteObjectif(nA, nB, point, null));
+	}
+
+    public void supprimerObjectif(String nom1, String nom2) 
+	{
+		for(CarteObjectif c : this.carteObjectif)
+		{
+			if (c.getNoeud1().getNom().equals(nom1) && c.getNoeud2().getNom().equals(nom2))
+			{
+				this.carteObjectif.remove(c);
 				return;
 			}
 		}

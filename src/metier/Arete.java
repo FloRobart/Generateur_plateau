@@ -47,6 +47,6 @@ public class Arete
 
 	public String toString()
 	{
-		return "Arete : " + this.noeud1 + " - " + this.noeud2 + " (" + this.distance + ")";
+		return "Arete : " + this.noeud1 + " - " + this.noeud2 + " (" + this.distance + ")" + " (" + this.couleur1 + " - " + this.couleur2 + ")";
 	}
 }

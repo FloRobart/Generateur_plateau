@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 
 import ihm.FramePlateau;
+import metier.Arete;
+import metier.CarteObjectif;
 //import metier.Metier;
 import metier.Metier;
 import metier.Noeud;
@@ -32,9 +34,9 @@ public class Controleur
 
 	//methodes
 
-	public void ouvrir(String fichier) 
+	public void ouvrir(File fichier) 
     {
-		this.metier = new Metier(new File(fichier));
+		this.metier = new Metier(fichier);
 		
         this.ihm.dispose();
         this.ihm = new FramePlateau(this);
@@ -71,31 +73,6 @@ public class Controleur
 				break;
 		}
 	}
-
-	/**
-	 * Ajouter un noeud
-	 * @param nom : Nom du noeud(ville)
-	 * @param posX : Position X du noeud
-	 * @param posY	: Position Y du noeud
-	 * @param posNomX : Position X du nom du noeud
-	 * @param posNomY : Position Y du nom du noeud
-	 * @param couleur : Couleur du noeud
-	 */
-	public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
-	{
-		this.metier.ajouterNoeud(nom, posX, posY, posNomX, posNomY, couleur);
-    }
-
-	/**
-	 * suppression d'un noeud
-	 * @param nom : Nom du noeud(ville)
-	 */
-	public void supprimerNoeud(String nom)
-	{
-		this.metier.supprimerNoeud(nom);
-    }
-
-	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
 
 	/**
 	 * Main
