@@ -17,13 +17,15 @@ import javax.swing.ListModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import controleur.Controleur;
 import metier.CarteObjectif;
 import metier.Noeud;
 
-public class PanelAjoutObjectif extends JPanel implements KeyListener
+public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseListener
 {
     private Controleur ctrl;
     private JList<String>     listObjectif;
@@ -161,6 +163,8 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener
         this.add(panelListe, BorderLayout.WEST);
         this.add(panelInfos, BorderLayout.CENTER);
         this.add(panelBoutons, BorderLayout.SOUTH);
+
+        this.listObjectif.addMouseListener(this);
     }
 
     private void supprimerObjectif() 
@@ -170,7 +174,7 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener
         this.ctrl.getMetier().supprimerObjectif(noms[0], noms[1]);
 
         ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
-        
+        this.effacerForm();
     }
 
     private void ajouterObjectif()
@@ -185,6 +189,11 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener
             this.ctrl.getMetier().ajouterObjectif(nom1, nom2, point);
         }
         
+       this.effacerForm();
+    }
+
+    private void effacerForm() 
+    {
         this.cbA.setSelectedIndex(0);
         this.cbB.setSelectedIndex(0);
         this.txtPoint.setText("");
@@ -196,5 +205,49 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener
     public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) 
+    {
+        if(e.getSource() == this.listObjectif)
+        {
+            String[] noms = this.listModel.getElementAt(this.listObjectif.getSelectedIndex()).split("-");
+            
+            for(CarteObjectif c : this.objectifs)
+            {
+                if(c.getNoeud1().getNom().equals(noms[0]) && c.getNoeud2().getNom().equals(noms[1]))
+                {
+                    this.cbA.setSelectedItem(c.getNoeud1());
+                    this.cbB.setSelectedItem(c.getNoeud2());
+                    this.txtPoint.setText(String.valueOf(c.getPoints()));
+                }
+            }
+        }  
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
