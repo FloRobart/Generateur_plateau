@@ -492,4 +492,34 @@ public class Metier
 
 		return s;
 	}
+
+	/**
+	 * Ajoute un Noeud
+	 * @param nom : nom du noeud
+	 * @param posX : position X du noeud
+	 * @param posY	: position Y du noeud
+	 * @param posNomX : position X du nom du noeud
+	 * @param posNomY : position Y du nom du noeud
+	 * @param couleur : couleur du noeud
+	 */
+    public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
+	{
+		this.noeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
+    }
+
+	/**
+	 * Supprime un Noeud
+	 * @param nom : nom du noeud
+	 */
+    public void supprimerNoeud(String nom) 
+	{
+		for (int i = 0; i < this.noeuds.size(); i++)
+		{
+			if (this.noeuds.get(i).getNom().equals(nom))
+			{
+				this.noeuds.remove(i);
+				return;
+			}
+		}
+    }
 }

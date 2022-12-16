@@ -32,6 +32,8 @@ public class PanelNoeud extends JPanel implements KeyListener
     private JButton    btnAjouter;
     private JButton    btnSupprimer;
 
+    private Color      couleur;
+
     public PanelNoeud(Controleur ctrl) 
     {
         this.ctrl = ctrl;
@@ -208,17 +210,34 @@ public class PanelNoeud extends JPanel implements KeyListener
 
     }
 
-    private void supprimerNoeud() {
+    /**
+     * Methode permettant de supprimer un noeud
+     */
+    private void supprimerNoeud() 
+    {
+        String nom = this.txtNom.getText();
+        this.ctrl.supprimerNoeud(nom);
     }
 
-    private void ajouterNoeud() {
+    /**
+     * Methode permettant d'ajouter un noeud
+     */
+    private void ajouterNoeud() 
+    {
+        String nom = this.txtNom.getText();
+        int posX = Integer.parseInt(this.txtPosX.getText());
+        int posY = Integer.parseInt(this.txtPosY.getText());
+        int posNomX = Integer.parseInt(this.txtPosNomX.getText());
+        int posNomY = Integer.parseInt(this.txtPosNomY.getText());
+        
+        this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
+        new PanelNoeud(this.ctrl);
+        
     }
 
     private void selectColor() 
     {
-        Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        System.out.println(color);
-
+        this.couleur = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
     }
 
     @Override
