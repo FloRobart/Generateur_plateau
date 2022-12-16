@@ -2,6 +2,7 @@ package ihm;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import controleur.Controleur;
 import metier.Arete;
@@ -83,7 +84,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         if (zoomer) 
         {
-            AffineTransform at = new AffineTransform();
+			AffineTransform at = new AffineTransform();
 
             double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
             double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
@@ -103,7 +104,9 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         if (dragger) 
         {
             AffineTransform at = new AffineTransform();
+			//System.out.println("------------------\n" + xOffset + " " + yOffset + " | " + xDiff + " " + yDiff);
             at.translate(xOffset + xDiff, yOffset + yDiff);
+			//System.out.println(xOffset + " " + yOffset + " | " + xDiff + " " + yDiff);
             at.scale(zoomFactor, zoomFactor);
             g2.transform(at);
 
@@ -154,13 +157,23 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     @Override
     public void mouseDragged(MouseEvent e) 
     {
-        Point curPoint = e.getLocationOnScreen();
-        xDiff = curPoint.x - startPoint.x;
-        yDiff = curPoint.y - startPoint.y;
+		if (SwingUtilities.isRightMouseButton(e))
+		{
+			Point curPoint = e.getLocationOnScreen();
+			double prevXOffset = xOffset + curPoint.x - startPoint.x;
+			double prevYOffset = yOffset + curPoint.y - startPoint.y;
 
-        dragger = true;
-        repaint();
+			if (prevXOffset < 400 && prevXOffset > (-this.image.getWidth()  /2 - 400)*zoomFactor &&
+				prevYOffset < 300 && prevYOffset > (-this.image.getHeight() /2 - 300)*zoomFactor    )
+			{
+				xDiff = curPoint.x - startPoint.x;
+				yDiff = curPoint.y - startPoint.y;
+				repaint();
+			}
 
+			dragger = true;
+		}
+       
     }
 
     @Override
@@ -172,15 +185,22 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     @Override
     public void mousePressed(MouseEvent e) 
     {
-        released = false;
-        startPoint = MouseInfo.getPointerInfo().getLocation();
+		if (SwingUtilities.isRightMouseButton(e))
+		{
+			released = false;
+			startPoint = MouseInfo.getPointerInfo().getLocation();
+		}
     }
 
     @Override
     public void mouseReleased(MouseEvent e) 
     {
-        released = true;
-        repaint();
+		if (SwingUtilities.isRightMouseButton(e))
+		{
+			released = true;
+			repaint();
+		}
+        
     }
 
     @Override
