@@ -5,6 +5,7 @@ import java.util.List;
 
 import ihm.FramePlateau;
 import metier.Arete;
+import metier.CarteObjectif;
 //import metier.Metier;
 import metier.Metier;
 import metier.Noeud;
@@ -74,55 +75,10 @@ public class Controleur
 	}
 
 	/**
-	 * Ajouter un noeud
-	 * @param nom : Nom du noeud(ville)
-	 * @param posX : Position X du noeud
-	 * @param posY	: Position Y du noeud
-	 * @param posNomX : Position X du nom du noeud
-	 * @param posNomY : Position Y du nom du noeud
-	 * @param couleur : Couleur du noeud
-	 */
-	public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
-	{
-		this.metier.ajouterNoeud(nom, posX, posY, posNomX, posNomY, couleur);
-    }
-
-	/**
-	 * suppression d'un noeud
-	 * @param nom : Nom du noeud(ville)
-	 */
-	public void supprimerNoeud(String nom)
-	{
-		this.metier.supprimerNoeud(nom);
-    }
-
-	/**
-	 * Ajouter une arete
-	 * @param nom1 : nom du premier noeud
-	 * @param nom2 : nom du deuxième noeud
-	 * @param distance : nombre de tronçons
-	 * @param couleur1 : couleur de la voie
-	 * @param couleur2 : couleur de la deuxième voie si double voie
-	*/
-	public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
-	{
-		this.metier.ajouterArete(nom1, nom2, distance, couleur1, couleur2);
-	}
-
-    public void supprimerArete(String nom1, String nom2) 
-	{
-		this.metier.supprimerArete(nom1, nom2);
-    }
-	
-	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
-	public List<Arete> getAretes() { return this.metier.getAretes();}
-
-	/**
 	 * Main
 	 * @param args : Tableau de String
 	 */
 	public static void main(String[] args) { new Controleur(); }
-	
     
     
 }
