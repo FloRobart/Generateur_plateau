@@ -22,6 +22,7 @@ import javax.swing.ListModel;
 
 import controleur.Controleur;
 import metier.Arete;
+import metier.Noeud;
 
 /*Avec la JList, il faudra utiliser le MouseListener avec MousePressed */
 
@@ -45,6 +46,9 @@ public class PanelArrete extends JPanel implements KeyListener
 
     private ListModel<String> listModel;
     private List<Arete>       aretes;
+
+    private List<Noeud>       lstNoeudA;
+    private List<Noeud>       lstNoeudB;
 
     public PanelArrete(Controleur ctrl)
     {
@@ -110,8 +114,17 @@ public class PanelArrete extends JPanel implements KeyListener
          });
 
 
-        String[] tabNoeudA = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] tabNoeudB = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        lstNoeudA = this.ctrl.getNoeuds();
+        lstNoeudB = this.ctrl.getNoeuds();
+        
+        String[] tabNoeudA = new String[lstNoeudA.size()];
+        String[] tabNoeudB = new String[lstNoeudB.size()];
+        
+        for(int cpt =0; cpt < lstNoeudA.size(); cpt++)
+        {
+            tabNoeudA[cpt] = lstNoeudA.get(cpt).getNom();
+            tabNoeudB[cpt] = lstNoeudB.get(cpt).getNom();
+        }
 
         cbA = new JComboBox<String>(tabNoeudA);
         cbB = new JComboBox<String>(tabNoeudB);
@@ -120,12 +133,14 @@ public class PanelArrete extends JPanel implements KeyListener
         cbB.setVisible(true);
 
         this.btnCoul1 = new JButton("Couleur");
+        this.btnCoul1.setBackground(null);
         add(this.btnCoul1);
         this.btnCoul1.addActionListener(e -> {
             selectColor1();
         });
 
         this.btnCoul2 = new JButton("Couleur");
+        this.btnCoul2.setBackground(null);
         add(this.btnCoul2);
         this.btnCoul2.addActionListener(e -> {
             selectColor2();
@@ -188,12 +203,11 @@ public class PanelArrete extends JPanel implements KeyListener
      */
     private void supprimerArete() 
     {
-        String nom1 = this.listModel.getElementAt(this.listAretes.getSelectedIndex());
-        String nom2 = this.listModel.getElementAt(this.listAretes.getSelectedIndex());
+        String[] noms = this.listModel.getElementAt(this.listAretes.getSelectedIndex()).split("-");
 
-        this.ctrl.supprimerArete(nom1, nom2);
+        this.ctrl.supprimerArete(noms[0], noms[1]);
 
-        ((DefaultListModel<String>) this.listModel).removeElement(nom1 + "-" + nom2);
+        ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
     }     
 
     /**
@@ -206,12 +220,19 @@ public class PanelArrete extends JPanel implements KeyListener
         int    distance = Integer.parseInt(this.txtDistance.getText());
 
         ((DefaultListModel<String>) this.listModel).addElement(nom1 + "-" + nom2);
-
-        if(this.couleur2 == null)
+        if(!nom1.equals(nom2))
+        {
+            if(this.couleur2 == null)
             this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
 
-        this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
-
+            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
+        }
+        
+        this.cbA.setSelectedIndex(0);
+        this.cbA.setSelectedIndex(0);
+        this.btnCoul1.setBackground(null);
+        this.btnCoul2.setBackground(null);
+        this.txtDistance.setText("");
     }
 
 
@@ -219,11 +240,13 @@ public class PanelArrete extends JPanel implements KeyListener
     {
         Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
         this.couleur1 = color;
+        this.btnCoul1.setBackground(color);
     }
     private void selectColor2() 
     {
         Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
         this.couleur2 = color;
+        this.btnCoul2.setBackground(color);
     }
 
 

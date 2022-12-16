@@ -69,13 +69,14 @@ public class Metier
 		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
 */
 
-/*
+
 		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 50, 50, Color.CYAN));
 		this.noeuds.add(new Noeud("Mon noeud 2", 500, 500, 450, 450, Color.RED));
 		this.noeuds.add(new Noeud("Mon noeud 3", 200, 400, 150, 350, Color.CYAN));
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
+		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 3, Color.BLUE, Color.gray));
 		
 
 /*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
