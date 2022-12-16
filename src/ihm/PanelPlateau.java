@@ -7,7 +7,6 @@ import controleur.Controleur;
 import metier.Arete;
 import metier.Metier;
 import metier.Noeud;
-import metier.Troncon;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -130,16 +129,6 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             g2.fillOval(noeud.getX(), noeud.getY(), 10, 10);
             g2.drawString(noeud.getNom(), noeud.getXNom(), noeud.getYNom());
         }
-
-        for (Arete arete : metier.getAretes())
-        {
-            g2.setColor(arete.getCouleur());
-            for (Troncon troncon : arete.getTroncons())
-            {
-                g2.drawLine(troncon.getX1(), troncon.getY1(), troncon.getX2(), troncon.getY2());
-            }
-        }
-
     }
 
     @Override
@@ -149,13 +138,13 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         zoomer = true;
 
         //Zoom in
-        if (e.getWheelRotation() < 0) 
+        if (e.getWheelRotation() < 0 && zoomFactor < 3)
         {
             zoomFactor *= 1.1;
             repaint();
         }
         //Zoom out
-        if (e.getWheelRotation() > 0 && zoomFactor > 0.5) 
+        if (e.getWheelRotation() > 0 && zoomFactor > 0.5)
         {
             zoomFactor /= 1.1;
             repaint();

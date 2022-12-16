@@ -65,7 +65,7 @@ public class Metier
 		this.taillePlateau[0] = 1000;
 		this.taillePlateau[1] = 1000;
 		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
-
+*/
 
 
 		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 50, 50, Color.CYAN));
@@ -74,7 +74,9 @@ public class Metier
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
+		
+
+/*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(2), this.noeuds.get(3),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15, null));
@@ -208,11 +210,17 @@ public class Metier
 				Noeud n1 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
 				Noeud n2 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
 
-				Color couleur = Color.decode(arete.getChild("couleur").getText());
+				Color couleur1 = Color.decode(arete.getChild("couleur1").getText());
+
+				Color couleur2;
+				if(arete.getChild("couleur2").getText().equals("NULL"))
+					couleur2 = null;
+				else
+					couleur2 = Color.decode(arete.getChild("couleur2").getText());
 
 				int distance = Integer.parseInt(arete.getChild("distance").getText());
 
-				this.aretes.add(new Arete(n1, n2, distance, couleur));
+				this.aretes.add(new Arete(n1, n2, distance, couleur1, couleur2));
 			}
 
 			/* <liste-objectifs> */
@@ -370,22 +378,20 @@ public class Metier
 				noeud.setAttribute("n1", Integer.toString(this.aretes.get(i).getNoeud1().getId()));
 				noeud.setAttribute("n2", Integer.toString(this.aretes.get(i).getNoeud2().getId()));
 
-				Element couleur = new Element("couleur");
-				arret.addContent(couleur);
-				couleur.setText(this.colorToHexa(this.aretes.get(i).getCouleur()));
+				Element couleur1 = new Element("couleur1");
+				arret.addContent(couleur1);
+				couleur1.setText(this.colorToHexa(this.aretes.get(i).getCouleur1()));
+
+				Element couleur2 = new Element("couleur2");
+				arret.addContent(couleur2);
+				if (this.aretes.get(i).getCouleur2() == null)
+					couleur2.setText("NULL");
+				else
+					couleur2.setText(this.colorToHexa(this.aretes.get(i).getCouleur2()));
 
 				Element distance = new Element("distance");
 				arret.addContent(distance);
 				distance.setText(Integer.toString(this.aretes.get(i).getDistance()));
-
-				Element troncons = new Element("liste-troncons");
-				arret.addContent(troncons);
-
-				for (int j = 0; j < this.aretes.get(i).getTroncons().size(); j++)
-				{
-					Element troncon = new Element("troncon");
-					troncons.addContent(troncon);
-				}
 			}
 
 			/* <liste-objectifs> */
@@ -488,4 +494,35 @@ public class Metier
 
 		return s;
 	}
+
+	/**
+	 * Ajoute un Noeud
+	 * @param nom : nom du noeud
+	 * @param posX : position X du noeud
+	 * @param posY	: position Y du noeud
+	 * @param posNomX : position X du nom du noeud
+	 * @param posNomY : position Y du nom du noeud
+	 * @param couleur : couleur du noeud
+	 */
+    public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
+	{
+		this.noeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
+    }
+
+
+	/**
+	 * Supprime un Noeud
+	 * @param nom : nom du noeud
+	 */
+    public void supprimerNoeud(String nom) 
+	{
+		for (int i = 0; i < this.noeuds.size(); i++)
+		{
+			if (this.noeuds.get(i).getNom().equals(nom))
+			{
+				this.noeuds.remove(i);
+				return;
+			}
+		}
+    }
 }

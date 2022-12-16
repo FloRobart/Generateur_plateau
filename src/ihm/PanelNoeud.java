@@ -7,16 +7,26 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+
 import java.awt.Color;
+
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import java.awt.BorderLayout;
 import controleur.Controleur;
+import metier.Noeud;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
 
-public class PanelNoeud extends JPanel implements KeyListener
+public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 {
     private Controleur ctrl;
 
@@ -32,6 +42,11 @@ public class PanelNoeud extends JPanel implements KeyListener
     private JButton    btnAjouter;
     private JButton    btnSupprimer;
 
+    private Color      couleur;
+
+    private ListModel<String>  listModel;
+    private List<Noeud>       noeuds;
+
     public PanelNoeud(Controleur ctrl) 
     {
         this.ctrl = ctrl;
@@ -42,11 +57,19 @@ public class PanelNoeud extends JPanel implements KeyListener
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
 
-        String[] data = {"villeefhkjgkblvn1", "ville2", "ville3", "ville4", "ville5", "ville6", "ville7", "ville8", "ville9", "ville10"};
-        this.listNoeuds = new JList<String>(data);
+
+        this.noeuds = this.ctrl.getNoeuds();
+        this.listModel = new DefaultListModel<String>();
+
+        for (Noeud n : noeuds) {
+            ((DefaultListModel<String>) this.listModel).addElement(n.getNom());
+        }
+        
+        this.listNoeuds = new JList<String>(listModel);
 
         this.listNoeuds.setBackground(new Color(58, 60, 76));
         this.listNoeuds.setForeground(Color.WHITE);
+        this.listNoeuds.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(this.listNoeuds);
 
@@ -208,17 +231,42 @@ public class PanelNoeud extends JPanel implements KeyListener
 
     }
 
-    private void supprimerNoeud() {
+    /**
+     * Methode permettant de supprimer un noeud
+     */
+    private void supprimerNoeud() 
+    {
+        String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
+        this.ctrl.supprimerNoeud(nom);
+        ((DefaultListModel<String>) this.listModel).removeElement(nom);
     }
 
-    private void ajouterNoeud() {
+    /**
+     * Methode permettant d'ajouter un noeud
+     */
+    private void ajouterNoeud() 
+    {
+        String nom = this.txtNom.getText();
+        int posX = Integer.parseInt(this.txtPosX.getText());
+        int posY = Integer.parseInt(this.txtPosY.getText());
+        int posNomX = Integer.parseInt(this.txtPosNomX.getText());
+        int posNomY = Integer.parseInt(this.txtPosNomY.getText());
+
+        ((DefaultListModel<String>) this.listModel).addElement(nom);
+
+        this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
+
+        this.txtNom.setText("");
+        this.txtPosX.setText("");
+        this.txtPosY.setText("");
+        this.txtPosNomX.setText("");
+        this.txtPosNomY.setText("");
+        
     }
 
     private void selectColor() 
     {
-        Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        System.out.println(color);
-
+        this.couleur = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
     }
 
     @Override
@@ -227,4 +275,33 @@ public class PanelNoeud extends JPanel implements KeyListener
     public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void mouseClicked(MouseEvent e) 
+    {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
 }
