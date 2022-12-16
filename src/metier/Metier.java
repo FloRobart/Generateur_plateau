@@ -115,6 +115,11 @@ public class Metier
 	public List<Noeud>         getNoeuds           () { return this.noeuds;            }
 	public List<Arete>         getAretes           () { return this.aretes;            }
 
+	public void setPositionNoeud(int id, int x, int y)
+	{
+		this.noeuds.get(id).setXY(x, y);
+	}
+
 	private void lireFichier(File fichier)
 	{
 		SAXBuilder sxb = new SAXBuilder();

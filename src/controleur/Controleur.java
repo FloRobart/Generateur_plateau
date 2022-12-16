@@ -31,6 +31,10 @@ public class Controleur
     }
 
 	public Metier getMetier() { return this.metier; }
+	public void setPositionNoeud(int id, int x, int y)
+	{
+		this.metier.setPositionNoeud(id, x, y);
+	}
 
 	//methodes
 
