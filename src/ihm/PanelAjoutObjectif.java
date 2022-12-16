@@ -3,6 +3,7 @@ package ihm;
 import java.awt.Color;
 import java.awt.BorderLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,18 +12,18 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
 import controleur.Controleur;
+import metier.CarteObjectif;
 import metier.Noeud;
 
-public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyListener
+public class PanelAjoutObjectif extends JPanel implements KeyListener
 {
     private Controleur ctrl;
     private JList<String>     listObjectif;
@@ -32,6 +33,12 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
     private JTextField        txtPoint;
     private JButton           btnAjout;
     private JButton           btnSupp;
+
+    private ListModel<String>   listModel;
+    private List<CarteObjectif> objectifs;
+
+    private List<Noeud>         lstNoeudA;
+    private List<Noeud>         lstNoeudB;
 
     public PanelAjoutObjectif(Controleur ctrl)
     {
@@ -43,8 +50,14 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
         
-        String[] data = { "objectif 1","objectif 2", "objectif 3","objectif 4","objectif 5","objectif 6", "objectif 7","objectif 8","objectif 9","objectif 10"};
-        this.listObjectif = new JList<String>(data);
+        this.objectifs = this.ctrl.getMetier().getCarteObjectif();
+        this.listModel = new DefaultListModel<String>();
+
+        for (CarteObjectif c : this.objectifs) {
+            ((DefaultListModel<String>) this.listModel).addElement(c.getNoeud1().getNom() + "-" + c.getNoeud2().getNom());
+        }
+
+        this.listObjectif = new JList<String>(this.listModel);
 
         this.listObjectif.setBackground(new Color(58, 60, 76));
         this.listObjectif.setForeground(Color.WHITE);
@@ -83,16 +96,18 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
             }
          });
 
-        List<Noeud> noeuds = this.ctrl.getMetier().getNoeuds();
+        this.lstNoeudA = this.ctrl.getMetier().getNoeuds();
+        this.lstNoeudB = this.ctrl.getMetier().getNoeuds();
 
-        String[] tabNoeudA   = new String[noeuds.size()]; //{ "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] tabNoeudB   = new String[noeuds.size()]; //{ "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] tabNoeudA = new String[lstNoeudA.size()];
+        String[] tabNoeudB = new String[lstNoeudB.size()];
 
-        for (Noeud noeud : noeuds)
+        for(int cpt =0; cpt < lstNoeudA.size(); cpt++)
         {
-            tabNoeudA[noeud.getId() - 1] = noeud.getNom();
-            tabNoeudB[noeud.getId() - 1] = noeud.getNom();
+            tabNoeudA[cpt] = lstNoeudA.get(cpt).getNom();
+            tabNoeudB[cpt] = lstNoeudB.get(cpt).getNom();
         }
+
         cbA = new JComboBox<String>(tabNoeudA);
         cbB = new JComboBox<String>(tabNoeudB);
 
@@ -128,10 +143,16 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
         this.btnAjout = new JButton("Ajouter");
         this.btnAjout.setBackground(new Color(58, 60, 76));
         this.btnAjout.setForeground(Color.WHITE);
+        this.btnAjout.addActionListener(e -> {
+            ajouterObjectif();
+        });
 
         this.btnSupp = new JButton("Supprimer");
         this.btnSupp.setBackground(new Color(58, 60, 76));
         this.btnSupp.setForeground(Color.WHITE);
+        this.btnSupp.addActionListener(e -> {
+            supprimerObjectif();
+        });
 
         panelBoutons.add(this.btnAjout);
         panelBoutons.add(this.btnSupp);
@@ -140,17 +161,33 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
         this.add(panelListe, BorderLayout.WEST);
         this.add(panelInfos, BorderLayout.CENTER);
         this.add(panelBoutons, BorderLayout.SOUTH);
-
-        this.btnAjout.addActionListener(this);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.btnAjout)
+    private void supprimerObjectif() 
+    {
+        String[] noms = this.listModel.getElementAt(this.listObjectif.getSelectedIndex()).split("-");
+
+        this.ctrl.getMetier().supprimerObjectif(noms[0], noms[1]);
+
+        ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
+        
+    }
+
+    private void ajouterObjectif()
+    {
+        String nom1     = (String) this.cbA.getSelectedItem();
+        String nom2     = (String) this.cbB.getSelectedItem();
+        int    point = Integer.parseInt(this.txtPoint.getText());
+
+        ((DefaultListModel<String>) this.listModel).addElement(nom1 + "-" + nom2);
+        if(!nom1.equals(nom2))
         {
-            System.out.println("Ajout d'un objectif"); //a modifier
+            this.ctrl.getMetier().ajouterObjectif(nom1, nom2, point);
         }
         
+        this.cbA.setSelectedIndex(0);
+        this.cbB.setSelectedIndex(0);
+        this.txtPoint.setText("");
     }
 
     @Override

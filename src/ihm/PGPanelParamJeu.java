@@ -29,6 +29,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
      */                    
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         lblParamJeu = new javax.swing.JLabel();
         lblNbJoueurs = new javax.swing.JLabel();
         lblModif = new javax.swing.JLabel();
@@ -37,10 +38,10 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         lblImgCarte = new javax.swing.JLabel();
         lblCartesWagon = new javax.swing.JLabel();
         txtMinJoueur = new javax.swing.JTextField();
-        txtMaxNbJoueur = new javax.swing.JTextField();
+        txtMaxJoueur = new javax.swing.JTextField();
         txtNbJoker = new javax.swing.JTextField();
         txtNbCarteParCoul = new javax.swing.JTextField();
-        txtPathImgCarteWagon = new javax.swing.JTextField();
+        //txtPathImgCarteWagon = new javax.swing.JTextField();
         btnPlusJoker = new javax.swing.JButton();
         btnCouleurs = new javax.swing.JButton();
         btnPoints = new javax.swing.JButton();
@@ -48,7 +49,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         btnPlusCoul = new javax.swing.JButton();
         btnMoinsJoker = new javax.swing.JButton();
         btnMoinsCoul = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonCarteWagon = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(68, 71, 90));
 
@@ -66,17 +67,17 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         lblModif.setText("Modifier");
 
         lblMultiCoul.setForeground(new java.awt.Color(255, 255, 255));
-        lblMultiCoul.setText(" multicouleurs");
+        lblMultiCoul.setText("nb carte multicolore");
 
         lblNbCarteParCoul.setForeground(new java.awt.Color(255, 255, 255));
-        lblNbCarteParCoul.setText(" nb couleurs");
+        lblNbCarteParCoul.setText("nb carte par couleur");
 
         lblImgCarte.setForeground(new java.awt.Color(255, 255, 255));
         lblImgCarte.setText("image cartes");
 
         lblCartesWagon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCartesWagon.setForeground(new java.awt.Color(255, 255, 255));
-        lblCartesWagon.setText("Cartes wagon");
+        lblCartesWagon.setText("CARTES WAGON");
 
         txtMinJoueur.setBackground(new java.awt.Color(53, 55, 70));
         txtMinJoueur.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,13 +89,13 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        txtMaxNbJoueur.setBackground(new java.awt.Color(53, 55, 70));
-        txtMaxNbJoueur.setForeground(new java.awt.Color(255, 255, 255));
-        txtMaxNbJoueur.setText("Max");
-        txtMaxNbJoueur.setBorder(null);
-        txtMaxNbJoueur.addActionListener(new java.awt.event.ActionListener() {
+        txtMaxJoueur.setBackground(new java.awt.Color(53, 55, 70));
+        txtMaxJoueur.setForeground(new java.awt.Color(255, 255, 255));
+        txtMaxJoueur.setText("Max");
+        txtMaxJoueur.setBorder(null);
+        txtMaxJoueur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaxNbJoueurActionPerformed(evt);
+                txtMaxJoueurActionPerformed(evt);
             }
         });
 
@@ -118,16 +119,13 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        txtPathImgCarteWagon.setBackground(new java.awt.Color(53, 55, 70));
-        txtPathImgCarteWagon.setForeground(new java.awt.Color(255, 255, 255));
-        txtPathImgCarteWagon.setText("Parcourir");
-        txtPathImgCarteWagon.setBorder(null);
-        txtPathImgCarteWagon.addActionListener(new java.awt.event.ActionListener() {
+        btnPlusJoker.setText("+");
+        btnPlusJoker.setToolTipText("+");
+        btnPlusJoker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPathImgCarteWagonActionPerformed(evt);
+                btnPlusJokerActionPerformed(evt);
             }
         });
-
 
         btnCouleurs.setBackground(new java.awt.Color(40, 42, 54));
         btnCouleurs.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,7 +139,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPoints.setBackground(new java.awt.Color(40, 42, 54));
         btnPoints.setForeground(new java.awt.Color(255, 255, 255));
-        btnPoints.setText("Points");
+        btnPoints.setText("Objectifs");
         btnPoints.setBorder(null);
         btnPoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +149,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnObjectifs.setBackground(new java.awt.Color(40, 42, 54));
         btnObjectifs.setForeground(new java.awt.Color(255, 255, 255));
-        btnObjectifs.setText("Objectifs");
+        btnObjectifs.setText("Points");
         btnObjectifs.setBorder(null);
         btnObjectifs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +164,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 btnPlusCoulActionPerformed(evt);
             }
         });
+
         btnMoinsJoker.setText("-");
         btnMoinsJoker.setToolTipText("+");
         btnMoinsJoker.addActionListener(new java.awt.event.ActionListener() {
@@ -173,13 +172,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 btnMoinsJokerActionPerformed(evt);
             }
         });
-        btnPlusJoker.setText("+");
-        btnPlusJoker.setToolTipText("+");
-        btnPlusJoker.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlusJokerActionPerformed(evt);
-            }
-        });
+
         btnMoinsCoul.setText("-");
         btnMoinsCoul.setToolTipText("+");
         btnMoinsCoul.addActionListener(new java.awt.event.ActionListener() {
@@ -188,13 +181,13 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("...");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCarteWagon.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonCarteWagon.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCarteWagon.setText("...");
+        jButtonCarteWagon.setBorder(null);
+        jButtonCarteWagon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCarteWagonActionPerformed(evt);
             }
         });
 
@@ -205,48 +198,62 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             .addComponent(lblParamJeu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblModif)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnObjectifs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNbJoueurs)
-                            .addComponent(lblCartesWagon)
-                            .addComponent(lblNbCarteParCoul))
-                        .addGap(15, 15, 15)
-                        .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblModif)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblMultiCoul)
-                                .addGap(52, 52, 52)
-                                .addComponent(btnMoinsJoker))
-                            .addComponent(btnMoinsCoul))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnObjectifs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNbCarteParCoul, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPlusCoul))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNbJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPlusJoker))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblImgCarte)
-                        .addGap(55, 55, 55)
-                        .addComponent(txtPathImgCarteWagon, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addComponent(lblJetonsWagon)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblImgCarte)
+                                    .addGap(55, 55, 55)
+                                    //.addComponent(txtPathImgCarteWagon, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, 0)
+                                    //.addComponent(btnParcourirImgWagon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lblNbJoueurs)
+                                                .addComponent(lblCartesWagon)
+                                                .addComponent(lblNbCarteParCoul))
+                                            .addGap(15, 15, 15)
+                                            .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(lblMultiCoul)
+                                                        .addGap(52, 52, 52)
+                                                        .addComponent(btnMoinsJoker))
+                                                    .addComponent(btnMoinsCoul))
+                                                .addComponent(txtJetonsPourFini))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(txtNbCarteParCoul, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(btnPlusCoul))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(txtNbJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(btnPlusJoker))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(txtJetonPourFini, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                                    .addComponent(txtJetonsParCouleurs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGap(53, 53, 53))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,7 +263,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNbJoueurs)
                     .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaxJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -277,23 +284,33 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblImgCarte)
                     .addComponent(txtPathImgCarteWagon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                    .addComponent(btnParcourirImgWagon))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblJetonsWagon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtJetonsParCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtJetonsPourFini)
+                    .addComponent(txtJetonPourFini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnObjectifs, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblModif))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
+    }
 
     private void txtMinJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
     }                                            
 
-    private void txtMaxNbJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void txtMaxJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
     }                                              
 
@@ -305,9 +322,9 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                                 
 
-    private void txtPathImgCarteWagonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    /*private void txtPathImgCarteWagonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }                                                    
+    }*/                                                   
 
     private void btnCouleursActionPerformed(java.awt.event.ActionEvent evt) 
 	{                                            
@@ -378,11 +395,16 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 			txtNbJoker.setText(Integer.toString(this.nbJoker));
 		}
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void jButtonCarteWagonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        new FrameCreerCarteJoueur (this.ctrl);
     }                                        
+    private void txtJetonPourFiniActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        // TODO add your handling code here:
+    }                                                
 
-
+    private void txtJetonsParCouleursActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        // TODO add your handling code here:
+    }
     // Variables declaration - do not modify                     
     private javax.swing.JButton btnCouleurs;
     private javax.swing.JButton btnMoinsCoul;
@@ -391,18 +413,18 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private javax.swing.JButton btnPlusCoul;
     private javax.swing.JButton btnPlusJoker;
     private javax.swing.JButton btnPoints;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCarteWagon;
     private javax.swing.JLabel lblCartesWagon;
     private javax.swing.JLabel lblImgCarte;
+    private javax.swing.JLabel lblJetonsWagon;
     private javax.swing.JLabel lblModif;
     private javax.swing.JLabel lblMultiCoul;
     private javax.swing.JLabel lblNbCarteParCoul;
     private javax.swing.JLabel lblNbJoueurs;
     private javax.swing.JLabel lblParamJeu;
-    private javax.swing.JTextField txtMaxNbJoueur;
+    private javax.swing.JTextField txtMaxJoueur;
     private javax.swing.JTextField txtMinJoueur;
     private javax.swing.JTextField txtNbCarteParCoul;
     private javax.swing.JTextField txtNbJoker;
-    private javax.swing.JTextField txtPathImgCarteWagon;
     // End of variables declaration                   
 }
