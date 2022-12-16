@@ -507,6 +507,7 @@ public class Metier
 		this.noeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
     }
 
+
 	/**
 	 * Supprime un Noeud
 	 * @param nom : nom du noeud

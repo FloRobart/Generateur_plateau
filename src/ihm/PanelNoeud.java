@@ -252,6 +252,12 @@ public class PanelNoeud extends JPanel implements KeyListener
         ((DefaultListModel<String>) this.listModel).addElement(nom);
 
         this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
+
+        this.txtNom.setText("");
+        this.txtPosX.setText("");
+        this.txtPosY.setText("");
+        this.txtPosNomX.setText("");
+        this.txtPosNomY.setText("");
         
     }
 
