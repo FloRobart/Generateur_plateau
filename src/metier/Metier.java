@@ -575,4 +575,36 @@ public class Metier
 			}
 		}
     }
+
+	public void ajouterObjectif(String nom1, String nom2, int point) 
+	{
+		Noeud nA=null;
+		Noeud nB=null;
+
+		for (Noeud n : this.noeuds)
+		{
+			if (n.getNom().equals(nom1))
+			{
+				nA = n;
+			}
+
+			if(n.getNom().equals(nom2))
+			{
+				nB = n;
+			}
+		}
+		this.carteObjectif.add(new CarteObjectif(nA, nB, point, null));
+	}
+
+    public void supprimerObjectif(String nom1, String nom2) 
+	{
+		for(CarteObjectif c : this.carteObjectif)
+		{
+			if (c.getNoeud1().getNom().equals(nom1) && c.getNoeud2().getNom().equals(nom2))
+			{
+				this.carteObjectif.remove(c);
+				return;
+			}
+		}
+    }
 }

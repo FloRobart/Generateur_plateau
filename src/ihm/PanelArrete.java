@@ -60,22 +60,20 @@ public class PanelArrete extends JPanel implements KeyListener
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
 
-        this.aretes = this.ctrl.getAretes();
+        this.aretes = this.ctrl.getMetier().getAretes();
         this.listModel = new DefaultListModel<String>();
 
         for (Arete a : this.aretes) {
             ((DefaultListModel<String>) this.listModel).addElement(a.getNoeud1().getNom() + "-" + a.getNoeud2().getNom());
         }
         
-        this.listAretes = new JList<String>(listModel);
+        this.listAretes = new JList<String>(this.listModel);
 
         this.listAretes.setBackground(new Color(58, 60, 76));
         this.listAretes.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(this.listAretes);
         panelListe.add(scrollPane);
-
-
 
         /*Panel info aretes */
         JPanel panelInfos = new JPanel();
@@ -114,8 +112,8 @@ public class PanelArrete extends JPanel implements KeyListener
          });
 
 
-        lstNoeudA = this.ctrl.getNoeuds();
-        lstNoeudB = this.ctrl.getNoeuds();
+        lstNoeudA = this.ctrl.getMetier().getNoeuds();
+        lstNoeudB = this.ctrl.getMetier().getNoeuds();
         
         String[] tabNoeudA = new String[lstNoeudA.size()];
         String[] tabNoeudB = new String[lstNoeudB.size()];
@@ -205,7 +203,7 @@ public class PanelArrete extends JPanel implements KeyListener
     {
         String[] noms = this.listModel.getElementAt(this.listAretes.getSelectedIndex()).split("-");
 
-        this.ctrl.supprimerArete(noms[0], noms[1]);
+        this.ctrl.getMetier().supprimerArete(noms[0], noms[1]);
 
         ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
     }     
@@ -223,13 +221,13 @@ public class PanelArrete extends JPanel implements KeyListener
         if(!nom1.equals(nom2))
         {
             if(this.couleur2 == null)
-            this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
+            this.ctrl.getMetier().ajouterArete(nom1, nom2, distance, couleur1, null);
 
-            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
+            this.ctrl.getMetier().ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
         }
         
         this.cbA.setSelectedIndex(0);
-        this.cbA.setSelectedIndex(0);
+        this.cbB.setSelectedIndex(0);
         this.btnCoul1.setBackground(null);
         this.btnCoul2.setBackground(null);
         this.txtDistance.setText("");

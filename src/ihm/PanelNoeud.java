@@ -58,7 +58,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         panelListe.setBackground(new Color(68, 71, 90));
 
 
-        this.noeuds = this.ctrl.getNoeuds();
+        this.noeuds = this.ctrl.getMetier().getNoeuds();
         this.listModel = new DefaultListModel<String>();
 
         for (Noeud n : this.noeuds) {
@@ -237,7 +237,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
     private void supprimerNoeud() 
     {
         String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
-        this.ctrl.supprimerNoeud(nom);
+        this.ctrl.getMetier().supprimerNoeud(nom);
         ((DefaultListModel<String>) this.listModel).removeElement(nom);
     }
 
@@ -254,7 +254,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 
         ((DefaultListModel<String>) this.listModel).addElement(nom);
 
-        this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
+        this.ctrl.getMetier().ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
 
         this.txtNom.setText("");
         this.txtPosX.setText("");
