@@ -14,8 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,7 +23,7 @@ import controleur.Controleur;
 import metier.CarteObjectif;
 import metier.Noeud;
 
-public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyListener
+public class PanelAjoutObjectif extends JPanel implements KeyListener
 {
     private Controleur ctrl;
     private JList<String>     listObjectif;
@@ -163,8 +161,6 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
         this.add(panelListe, BorderLayout.WEST);
         this.add(panelInfos, BorderLayout.CENTER);
         this.add(panelBoutons, BorderLayout.SOUTH);
-
-        this.btnAjout.addActionListener(this);
     }
 
     private void supprimerObjectif() 
@@ -192,15 +188,6 @@ public class PanelAjoutObjectif extends JPanel implements ActionListener, KeyLis
         this.cbA.setSelectedIndex(0);
         this.cbB.setSelectedIndex(0);
         this.txtPoint.setText("");
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.btnAjout)
-        {
-            System.out.println("Ajout d'un objectif"); //a modifier
-        }
-        
     }
 
     @Override
