@@ -5,9 +5,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.*;
+
 
 public class PGPanelParamJeu extends javax.swing.JPanel {
 
