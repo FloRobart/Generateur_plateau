@@ -15,7 +15,6 @@
 ./src/ihm/PGPanelModifier.java
 ./src/ihm/PGPanelParamJeu.java
 ./src/ihm/PGPanelParamPlateau.java
-./src/ihm/PanelGenerateurTest.java
 ./src/ihm/PanelAjoutObjectif.java
 ./src/ihm/PanelGererObjectif.java
 
