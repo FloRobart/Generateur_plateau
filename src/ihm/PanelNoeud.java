@@ -155,6 +155,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
          });
 
         this.btnCouleur = new JButton("Couleur");
+        this.btnCouleur.setBackground(null);
         add(this.btnCouleur);
         this.btnCouleur.addActionListener(e -> {
             selectColor();
@@ -227,7 +228,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         this.add(panelInfos, BorderLayout.CENTER);
         this.add(panelBoutons, BorderLayout.SOUTH);
 
-
+        this.listNoeuds.addMouseListener(this);
 
     }
 
@@ -239,6 +240,17 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
         this.ctrl.getMetier().supprimerNoeud(nom);
         ((DefaultListModel<String>) this.listModel).removeElement(nom);
+        this.effacerForm();
+    }
+
+    private void effacerForm()
+    {
+        this.txtNom.setText("");
+        this.txtPosX.setText("");
+        this.txtPosY.setText("");
+        this.txtPosNomX.setText("");
+        this.txtPosNomY.setText("");
+        this.btnCouleur.setBackground(null);
     }
 
     /**
@@ -255,18 +267,14 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         ((DefaultListModel<String>) this.listModel).addElement(nom);
 
         this.ctrl.getMetier().ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
-
-        this.txtNom.setText("");
-        this.txtPosX.setText("");
-        this.txtPosY.setText("");
-        this.txtPosNomX.setText("");
-        this.txtPosNomY.setText("");
+        this.effacerForm();
         
     }
 
     private void selectColor() 
     {
         this.couleur = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
+        this.btnCouleur.setBackground(couleur);
     }
 
     @Override
@@ -283,8 +291,25 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-    
+    public void mousePressed(MouseEvent e) 
+    {
+        if(e.getSource() == this.listNoeuds)
+        {
+            String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
+
+            for(Noeud n : this.noeuds)
+            {
+                if(n.getNom().equals(nom))
+                {
+                    this.txtNom.setText(n.getNom());
+                    this.txtPosX.setText(String.valueOf(n.getX()));
+                    this.txtPosY.setText(String.valueOf(n.getY()));
+                    this.txtPosNomX.setText(String.valueOf(n.getXNom()));
+                    this.txtPosNomY.setText(String.valueOf(n.getYNom()));
+                    this.btnCouleur.setBackground(n.getCouleur());
+                }
+            }
+        }
     }
 
     @Override
