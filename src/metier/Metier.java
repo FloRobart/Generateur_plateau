@@ -65,7 +65,7 @@ public class Metier
 		this.taillePlateau[0] = 1000;
 		this.taillePlateau[1] = 1000;
 		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
-
+*/
 
 
 		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 50, 50, Color.CYAN));
@@ -74,7 +74,7 @@ public class Metier
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
+/*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(2), this.noeuds.get(3),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15, null));
@@ -506,6 +506,7 @@ public class Metier
 	{
 		this.noeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
     }
+
 
 	/**
 	 * Supprime un Noeud
