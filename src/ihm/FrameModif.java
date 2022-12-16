@@ -26,14 +26,14 @@ public class FrameModif extends JFrame
         //this.add(this.panelArrete);
 
         this.panelAjoutObjectif = new PanelAjoutObjectif(ctrl);
-        this.add(this.panelAjoutObjectif);
+        //this.add(this.panelAjoutObjectif);
 
         this.setVisible(true);
         
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Controleur ctrl = new Controleur();
         FrameModif frame = new FrameModif(ctrl);
-    }
+    }*/
 }
