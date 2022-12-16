@@ -32,9 +32,9 @@ public class Controleur
 
 	//methodes
 
-	public void ouvrir(String fichier) 
+	public void ouvrir(File fichier) 
     {
-		this.metier = new Metier(new File(fichier));
+		this.metier = new Metier(fichier);
 		
         this.ihm.dispose();
         this.ihm = new FramePlateau(this);

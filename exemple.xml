@@ -7,6 +7,7 @@
     <police>Dialog.plain</police>
     <nombre-joueurs min="2" max="10" />
     <nombre-carte couleur="12" multicouleur="15" />
+	<nombre-jeton joueur="50" fin="2" />
   </information>
   <plateau>
     <liste-couleurs>
@@ -51,9 +52,9 @@
     <liste-aretes>
       <arete>
         <noeud n1="1" n2="2" />
-        <couleur>#00ff00</couleur>
+        <couleur1>#00ff00</couleur1>
+		<couleur2>NULL</couleur2>
         <distance>3</distance>
-        <liste-troncons />
       </arete>
     </liste-aretes>
   </plateau>

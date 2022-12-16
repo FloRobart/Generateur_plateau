@@ -28,10 +28,12 @@ public class Metier
 	private Color         couleurPlateau;
 	private Font          policePlateau;
 
-	private int           nbJoueursMin;
-	private int           nbJoueursMax;
-	private int           nbCarteCoul;
-	private int           nbCarteLocomotive;
+	private int nbJoueursMin;
+	private int nbJoueursMax;
+	private int nbCarteCoul;
+	private int nbCarteLocomotive;
+	private int nbJetonJoueur;
+	private int nbJetonFin;
 
 	private List<Color>         couleurs;
 	private BufferedImage       imageVersoCouleur;
@@ -67,13 +69,13 @@ public class Metier
 		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
 */
 
-
+/*
 		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 50, 50, Color.CYAN));
 		this.noeuds.add(new Noeud("Mon noeud 2", 500, 500, 450, 450, Color.RED));
 		this.noeuds.add(new Noeud("Mon noeud 3", 200, 400, 150, 350, Color.CYAN));
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
-
+*/
 		
 
 /*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
@@ -89,6 +91,7 @@ public class Metier
 		this();
 
 		this.lireFichier(fichier);
+		System.out.println(this);
 	}
 
 	public int[]               getTaillePlateau    () { return this.taillePlateau;     }
@@ -99,6 +102,8 @@ public class Metier
 	public int                 getNbJoueursMax     () { return this.nbJoueursMax;      }
 	public int                 getNbCarteCoul      () { return this.nbCarteCoul;       }
 	public int                 getNbCarteLocomotive() { return this.nbCarteLocomotive; }
+	public int                 getNbJetonJoueur    () { return this.nbJetonJoueur;     }
+	public int                 getNbJetonFin       () { return this.nbJetonFin;        }
 	public List<Color>         getCouleurs         () { return this.couleurs;          }
 	public BufferedImage       getImageVersoCouleur() { return this.imageVersoCouleur; }
 	public BufferedImage       getImageRectoLocomotive() { return this.imageRectoLocomotive; }
@@ -136,6 +141,10 @@ public class Metier
 			Element nbCarte = information.getChild("nombre-carte");
 			this.nbCarteCoul       = Integer.parseInt(nbCarte.getAttributeValue("couleur"));
 			this.nbCarteLocomotive = Integer.parseInt(nbCarte.getAttributeValue("multicouleur"));
+
+			Element nbJeton = information.getChild("nombre-jeton");
+			this.nbJetonJoueur = Integer.parseInt(nbJeton.getAttributeValue("joueur"));
+			this.nbJetonFin    = Integer.parseInt(nbJeton.getAttributeValue("fin"));
 			
 			Element plateau = racine.getChild("plateau");
 			
@@ -286,6 +295,11 @@ public class Metier
 			information.addContent(nbCarte);
 			nbCarte.setAttribute("couleur", Integer.toString(this.nbCarteCoul));
 			nbCarte.setAttribute("multicouleur", Integer.toString(this.nbCarteLocomotive));
+
+			Element nbJeton = new Element("nombre-jeton");
+			information.addContent(nbJeton);
+			nbJeton.setAttribute("joueur", Integer.toString(this.nbJetonJoueur));
+			nbJeton.setAttribute("fin", Integer.toString(this.nbJetonFin));
 	
 			Element plateau = new Element("plateau");
 			racine.addContent(plateau);
@@ -482,6 +496,8 @@ public class Metier
 		s += "nbJoueursMax : " + this.nbJoueursMax + "\n\n";
 		s += "nbCarteCoul : " + this.nbCarteCoul + "\n\n";
 		s += "nbCarteLocomotive : " + this.nbCarteLocomotive + "\n\n";
+		s += "nbJetonJoueur : " + this.nbJetonJoueur + "\n\n";
+		s += "nbJetonFin : " + this.nbJetonFin + "\n\n";
 		s += "couleurs : " + this.couleurs + "\n\n";
 		s += "imageVersoCouleur : " + this.imageVersoCouleur + "\n\n";
 		s += "imageRectoLocomotive : " + this.imageRectoLocomotive + "\n\n";

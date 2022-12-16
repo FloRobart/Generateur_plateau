@@ -157,7 +157,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 					String extention = fichier.getName().substring(fichier.getName().lastIndexOf('.') + 1);
 
 					if (extention.equals("xml"))
-						this.ctrl.ouvrir("fichier");
+						this.ctrl.ouvrir(fichier);
 					else
 						JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format XML", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
