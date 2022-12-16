@@ -49,7 +49,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         btnPlusCoul = new javax.swing.JButton();
         btnMoinsJoker = new javax.swing.JButton();
         btnMoinsCoul = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnParcourirImgWagon = new javax.swing.JButton();
         lblJetonsWagon = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtJetonsPourFini = new javax.swing.JLabel();
@@ -147,6 +147,11 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPlusJoker.setText("+");
         btnPlusJoker.setToolTipText("+");
+        btnPlusJoker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusJokerActionPerformed(evt);
+            }
+        });
 
         btnCouleurs.setBackground(new java.awt.Color(40, 42, 54));
         btnCouleurs.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,7 +165,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPoints.setBackground(new java.awt.Color(40, 42, 54));
         btnPoints.setForeground(new java.awt.Color(255, 255, 255));
-        btnPoints.setText("Points");
+        btnPoints.setText("Objectifs");
         btnPoints.setBorder(null);
         btnPoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +175,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnObjectifs.setBackground(new java.awt.Color(40, 42, 54));
         btnObjectifs.setForeground(new java.awt.Color(255, 255, 255));
-        btnObjectifs.setText("Objectifs");
+        btnObjectifs.setText("Points");
         btnObjectifs.setBorder(null);
         btnObjectifs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,9 +185,19 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPlusCoul.setText("+");
         btnPlusCoul.setToolTipText("+");
+        btnPlusCoul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusCoulActionPerformed(evt);
+            }
+        });
 
         btnMoinsJoker.setText("-");
         btnMoinsJoker.setToolTipText("+");
+        btnMoinsJoker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoinsJokerActionPerformed(evt);
+            }
+        });
 
         btnMoinsCoul.setText("-");
         btnMoinsCoul.setToolTipText("+");
@@ -192,13 +207,13 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("...");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnParcourirImgWagon.setBackground(new java.awt.Color(0, 0, 0));
+        btnParcourirImgWagon.setForeground(new java.awt.Color(255, 255, 255));
+        btnParcourirImgWagon.setText("...");
+        btnParcourirImgWagon.setBorder(null);
+        btnParcourirImgWagon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnParcourirImgWagonActionPerformed(evt);
             }
         });
 
@@ -259,7 +274,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                                     .addGap(55, 55, 55)
                                     .addComponent(txtPathImgCarteWagon, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, 0)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnParcourirImgWagon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
@@ -326,7 +341,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblImgCarte)
                     .addComponent(txtPathImgCarteWagon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnParcourirImgWagon))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblJetonsWagon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -344,10 +359,9 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                         .addComponent(btnCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnObjectifs, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblModif))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-    }// </editor-fold>                        
+    }
 
     private void txtMinJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
@@ -448,7 +462,9 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private void txtJetonsParCouleursActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
     }
-
+    private void btnParcourirImgWagonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        // TODO add your handling code here:
+    } 
     // Variables declaration - do not modify                     
     private javax.swing.JButton btnCouleurs;
     private javax.swing.JButton btnMoinsCoul;
@@ -457,7 +473,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private javax.swing.JButton btnPlusCoul;
     private javax.swing.JButton btnPlusJoker;
     private javax.swing.JButton btnPoints;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnParcourirImgWagon;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblCartesWagon;

@@ -10,6 +10,12 @@ public class PGPanelAjouterElements extends javax.swing.JPanel {
     public PGPanelAjouterElements()
     {
         initComponents();
+        dragAndDropSettings();
+    }
+
+    private void dragAndDropSettings() 
+    {
+        
     }
 
     /**
