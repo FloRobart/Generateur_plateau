@@ -93,7 +93,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         lblCartesWagon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCartesWagon.setForeground(new java.awt.Color(255, 255, 255));
-        lblCartesWagon.setText("Cartes wagon");
+        lblCartesWagon.setText("CARTES WAGON");
 
         txtMinJoueur.setBackground(new java.awt.Color(53, 55, 70));
         txtMinJoueur.setForeground(new java.awt.Color(255, 255, 255));
@@ -204,7 +204,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         lblJetonsWagon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblJetonsWagon.setForeground(new java.awt.Color(255, 255, 255));
-        lblJetonsWagon.setText("Jetons wagon");
+        lblJetonsWagon.setText("JETONS WAGONS");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("par couleurs");
