@@ -7,14 +7,22 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+
 import java.awt.Color;
+
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import java.awt.BorderLayout;
 import controleur.Controleur;
+import metier.Noeud;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
+import java.util.Vector;
 
 public class PanelNoeud extends JPanel implements KeyListener
 {
@@ -34,6 +42,8 @@ public class PanelNoeud extends JPanel implements KeyListener
 
     private Color      couleur;
 
+    private ListModel<String>  listModel;
+
     public PanelNoeud(Controleur ctrl) 
     {
         this.ctrl = ctrl;
@@ -44,11 +54,19 @@ public class PanelNoeud extends JPanel implements KeyListener
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
 
-        String[] data = {"villeefhkjgkblvn1", "ville2", "ville3", "ville4", "ville5", "ville6", "ville7", "ville8", "ville9", "ville10"};
-        this.listNoeuds = new JList<String>(data);
+
+        List<Noeud> noeuds = this.ctrl.getNoeuds();
+        this.listModel = new DefaultListModel<String>();
+
+        for (Noeud n : noeuds) {
+            ((DefaultListModel<String>) this.listModel).addElement(n.getNom());
+        }
+        
+        this.listNoeuds = new JList<String>(listModel);
 
         this.listNoeuds.setBackground(new Color(58, 60, 76));
         this.listNoeuds.setForeground(Color.WHITE);
+        this.listNoeuds.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(this.listNoeuds);
 
@@ -215,8 +233,9 @@ public class PanelNoeud extends JPanel implements KeyListener
      */
     private void supprimerNoeud() 
     {
-        String nom = this.txtNom.getText();
+        String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
         this.ctrl.supprimerNoeud(nom);
+        ((DefaultListModel<String>) this.listModel).removeElement(nom);
     }
 
     /**
@@ -229,9 +248,10 @@ public class PanelNoeud extends JPanel implements KeyListener
         int posY = Integer.parseInt(this.txtPosY.getText());
         int posNomX = Integer.parseInt(this.txtPosNomX.getText());
         int posNomY = Integer.parseInt(this.txtPosNomY.getText());
-        
+
+        ((DefaultListModel<String>) this.listModel).addElement(nom);
+
         this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
-        new PanelNoeud(this.ctrl);
         
     }
 
