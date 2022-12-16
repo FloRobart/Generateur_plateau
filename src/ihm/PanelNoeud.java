@@ -21,10 +21,12 @@ import metier.Noeud;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
-import java.util.Vector;
 
-public class PanelNoeud extends JPanel implements KeyListener
+public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 {
     private Controleur ctrl;
 
@@ -43,6 +45,7 @@ public class PanelNoeud extends JPanel implements KeyListener
     private Color      couleur;
 
     private ListModel<String>  listModel;
+    private List<Noeud>       noeuds;
 
     public PanelNoeud(Controleur ctrl) 
     {
@@ -55,7 +58,7 @@ public class PanelNoeud extends JPanel implements KeyListener
         panelListe.setBackground(new Color(68, 71, 90));
 
 
-        List<Noeud> noeuds = this.ctrl.getNoeuds();
+        this.noeuds = this.ctrl.getNoeuds();
         this.listModel = new DefaultListModel<String>();
 
         for (Noeud n : noeuds) {
@@ -272,4 +275,33 @@ public class PanelNoeud extends JPanel implements KeyListener
     public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void mouseClicked(MouseEvent e) 
+    {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
 }
