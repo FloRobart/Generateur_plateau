@@ -38,10 +38,10 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         lblImgCarte = new javax.swing.JLabel();
         lblCartesWagon = new javax.swing.JLabel();
         txtMinJoueur = new javax.swing.JTextField();
-        txtMaxNbJoueur = new javax.swing.JTextField();
+        txtMaxJoueur = new javax.swing.JTextField();
         txtNbJoker = new javax.swing.JTextField();
         txtNbCarteParCoul = new javax.swing.JTextField();
-        txtPathImgCarteWagon = new javax.swing.JTextField();
+        //txtPathImgCarteWagon = new javax.swing.JTextField();
         btnPlusJoker = new javax.swing.JButton();
         btnCouleurs = new javax.swing.JButton();
         btnPoints = new javax.swing.JButton();
@@ -49,6 +49,9 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         btnPlusCoul = new javax.swing.JButton();
         btnMoinsJoker = new javax.swing.JButton();
         btnMoinsCoul = new javax.swing.JButton();
+<<<<<<< HEAD
+        jButtonCarteWagon = new javax.swing.JButton();
+=======
         btnParcourirImgWagon = new javax.swing.JButton();
         lblJetonsWagon = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,6 +69,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+>>>>>>> 1f3053a2903d8c508709f80dc993271e15e6dff3
 
         setBackground(new java.awt.Color(68, 71, 90));
 
@@ -83,10 +87,17 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         lblModif.setText("Modifier");
 
         lblMultiCoul.setForeground(new java.awt.Color(255, 255, 255));
+<<<<<<< HEAD
+        lblMultiCoul.setText("nb carte multicolore");
+
+        lblNbCarteParCoul.setForeground(new java.awt.Color(255, 255, 255));
+        lblNbCarteParCoul.setText("nb carte par couleur");
+=======
         lblMultiCoul.setText("multicouleurs");
 
         lblNbCarteParCoul.setForeground(new java.awt.Color(255, 255, 255));
         lblNbCarteParCoul.setText("par couleurs");
+>>>>>>> 1f3053a2903d8c508709f80dc993271e15e6dff3
 
         lblImgCarte.setForeground(new java.awt.Color(255, 255, 255));
         lblImgCarte.setText("image cartes");
@@ -105,13 +116,13 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        txtMaxNbJoueur.setBackground(new java.awt.Color(53, 55, 70));
-        txtMaxNbJoueur.setForeground(new java.awt.Color(255, 255, 255));
-        txtMaxNbJoueur.setText("Max");
-        txtMaxNbJoueur.setBorder(null);
-        txtMaxNbJoueur.addActionListener(new java.awt.event.ActionListener() {
+        txtMaxJoueur.setBackground(new java.awt.Color(53, 55, 70));
+        txtMaxJoueur.setForeground(new java.awt.Color(255, 255, 255));
+        txtMaxJoueur.setText("Max");
+        txtMaxJoueur.setBorder(null);
+        txtMaxJoueur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaxNbJoueurActionPerformed(evt);
+                txtMaxJoueurActionPerformed(evt);
             }
         });
 
@@ -135,7 +146,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        txtPathImgCarteWagon.setBackground(new java.awt.Color(53, 55, 70));
+        /*txtPathImgCarteWagon.setBackground(new java.awt.Color(53, 55, 70));
         txtPathImgCarteWagon.setForeground(new java.awt.Color(255, 255, 255));
         txtPathImgCarteWagon.setText("Parcourir");
         txtPathImgCarteWagon.setBorder(null);
@@ -143,7 +154,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPathImgCarteWagonActionPerformed(evt);
             }
-        });
+        });*/
 
         btnPlusJoker.setText("+");
         btnPlusJoker.setToolTipText("+");
@@ -207,44 +218,13 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
             }
         });
 
-        btnParcourirImgWagon.setBackground(new java.awt.Color(0, 0, 0));
-        btnParcourirImgWagon.setForeground(new java.awt.Color(255, 255, 255));
-        btnParcourirImgWagon.setText("...");
-        btnParcourirImgWagon.setBorder(null);
-        btnParcourirImgWagon.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCarteWagon.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonCarteWagon.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCarteWagon.setText("...");
+        jButtonCarteWagon.setBorder(null);
+        jButtonCarteWagon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnParcourirImgWagonActionPerformed(evt);
-            }
-        });
-
-        lblJetonsWagon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblJetonsWagon.setForeground(new java.awt.Color(255, 255, 255));
-        lblJetonsWagon.setText("JETONS WAGONS");
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("par couleurs");
-
-        txtJetonsPourFini.setForeground(new java.awt.Color(255, 255, 255));
-        txtJetonsPourFini.setText("pour fini le partie");
-
-        txtJetonsParCouleurs.setEditable(false);
-        txtJetonsParCouleurs.setBackground(new java.awt.Color(53, 55, 70));
-        txtJetonsParCouleurs.setForeground(new java.awt.Color(255, 255, 255));
-        txtJetonsParCouleurs.setText("10");
-        txtJetonsParCouleurs.setBorder(null);
-        txtJetonsParCouleurs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtJetonsParCouleursActionPerformed(evt);
-            }
-        });
-
-        txtJetonPourFini.setBackground(new java.awt.Color(53, 55, 70));
-        txtJetonPourFini.setForeground(new java.awt.Color(255, 255, 255));
-        txtJetonPourFini.setText("10");
-        txtJetonPourFini.setBorder(null);
-        txtJetonPourFini.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtJetonPourFiniActionPerformed(evt);
+                jButtonCarteWagonActionPerformed(evt);
             }
         });
 
@@ -320,7 +300,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNbJoueurs)
                     .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaxJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -367,7 +347,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                            
 
-    private void txtMaxNbJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void txtMaxJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
     }                                              
 
@@ -379,9 +359,9 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                                 
 
-    private void txtPathImgCarteWagonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    /*private void txtPathImgCarteWagonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }                                                    
+    }*/                                                   
 
     private void btnCouleursActionPerformed(java.awt.event.ActionEvent evt) 
 	{                                            
@@ -452,8 +432,8 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 			txtNbJoker.setText(Integer.toString(this.nbJoker));
 		}
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void jButtonCarteWagonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        new FrameCreerCarteJoueur (this.ctrl);
     }                                        
     private void txtJetonPourFiniActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
@@ -473,9 +453,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private javax.swing.JButton btnPlusCoul;
     private javax.swing.JButton btnPlusJoker;
     private javax.swing.JButton btnPoints;
-    private javax.swing.JButton btnParcourirImgWagon;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButtonCarteWagon;
     private javax.swing.JLabel lblCartesWagon;
     private javax.swing.JLabel lblImgCarte;
     private javax.swing.JLabel lblJetonsWagon;
@@ -484,12 +462,10 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private javax.swing.JLabel lblNbCarteParCoul;
     private javax.swing.JLabel lblNbJoueurs;
     private javax.swing.JLabel lblParamJeu;
-    private javax.swing.JTextField txtJetonPourFini;
-    private javax.swing.JTextField txtJetonsParCouleurs;
-    private javax.swing.JLabel txtJetonsPourFini;
-    private javax.swing.JTextField txtMaxNbJoueur;
+    private javax.swing.JTextField txtMaxJoueur;
     private javax.swing.JTextField txtMinJoueur;
     private javax.swing.JTextField txtNbCarteParCoul;
     private javax.swing.JTextField txtNbJoker;
-    private javax.swing.JTextField txtPathImgCarteWagon;    // End of variables declaration                   
+    //private javax.swing.JTextField txtPathImgCarteWagon;
+    // End of variables declaration                   
 }
