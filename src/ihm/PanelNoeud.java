@@ -61,7 +61,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         this.noeuds = this.ctrl.getNoeuds();
         this.listModel = new DefaultListModel<String>();
 
-        for (Noeud n : noeuds) {
+        for (Noeud n : this.noeuds) {
             ((DefaultListModel<String>) this.listModel).addElement(n.getNom());
         }
         

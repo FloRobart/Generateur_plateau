@@ -6,7 +6,9 @@ import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -16,13 +18,18 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+
+import controleur.Controleur;
+import metier.Arete;
 
 /*Avec la JList, il faudra utiliser le MouseListener avec MousePressed */
 
 public class PanelArrete extends JPanel implements KeyListener
 {
     
-    private JList<String>     listArretes;
+    private Controleur        ctrl;
+    private JList<String>     listAretes;
     
     private JComboBox<String> cbA;
     private JComboBox<String> cbB;
@@ -33,8 +40,15 @@ public class PanelArrete extends JPanel implements KeyListener
     private JButton           btnAjouter;
     private JButton           btnSupprimer;
 
-    public PanelArrete()
+    private Color             couleur1;
+    private Color             couleur2;
+
+    private ListModel<String> listModel;
+    private List<Arete>       aretes;
+
+    public PanelArrete(Controleur ctrl)
     {
+        this.ctrl = ctrl;
         this.setBackground(new Color(68, 71, 90));
         this.setLayout(new BorderLayout());
 
@@ -42,13 +56,19 @@ public class PanelArrete extends JPanel implements KeyListener
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
 
-        String[] data = {"arete 1", "arete 2", "arete 3", "arete 4", "arete 5", "arete 6", "arete 7", "arete 8", "arete 9", "arete 10"};
-        this.listArretes = new JList<String>(data);
+        this.aretes = this.ctrl.getAretes();
+        this.listModel = new DefaultListModel<String>();
 
-        this.listArretes.setBackground(new Color(58, 60, 76));
-        this.listArretes.setForeground(Color.WHITE);
+        for (Arete a : this.aretes) {
+            ((DefaultListModel<String>) this.listModel).addElement(a.getNoeud1().getNom() + "-" + a.getNoeud2().getNom());
+        }
+        
+        this.listAretes = new JList<String>(listModel);
 
-        JScrollPane scrollPane = new JScrollPane(this.listArretes);
+        this.listAretes.setBackground(new Color(58, 60, 76));
+        this.listAretes.setForeground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(this.listAretes);
         panelListe.add(scrollPane);
 
 
@@ -102,13 +122,13 @@ public class PanelArrete extends JPanel implements KeyListener
         this.btnCoul1 = new JButton("Couleur");
         add(this.btnCoul1);
         this.btnCoul1.addActionListener(e -> {
-            selectColor();
+            selectColor1();
         });
 
         this.btnCoul2 = new JButton("Couleur");
         add(this.btnCoul2);
         this.btnCoul2.addActionListener(e -> {
-            selectColor();
+            selectColor2();
         });
 
         layout.setAutoCreateGaps(true);
@@ -141,10 +161,16 @@ public class PanelArrete extends JPanel implements KeyListener
         this.btnAjouter = new JButton("Ajouter");
         this.btnAjouter.setBackground(new Color(58, 60, 76));
         this.btnAjouter.setForeground(Color.WHITE);
+        this.btnAjouter.addActionListener(e -> {
+            ajouterArete();
+        });
 
         this.btnSupprimer = new JButton("Supprimer");
         this.btnSupprimer.setBackground(new Color(58, 60, 76));
         this.btnSupprimer.setForeground(Color.WHITE);
+        this.btnSupprimer.addActionListener(e -> {
+            supprimerArete();
+        });
 
         panelBoutons.add(this.btnAjouter);
         panelBoutons.add(this.btnSupprimer);
@@ -157,11 +183,47 @@ public class PanelArrete extends JPanel implements KeyListener
             
     }
 
+    /**
+     * Methode permettant de supprimer une arete
+     */
+    private void supprimerArete() 
+    {
+        String nom1 = this.listModel.getElementAt(this.listAretes.getSelectedIndex());
+        String nom2 = this.listModel.getElementAt(this.listAretes.getSelectedIndex());
 
-    private void selectColor() 
+        this.ctrl.supprimerArete(nom1, nom2);
+
+        ((DefaultListModel<String>) this.listModel).removeElement(nom1 + "-" + nom2);
+    }     
+
+    /**
+     * Methode permettant d'ajouter une arete
+     */
+    private void ajouterArete() 
+    {
+        String nom1     = (String) this.cbA.getSelectedItem();
+        String nom2     = (String) this.cbB.getSelectedItem();
+        int    distance = Integer.parseInt(this.txtDistance.getText());
+
+        ((DefaultListModel<String>) this.listModel).addElement(nom1 + "-" + nom2);
+
+        if(this.couleur2 == null)
+            this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
+
+        this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
+
+    }
+
+
+    private void selectColor1() 
     {
         Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        System.out.println(color);
+        this.couleur1 = color;
+    }
+    private void selectColor2() 
+    {
+        Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
+        this.couleur2 = color;
     }
 
 

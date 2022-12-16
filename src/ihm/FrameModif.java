@@ -22,8 +22,8 @@ public class FrameModif extends JFrame
         this.panelNoeud = new PanelNoeud(ctrl);
         //this.add(this.panelNoeud);
 
-        this.panelArrete = new PanelArrete();
-        //this.add(this.panelArrete);
+        this.panelArrete = new PanelArrete(ctrl);
+        this.add(this.panelArrete);
 
         this.panelAjoutObjectif = new PanelAjoutObjectif(ctrl);
         //this.add(this.panelAjoutObjectif);

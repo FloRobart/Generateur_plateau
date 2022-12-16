@@ -74,7 +74,7 @@ public class Metier
 		this.noeuds.add(new Noeud("Mon noeud 4", 400, 300, 350, 250, Color.GREEN));
 		this.noeuds.add(new Noeud("Mon noeud 5", 800, 500, 750, 450, Color.ORANGE));
 
-		
+
 
 /*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2),  5, null));
@@ -521,6 +521,39 @@ public class Metier
 			if (this.noeuds.get(i).getNom().equals(nom))
 			{
 				this.noeuds.remove(i);
+				return;
+			}
+		}
+    }
+
+    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+	{
+		Noeud nA=null;
+		Noeud nB=null;
+
+		for (Noeud n : this.noeuds)
+		{
+			if (n.getNom().equals(nom1))
+			{
+				nA = n;
+			}
+
+			if(n.getNom().equals(nom2))
+			{
+				nB = n;
+			}
+		}
+
+		this.aretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
+    }
+
+    public void supprimerArete(String nom1, String nom2) 
+	{
+		for(Arete a : this.aretes)
+		{
+			if (a.getNoeud1().getNom().equals(nom1) && a.getNoeud2().getNom().equals(nom2))
+			{
+				this.aretes.remove(a);
 				return;
 			}
 		}

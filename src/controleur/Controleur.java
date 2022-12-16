@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import ihm.FramePlateau;
+import metier.Arete;
 //import metier.Metier;
 import metier.Metier;
 import metier.Noeud;
@@ -95,13 +96,33 @@ public class Controleur
 		this.metier.supprimerNoeud(nom);
     }
 
+	/**
+	 * Ajouter une arete
+	 * @param nom1 : nom du premier noeud
+	 * @param nom2 : nom du deuxième noeud
+	 * @param distance : nombre de tronçons
+	 * @param couleur1 : couleur de la voie
+	 * @param couleur2 : couleur de la deuxième voie si double voie
+	*/
+	public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+	{
+		this.metier.ajouterArete(nom1, nom2, distance, couleur1, couleur2);
+	}
+
+    public void supprimerArete(String nom1, String nom2) 
+	{
+		this.metier.supprimerArete(nom1, nom2);
+    }
+	
 	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
+	public List<Arete> getAretes() { return this.metier.getAretes();}
 
 	/**
 	 * Main
 	 * @param args : Tableau de String
 	 */
 	public static void main(String[] args) { new Controleur(); }
+	
     
     
 }
