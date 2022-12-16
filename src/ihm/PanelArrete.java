@@ -26,7 +26,8 @@ public class PanelArrete extends JPanel implements KeyListener
     
     private JComboBox<String> cbA;
     private JComboBox<String> cbB;
-    private JButton           btnCoul;
+    private JButton           btnCoul1;
+    private JButton           btnCoul2;
     private JTextField        txtDistance;
 
     private JButton           btnAjouter;
@@ -59,13 +60,16 @@ public class PanelArrete extends JPanel implements KeyListener
         GroupLayout layout = new GroupLayout(panelInfos);
         panelInfos.setLayout(layout);
 
-        JLabel lblNoeudA, lblNoeudB, lblCoul, lblDistance;
+        JLabel lblNoeudA, lblNoeudB, lblCoul1, lblCoul2, lblDistance;
         lblNoeudA = new JLabel("Noeud A");
         lblNoeudA.setForeground(Color.WHITE);
         lblNoeudB = new JLabel("Noeud B");
         lblNoeudB.setForeground(Color.WHITE);
-        lblCoul = new JLabel("Couleur");
-        lblCoul.setForeground(Color.WHITE);
+        lblCoul1 = new JLabel("Couleur1");
+        lblCoul1.setForeground(Color.WHITE);
+        lblCoul2 = new JLabel("Couleur2");
+        lblCoul2.setForeground(Color.WHITE);
+
         lblDistance = new JLabel("Distance");
         lblDistance.setForeground(Color.WHITE);
 
@@ -95,9 +99,15 @@ public class PanelArrete extends JPanel implements KeyListener
         cbA.setVisible(true);
         cbB.setVisible(true);
 
-        this.btnCoul = new JButton("Couleur");
-        add(this.btnCoul);
-        this.btnCoul.addActionListener(e -> {
+        this.btnCoul1 = new JButton("Couleur");
+        add(this.btnCoul1);
+        this.btnCoul1.addActionListener(e -> {
+            selectColor();
+        });
+
+        this.btnCoul2 = new JButton("Couleur");
+        add(this.btnCoul2);
+        this.btnCoul2.addActionListener(e -> {
             selectColor();
         });
 
@@ -107,10 +117,10 @@ public class PanelArrete extends JPanel implements KeyListener
         GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
 
         hGroup.addGroup(layout.createParallelGroup().
-                addComponent(lblNoeudA).addComponent(lblNoeudB).addComponent(lblCoul).addComponent(lblDistance));
+                addComponent(lblNoeudA).addComponent(lblNoeudB).addComponent(lblCoul1).addComponent(lblCoul2).addComponent(lblDistance));
         
         hGroup.addGroup(layout.createParallelGroup().
-                addComponent(cbA).addComponent(cbB).addComponent(this.btnCoul).addComponent(txtDistance));
+                addComponent(cbA).addComponent(cbB).addComponent(this.btnCoul1).addComponent(this.btnCoul2).addComponent(txtDistance));
 
         layout.setHorizontalGroup(hGroup);
 
@@ -118,7 +128,8 @@ public class PanelArrete extends JPanel implements KeyListener
 
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudA).addComponent(cbA));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudB).addComponent(cbB));
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblCoul).addComponent(this.btnCoul));
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblCoul1).addComponent(this.btnCoul1));
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblCoul2).addComponent(this.btnCoul2));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblDistance).addComponent(txtDistance));
 
         layout.setVerticalGroup(vGroup);
