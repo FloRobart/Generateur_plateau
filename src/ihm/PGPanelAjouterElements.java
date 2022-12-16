@@ -1,9 +1,6 @@
 package ihm;
 
-import java.awt.Color;
 
-import javax.swing.*;
-import java.awt.GridLayout;
 public class PGPanelAjouterElements extends javax.swing.JPanel {
 
 
@@ -15,7 +12,7 @@ public class PGPanelAjouterElements extends javax.swing.JPanel {
 
     private void dragAndDropSettings() 
     {
-        
+
     }
 
     /**
