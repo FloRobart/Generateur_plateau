@@ -29,7 +29,6 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
      */                    
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
         lblParamJeu = new javax.swing.JLabel();
         lblNbJoueurs = new javax.swing.JLabel();
         lblModif = new javax.swing.JLabel();
@@ -56,16 +55,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
         txtJetonsParCouleurs = new javax.swing.JTextField();
         txtJetonPourFini = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+
 
         setBackground(new java.awt.Color(68, 71, 90));
 
@@ -165,7 +155,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPoints.setBackground(new java.awt.Color(40, 42, 54));
         btnPoints.setForeground(new java.awt.Color(255, 255, 255));
-        btnPoints.setText("Objectifs");
+        btnPoints.setText("Points");
         btnPoints.setBorder(null);
         btnPoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +165,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnObjectifs.setBackground(new java.awt.Color(40, 42, 54));
         btnObjectifs.setForeground(new java.awt.Color(255, 255, 255));
-        btnObjectifs.setText("Points");
+        btnObjectifs.setText("Objectifs");
         btnObjectifs.setBorder(null);
         btnObjectifs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,7 +464,6 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
     private javax.swing.JButton btnPlusJoker;
     private javax.swing.JButton btnPoints;
     private javax.swing.JButton btnParcourirImgWagon;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblCartesWagon;
     private javax.swing.JLabel lblImgCarte;
