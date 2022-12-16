@@ -160,7 +160,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnPoints.setBackground(new java.awt.Color(40, 42, 54));
         btnPoints.setForeground(new java.awt.Color(255, 255, 255));
-        btnPoints.setText("Objectifs");
+        btnPoints.setText("Points");
         btnPoints.setBorder(null);
         btnPoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +170,7 @@ public class PGPanelParamJeu extends javax.swing.JPanel {
 
         btnObjectifs.setBackground(new java.awt.Color(40, 42, 54));
         btnObjectifs.setForeground(new java.awt.Color(255, 255, 255));
-        btnObjectifs.setText("Points");
+        btnObjectifs.setText("Objectifs");
         btnObjectifs.setBorder(null);
         btnObjectifs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
