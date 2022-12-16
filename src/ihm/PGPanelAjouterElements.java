@@ -1,7 +1,14 @@
 package ihm;
+import java.awt.dnd.*; //Drag and Drop pakcage
+import java.awt.dnd.DragGestureListener;
+import java.io.IOException;
 
+import javax.swing.Icon;
+import javax.swing.JLabel;
 
-public class PGPanelAjouterElements extends javax.swing.JPanel {
+import java.awt.datatransfer.*;
+public class PGPanelAjouterElements extends javax.swing.JPanel 
+{
 
 
     public PGPanelAjouterElements()
@@ -12,7 +19,9 @@ public class PGPanelAjouterElements extends javax.swing.JPanel {
 
     private void dragAndDropSettings() 
     {
-
+        DragSource ds = new DragSource();
+        MonDragGestureListener dlistener = new MonDragGestureListener();
+        ds.createDefaultDragGestureRecognizer(imgNoeud, DnDConstants.ACTION_COPY, dlistener);
     }
 
     /**
@@ -135,5 +144,36 @@ public class PGPanelAjouterElements extends javax.swing.JPanel {
     private javax.swing.JLabel lblArrete;
     private javax.swing.JLabel lblNoeud;
     private javax.swing.JLabel lblObjectif;
-    // End of variables declaration                   
+    // End of variables declaration       
+    class MonDragGestureListener implements DragGestureListener
+    {
+        public void dragGestureRecognized(DragGestureEvent event) 
+        {
+            JLabel label = (JLabel) event.getComponent();
+            final Icon ico = label.getIcon();
+
+
+            Transferable transferable = new Transferable() {
+                @Override
+                public DataFlavor[] getTransferDataFlavors() {
+                    return new DataFlavor[]{DataFlavor.imageFlavor};
+                }
+
+                @Override
+                public boolean isDataFlavorSupported(DataFlavor flavor) {
+                    if (!isDataFlavorSupported(flavor)) {
+                        return false;
+                    }
+                    return true;
+                }
+
+                @Override
+                public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+                    return ico;
+                }
+            };
+            event.startDrag(null, transferable);
+        }
+    }            
 }
+

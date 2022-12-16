@@ -1,17 +1,25 @@
 package ihm;
 
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
+import javax.swing.TransferHandler.TransferSupport;
 
 import controleur.Controleur;
+
 import metier.Arete;
 import metier.Metier;
 import metier.Noeud;
 
+import java.awt.datatransfer.*;
+import java.awt.dnd.*; 
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
@@ -22,13 +30,13 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
-
+import java.awt.Component;
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
     Controleur ctrl;
     JPanel panelPlateau;
     JLabel lblImagePlateau;
-
+    List<Noeud> lstNoeudOfIHM;
     private BufferedImage image;
 
     private double zoomFactor = 1;
@@ -44,13 +52,55 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
     public PanelPlateau(Controleur ctrl, BufferedImage image, int longueurFrame, int hauteurFrame)
     {
+        this.ctrl = ctrl;
+
+        lstNoeudOfIHM =  this.ctrl.getMetier().getNoeuds();
 
         this.image = image;
 		this.setBackground(new Color(255, 183, 110));
         initComponent();
-        this.ctrl = ctrl;
         this.lblImagePlateau = new JLabel("");
         this.add(lblImagePlateau);
+        
+        //Drag and Drop features
+        initTransferHandle();
+        new MonDropTargetListener(this);
+    }
+
+    private void initTransferHandle() 
+    {
+        TransferHandler dnd = new TransferHandler() {
+            @Override
+            public boolean canImport(TransferSupport support) {
+                if (!support.isDrop()) {
+                    return false;
+                }
+                //only Strings
+                if (!support.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean importData(TransferSupport support) {
+                if (!canImport(support)) {
+                    return false;
+                }
+
+                Transferable tansferable = support.getTransferable();
+                Icon ico;
+                try {
+                    ico = (Icon) tansferable.getTransferData(DataFlavor.imageFlavor);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                return true;
+            }
+        };
+
+        this.setTransferHandler(dnd);
     }
 
     public void setCouleur(Color color) {
@@ -120,13 +170,13 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         // All drawings go here
 
-        g2.drawImage(image, 0, 0, this);
+        g2.drawImage(image, (int)xOffset, (int)yOffset, this);
 
 
         Metier metier = this.ctrl.getMetier();
         g2.setFont(metier.getPolicePlateau());
 
-        for (Noeud noeud : metier.getNoeuds())
+        for (Noeud noeud : lstNoeudOfIHM)
         {
             g2.setColor(noeud.getCouleur());
             g2.fillOval(noeud.getX(), noeud.getY(), 10, 10);
@@ -208,4 +258,45 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
     @Override
     public void mouseExited(MouseEvent e){}
+
+    class MonDropTargetListener extends DropTargetAdapter
+    {
+        private DropTarget dropTarget;
+        private JPanel p;
+        public MonDropTargetListener (JPanel panel)
+        {
+            p = panel;
+            dropTarget = new DropTarget(panel, DnDConstants.ACTION_COPY, this, true, null);
+        }
+        @Override
+        public void drop(DropTargetDropEvent event) 
+        {
+            try {
+                DropTarget test = (DropTarget) event.getSource();
+                Component ca = (Component) test.getComponent();
+                Point dropPoint = ca.getMousePosition();
+                Transferable tr = event.getTransferable();
+    
+                if (event.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+                    Icon ico = (Icon) tr.getTransferData(DataFlavor.imageFlavor);
+    
+                    if (ico != null) {
+                        //TODO Action à faire quand on drop 
+                        int x, y;
+                        x = (int) event.getLocation().getX();
+                        y = (int) event.getLocation().getY();  
+                        lstNoeudOfIHM.add(new Noeud("Test Drop", x, y, x-10, y-10, Color.BLACK)) ;                 
+                        p.revalidate();
+                        p.repaint();
+                        event.dropComplete(true);
+                    }
+                } else {
+                    event.rejectDrop();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                event.rejectDrop();
+            }
+        }
+    }
 }
