@@ -138,13 +138,13 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         zoomer = true;
 
         //Zoom in
-        if (e.getWheelRotation() < 0) 
+        if (e.getWheelRotation() < 0 && zoomFactor < 3)
         {
             zoomFactor *= 1.1;
             repaint();
         }
         //Zoom out
-        if (e.getWheelRotation() > 0 && zoomFactor > 0.5) 
+        if (e.getWheelRotation() > 0 && zoomFactor > 0.5)
         {
             zoomFactor /= 1.1;
             repaint();
