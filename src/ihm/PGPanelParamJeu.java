@@ -438,6 +438,6 @@ public class PGPanelParamJeu extends JPanel
 
     private void jButton1ActionPerformed(ActionEvent e)
     {                                         
-        new FrameCreerCarteJoueur(this.ctrl);
+        //new FrameCreerCarteJoueur(this.ctrl);
     }
 }
