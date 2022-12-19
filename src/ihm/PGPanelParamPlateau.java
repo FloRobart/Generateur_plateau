@@ -42,12 +42,8 @@ public class PGPanelParamPlateau extends JPanel
     public PGPanelParamPlateau(Controleur ctrl)
     {
         this.ctrl = ctrl;
-        this.initComponents();
-    }
 
 
-    private void initComponents()
-    {
         this.lblParamPlateau   = new JLabel    ();
         this.lblDimension      = new JLabel    ();
         this.lblbImageFond     = new JLabel    ();
