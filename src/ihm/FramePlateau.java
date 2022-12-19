@@ -171,14 +171,20 @@ public class FramePlateau extends JFrame
 				JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
 			}
 		}
+	}
+
+	public void changerTheme(String theme)
+	{
 		
 	}
 
-	public void setCouleur(Color color) {
+	public void setCouleur(Color color)
+	{
 		this.panelPlateau.setCouleur(color);
 	}
 
-	public void setImageFond(BufferedImage img) {
+	public void setImageFond(BufferedImage img)
+	{
 		this.panelPlateau.setImageFond(img);
 	}
 

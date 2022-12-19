@@ -59,10 +59,11 @@ public class Controleur
         this.ihm = new FramePlateau(this);
     }
 
-    public void enregistrer    () { this.ihm.enregistrer (); }
-	public void enregistrerSous() { this.ihm.enregistrer (); }
+    public void enregistrer    ()                   { this.ihm.enregistrer (); }
+	public void enregistrerSous()                   { this.ihm.enregistrer (); }
     public void exporterSous   (String formatImage) { this.ihm.exporterSous(formatImage); }
-    public void frameDispose   () { this.ihm.dispose     (); }
+    public void frameDispose   ()                   { this.ihm.dispose     (); }
+	public void changerTheme   (String theme)       { this.ihm.changerTheme(theme); }
 
 
 	public void genererTxt(String type, String nomFichier)
