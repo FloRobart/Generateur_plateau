@@ -62,9 +62,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
-		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()+2];
-		this.idNomNoeudDrag = null;
-		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()+2];
+
 
         this.image = image;
 		this.setBackground(new Color(255, 183, 110));
@@ -182,7 +180,9 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         }
 
         // All drawings go here
-
+		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
+		this.idNomNoeudDrag = null;
+		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
         g2.drawImage(image, (int) xOffset, (int) yOffset, this);
 
         g2.setFont(this.ctrl.getPolicePlateau());
