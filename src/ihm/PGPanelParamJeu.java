@@ -50,7 +50,7 @@ public class PGPanelParamJeu extends JPanel
     public PGPanelParamJeu(Controleur ctrl)
     {
 		this.ctrl = ctrl;
-        initComponents();
+        this.initComponents();
     }
 
 
