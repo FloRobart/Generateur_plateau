@@ -16,6 +16,7 @@ import java.awt.dnd.*;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -37,10 +38,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     JLabel lblImagePlateau;
     List<Noeud> lstNoeudOfIHM;
 
-	private Ellipse2D[]   tabNoeud;
-	private Integer       idNoeudDrag;
-	private Rectangle2D[] tabNomNoeud;
-	private Integer       idNomNoeudDrag;
+	private List<Ellipse2D>   tabNoeud;
+	private Integer           idNoeudDrag;
+	private List<Rectangle2D> tabNomNoeud;
+	private Integer           idNomNoeudDrag;
 
     private BufferedImage image;
 
@@ -62,9 +63,9 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
-		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
+		this.tabNoeud = new ArrayList<Ellipse2D>();
 		this.idNomNoeudDrag = null;
-		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
+		this.tabNomNoeud = new ArrayList<Rectangle2D>();
 
         this.image = image;
 		this.setBackground(new Color(255, 183, 110));
@@ -209,7 +210,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             g2.setColor(noeud.getCouleur());
             g2.fillOval(midX-10, midY-10, 20, 20);
 
-			this.tabNoeud[i] = new Ellipse2D.Double(midX-12, midY-12, 24, 24);
+			this.tabNoeud.set(i, new Ellipse2D.Double(midX-12, midY-12, 24, 24));
 
 			g2.setColor(Color.WHITE);
 			g2.fillRect(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
@@ -217,10 +218,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			            noeud.getNom().length() * 6, 
 						14);
 
-			this.tabNomNoeud[i++] = new Rectangle2D.Double(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
+			this.tabNomNoeud.set(i++, new Rectangle2D.Double(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
 			                                               midY + noeud.getYNom() - 7, 
 			                                               noeud.getNom().length() * 6, 
-			                                               14);
+			                                               14));
 
 			g2.setColor(Color.BLACK);
             g2.drawString(noeud.getNom(), 
@@ -299,12 +300,12 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     {
 		if (SwingUtilities.isLeftMouseButton(e))
 		{
-			for (int i = 0 ; i < this.tabNoeud.length ; i++)
-				if (this.tabNoeud[i].contains(e.getPoint()))
+			for (int i = 0 ; i < this.tabNoeud.size() ; i++)
+				if (this.tabNoeud.get(i).contains(e.getPoint()))
 					this.idNoeudDrag = i;
 
-			for (int i = 0 ; i < this.tabNomNoeud.length ; i++)
-				if (this.tabNomNoeud[i].contains(e.getPoint()))
+			for (int i = 0 ; i < this.tabNomNoeud.size() ; i++)
+				if (this.tabNomNoeud.get(i).contains(e.getPoint()))
 					this.idNomNoeudDrag = i;
 		}
 
