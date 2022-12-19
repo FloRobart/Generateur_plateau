@@ -32,10 +32,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.Component;
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
-    Controleur ctrl;
-    JPanel panelPlateau;
-    JLabel lblImagePlateau;
-    List<Noeud> lstNoeudOfIHM;
+    private Controleur ctrl;
+    private JPanel panelPlateau;
+    private JLabel lblImagePlateau;
+    private List<Noeud> lstNoeudOfIHM;
 
 	private Ellipse2D[]   tabNoeud;
 	private Integer       idNoeudDrag;
@@ -62,9 +62,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
-		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
-		this.idNomNoeudDrag = null;
-		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
+
 
         this.image = image;
 		this.setBackground(new Color(255, 183, 110));
@@ -76,7 +74,9 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         initTransferHandle();
         new MonDropTargetListener(this);
     }
-
+    /**
+     * 
+     */
     private void initTransferHandle() 
     {
         TransferHandler dnd = new TransferHandler() {
@@ -180,6 +180,9 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         }
 
         // All drawings go here
+		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
+		this.idNomNoeudDrag = null;
+		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
 
         g2.drawImage(image, (int) xOffset, (int) yOffset, this);
 
