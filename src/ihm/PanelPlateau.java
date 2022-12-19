@@ -5,12 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
-import javax.swing.TransferHandler.TransferSupport;
 
 import controleur.Controleur;
 
 import metier.Arete;
-import metier.Metier;
 import metier.Noeud;
 
 import java.awt.datatransfer.*;
@@ -18,7 +16,6 @@ import java.awt.dnd.*;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -116,7 +113,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         this.setTransferHandler(dnd);
     }
 
-    public void setCouleur(Color color) {
+    public void setCouleur(Color color)
+    {
 		this.setBackground(color);
 	}
 
@@ -363,11 +361,11 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                     Icon ico = (Icon) tr.getTransferData(DataFlavor.imageFlavor);
     
                     if (ico != null) {
-                        //TODO Action à faire quand on drop 
+                        /* Action à faite quand on drop */
                         int x, y;
                         x = (int) event.getLocation().getX();
                         y = (int) event.getLocation().getY();  
-                        lstNoeudOfIHM.add(new Noeud("Test Drop", x, y, x-10, y-10, Color.BLACK)) ;                 
+                        lstNoeudOfIHM.add(new Noeud("Test Drop", x, y, x-10, y-10, Color.BLACK));                 
                         p.revalidate();
                         p.repaint();
                         event.dropComplete(true);

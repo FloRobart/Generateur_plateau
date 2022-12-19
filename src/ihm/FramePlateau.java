@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -173,10 +175,23 @@ public class FramePlateau extends JFrame
 		}
 	}
 
+
 	public void changerTheme(String theme)
 	{
-		
+		String fileName = "theme_" + theme + ".xml";
+		List<Color> lstColor = this.lireXML(fileName);
 	}
+
+	private List<Color> lireXML(String fileName)
+	{
+		List<Color> lstColor = new ArrayList<Color>();
+		String filePath = "./donnees/themes/" + fileName;
+
+
+
+		return lstColor;
+	}
+
 
 	public void setCouleur(Color color)
 	{

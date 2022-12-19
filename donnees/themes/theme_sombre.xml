@@ -1,0 +1,29 @@
+<theme name="sombre">
+    <plateau>
+        <titre>
+            <background> 49,  51, 63</background>
+            <foreground>255, 255, 255</foreground>
+        </titre>
+    </plateau>
+
+    <jeu>
+        <titre>
+            <background> 49,  51, 63</background>
+            <foreground>255, 255, 255</foreground>
+        </titre>
+    </jeu>
+
+    <ajouter>
+        <titre>
+            <background> 49,  51, 63</background>
+            <foreground>255, 255, 255</foreground>
+        </titre>
+    </ajouter>
+
+    <modifier>
+        <titre>
+            <background> 49,  51, 63</background>
+            <foreground>255, 255, 255</foreground>
+        </titre>
+    </modifier>
+</theme>

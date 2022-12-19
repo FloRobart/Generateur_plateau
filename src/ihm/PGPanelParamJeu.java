@@ -88,11 +88,11 @@ public class PGPanelParamJeu extends JPanel
         this.lblParamJeu.setText(" Parametre du jeu");
         this.lblParamJeu.setOpaque(true);
 
-        this.lblNbJoueurs.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        this.lblNbJoueurs.setFont(new Font("Segoe UI", 1, 12));
         this.lblNbJoueurs.setForeground(new Color(255, 255, 255));
         this.lblNbJoueurs.setText("Nombre de joueurs");
 
-        this.lblModif.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        this.lblModif.setFont(new Font("Segoe UI", 1, 12));
         this.lblModif.setForeground(new Color(255, 255, 255));
         this.lblModif.setText("Modifier");
 
@@ -105,7 +105,7 @@ public class PGPanelParamJeu extends JPanel
         this.lblImgCarte.setForeground(new Color(255, 255, 255));
         this.lblImgCarte.setText("image cartes");
 
-        this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12));
         this.lblCartesWagon.setForeground(new Color(255, 255, 255));
         this.lblCartesWagon.setText("Cartes wagon");
 
