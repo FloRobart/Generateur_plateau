@@ -2,6 +2,7 @@ package ihm;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -91,9 +92,9 @@ public class PGPanelParamPlateau extends JPanel
         this.txtX.setBorder           (null);
         this.txtX.setDisabledTextColor(new Color(255, 255, 255));
         this.txtX.setOpaque           (true);
-        this.txtX.addActionListener(new java.awt.event.ActionListener()
+        this.txtX.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 txtXActionPerformed(e);
             }
@@ -105,9 +106,9 @@ public class PGPanelParamPlateau extends JPanel
         this.txtY.setBorder(null);
         this.txtY.setDisabledTextColor(new Color(255, 255, 255));
         this.txtY.setOpaque(true);
-        this.txtY.addActionListener(new java.awt.event.ActionListener()
+        this.txtY.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 txtYActionPerformed(e);
             }
@@ -119,9 +120,9 @@ public class PGPanelParamPlateau extends JPanel
         this.txtPathImg.setBorder(null);
         this.txtPathImg.setDisabledTextColor(new Color(255, 255, 255));
         this.txtPathImg.setOpaque(true);
-        this.txtPathImg.addActionListener(new java.awt.event.ActionListener()
+        this.txtPathImg.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 txtPathImgActionPerformed(e);
             }
@@ -132,9 +133,9 @@ public class PGPanelParamPlateau extends JPanel
         this.btnParcourirImg.setText("...");
         this.btnParcourirImg.setBorder(null);
         this.btnParcourirImg.setOpaque(true);
-        this.btnParcourirImg.addActionListener(new java.awt.event.ActionListener()
+        this.btnParcourirImg.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 btnParcourirImgActionPerformed(e);
             }
@@ -145,9 +146,9 @@ public class PGPanelParamPlateau extends JPanel
         this.btnChoisirCouleur.setText("...");
         this.btnChoisirCouleur.setBorder(null);
         this.btnChoisirCouleur.setOpaque(true);
-        this.btnChoisirCouleur.addActionListener(new java.awt.event.ActionListener()
+        this.btnChoisirCouleur.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 btnChoisirCouleurActionPerformed(e);
             }
@@ -158,9 +159,9 @@ public class PGPanelParamPlateau extends JPanel
         this.btnChoisirFont.setText("...");
         this.btnChoisirFont.setBorder(null);
         this.btnChoisirFont.setOpaque(true);
-        this.btnChoisirFont.addActionListener(new java.awt.event.ActionListener()
+        this.btnChoisirFont.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 btnChoisirFontActionPerformed(e);
             }
@@ -177,9 +178,9 @@ public class PGPanelParamPlateau extends JPanel
         this.txtPathPolice.setBorder(null);
         this.txtPathPolice.setDisabledTextColor(new Color(255, 255, 255));
         this.txtPathPolice.setOpaque(true);
-        this.txtPathPolice.addActionListener(new java.awt.event.ActionListener()
+        this.txtPathPolice.addActionListener(new ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 txtPathPoliceActionPerformed(e);
             }
@@ -251,13 +252,13 @@ public class PGPanelParamPlateau extends JPanel
     }
 
 
-    private void txtXActionPerformed         (java.awt.event.ActionEvent e) {}
-    private void txtYActionPerformed         (java.awt.event.ActionEvent e) {}
-    private void txtPathImgActionPerformed   (java.awt.event.ActionEvent e) {}
-    private void txtPathPoliceActionPerformed(java.awt.event.ActionEvent e) {}
+    private void txtXActionPerformed         (ActionEvent e) {}
+    private void txtYActionPerformed         (ActionEvent e) {}
+    private void txtPathImgActionPerformed   (ActionEvent e) {}
+    private void txtPathPoliceActionPerformed(ActionEvent e) {}
 
 
-    private void btnParcourirImgActionPerformed(java.awt.event.ActionEvent e) 
+    private void btnParcourirImgActionPerformed(ActionEvent e) 
     {         
                                                
         String filePath = "";
@@ -284,14 +285,14 @@ public class PGPanelParamPlateau extends JPanel
         }
     }                                               
 
-    private void btnChoisirCouleurActionPerformed(java.awt.event.ActionEvent e)
+    private void btnChoisirCouleurActionPerformed(ActionEvent e)
     {
         Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
 		if (color != null) 
 		 	this.ctrl.setCouleur(color);
     }                                                 
 
-    private void btnChoisirFontActionPerformed(java.awt.event.ActionEvent e)
+    private void btnChoisirFontActionPerformed(ActionEvent e)
     {                                               
         JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
