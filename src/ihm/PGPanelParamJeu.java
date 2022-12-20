@@ -97,10 +97,10 @@ public class PGPanelParamJeu extends JPanel
         this.lblModif.setText("Modifier");
 
         this.lblMultiCoul.setForeground(new Color(255, 255, 255));
-        this.lblMultiCoul.setText(" multicouleurs");
+        this.lblMultiCoul.setText("multicouleurs");
 
         this.lblNbCarteParCoul.setForeground(new Color(255, 255, 255));
-        this.lblNbCarteParCoul.setText(" nb couleurs");
+        this.lblNbCarteParCoul.setText("nb couleurs");
 
         this.lblImgCarte.setForeground(new Color(255, 255, 255));
         this.lblImgCarte.setText("image cartes");
@@ -213,8 +213,11 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnPlusCoul.setText("+");
+        this.btnPlusCoul.setText("   +   ");
         this.btnPlusCoul.setToolTipText("+");
+        this.btnPlusCoul.setBorder(null);
+        this.btnPlusCoul.setBackground(new Color(40, 42, 54));
+        this.btnPlusCoul.setForeground(new Color(255, 255, 255));
         this.btnPlusCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -224,8 +227,11 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnMoinsJoker.setText("-");
+        this.btnMoinsJoker.setText("   -   ");
         this.btnMoinsJoker.setToolTipText("+");
+        this.btnMoinsJoker.setBorder(null);
+        this.btnMoinsJoker.setBackground(new Color(40, 42, 54));
+        this.btnMoinsJoker.setForeground(new Color(255, 255, 255));
         this.btnMoinsJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -235,8 +241,11 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnPlusJoker.setText("+");
+        this.btnPlusJoker.setText("   +   ");
         this.btnPlusJoker.setToolTipText("+");
+        this.btnPlusJoker.setBorder(null);
+        this.btnPlusJoker.setBackground(new Color(40, 42, 54));
+        this.btnPlusJoker.setForeground(new Color(255, 255, 255));
         this.btnPlusJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -246,8 +255,11 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnMoinsCoul.setText("-");
+        this.btnMoinsCoul.setText("   -   ");
         this.btnMoinsCoul.setToolTipText("+");
+        this.btnMoinsCoul.setBorder(null);
+        this.btnMoinsCoul.setBackground(new Color(40, 42, 54));
+        this.btnMoinsCoul.setForeground(new Color(255, 255, 255));
         this.btnMoinsCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -257,7 +269,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.jButton1.setBackground(new Color(0, 0, 0));
+        this.jButton1.setBackground(new Color(40, 42, 54));
         this.jButton1.setForeground(new Color(255, 255, 255));
         this.jButton1.setText("...");
         this.jButton1.setBorder(null);

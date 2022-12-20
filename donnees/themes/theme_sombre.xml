@@ -75,7 +75,7 @@
         </saisie>
         <bottun>
             <foreground red="255" green="255" blue="255"></foreground>
-            <background red="0" green="0" blue="0"></background>
+            <background red="40" green="42" blue="54"></background>
         </bottun>
     </modifier>
 </theme>

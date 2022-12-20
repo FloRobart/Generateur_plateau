@@ -63,7 +63,7 @@ public class PGPanelParamPlateau extends JPanel
 
         this.lblParamPlateau.setBackground(new Color( 49,  51,  63));
         this.lblParamPlateau.setForeground(new Color(255, 255, 255));
-        this.lblParamPlateau.setText      ("Parametre du Plateau");
+        this.lblParamPlateau.setText      (" Parametre du Plateau");
         this.lblParamPlateau.setOpaque    (true);
 
         this.lblDimension.setBackground(new Color(73, 81, 99));
@@ -116,7 +116,7 @@ public class PGPanelParamPlateau extends JPanel
 
         this.txtPathImg.setBackground(new Color(47, 49, 63));
         this.txtPathImg.setForeground(new Color(255, 255, 255));
-        this.txtPathImg.setText(" Parcourir");
+        this.txtPathImg.setText("Parcourir");
         this.txtPathImg.setBorder(null);
         this.txtPathImg.setDisabledTextColor(new Color(255, 255, 255));
         this.txtPathImg.setOpaque(true);
@@ -128,7 +128,7 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.btnParcourirImg.setBackground(new Color(0, 0, 0));
+        this.btnParcourirImg.setBackground(new Color(40, 42, 54));
         this.btnParcourirImg.setForeground(new Color(255, 255, 255));
         this.btnParcourirImg.setText("...");
         this.btnParcourirImg.setBorder(null);
@@ -141,7 +141,7 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.btnChoisirCouleur.setBackground(new Color(0, 0, 0));
+        this.btnChoisirCouleur.setBackground(new Color(40, 42, 54));
         this.btnChoisirCouleur.setForeground(new Color(255, 255, 255));
         this.btnChoisirCouleur.setText("...");
         this.btnChoisirCouleur.setBorder(null);
@@ -154,7 +154,7 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.btnChoisirFont.setBackground(new Color(0, 0, 0));
+        this.btnChoisirFont.setBackground(new Color(40, 42, 54));
         this.btnChoisirFont.setForeground(new Color(255, 255, 255));
         this.btnChoisirFont.setText("...");
         this.btnChoisirFont.setBorder(null);
