@@ -174,7 +174,7 @@ public class PGPanelParamPlateau extends JPanel
 
         this.txtPathPolice.setBackground(new Color(47, 49, 63));
         this.txtPathPolice.setForeground(new Color(255, 255, 255));
-        this.txtPathPolice.setText(" Parcourir");
+        this.txtPathPolice.setText("Parcourir");
         this.txtPathPolice.setBorder(null);
         this.txtPathPolice.setDisabledTextColor(new Color(255, 255, 255));
         this.txtPathPolice.setOpaque(true);

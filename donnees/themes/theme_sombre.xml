@@ -1,81 +1,19 @@
 <theme name="sombre">
-    <plateau>
-        <background red="68" green="71" blue="90"></background>
-        <title>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="49" green="51" blue="63"></background>
-        </title>
-        <label>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="73" green="81" blue="99"></background>
-        </label>
-        <saisie>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="47" green="49" blue="63"></background>
-        </saisie>
-        <bottun>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="0" green="0" blue="0"></background>
-        </bottun>
-    </plateau>
-
-    <jeu>
-        <background red="68" green="71" blue="90"></background>
-        <title>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="49" green="51" blue="63"></background>
-        </title>
-        <label>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="73" green="81" blue="99"></background>
-        </label>
-        <saisie>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="47" green="49" blue="63"></background>
-        </saisie>
-        <bottun>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="0" green="0" blue="0"></background>
-        </bottun>
-    </jeu>
-
-    <ajouter>
-        <background red="68" green="71" blue="90"></background>
-        <title>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="49" green="51" blue="63"></background>
-        </title>
-        <label>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="73" green="81" blue="99"></background>
-        </label>
-        <saisie>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="47" green="49" blue="63"></background>
-        </saisie>
-        <bottun>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="0" green="0" blue="0"></background>
-        </bottun>
-    </ajouter>
-
-    <modifier>
-        <background red="68" green="71" blue="90"></background>
-        <title>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="49" green="51" blue="63"></background>
-        </title>
-        <label>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="73" green="81" blue="99"></background>
-        </label>
-        <saisie>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="47" green="49" blue="63"></background>
-        </saisie>
-        <bottun>
-            <foreground red="255" green="255" blue="255"></foreground>
-            <background red="40" green="42" blue="54"></background>
-        </bottun>
-    </modifier>
+    <background red="68" green="71" blue="90"></background>
+    <titles>
+        <foreground red="255" green="255" blue="255"></foreground>
+        <background red="49" green="51" blue="63"></background>
+    </titles>
+    <labels>
+        <foreground red="255" green="255" blue="255"></foreground>
+        <background red="73" green="81" blue="99"></background>
+    </labels>
+    <saisies>
+        <foreground red="255" green="255" blue="255"></foreground>
+        <background red="47" green="49" blue="63"></background>
+    </saisies>
+    <bottuns>
+        <foreground red="255" green="255" blue="255"></foreground>
+        <background red="0" green="0" blue="0"></background>
+    </bottuns>
 </theme>
