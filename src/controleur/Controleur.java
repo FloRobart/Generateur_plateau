@@ -2,6 +2,7 @@ package controleur;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import ihm.FramePlateau;
@@ -65,6 +66,11 @@ public class Controleur
     public void frameDispose   ()                   { this.ihm.dispose     (); }
 	public void changerTheme   (String theme)       { this.ihm.changerTheme(theme); }
 
+
+	public HashMap<String, List<Color>> getTheme()
+	{
+		return this.metier.getTheme();
+	}
 
 	public void genererTxt(String type, String nomFichier)
 	{

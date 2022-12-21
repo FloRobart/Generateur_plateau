@@ -79,7 +79,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
      */
     private void initTransferHandle() 
     {
-        TransferHandler dnd = new TransferHandler() {
+        TransferHandler dnd = new TransferHandler()
+        {
             @Override
             public boolean canImport(TransferSupport support) {
                 if (!support.isDrop()) {

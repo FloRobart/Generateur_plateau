@@ -6,6 +6,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -41,8 +43,12 @@ public class MenuBarre extends JMenuBar implements ActionListener
 	public MenuBarre(Controleur ctrl) 
 	{
 		this.ctrl = ctrl;
-		this.setBackground(new Color(252, 160, 66));
-		
+		Color foregroundColor = this.ctrl.getTheme().get("menuBar").get(0);
+		Color backgroundColor = this.ctrl.getTheme().get("menuBar").get(1);
+		this.setBackground(backgroundColor);
+		this.setForeground(foregroundColor);
+
+
 		/*=========================*/
 		/* Création des composants */
 		/*=========================*/
@@ -51,52 +57,93 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		/*---------*/
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic('F');
+		menuFichier.setForeground(foregroundColor);
+		menuFichier.setBackground(backgroundColor);
 
 		/* Nouveau */
 		this.menuiFichierNouveau = new JMenuItem("Nouveau");
 		this.menuiFichierNouveau.setMnemonic('N');
+		this.menuiFichierNouveau.setBackground(backgroundColor);
+		this.menuiFichierNouveau.setForeground(foregroundColor);
 
 		/* Ouvrir */
 		this.menuiFichierOuvrir = new JMenuItem("Ouvrir");
 		this.menuiFichierOuvrir.setMnemonic('O');
+		this.menuiFichierOuvrir.setBackground(backgroundColor);
+		this.menuiFichierOuvrir.setForeground(foregroundColor);
 
 		/* Enregistrer */
 		this.menuiFichierEnregistrer = new JMenuItem("Enregistrer");
 		this.menuiFichierEnregistrer.setMnemonic('S');
+		this.menuiFichierEnregistrer.setBackground(backgroundColor);
+		this.menuiFichierEnregistrer.setForeground(foregroundColor);
 
 		/* Enregistrer sous */
 		this.menuiFichierEnregistrerSous = new JMenuItem("Enregistrer Sous");
 		this.menuiFichierEnregistrerSous.setMnemonic('S');
+		this.menuiFichierEnregistrerSous.setBackground(backgroundColor);
+		this.menuiFichierEnregistrerSous.setForeground(foregroundColor);
 
 		/* Exporter */
 		JMenu menuExporterSous = new JMenu("Exporter");
+		menuExporterSous.setOpaque(true);
 		menuExporterSous.setMnemonic('E');
+		menuExporterSous.setBackground(backgroundColor);
+		menuExporterSous.setForeground(foregroundColor);
+
 
 		this.menuiFichierExporterSousGif  = new JMenuItem("gif");
+		this.menuiFichierExporterSousGif.setBackground(backgroundColor);
+		this.menuiFichierExporterSousGif.setForeground(foregroundColor);
+
 		this.menuiFichierExporterSousPng  = new JMenuItem("png");
+		this.menuiFichierExporterSousPng.setBackground(backgroundColor);
+		this.menuiFichierExporterSousPng.setForeground(foregroundColor);
+
 		this.menuiFichierExporterSousJpeg = new JMenuItem("jpeg");
+		this.menuiFichierExporterSousJpeg.setBackground(backgroundColor);
+		this.menuiFichierExporterSousJpeg.setForeground(foregroundColor);
+
 		this.menuiFichierExporterSousJpg  = new JMenuItem("jpg");
+		this.menuiFichierExporterSousJpg.setBackground(backgroundColor);
+		this.menuiFichierExporterSousJpg.setForeground(foregroundColor);
 
 		/* Fermer */
 		this.menuiFichierFermer = new JMenuItem("Fermer");
 		this.menuiFichierFermer.setMnemonic('W');
+		this.menuiFichierFermer.setBackground(backgroundColor);
+		this.menuiFichierFermer.setForeground(foregroundColor);
 
 		/*------------*/
 		/* Préférence */
 		/*------------*/
 		JMenu menuPreferences = new JMenu("Préférences");
-		menuFichier.setMnemonic('P');
+		menuPreferences.setMnemonic('P');
+		menuPreferences.setForeground(foregroundColor);
+		menuPreferences.setBackground(backgroundColor);
 
 		this.menuiPreferencesThemes       = new JMenu    ("Thèmes ");
-		this.menuiPreferencesThemesClair  = new JMenuItem("Clair" );
-		this.menuiPreferencesThemesSombre = new JMenuItem("Sombre");
+		this.menuiPreferencesThemes      .setOpaque(true);
+		this.menuiPreferencesThemes      .setForeground(foregroundColor);
+		this.menuiPreferencesThemes      .setBackground(backgroundColor);
 
+		this.menuiPreferencesThemesClair  = new JMenuItem("Clair" );
+		this.menuiPreferencesThemesClair .setForeground(foregroundColor);
+		this.menuiPreferencesThemesClair .setBackground(backgroundColor);
+
+		this.menuiPreferencesThemesSombre = new JMenuItem("Sombre");
+		this.menuiPreferencesThemesSombre.setForeground(foregroundColor);
+		this.menuiPreferencesThemesSombre.setBackground(backgroundColor);
 
 		/*------*/
 		/* Aide */
 		/*------*/
 		JMenu menuAide = new JMenu("Aide");
-		menuFichier.setMnemonic('A');
+		menuAide.setMnemonic('A');
+		menuAide.setForeground(foregroundColor);
+		menuAide.setBackground(backgroundColor);
+
+
 
 		/*===============================*/
 		/* Positionnement des composants */

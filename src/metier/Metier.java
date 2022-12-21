@@ -92,7 +92,7 @@ public class Metier
 */
 
 		String themeUsed = this.themeUsed();
-		this.AppliquerThemes(themeUsed);
+		this.chargerThemes(themeUsed);
 	}
 
 	public Metier(File fichier)
@@ -117,7 +117,7 @@ public class Metier
 		return themeUsed;
 	}
 
-	public void AppliquerThemes(String theme)
+	public HashMap<String, List<Color>> chargerThemes(String theme)
 	{
 		SAXBuilder sxb = new SAXBuilder();
 
@@ -136,62 +136,29 @@ public class Metier
 			this.hmColorThemes.put("background", lst);
 			
 
-			/*--------*/
-			/* Titres */
-			/*--------*/
-			Element background = racine.getChild("titles").getChild("background");
-			Element foreground = racine.getChild("titles").getChild("foreground");
+			/*------------------------------------------*/
+			/* Récupération de tout les autres éléments */
+			/*------------------------------------------*/
+			String[] lstCles = new String[] {"titles", "labels", "saisies", "bottuns", "menuBar"};
+			for (int i = 0; i < lstCles.length; i++)
+			{
+				Element foreground = racine.getChild(lstCles[i]).getChild("foreground");
+				Element background = racine.getChild(lstCles[i]).getChild("background");
 
-			lst.removeAll(lst);
-			lst.add(new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
-			lst.add(new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
+				lst.removeAll(lst);
+				lst.add(0, new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
+				lst.add(1, new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
 
-			this.hmColorThemes.put("titles", lst);
-
-
-			/*--------*/
-			/* Labels */
-			/*--------*/
-			background = racine.getChild("labels").getChild("background");
-			foreground = racine.getChild("labels").getChild("foreground");
-
-			lst.removeAll(lst);
-			lst.add(new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
-			lst.add(new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
-
-			this.hmColorThemes.put("labels", lst);
-
-
-			/*---------*/
-			/* saisies */
-			/*---------*/
-			background = racine.getChild("saisies").getChild("background");
-			foreground = racine.getChild("saisies").getChild("foreground");
-
-			lst.removeAll(lst);
-			lst.add(new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
-			lst.add(new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
-
-			this.hmColorThemes.put("saisies", lst);
-
-
-			/*---------*/
-			/* Bottuns */
-			/*---------*/
-			background = racine.getChild("bottuns").getChild("background");
-			foreground = racine.getChild("bottuns").getChild("foreground");
-
-			lst.removeAll(lst);
-			lst.add(new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
-			lst.add(new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
-
-			this.hmColorThemes.put("bottuns", lst);
+				this.hmColorThemes.put(lstCles[i], lst);
+			}
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 			System.out.println("Erreur lors de la lecture du fichier XML des informations du theme");
 		}
+
+		return this.hmColorThemes;
 	}
 
 
@@ -214,7 +181,7 @@ public class Metier
 	public List<CarteObjectif>          getCarteObjectif       () { return this.carteObjectif;        }
 	public List<Noeud>                  getNoeuds              () { return this.noeuds;               }
 	public List<Arete>                  getAretes              () { return this.aretes;               }
-	public HashMap<String, List<Color>> getThemes              () { return this.hmColorThemes;        }
+	public HashMap<String, List<Color>> getTheme               () { return this.hmColorThemes;        }
 
 	public void setPositionNoeud(int id, int x, int y)
 	{

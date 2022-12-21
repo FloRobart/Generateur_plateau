@@ -43,6 +43,14 @@ public class PGPanelParamPlateau extends JPanel
     public PGPanelParamPlateau(Controleur ctrl)
     {
         this.ctrl = ctrl;
+        Color titleForeColor = this.ctrl.getTheme().get("titles" ).get(0);
+		Color titleBackColor = this.ctrl.getTheme().get("titles" ).get(1);
+        Color labelForeColor = this.ctrl.getTheme().get("labels" ).get(0);
+		Color labelBackColor = this.ctrl.getTheme().get("labels" ).get(1);
+        Color saisiForeColor = this.ctrl.getTheme().get("saisies").get(0);
+		Color saisiBackColor = this.ctrl.getTheme().get("saisies").get(1);
+        Color btnForeColor   = this.ctrl.getTheme().get("bottuns").get(0);
+		Color btnBackColor   = this.ctrl.getTheme().get("bottuns").get(1);
 
 
         this.lblParamPlateau   = new JLabel    ();
