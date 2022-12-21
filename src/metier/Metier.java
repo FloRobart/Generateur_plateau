@@ -91,7 +91,7 @@ public class Metier
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15, null));
 */
 
-		String themeUsed = this.themeUsed();
+		String themeUsed = this.getThemeUsed();
 		this.chargerThemes(themeUsed);
 	}
 
@@ -103,7 +103,7 @@ public class Metier
 	}
 
 
-	public String themeUsed()
+	public String getThemeUsed()
 	{
 		String themeUsed = "";
 		SAXBuilder sxb = new SAXBuilder();
@@ -182,6 +182,18 @@ public class Metier
 	public List<Arete>                  getAretes              () { return this.aretes;               }
 	public HashMap<String, List<Color>> getTheme               () { return this.hmColorThemes;        }
 
+
+	public void setThemeUsed(String theme)
+	{
+		try
+		{
+			
+		}
+		catch (Exception e) { e.printStackTrace(); System.out.println("Erreur lors de l'écriture du fichier XML du themes utilisé"); }
+
+		this.chargerThemes(theme);
+	}
+
 	public void setPositionNoeud(int id, int x, int y)
 	{
 		this.noeuds.get(id).setXY(x, y);
@@ -196,7 +208,8 @@ public class Metier
 	{
 		SAXBuilder sxb = new SAXBuilder();
 
-		try {
+		try
+		{
 			Document document = sxb.build(fichier);
 
 			/* <jeu> */

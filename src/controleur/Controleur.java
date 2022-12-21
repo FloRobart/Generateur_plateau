@@ -64,8 +64,15 @@ public class Controleur
 	public void enregistrerSous()                   { this.ihm.enregistrer (); }
     public void exporterSous   (String formatImage) { this.ihm.exporterSous(formatImage); }
     public void frameDispose   ()                   { this.ihm.dispose     (); }
-	public void changerTheme   (String theme)       { this.ihm.changerTheme(theme); }
-
+	
+	
+	public void changerTheme(String theme)
+	{
+		/* Changer le thème utilisé dans le fichier theme_sauvegarde.xml ET charger en mémoire le nouveau thème */
+		this.metier.setThemeUsed(theme);
+		
+		// mettre l'ihm à jour
+	}
 
 	public HashMap<String, List<Color>> getTheme()
 	{

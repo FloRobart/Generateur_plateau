@@ -245,6 +245,9 @@ public class MenuBarre extends JMenuBar implements ActionListener
 
 			if (e.getSource() == this.menuiPreferencesThemesClair)
 				this.ctrl.changerTheme("clair");
+			
+			if (e.getSource() == this.menuiPreferencesThemesSombre)
+				this.ctrl.changerTheme("sombre");
 		}
 	}
 }
