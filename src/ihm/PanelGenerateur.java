@@ -22,7 +22,7 @@ public class PanelGenerateur extends JPanel
     {
         this.pGPanelParamPlateau    = new PGPanelParamPlateau(ctrl);
         this.pGPanelParamJeu        = new PGPanelParamJeu(ctrl);
-        this.pGPanelAjouterElements = new PGPanelAjouterElements();
+        this.pGPanelAjouterElements = new PGPanelAjouterElements(ctrl);
         this.pGPanelModifier        = new PGPanelModifier();
 
 

@@ -132,9 +132,8 @@ public class Metier
 
 			List<Color> lst = new ArrayList<Color>();
 			lst.add(new Color(Integer.parseInt(bkg.getAttributeValue("red")), Integer.parseInt(bkg.getAttributeValue("green")), Integer.parseInt(bkg.getAttributeValue("blue"))));
-
 			this.hmColorThemes.put("background", lst);
-			
+
 
 			/*------------------------------------------*/
 			/* Récupération de tout les autres éléments */
@@ -142,10 +141,10 @@ public class Metier
 			String[] lstCles = new String[] {"titles", "labels", "saisies", "bottuns", "menuBar"};
 			for (int i = 0; i < lstCles.length; i++)
 			{
+				lst = new ArrayList<Color>();
 				Element foreground = racine.getChild(lstCles[i]).getChild("foreground");
 				Element background = racine.getChild(lstCles[i]).getChild("background");
 
-				lst.removeAll(lst);
 				lst.add(0, new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
 				lst.add(1, new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
 

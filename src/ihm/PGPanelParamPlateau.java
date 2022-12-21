@@ -43,14 +43,15 @@ public class PGPanelParamPlateau extends JPanel
     public PGPanelParamPlateau(Controleur ctrl)
     {
         this.ctrl = ctrl;
-        Color titleForeColor = this.ctrl.getTheme().get("titles" ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles" ).get(1);
-        Color labelForeColor = this.ctrl.getTheme().get("labels" ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels" ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies").get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies").get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns").get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns").get(1);
+        Color background     = this.ctrl.getTheme().get("background").get(0);
+        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
+		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
+        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
+		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
+        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
+		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
+        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
+		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
 
 
         this.lblParamPlateau   = new JLabel    ();
@@ -58,47 +59,53 @@ public class PGPanelParamPlateau extends JPanel
         this.lblbImageFond     = new JLabel    ();
         this.lblCouleurFond    = new JLabel    ();
         this.lblPolice         = new JLabel    ();
+        this.lblCouleurCourant = new JLabel    ();
         this.txtX              = new JTextField();
         this.txtY              = new JTextField();
         this.txtPathImg        = new JTextField();
+        this.txtPathPolice     = new JTextField();
         this.btnParcourirImg   = new JButton   ();
         this.btnChoisirCouleur = new JButton   ();
         this.btnChoisirFont    = new JButton   ();
-        this.lblCouleurCourant = new JLabel    ();
-        this.txtPathPolice     = new JTextField();
 
-        setBackground(new Color(68, 71, 90));
+        this.setBackground(background);
 
-        this.lblParamPlateau.setBackground(new Color( 49,  51,  63));
-        this.lblParamPlateau.setForeground(new Color(255, 255, 255));
+        /* Titre (Parametre du Plateau) */
+        this.lblParamPlateau.setBackground(titleBackColor);
+        this.lblParamPlateau.setForeground(titleForeColor);
         this.lblParamPlateau.setText      (" Parametre du Plateau");
         this.lblParamPlateau.setOpaque    (true);
 
-        this.lblDimension.setBackground(new Color(73, 81, 99));
+        /* Dimension */
+        this.lblDimension.setBackground(labelBackColor);
+        this.lblDimension.setForeground(labelForeColor);
         this.lblDimension.setFont      (new Font("Segoe UI", 1, 12));
-        this.lblDimension.setForeground(new Color(255, 255, 255));
         this.lblDimension.setText      ("Dimension");
 
-        this.lblbImageFond.setBackground(new Color(73, 81, 99));
+        /* Image de fond */
+        this.lblbImageFond.setBackground(labelBackColor);
+        this.lblbImageFond.setForeground(labelForeColor);
         this.lblbImageFond.setFont      (new Font("Segoe UI", 1, 12));
-        this.lblbImageFond.setForeground(new Color(255, 255, 255));
         this.lblbImageFond.setText      ("Image Fond");
 
-        this.lblCouleurFond.setBackground(new Color(47, 49, 63));
+        /* Couleur de fond */
+        this.lblCouleurFond.setBackground(labelBackColor);
+        this.lblCouleurFond.setForeground(labelForeColor);
         this.lblCouleurFond.setFont      (new Font("Segoe UI", 1, 12));
-        this.lblCouleurFond.setForeground(new Color(255, 255, 255));
         this.lblCouleurFond.setText      ("Couleur de fond");
 
-        this.lblPolice.setBackground(new Color(73, 81, 99));
+        /* Police d'écriture */
+        this.lblPolice.setBackground(labelBackColor);
+        this.lblPolice.setForeground(labelForeColor);
         this.lblPolice.setFont      (new Font("Segoe UI", 1, 12));
-        this.lblPolice.setForeground(new Color(255, 255, 255));
         this.lblPolice.setText      ("Police d'écriture");
 
-        this.txtX.setBackground       (new Color(47, 49, 63));
-        this.txtX.setForeground       (new Color(255, 255, 255));
+        /* Zone de saisie X */
+        this.txtX.setBackground       (saisiBackColor);
+        this.txtX.setForeground       (saisiForeColor);
+        this.txtX.setDisabledTextColor(new Color(255, 0, 0));
         this.txtX.setText             (" X:");
         this.txtX.setBorder           (null);
-        this.txtX.setDisabledTextColor(new Color(255, 255, 255));
         this.txtX.setOpaque           (true);
         this.txtX.addActionListener(new ActionListener()
         {
@@ -108,11 +115,12 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.txtY.setBackground(new Color(47, 49, 63));
-        this.txtY.setForeground(new Color(255, 255, 255));
+        /* Zone de saisie Y */
+        this.txtY.setBackground(saisiBackColor);
+        this.txtY.setForeground(saisiForeColor);
+        this.txtY.setDisabledTextColor(new Color(255, 0, 0));
         this.txtY.setText(" Y:");
         this.txtY.setBorder(null);
-        this.txtY.setDisabledTextColor(new Color(255, 255, 255));
         this.txtY.setOpaque(true);
         this.txtY.addActionListener(new ActionListener()
         {
@@ -122,11 +130,12 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.txtPathImg.setBackground(new Color(47, 49, 63));
-        this.txtPathImg.setForeground(new Color(255, 255, 255));
+        /* Zone de saisie d'image */
+        this.txtPathImg.setBackground(saisiBackColor);
+        this.txtPathImg.setForeground(saisiForeColor);
+        this.txtPathImg.setDisabledTextColor(new Color(255, 0, 0));
         this.txtPathImg.setText("Parcourir");
         this.txtPathImg.setBorder(null);
-        this.txtPathImg.setDisabledTextColor(new Color(255, 255, 255));
         this.txtPathImg.setOpaque(true);
         this.txtPathImg.addActionListener(new ActionListener()
         {
@@ -136,8 +145,9 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.btnParcourirImg.setBackground(new Color(40, 42, 54));
-        this.btnParcourirImg.setForeground(new Color(255, 255, 255));
+        /* Bouton parcourir image */
+        this.btnParcourirImg.setBackground(btnBackColor);
+        this.btnParcourirImg.setForeground(btnForeColor);
         this.btnParcourirImg.setText("...");
         this.btnParcourirImg.setBorder(null);
         this.btnParcourirImg.setOpaque(true);
@@ -149,8 +159,9 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.btnChoisirCouleur.setBackground(new Color(40, 42, 54));
-        this.btnChoisirCouleur.setForeground(new Color(255, 255, 255));
+        /* Bouton de choix de la couleur */
+        this.btnChoisirCouleur.setBackground(btnBackColor);
+        this.btnChoisirCouleur.setForeground(btnForeColor);
         this.btnChoisirCouleur.setText("...");
         this.btnChoisirCouleur.setBorder(null);
         this.btnChoisirCouleur.setOpaque(true);
@@ -162,8 +173,9 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.btnChoisirFont.setBackground(new Color(40, 42, 54));
-        this.btnChoisirFont.setForeground(new Color(255, 255, 255));
+        /* Bouton de choix de la police */
+        this.btnChoisirFont.setBackground(btnBackColor);
+        this.btnChoisirFont.setForeground(btnForeColor);
         this.btnChoisirFont.setText("...");
         this.btnChoisirFont.setBorder(null);
         this.btnChoisirFont.setOpaque(true);
@@ -175,16 +187,18 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        this.lblCouleurCourant.setBackground(new Color(47, 49, 63));
-        this.lblCouleurCourant.setForeground(new Color(255, 255, 255));
+        /* Couleur courente */
+        this.lblCouleurCourant.setBackground(saisiBackColor);
+        this.lblCouleurCourant.setForeground(saisiForeColor);
         this.lblCouleurCourant.setText("Choisir votre couleur");
         this.lblCouleurCourant.setOpaque(true);
 
-        this.txtPathPolice.setBackground(new Color(47, 49, 63));
-        this.txtPathPolice.setForeground(new Color(255, 255, 255));
+        /* Path police */
+        this.txtPathPolice.setBackground(saisiBackColor);
+        this.txtPathPolice.setForeground(saisiForeColor);
+        this.txtPathPolice.setDisabledTextColor(new Color(255, 0, 0));
         this.txtPathPolice.setText("Parcourir");
         this.txtPathPolice.setBorder(null);
-        this.txtPathPolice.setDisabledTextColor(new Color(255, 255, 255));
         this.txtPathPolice.setOpaque(true);
         this.txtPathPolice.addActionListener(new ActionListener()
         {
