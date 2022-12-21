@@ -24,6 +24,11 @@ public class MenuBarre extends JMenuBar implements ActionListener
 {
 	private Controleur ctrl;
 
+	private JMenu menuFichier;
+	private JMenu menuExporterSous;
+	private JMenu menuPreferences;
+	private JMenu menuAide;
+
 	private JMenuItem menuiFichierNouveau;
 	private JMenuItem menuiFichierOuvrir;
 	private JMenuItem menuiFichierEnregistrer;
@@ -40,13 +45,10 @@ public class MenuBarre extends JMenuBar implements ActionListener
 	private JMenuItem menuiPreferencesThemesClair;
 	private JMenuItem menuiPreferencesThemesSombre;
 
+
 	public MenuBarre(Controleur ctrl) 
 	{
 		this.ctrl = ctrl;
-		Color foregroundColor = this.ctrl.getTheme().get("menuBar").get(0);
-		Color backgroundColor = this.ctrl.getTheme().get("menuBar").get(1);
-		this.setBackground(backgroundColor);
-		this.setForeground(foregroundColor);
 
 
 		/*=========================*/
@@ -55,93 +57,59 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		/*---------*/
 		/* Fichier */
 		/*---------*/
-		JMenu menuFichier = new JMenu("Fichier");
-		menuFichier.setMnemonic('F');
-		menuFichier.setForeground(foregroundColor);
-		menuFichier.setBackground(backgroundColor);
+		this.menuFichier = new JMenu("Fichier");
+		this.menuFichier.setMnemonic('F');
 
 		/* Nouveau */
 		this.menuiFichierNouveau = new JMenuItem("Nouveau");
 		this.menuiFichierNouveau.setMnemonic('N');
-		this.menuiFichierNouveau.setBackground(backgroundColor);
-		this.menuiFichierNouveau.setForeground(foregroundColor);
 
 		/* Ouvrir */
 		this.menuiFichierOuvrir = new JMenuItem("Ouvrir");
 		this.menuiFichierOuvrir.setMnemonic('O');
-		this.menuiFichierOuvrir.setBackground(backgroundColor);
-		this.menuiFichierOuvrir.setForeground(foregroundColor);
 
 		/* Enregistrer */
 		this.menuiFichierEnregistrer = new JMenuItem("Enregistrer");
 		this.menuiFichierEnregistrer.setMnemonic('S');
-		this.menuiFichierEnregistrer.setBackground(backgroundColor);
-		this.menuiFichierEnregistrer.setForeground(foregroundColor);
 
 		/* Enregistrer sous */
 		this.menuiFichierEnregistrerSous = new JMenuItem("Enregistrer Sous");
 		this.menuiFichierEnregistrerSous.setMnemonic('S');
-		this.menuiFichierEnregistrerSous.setBackground(backgroundColor);
-		this.menuiFichierEnregistrerSous.setForeground(foregroundColor);
 
 		/* Exporter */
-		JMenu menuExporterSous = new JMenu("Exporter");
-		menuExporterSous.setOpaque(true);
-		menuExporterSous.setMnemonic('E');
-		menuExporterSous.setBackground(backgroundColor);
-		menuExporterSous.setForeground(foregroundColor);
+		this.menuExporterSous = new JMenu("Exporter");
+		this.menuExporterSous.setMnemonic('E');
 
-
+		/* Gif, png, jpeg, jpg */
 		this.menuiFichierExporterSousGif  = new JMenuItem("gif");
-		this.menuiFichierExporterSousGif.setBackground(backgroundColor);
-		this.menuiFichierExporterSousGif.setForeground(foregroundColor);
-
 		this.menuiFichierExporterSousPng  = new JMenuItem("png");
-		this.menuiFichierExporterSousPng.setBackground(backgroundColor);
-		this.menuiFichierExporterSousPng.setForeground(foregroundColor);
-
 		this.menuiFichierExporterSousJpeg = new JMenuItem("jpeg");
-		this.menuiFichierExporterSousJpeg.setBackground(backgroundColor);
-		this.menuiFichierExporterSousJpeg.setForeground(foregroundColor);
-
 		this.menuiFichierExporterSousJpg  = new JMenuItem("jpg");
-		this.menuiFichierExporterSousJpg.setBackground(backgroundColor);
-		this.menuiFichierExporterSousJpg.setForeground(foregroundColor);
 
 		/* Fermer */
 		this.menuiFichierFermer = new JMenuItem("Fermer");
 		this.menuiFichierFermer.setMnemonic('W');
-		this.menuiFichierFermer.setBackground(backgroundColor);
-		this.menuiFichierFermer.setForeground(foregroundColor);
+
 
 		/*------------*/
 		/* Préférence */
 		/*------------*/
-		JMenu menuPreferences = new JMenu("Préférences");
-		menuPreferences.setMnemonic('P');
-		menuPreferences.setForeground(foregroundColor);
-		menuPreferences.setBackground(backgroundColor);
+		this.menuPreferences = new JMenu("Préférences");
+		this.menuPreferences.setMnemonic('P');
 
+		/* Thèmes */
 		this.menuiPreferencesThemes       = new JMenu    ("Thèmes ");
-		this.menuiPreferencesThemes      .setOpaque(true);
-		this.menuiPreferencesThemes      .setForeground(foregroundColor);
-		this.menuiPreferencesThemes      .setBackground(backgroundColor);
 
+		/* Clair, Sombre */
 		this.menuiPreferencesThemesClair  = new JMenuItem("Clair" );
-		this.menuiPreferencesThemesClair .setForeground(foregroundColor);
-		this.menuiPreferencesThemesClair .setBackground(backgroundColor);
-
 		this.menuiPreferencesThemesSombre = new JMenuItem("Sombre");
-		this.menuiPreferencesThemesSombre.setForeground(foregroundColor);
-		this.menuiPreferencesThemesSombre.setBackground(backgroundColor);
+
 
 		/*------*/
 		/* Aide */
 		/*------*/
-		JMenu menuAide = new JMenu("Aide");
-		menuAide.setMnemonic('A');
-		menuAide.setForeground(foregroundColor);
-		menuAide.setBackground(backgroundColor);
+		this.menuAide = new JMenu("Aide");
+		this.menuAide.setMnemonic('A');
 
 
 
@@ -149,24 +117,24 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		/* Positionnement des composants */
 		/*===============================*/
 		/* Fichier */
-		menuFichier     .add(this.menuiFichierNouveau);
-		menuFichier     .add(this.menuiFichierOuvrir);
-		menuFichier     .addSeparator();
-		menuFichier     .add(this.menuiFichierEnregistrer);
-		menuFichier     .add(this.menuiFichierEnregistrerSous);
-		menuExporterSous.add(this.menuiFichierExporterSousGif);
-		menuExporterSous.add(this.menuiFichierExporterSousPng);
-		menuExporterSous.add(this.menuiFichierExporterSousJpg);
-		menuExporterSous.add(this.menuiFichierExporterSousJpeg);
-		menuFichier     .add(menuExporterSous);
-		menuFichier     .addSeparator();
-		menuFichier     .add(this.menuiFichierFermer);
+		this.menuFichier     .add(this.menuiFichierNouveau);
+		this.menuFichier     .add(this.menuiFichierOuvrir);
+		this.menuFichier     .addSeparator();
+		this.menuFichier     .add(this.menuiFichierEnregistrer);
+		this.menuFichier     .add(this.menuiFichierEnregistrerSous);
+		this.menuExporterSous.add(this.menuiFichierExporterSousGif);
+		this.menuExporterSous.add(this.menuiFichierExporterSousPng);
+		this.menuExporterSous.add(this.menuiFichierExporterSousJpg);
+		this.menuExporterSous.add(this.menuiFichierExporterSousJpeg);
+		this.menuFichier     .add(menuExporterSous);
+		this.menuFichier     .addSeparator();
+		this.menuFichier     .add(this.menuiFichierFermer);
 		this.add(menuFichier);
 
 		/* Préférence */
 		this.menuiPreferencesThemes.add(this.menuiPreferencesThemesClair);
 		this.menuiPreferencesThemes.add(this.menuiPreferencesThemesSombre);
-		menuPreferences.add(this.menuiPreferencesThemes);
+		this.menuPreferences.add(this.menuiPreferencesThemes);
 		this.add(menuPreferences);
 
 		/* Aide */
@@ -188,7 +156,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierOuvrir          .addActionListener(this);
 		this.menuiFichierEnregistrer     .addActionListener(this);
 		this.menuiFichierEnregistrerSous .addActionListener(this);
-		menuExporterSous                 .addActionListener(this);
+		this.menuExporterSous                 .addActionListener(this);
 		this.menuiFichierExporterSousGif .addActionListener(this);
 		this.menuiFichierExporterSousPng .addActionListener(this);
 		this.menuiFichierExporterSousJpeg.addActionListener(this);
@@ -196,6 +164,10 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierFermer          .addActionListener(this);
 		this.menuiPreferencesThemesClair .addActionListener(this);
 		this.menuiPreferencesThemesSombre.addActionListener(this);
+
+
+		/* Applique le thèmes à tout les composants */
+		this.appliquerTheme();
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -259,6 +231,87 @@ public class MenuBarre extends JMenuBar implements ActionListener
      */
     public void appliquerTheme()
 	{
-		
+		Color foregroundColor = this.ctrl.getTheme().get("menuBar").get(0);
+		Color backgroundColor = this.ctrl.getTheme().get("menuBar").get(1);
+
+		/*-------------------------*/
+		/* La Menu Barre elle même */
+		/*-------------------------*/
+		this.setForeground(foregroundColor);
+		this.setBackground(backgroundColor);
+
+
+		/*---------*/
+		/* Fichier */
+		/*---------*/
+		this.menuFichier.setForeground(foregroundColor);
+		this.menuFichier.setBackground(backgroundColor);
+
+		/* Nouveau */
+		this.menuiFichierNouveau.setForeground(foregroundColor);
+		this.menuiFichierNouveau.setBackground(backgroundColor);
+
+		/* Ouvrir */
+		this.menuiFichierOuvrir.setForeground(foregroundColor);
+		this.menuiFichierOuvrir.setBackground(backgroundColor);
+
+		/* Enregistrer */
+		this.menuiFichierEnregistrer.setForeground(foregroundColor);
+		this.menuiFichierEnregistrer.setBackground(backgroundColor);
+
+		/* Enregistrer sous */
+		this.menuiFichierEnregistrerSous.setForeground(foregroundColor);
+		this.menuiFichierEnregistrerSous.setBackground(backgroundColor);
+
+		/* Exporter */
+		this.menuExporterSous.setOpaque(true);
+		this.menuExporterSous.setForeground(foregroundColor);
+		this.menuExporterSous.setBackground(backgroundColor);
+
+		/* Gig */
+		this.menuiFichierExporterSousGif.setForeground(foregroundColor);
+		this.menuiFichierExporterSousGif.setBackground(backgroundColor);
+
+		/* Png */
+		this.menuiFichierExporterSousPng.setForeground(foregroundColor);
+		this.menuiFichierExporterSousPng.setBackground(backgroundColor);
+
+		/* Jpeg */
+		this.menuiFichierExporterSousJpeg.setForeground(foregroundColor);
+		this.menuiFichierExporterSousJpeg.setBackground(backgroundColor);
+
+		/* Jpg */
+		this.menuiFichierExporterSousJpg.setForeground(foregroundColor);
+		this.menuiFichierExporterSousJpg.setBackground(backgroundColor);
+
+		/* Fermer */
+		this.menuiFichierFermer.setForeground(foregroundColor);
+		this.menuiFichierFermer.setBackground(backgroundColor);
+
+		/*------------*/
+		/* Préférence */
+		/*------------*/
+		/* Préférence */
+		this.menuPreferences.setForeground(foregroundColor);
+		this.menuPreferences.setBackground(backgroundColor);
+
+		/* Thèmes */
+		this.menuiPreferencesThemes      .setOpaque(true);
+		this.menuiPreferencesThemes      .setForeground(foregroundColor);
+		this.menuiPreferencesThemes      .setBackground(backgroundColor);
+
+		/* Clair */
+		this.menuiPreferencesThemesClair .setForeground(foregroundColor);
+		this.menuiPreferencesThemesClair .setBackground(backgroundColor);
+
+		/* Sombre */
+		this.menuiPreferencesThemesSombre.setForeground(foregroundColor);
+		this.menuiPreferencesThemesSombre.setBackground(backgroundColor);
+
+		/*------*/
+		/* Aide */
+		/*------*/
+		this.menuAide.setForeground(foregroundColor);
+		this.menuAide.setBackground(backgroundColor);
 	}
 }

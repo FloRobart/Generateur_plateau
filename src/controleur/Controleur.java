@@ -23,9 +23,11 @@ public class Controleur
     {
         this.nouveau();
     }
+
     public void nouveau() 
     {
         this.metier = new Metier();
+		this.metier.addControleur(this);
         
         if (this.ihm != null)
             this.ihm.dispose();
