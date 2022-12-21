@@ -1,15 +1,22 @@
 package ihm;
 
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import controleur.Controleur;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FramePoint extends JFrame implements ActionListener
 {
@@ -23,6 +30,9 @@ public class FramePoint extends JFrame implements ActionListener
     private JButton   btnAjouter;
     private JButton   btnSupprimer;
     private JButton   btnOk;
+
+    private int  distance;
+    private int index=5;
     
     public FramePoint(Controleur ctrl)
     {
@@ -38,8 +48,8 @@ public class FramePoint extends JFrame implements ActionListener
         JScrollPane spGrilleDonnees;
 
         //création du tableau de points 
-        this.tabDonnees = new Object[5][2];
-        for (int cpt=0; cpt < this.tabDonnees.length; cpt++)
+        this.tabDonnees = new Object[100][2];
+        for (int cpt=0; cpt < this.index; cpt++)
         {
             this.tabDonnees[cpt][0] = cpt+1;
             this.tabDonnees[cpt][1] = cpt+1;
@@ -52,9 +62,15 @@ public class FramePoint extends JFrame implements ActionListener
         this.tablePoint.setFillsViewportHeight(true);
         this.tablePoint.setBackground(new Color(68, 71, 90));
         this.tablePoint.setForeground(Color.WHITE);
+        this.tablePoint.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        //this.tablePoint.setPreferredScrollableViewportSize(this.tablePoint.getPreferredSize());
+        this.tablePoint.setFillsViewportHeight(true);
 
         spGrilleDonnees = new JScrollPane(this.tablePoint);
-        spGrilleDonnees.setSize(200, 200);
+        spGrilleDonnees.setVerticalScrollBar(new JScrollBar());
+        spGrilleDonnees.setWheelScrollingEnabled(true);
+        spGrilleDonnees.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         this.panelPoint.add(spGrilleDonnees);
 
@@ -75,6 +91,7 @@ public class FramePoint extends JFrame implements ActionListener
         panelButton.add(this.btnSupprimer);
         panelButton.add(this.btnOk);
 
+
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
         this.setVisible(false);
@@ -89,7 +106,11 @@ public class FramePoint extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) 
     {
         if(e.getSource() == this.btnAjouter)
-        {
+        {   
+            this.tabDonnees[this.index][0] = this.index+1;
+            this.tabDonnees[this.index][1] = this.index+1;
+            this.index++;
+            this.tablePoint.updateUI();
             
         }
         if (e.getSource() == this.btnSupprimer) 
