@@ -22,16 +22,7 @@ public class PGPanelModifier extends JPanel
                       
     private void initComponents()
     {
-        Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
-
-
-        this.setBackground(background);
-
         this.labelTitre = new JLabel();
-        this.labelTitre.setBackground(titleBackColor);
-        this.labelTitre.setForeground(titleForeColor);
         this.labelTitre.setText(" Modifier l'élément chosit");
         this.labelTitre.setOpaque(true);
 
@@ -55,6 +46,13 @@ public class PGPanelModifier extends JPanel
      */
     public void appliquerTheme()
 	{
-		
+		Color background     = this.ctrl.getTheme().get("background").get(0);
+        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
+		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
+
+        this.setBackground(background);
+
+        this.labelTitre.setBackground(titleBackColor);
+        this.labelTitre.setForeground(titleForeColor);
 	}
 }

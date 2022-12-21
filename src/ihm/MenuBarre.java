@@ -42,6 +42,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 	private JMenuItem menuiPreferencesThemes;
 	private JMenuItem menuiPreferencesThemesClair;
 	private JMenuItem menuiPreferencesThemesSombre;
+	private JMenuItem menuiPreferencesThemesDark;
 
 
 	public MenuBarre(Controleur ctrl) 
@@ -98,9 +99,10 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		/* Thèmes */
 		this.menuiPreferencesThemes       = new JMenu    ("Thèmes ");
 
-		/* Clair, Sombre */
+		/* Clair, Sombre, Dark */
 		this.menuiPreferencesThemesClair  = new JMenuItem("Clair" );
 		this.menuiPreferencesThemesSombre = new JMenuItem("Sombre");
+		this.menuiPreferencesThemesDark   = new JMenuItem("Dark"  );
 
 
 		/*------*/
@@ -114,7 +116,9 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		/*===============================*/
 		/* Positionnement des composants */
 		/*===============================*/
+		/*---------*/
 		/* Fichier */
+		/*---------*/
 		this.menuFichier     .add(this.menuiFichierNouveau);
 		this.menuFichier     .add(this.menuiFichierOuvrir);
 		this.menuFichier     .addSeparator();
@@ -129,16 +133,24 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuFichier     .add(this.menuiFichierFermer);
 		this.add(menuFichier);
 
+		/*------------*/
 		/* Préférence */
+		/*------------*/
 		this.menuiPreferencesThemes.add(this.menuiPreferencesThemesClair);
 		this.menuiPreferencesThemes.add(this.menuiPreferencesThemesSombre);
+		this.menuiPreferencesThemes.add(this.menuiPreferencesThemesDark);
 		this.menuPreferences.add(this.menuiPreferencesThemes);
 		this.add(menuPreferences);
 
+		/*------*/
 		/* Aide */
+		/*------*/
 		this.add(menuAide);
 
-		// Intégration des raccourcis
+
+		/*============================*/
+		/* Intégration des raccourcis */
+		/*============================*/
 		this.menuiFichierNouveau        .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK)); // pour CTRL+N
 		this.menuiFichierOuvrir         .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK)); // pour CTRL+O
 		this.menuiFichierEnregistrer    .setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK)); // pour CTRL+S
@@ -162,6 +174,7 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierFermer          .addActionListener(this);
 		this.menuiPreferencesThemesClair .addActionListener(this);
 		this.menuiPreferencesThemesSombre.addActionListener(this);
+		this.menuiPreferencesThemesDark  .addActionListener(this);
 
 
 		/* Applique le thèmes à tout les composants */
@@ -220,6 +233,9 @@ public class MenuBarre extends JMenuBar implements ActionListener
 			
 			if (e.getSource() == this.menuiPreferencesThemesSombre)
 				this.ctrl.changerTheme("sombre");
+
+			if (e.getSource() == this.menuiPreferencesThemesDark)
+				this.ctrl.changerTheme("dark");
 		}
 	}
 
@@ -305,6 +321,10 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		/* Sombre */
 		this.menuiPreferencesThemesSombre.setForeground(foregroundColor);
 		this.menuiPreferencesThemesSombre.setBackground(backgroundColor);
+
+		/* Dark */
+		this.menuiPreferencesThemesDark.setForeground(foregroundColor);
+		this.menuiPreferencesThemesDark.setBackground(backgroundColor);
 
 		/*------*/
 		/* Aide */

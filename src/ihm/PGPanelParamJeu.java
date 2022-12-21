@@ -50,25 +50,6 @@ public class PGPanelParamJeu extends JPanel
     public PGPanelParamJeu(Controleur ctrl)
     {
 		this.ctrl = ctrl;
-        this.initComponents();
-    }
-
-
-    /**
-     * cette méthode est appelée par le constructeur pour initialiser le formulaire
-     * ATTENTION : NE PAS modifier ce code
-     */
-    private void initComponents()
-    {
-        Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
 
         this.lblParamJeu          = new JLabel    ();
         this.lblNbJoueurs         = new JLabel    ();
@@ -91,44 +72,27 @@ public class PGPanelParamJeu extends JPanel
         this.btnMoinsCoul         = new JButton   ();
         this.jButton1             = new JButton   ();
 
-        this.setBackground(background);
 
-        this.lblParamJeu.setBackground(titleBackColor);
-        this.lblParamJeu.setForeground(titleForeColor);
         this.lblParamJeu.setText(" Parametre du jeu");
         this.lblParamJeu.setOpaque(true);
 
         this.lblNbJoueurs.setFont(new Font("Segoe UI", 1, 12));
-        this.lblNbJoueurs.setBackground(labelBackColor);
-        this.lblNbJoueurs.setForeground(labelForeColor);
         this.lblNbJoueurs.setText("Nombre de joueurs");
 
         this.lblModif.setFont(new Font("Segoe UI", 1, 12));
-        this.lblModif.setBackground(labelBackColor);
-        this.lblModif.setForeground(labelForeColor);
         this.lblModif.setText("Modifier");
 
-        this.lblMultiCoul.setBackground(labelBackColor);
-        this.lblMultiCoul.setForeground(labelForeColor);
         this.lblMultiCoul.setText("multicouleurs");
 
-        this.lblNbCarteParCoul.setBackground(labelBackColor);
-        this.lblNbCarteParCoul.setForeground(labelForeColor);
         this.lblNbCarteParCoul.setText("nb couleurs");
 
-        this.lblImgCarte.setBackground(labelBackColor);
-        this.lblImgCarte.setForeground(labelForeColor);
         this.lblImgCarte.setText("image cartes");
 
         this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12));
-        this.lblCartesWagon.setBackground(labelBackColor);
-        this.lblCartesWagon.setForeground(labelForeColor);
         this.lblCartesWagon.setText("Cartes wagon");
 
-        this.txtMinJoueur.setBackground(saisiBackColor);
-        this.txtMinJoueur.setForeground(saisiForeColor);
+
         this.txtMinJoueur.setText("Min");
-        this.txtMinJoueur.setBorder(null);
         this.txtMinJoueur.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -138,10 +102,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.txtMaxNbJoueur.setBackground(saisiBackColor);
-        this.txtMaxNbJoueur.setForeground(saisiForeColor);
         this.txtMaxNbJoueur.setText("Max");
-        this.txtMaxNbJoueur.setBorder(null);
         this.txtMaxNbJoueur.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -151,10 +112,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.txtNbJoker.setBackground(saisiBackColor);
-        this.txtNbJoker.setForeground(saisiForeColor);
         this.txtNbJoker.setText("10");
-        this.txtNbJoker.setBorder(null);
         this.txtNbJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -164,10 +122,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.txtNbCarteParCoul.setBackground(saisiBackColor);
-        this.txtNbCarteParCoul.setForeground(saisiForeColor);
         this.txtNbCarteParCoul.setText("10");
-        this.txtNbCarteParCoul.setBorder(null);
         this.txtNbCarteParCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -177,10 +132,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.txtPathImgCarteWagon.setBackground(saisiBackColor);
-        this.txtPathImgCarteWagon.setForeground(saisiForeColor);
         this.txtPathImgCarteWagon.setText("Parcourir");
-        this.txtPathImgCarteWagon.setBorder(null);
         this.txtPathImgCarteWagon.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -190,10 +142,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnCouleurs.setBackground(btnBackColor);
-        this.btnCouleurs.setForeground(btnForeColor);
         this.btnCouleurs.setText("Couleurs");
-        this.btnCouleurs.setBorder(null);
         this.btnCouleurs.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -203,10 +152,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnPoints.setBackground(btnBackColor);
-        this.btnPoints.setForeground(btnForeColor);
         this.btnPoints.setText("Points");
-        this.btnPoints.setBorder(null);
         this.btnPoints.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -216,10 +162,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnObjectifs.setBackground(btnBackColor);
-        this.btnObjectifs.setForeground(btnForeColor);
         this.btnObjectifs.setText("Objectifs");
-        this.btnObjectifs.setBorder(null);
         this.btnObjectifs.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -231,9 +174,6 @@ public class PGPanelParamJeu extends JPanel
 
         this.btnPlusCoul.setText("   +   ");
         this.btnPlusCoul.setToolTipText("+");
-        this.btnPlusCoul.setBorder(null);
-        this.btnPlusCoul.setBackground(btnBackColor);
-        this.btnPlusCoul.setForeground(btnForeColor);
         this.btnPlusCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -245,9 +185,6 @@ public class PGPanelParamJeu extends JPanel
 
         this.btnMoinsJoker.setText("   -   ");
         this.btnMoinsJoker.setToolTipText("+");
-        this.btnMoinsJoker.setBorder(null);
-        this.btnMoinsJoker.setBackground(btnBackColor);
-        this.btnMoinsJoker.setForeground(btnForeColor);
         this.btnMoinsJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -259,9 +196,6 @@ public class PGPanelParamJeu extends JPanel
 
         this.btnPlusJoker.setText("   +   ");
         this.btnPlusJoker.setToolTipText("+");
-        this.btnPlusJoker.setBorder(null);
-        this.btnPlusJoker.setBackground(btnBackColor);
-        this.btnPlusJoker.setForeground(btnForeColor);
         this.btnPlusJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -273,9 +207,6 @@ public class PGPanelParamJeu extends JPanel
 
         this.btnMoinsCoul.setText("   -   ");
         this.btnMoinsCoul.setToolTipText("+");
-        this.btnMoinsCoul.setBorder(null);
-        this.btnMoinsCoul.setBackground(btnBackColor);
-        this.btnMoinsCoul.setForeground(btnForeColor);
         this.btnMoinsCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -285,10 +216,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.jButton1.setBackground(btnBackColor);
-        this.jButton1.setForeground(btnForeColor);
         this.jButton1.setText("...");
-        this.jButton1.setBorder(null);
         this.jButton1.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -389,6 +317,8 @@ public class PGPanelParamJeu extends JPanel
                     .addComponent(this.lblModif))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
+
+        this.appliquerTheme();
     }
 
 
@@ -475,6 +405,97 @@ public class PGPanelParamJeu extends JPanel
      */
     public void appliquerTheme()
 	{
-		
+		Color background     = this.ctrl.getTheme().get("background").get(0);
+        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
+		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
+        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
+		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
+        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
+		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
+        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
+		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+
+
+        this.setBackground(background);
+
+        this.lblParamJeu.setBorder(null);
+        this.lblParamJeu.setBackground(titleBackColor);
+        this.lblParamJeu.setForeground(titleForeColor);
+
+        this.lblNbJoueurs.setBorder(null);
+        this.lblNbJoueurs.setBackground(labelBackColor);
+        this.lblNbJoueurs.setForeground(labelForeColor);
+
+        this.lblModif.setBorder(null);
+        this.lblModif.setBackground(labelBackColor);
+        this.lblModif.setForeground(labelForeColor);
+
+        this.lblMultiCoul.setBorder(null);
+        this.lblMultiCoul.setBackground(labelBackColor);
+        this.lblMultiCoul.setForeground(labelForeColor);
+
+        this.lblNbCarteParCoul.setBorder(null);
+        this.lblNbCarteParCoul.setBackground(labelBackColor);
+        this.lblNbCarteParCoul.setForeground(labelForeColor);
+
+        this.lblImgCarte.setBorder(null);
+        this.lblImgCarte.setBackground(labelBackColor);
+        this.lblImgCarte.setForeground(labelForeColor);
+
+        this.lblCartesWagon.setBorder(null);
+        this.lblCartesWagon.setBackground(labelBackColor);
+        this.lblCartesWagon.setForeground(labelForeColor);
+
+        this.txtMinJoueur.setBorder(null);
+        this.txtMinJoueur.setBackground(saisiBackColor);
+        this.txtMinJoueur.setForeground(saisiForeColor);
+
+        this.txtMaxNbJoueur.setBorder(null);
+        this.txtMaxNbJoueur.setBackground(saisiBackColor);
+        this.txtMaxNbJoueur.setForeground(saisiForeColor);
+
+        this.txtNbJoker.setBorder(null);
+        this.txtNbJoker.setBackground(saisiBackColor);
+        this.txtNbJoker.setForeground(saisiForeColor);
+
+        this.txtNbCarteParCoul.setBorder(null);
+        this.txtNbCarteParCoul.setBackground(saisiBackColor);
+        this.txtNbCarteParCoul.setForeground(saisiForeColor);
+
+        this.txtPathImgCarteWagon.setBorder(null);
+        this.txtPathImgCarteWagon.setBackground(saisiBackColor);
+        this.txtPathImgCarteWagon.setForeground(saisiForeColor);
+
+        this.btnCouleurs.setBorder(null);
+        this.btnCouleurs.setBackground(btnBackColor);
+        this.btnCouleurs.setForeground(btnForeColor);
+
+        this.btnPoints.setBorder(null);
+        this.btnPoints.setBackground(btnBackColor);
+        this.btnPoints.setForeground(btnForeColor);
+
+        this.btnObjectifs.setBorder(null);
+        this.btnObjectifs.setBackground(btnBackColor);
+        this.btnObjectifs.setForeground(btnForeColor);
+
+        this.btnPlusCoul.setBorder(null);
+        this.btnPlusCoul.setBackground(btnBackColor);
+        this.btnPlusCoul.setForeground(btnForeColor);
+
+        this.btnMoinsJoker.setBorder(null);
+        this.btnMoinsJoker.setBackground(btnBackColor);
+        this.btnMoinsJoker.setForeground(btnForeColor);
+
+        this.btnPlusJoker.setBorder(null);
+        this.btnPlusJoker.setBackground(btnBackColor);
+        this.btnPlusJoker.setForeground(btnForeColor);
+
+        this.btnMoinsCoul.setBorder(null);
+        this.btnMoinsCoul.setBackground(btnBackColor);
+        this.btnMoinsCoul.setForeground(btnForeColor);
+
+        this.jButton1.setBorder(null);
+        this.jButton1.setBackground(btnBackColor);
+        this.jButton1.setForeground(btnForeColor);
 	}
 }

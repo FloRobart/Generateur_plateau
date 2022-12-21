@@ -53,14 +53,6 @@ public class PGPanelAjouterElements extends JPanel
 
     private void initComponents()
     {
-        Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
-
         this.lblAjouterElements = new JLabel ();
         this.imgArrete          = new JLabel ();
         this.imgNoeud           = new JLabel ();
@@ -70,13 +62,9 @@ public class PGPanelAjouterElements extends JPanel
         this.lblObjectif        = new JLabel ();
         this.btnListElements    = new JButton();
 
-        this.setBackground(background);
         this.setPreferredSize(new Dimension(403, 215));
 
-        this.lblAjouterElements.setBackground(titleBackColor);
-        this.lblAjouterElements.setForeground(titleForeColor);
         this.lblAjouterElements.setText(" Ajouter éléments");
-        this.lblAjouterElements.setOpaque(true);
 
         this.imgArrete.setHorizontalAlignment(SwingConstants.CENTER);
         this.imgArrete.setIcon(new ImageIcon(getClass().getResource("/images/arete.png")));
@@ -88,28 +76,19 @@ public class PGPanelAjouterElements extends JPanel
         this.imgObjectif.setHorizontalAlignment(SwingConstants.CENTER);
         this.imgObjectif.setIcon(new ImageIcon(getClass().getResource("/images/objectif.png")));
 
-        this.lblNoeud.setFont(new Font("Segoe UI", 1, 12));
-        this.lblNoeud.setBackground(labelBackColor);
-        this.lblNoeud.setForeground(labelForeColor);
-        this.lblNoeud.setHorizontalAlignment(SwingConstants.CENTER);
         this.lblNoeud.setText("Noeud");
+        this.lblNoeud.setFont(new Font("Segoe UI", 1, 12));
+        this.lblNoeud.setHorizontalAlignment(SwingConstants.CENTER);
 
-        this.lblArrete.setFont(new Font("Segoe UI", 1, 12));
-        this.lblArrete.setBackground(labelBackColor);
-        this.lblArrete.setForeground(labelForeColor);
-        this.lblArrete.setHorizontalAlignment(SwingConstants.CENTER);
         this.lblArrete.setText("Arrête");
+        this.lblArrete.setFont(new Font("Segoe UI", 1, 12));
+        this.lblArrete.setHorizontalAlignment(SwingConstants.CENTER);
 
-        this.lblObjectif.setFont(new Font("Segoe UI", 1, 12));
-        this.lblObjectif.setBackground(labelBackColor);
-        this.lblObjectif.setForeground(labelForeColor);
-        this.lblObjectif.setHorizontalAlignment(SwingConstants.CENTER);
         this.lblObjectif.setText("Objectifs");
+        this.lblObjectif.setFont(new Font("Segoe UI", 1, 12));
+        this.lblObjectif.setHorizontalAlignment(SwingConstants.CENTER);
 
-        this.btnListElements.setBackground(btnBackColor);
-        this.btnListElements.setForeground(btnForeColor);
         this.btnListElements.setText("List éléments");
-        this.btnListElements.setBorder(null);
         this.btnListElements.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -161,6 +140,8 @@ public class PGPanelAjouterElements extends JPanel
                 .addComponent(this.btnListElements, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9))
         );
+
+        this.appliquerTheme();
     }
 
     private void btnListElementsActionPerformed(ActionEvent evt){}                                               
@@ -208,7 +189,33 @@ public class PGPanelAjouterElements extends JPanel
      */
     public void appliquerTheme()
 	{
-		
+		Color background     = this.ctrl.getTheme().get("background").get(0);
+        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
+		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
+        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
+		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
+        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
+		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+
+        this.setBackground(background);
+
+        
+        this.lblAjouterElements.setOpaque(true);
+        this.lblAjouterElements.setBackground(titleBackColor);
+        this.lblAjouterElements.setForeground(titleForeColor);
+
+        this.lblNoeud.setBackground(labelBackColor);
+        this.lblNoeud.setForeground(labelForeColor);
+
+        this.lblArrete.setBackground(labelBackColor);
+        this.lblArrete.setForeground(labelForeColor);
+        
+        this.lblObjectif.setBackground(labelBackColor);
+        this.lblObjectif.setForeground(labelForeColor);
+
+        this.btnListElements.setBorder(null);
+        this.btnListElements.setBackground(btnBackColor);
+        this.btnListElements.setForeground(btnForeColor);
 	}
 }
 
