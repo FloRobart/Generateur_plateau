@@ -6,8 +6,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
