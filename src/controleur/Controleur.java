@@ -70,8 +70,12 @@ public class Controleur
 	{
 		/* Changer le thème utilisé dans le fichier theme_sauvegarde.xml ET charger en mémoire le nouveau thème */
 		this.metier.setThemeUsed(theme);
-		
-		// mettre l'ihm à jour
+	}
+
+	/* Met à jour l'IHM avec le nouveau thème */
+	public void appliquerTheme()
+	{
+		this.ihm.appliquerTheme();
 	}
 
 	public HashMap<String, List<Color>> getTheme()

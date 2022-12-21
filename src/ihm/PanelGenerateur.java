@@ -51,5 +51,13 @@ public class PanelGenerateur extends JPanel
                 .addComponent(this.pGPanelModifier, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-    }             
+    }
+
+    public void appliquerTheme()
+    {
+        this.pGPanelParamPlateau   .appliquerTheme();
+        this.pGPanelParamJeu       .appliquerTheme();
+        this.pGPanelAjouterElements.appliquerTheme();
+        this.pGPanelModifier       .appliquerTheme();
+    }
 }

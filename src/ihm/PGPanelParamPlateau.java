@@ -25,12 +25,12 @@ public class PGPanelParamPlateau extends JPanel
     private JButton    btnChoisirCouleur;
     private JButton    btnChoisirFont;
     private JButton    btnParcourirImg;
-    private JLabel     lblCouleurCourant;
     private JLabel     lblCouleurFond;
     private JLabel     lblDimension;
     private JLabel     lblParamPlateau;
     private JLabel     lblPolice;
     private JLabel     lblbImageFond;
+    private JTextField txtCouleurCourant;
     private JTextField txtPathImg;
     private JTextField txtPathPolice;
     private JTextField txtX;
@@ -59,7 +59,7 @@ public class PGPanelParamPlateau extends JPanel
         this.lblbImageFond     = new JLabel    ();
         this.lblCouleurFond    = new JLabel    ();
         this.lblPolice         = new JLabel    ();
-        this.lblCouleurCourant = new JLabel    ();
+        this.txtCouleurCourant = new JTextField();
         this.txtX              = new JTextField();
         this.txtY              = new JTextField();
         this.txtPathImg        = new JTextField();
@@ -188,10 +188,11 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Couleur courente */
-        this.lblCouleurCourant.setBackground(saisiBackColor);
-        this.lblCouleurCourant.setForeground(saisiForeColor);
-        this.lblCouleurCourant.setText("Choisir votre couleur");
-        this.lblCouleurCourant.setOpaque(true);
+        this.txtCouleurCourant.setBackground(saisiBackColor);
+        this.txtCouleurCourant.setForeground(saisiForeColor);
+        this.txtCouleurCourant.setText("Choisir votre couleur");
+        this.txtCouleurCourant.setBorder(null);
+        this.txtCouleurCourant.setOpaque(true);
 
         /* Path police */
         this.txtPathPolice.setBackground(saisiBackColor);
@@ -228,7 +229,7 @@ public class PGPanelParamPlateau extends JPanel
                                 .addComponent(this.txtY, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(this.lblCouleurCourant, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                    .addComponent(this.txtCouleurCourant, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                                     .addComponent(this.txtPathPolice, GroupLayout.Alignment.TRAILING)
                                     .addComponent(this.txtPathImg))
                                 .addGap(0, 0, 0)
@@ -261,7 +262,7 @@ public class PGPanelParamPlateau extends JPanel
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblCouleurFond)
                     .addComponent(this.btnChoisirCouleur, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(this.lblCouleurCourant))
+                    .addComponent(this.txtCouleurCourant))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblPolice)
@@ -270,7 +271,7 @@ public class PGPanelParamPlateau extends JPanel
                 .addGap(0, 21, Short.MAX_VALUE))
         );
 
-        this.lblCouleurCourant.getAccessibleContext().setAccessibleName("lblCouleurCourant");
+        this.txtCouleurCourant.getAccessibleContext().setAccessibleName("txtCouleurCourant");
     }
 
 
@@ -323,4 +324,13 @@ public class PGPanelParamPlateau extends JPanel
 
 		if (result == JFileChooser.APPROVE_OPTION) { return; }
     }
+
+
+    /**
+     * Applique le thème à tout les composants du panel
+     */
+    public void appliquerTheme()
+	{
+		
+	}
 }

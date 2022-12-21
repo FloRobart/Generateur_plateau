@@ -200,6 +200,15 @@ public class PGPanelAjouterElements extends JPanel
             };
             event.startDrag(null, transferable);
         }
-    }            
+    }
+
+
+    /**
+     * Applique le thème à tout les composants du panel
+     */
+    public void appliquerTheme()
+	{
+		
+	}
 }
 

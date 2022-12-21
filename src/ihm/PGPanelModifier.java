@@ -47,5 +47,14 @@ public class PGPanelModifier extends JPanel
                 .addComponent(labelTitre, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 278, Short.MAX_VALUE))
         );
-    }                 
+    }
+
+
+    /**
+     * Applique le thème à tout les composants du panel
+     */
+    public void appliquerTheme()
+	{
+		
+	}
 }

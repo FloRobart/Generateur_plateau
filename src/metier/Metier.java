@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -22,8 +23,13 @@ import org.jdom2.input.*;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import controleur.Controleur;
+
+
 public class Metier 
 {
+	private Controleur    ctrl;
+
 	private int[]         taillePlateau;
 	private BufferedImage imagePlateau;
 	private Color         couleurPlateau;
@@ -102,6 +108,11 @@ public class Metier
 		this.lireFichier(fichier);
 	}
 
+	public void addControleur(Controleur ctrl)
+	{
+		this.ctrl = ctrl;
+	}
+
 
 	public String getThemeUsed()
 	{
@@ -123,7 +134,7 @@ public class Metier
 
 		try
 		{
-			Element racine = sxb.build("./donnees/themes/theme_" + theme + ".xml").getRootElement();
+			Element racine = sxb.build("./bin/donnees/themes/theme_" + theme + ".xml").getRootElement();
 
 			/*----------------------------*/
 			/* BacKground Générale (=bkg) */
@@ -187,11 +198,20 @@ public class Metier
 	{
 		try
 		{
-			
+			PrintWriter pw = new PrintWriter("./bin/donnees/themes/theme_sauvegarde.xml");
+			pw.println("<theme>" + theme + "</theme>");
+			pw.close();
+
+			// temporaire
+			pw = new PrintWriter("./donnees/themes/theme_sauvegarde.xml");
+			pw.println("<theme>" + theme + "</theme>");
+			pw.close();
 		}
 		catch (Exception e) { e.printStackTrace(); System.out.println("Erreur lors de l'écriture du fichier XML du themes utilisé"); }
 
 		this.chargerThemes(theme);
+
+		this.ctrl.appliquerTheme();
 	}
 
 	public void setPositionNoeud(int id, int x, int y)

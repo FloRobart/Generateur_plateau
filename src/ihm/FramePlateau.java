@@ -34,6 +34,8 @@ public class FramePlateau extends JFrame
 	private FrameObjectif frameObjectif;
 	private FramePoint    framePoint;
 
+	private MenuBarre     menuBarre;
+
 	public FramePlateau(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -46,7 +48,8 @@ public class FramePlateau extends JFrame
 		this.setLocation(50, 50);
 		this.setSize(longueurEcran, hauteurEcran);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setJMenuBar(new MenuBarre(this.ctrl));
+		this.menuBarre = new MenuBarre(this.ctrl);
+		this.setJMenuBar(this.menuBarre);
 	
         try {
             BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
@@ -176,20 +179,10 @@ public class FramePlateau extends JFrame
 	}
 
 
-	public void changerTheme(String theme)
+	public void appliquerTheme()
 	{
-		String fileName = "theme_" + theme + ".xml";
-		List<Color> lstColor = this.lireXML(fileName);
-	}
-
-	private List<Color> lireXML(String fileName)
-	{
-		List<Color> lstColor = new ArrayList<Color>();
-		String filePath = "./donnees/themes/" + fileName;
-
-
-
-		return lstColor;
+		this.menuBarre.appliquerTheme();
+		this.panelGenerateur.appliquerTheme();
 	}
 
 

@@ -468,4 +468,13 @@ public class PGPanelParamJeu extends JPanel
     {                                         
         //new FrameCreerCarteJoueur(this.ctrl);
     }
+
+
+    /**
+     * Applique le thème à tout les composants du panel
+     */
+    public void appliquerTheme()
+	{
+		
+	}
 }

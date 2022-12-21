@@ -194,6 +194,8 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiFichierExporterSousJpeg.addActionListener(this);
 		this.menuiFichierExporterSousJpg .addActionListener(this);
 		this.menuiFichierFermer          .addActionListener(this);
+		this.menuiPreferencesThemesClair .addActionListener(this);
+		this.menuiPreferencesThemesSombre.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -249,5 +251,14 @@ public class MenuBarre extends JMenuBar implements ActionListener
 			if (e.getSource() == this.menuiPreferencesThemesSombre)
 				this.ctrl.changerTheme("sombre");
 		}
+	}
+
+	
+	/**
+     * Applique le thème à tout les composants du panel
+     */
+    public void appliquerTheme()
+	{
+		
 	}
 }
