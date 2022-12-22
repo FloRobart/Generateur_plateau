@@ -15,13 +15,7 @@ public class PGPanelModifier extends JPanel
     public PGPanelModifier(Controleur ctrl)
     {
         this.ctrl = ctrl;
-        initComponents();
-    }
 
-
-                      
-    private void initComponents()
-    {
         this.labelTitre = new JLabel();
         this.labelTitre.setText(" Modifier l'élément chosit");
         this.labelTitre.setOpaque(true);
@@ -38,6 +32,8 @@ public class PGPanelModifier extends JPanel
                 .addComponent(labelTitre, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 278, Short.MAX_VALUE))
         );
+
+        this.appliquerTheme();
     }
 
 
