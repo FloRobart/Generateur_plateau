@@ -101,9 +101,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                 }
 
                 Transferable tansferable = support.getTransferable();
-                Icon ico;
                 try {
-                    ico = (Icon) tansferable.getTransferData(DataFlavor.imageFlavor);
+                    tansferable.getTransferData(DataFlavor.imageFlavor);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
@@ -345,20 +344,18 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
     class MonDropTargetListener extends DropTargetAdapter
     {
-        private DropTarget dropTarget;
         private JPanel p;
         public MonDropTargetListener (JPanel panel)
         {
             p = panel;
-            dropTarget = new DropTarget(panel, DnDConstants.ACTION_COPY, this, true, null);
+            new DropTarget(panel, DnDConstants.ACTION_COPY, this, true, null);
         }
         @Override
         public void drop(DropTargetDropEvent event) 
         {
-            try {
-                DropTarget test = (DropTarget) event.getSource();
-                Component ca = (Component) test.getComponent();
-                Point dropPoint = ca.getMousePosition();
+            try
+            {
+                ((Component) ((DropTarget) event.getSource()).getComponent()).getMousePosition();
                 Transferable tr = event.getTransferable();
     
                 if (event.isDataFlavorSupported(DataFlavor.imageFlavor)) {
