@@ -1,26 +1,20 @@
 package ihm;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import controleur.Controleur;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class FramePoint extends JFrame implements ActionListener
 {
-    private Controleur ctrl;
     private JPanel panelPoint;
 
     private JTable tablePoint;
@@ -31,12 +25,10 @@ public class FramePoint extends JFrame implements ActionListener
     private JButton   btnSupprimer;
     private JButton   btnOk;
 
-    private int  distance;
     private int index=5;
     
     public FramePoint(Controleur ctrl)
     {
-        this.ctrl = ctrl;
         this.setTitle("Modifier les points");
         this.setSize(470, 200);
         this.setLocation(500, 300);

@@ -20,10 +20,9 @@ import java.awt.Color;
 
 import controleur.Controleur;
 
+
 public class FrameCreerCarteJoueur extends JFrame implements ActionListener
 {
-    private Controleur ctrl;
-
     private JPanel panelParametrageCarte;
     private JPanel panelVisualisatonCarte;
     private JPanel panelActionCarte;
@@ -43,8 +42,6 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
 
     public FrameCreerCarteJoueur(Controleur ctrl)
     {
-        this.ctrl = ctrl;
-
         //Paramètres de la frame
         this.setTitle("Concepteur de cartes");
         Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();

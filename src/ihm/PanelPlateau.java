@@ -30,10 +30,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.Component;
+
+
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
     private Controleur ctrl;
-    private JPanel panelPlateau;
     private JLabel lblImagePlateau;
     private List<Noeud> lstNoeudOfIHM;
 
@@ -55,6 +56,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     private int yDiff;
     private Point startPoint;
 
+
     public PanelPlateau(Controleur ctrl, BufferedImage image, int longueurFrame, int hauteurFrame)
     {
         this.ctrl = ctrl;
@@ -74,9 +76,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         initTransferHandle();
         new MonDropTargetListener(this);
     }
-    /**
-     * 
-     */
+
+
     private void initTransferHandle() 
     {
         TransferHandler dnd = new TransferHandler()
