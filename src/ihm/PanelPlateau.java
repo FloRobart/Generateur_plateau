@@ -182,7 +182,6 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         // All drawings go here
 		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
-		this.idNomNoeudDrag = null;
 		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
         g2.drawImage(image, (int) xOffset, (int) yOffset, this);
 
@@ -366,7 +365,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                         int x, y;
                         x = (int) event.getLocation().getX();
                         y = (int) event.getLocation().getY();  
-                        lstNoeudOfIHM.add(new Noeud("Test Drop", x, y, x-10, y-10, Color.BLACK));                 
+                        lstNoeudOfIHM.add(new Noeud("Noeud Nouveau", x, y, 0, -20, Color.BLACK));                 
                         p.revalidate();
                         p.repaint();
                         event.dropComplete(true);
