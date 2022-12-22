@@ -90,6 +90,11 @@ public class Metier
 
 		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 3, Color.BLUE, Color.gray));
 		
+		this.couleurs.add(Color.BLUE);
+		this.couleurs.add(Color.RED);
+		this.couleurs.add(Color.YELLOW);
+		this.couleurs.add(Color.GREEN);
+		this.couleurs.add(Color.PINK);
 
 /*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2),  5, null));
@@ -222,6 +227,16 @@ public class Metier
 	public void setPositionNomNoeud(int id, int x, int y)
 	{
 		this.noeuds.get(id).setXYNom(x, y);
+	}
+
+	public void ajouterCouleur(Color c)
+	{
+		this.couleurs.add(c);
+	}
+
+	public void supprimerCouleur(Color c)
+	{
+		this.couleurs.remove(c);
 	}
 
 	private void lireFichier(File fichier)

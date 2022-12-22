@@ -39,6 +39,7 @@ public class Controleur
 	public Font getPolicePlateau() { return this.metier.getPolicePlateau(); }
 	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
 	public List<Arete> getAretes() { return this.metier.getAretes(); }
+	public List<Color> getCouleurs() {return this.metier.getCouleurs(); }
 	
 
 	/* Setters */
@@ -51,6 +52,26 @@ public class Controleur
 	{
 		this.metier.setPositionNomNoeud(id, x, y);
 	}
+
+	public void ajouterCouleur(Color c)
+	{
+		this.metier.ajouterCouleur(c);
+	}
+
+	public void supprimerCouleur(Color c)
+	{
+		this.metier.supprimerCouleur(c);
+	}
+
+	public void setCouleur(Color color) {
+
+		this.ihm.setCouleur(color);
+    }
+
+	public void setImageFond(BufferedImage img) {
+
+		this.ihm.setImageFond(img);
+    }
 
 	//methodes
 
@@ -89,16 +110,6 @@ public class Controleur
 	{
 		this.ihm.dispose();
 	}
-
-    public void setCouleur(Color color) {
-
-		this.ihm.setCouleur(color);
-    }
-
-	public void setImageFond(BufferedImage img) {
-
-		this.ihm.setImageFond(img);
-    }
 
 	public void afficher(String frame) 
 	{

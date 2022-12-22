@@ -3,110 +3,140 @@ package ihm;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import controleur.Controleur;
 
 
 public class FrameCouleur extends JFrame implements ActionListener
 {
-    private Controleur ctrl;
-    private JPanel     panelCouleur;
-    private Color[]    tabCoul = { Color.RED,  Color.CYAN, Color.GREEN, Color.YELLOW, Color.PINK, Color.ORANGE}; 
-    private JButton[]  tabBtnCoul;
-    private JButton    btnPlus;
-    private JButton    btnOK;
+	private Controleur    ctrl;
+	
+	private List<JButton> lstBtnCoul;
+	private JButton       btnPlus;
+	private JButton       btnOK;
 
-    /**
-     * 
-     * @param ctrl
-     */
-    public FrameCouleur(Controleur ctrl)
-    {
-        this.ctrl = ctrl;
+	/**
+	 * 
+	 * @param ctrl
+	 */
+	public FrameCouleur(Controleur ctrl)
+	{
+		this.ctrl = ctrl;
 
-        /*----------------------------*/
-        /* Initialisation de la frame */
-        /*----------------------------*/
-        this.setTitle("Modifier les couleurs");
-        this.setSize(300, 200);
-        this.setLocation(500, 300);
-        this.setLayout(new BorderLayout());
-        
+		List<Color> lstCoul = this.ctrl.getCouleurs();
+		int nbLig = (int) Math.ceil((lstCoul.size() + 1.0) / 5);
 
-        /*PANEL COULEUR */
-        this.panelCouleur = new JPanel();
-        this.panelCouleur.setLayout(new GridLayout(2,5, 20, 20));
-        this.panelCouleur.setBackground(new Color(68, 71, 90));
+		/*----------------------------*/
+		/* Initialisation de la frame */
+		/*----------------------------*/
+		this.setTitle("Modifier les couleurs");
+		this.setSize(300, nbLig * 65 + 50);
+		this.setLocation(500, 300);
+		this.setLayout(new BorderLayout());
 
-        this.tabBtnCoul = new JButton[tabCoul.length];
+		/*----------------------------*/
+		/* Création des panels        */
+		/*----------------------------*/
+		JPanel panelCouleur = new JPanel();
+		panelCouleur.setLayout(new GridLayout(nbLig,5, 20, 20));
+		panelCouleur.setBackground(new Color(68, 71, 90));
 
-        this.btnPlus = new JButton("+");
-        this.add(btnPlus);
-		this.btnPlus.addActionListener(e -> {selectColor();});
+		JPanel panelOk = new JPanel();
+		panelOk.setBackground(new Color(68, 71, 90));
 
-        for (int cpt=0; cpt < this.tabBtnCoul.length; cpt++)
-        {
-            this.tabBtnCoul[cpt] = new JButton();
-            this.tabBtnCoul[cpt].setBackground(tabCoul[cpt]);
-        }
+		/*----------------------------*/
+		/* Création des Composants    */
+		/*----------------------------*/
+		this.lstBtnCoul = new ArrayList<JButton>();
+		for (Color c : lstCoul)
+		{
+			JButton btnCoul = new JButton();
+			btnCoul.setBackground(c);
 
-       
-        //Posiotionnement des composants
-        for (int cpt=0; cpt < this.tabBtnCoul.length; cpt++)
-        {
-            this.panelCouleur.add(this.tabBtnCoul[cpt]);
-        }
+			this.lstBtnCoul.add(btnCoul);
+		}
 
-        this.panelCouleur.add(this.btnPlus);
+		this.btnPlus = new JButton("+");
 
-        // activation des composants
-        for (int cpt=0; cpt < this.tabBtnCoul.length; cpt++)
-        {
-            this.tabBtnCoul[cpt].addActionListener(this);
-        }
+		this.btnOK = new JButton("OK");
+		this.btnOK.setBackground(new Color(40, 42, 54));
+		this.btnOK.setForeground(Color.WHITE);
 
-        /*Panel Ok */
-        JPanel panelOk = new JPanel();
-        panelOk.setBackground(new Color(68, 71, 90));
+		/*-------------------------------*/
+		/* Positionnement des Composants */
+		/*-------------------------------*/
+		this.add(panelCouleur, BorderLayout.CENTER);
+		this.add(panelOk     , BorderLayout.SOUTH );
 
-        this.btnOK = new JButton("OK");
-        this.btnOK.setBackground(new Color(40, 42, 54));
-        this.btnOK.setForeground(Color.WHITE);
-        
+		// ajout des boutons de couleurs
+		for (JButton btnCoul : this.lstBtnCoul)
+		{
+			panelCouleur.add(btnCoul);
+		}
 
-        panelOk.add(this.btnOK);
+		// ajout du bouton ajouter
+		panelCouleur.add(this.btnPlus);
+
+		// ajout des espaces manquant
+		for (int cpt = this.lstBtnCoul.size() + 1; cpt < nbLig * 5 ; cpt++)
+			panelCouleur.add(new JLabel());
+
+		panelOk.add(this.btnOK);
+		
+		/*----------------------------*/
+		/* Activation des Composants  */
+		/*----------------------------*/
+		for (JButton btnCoul : this.lstBtnCoul)
+		{
+			btnCoul.addActionListener(this);
+		}
+
+		this.btnPlus.addActionListener(this);
+		this.btnOK.addActionListener(this);
 
 
-        this.add(this.panelCouleur, BorderLayout.CENTER);
-        this.add(panelOk, BorderLayout.SOUTH);
+		this.setVisible(true);
+	}
 
+	public void majIHM()
+	{
+		new FrameCouleur(ctrl);
+		this.dispose();
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		for (JButton btnCoul : this.lstBtnCoul)
+			if ( e.getSource() == btnCoul && this.lstBtnCoul.size() > 1 )
+			{
+				this.ctrl.supprimerCouleur(btnCoul.getBackground());
+				this.majIHM();
+			}
 
-        this.btnOK.addActionListener(this);
+		if(e.getSource() == this.btnPlus)
+		{
+			Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
 
-    }
+			if (color != null)
+			{
+				this.ctrl.ajouterCouleur(color);
+				this.majIHM();
+			}
+		}
 
-    private void selectColor() 
-    {
-        Color color = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        System.out.println(color);
-        this.btnPlus.setBackground(color);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-        if(e.getSource() == this.btnOK)
-        {
-            this.setVisible(false);
-        }
-        
-    }
-
-    
+		if(e.getSource() == this.btnOK)
+		{
+			this.dispose();
+		}
+	}
 }

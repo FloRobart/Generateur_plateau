@@ -30,7 +30,6 @@ public class FramePlateau extends JFrame
 	private PanelGenerateur panelGenerateur;
 	private PanelPlateau panelPlateau;
 
-	private FrameCouleur  frameCouleur;
 	private FrameObjectif frameObjectif;
 	private FramePoint    framePoint;
 
@@ -75,7 +74,6 @@ public class FramePlateau extends JFrame
 		panelGenerateur.setMinimumSize(minimumSize);
 
 		/*frames modif */
-		this.frameCouleur = new FrameCouleur(this.ctrl);
 		this.frameObjectif = new FrameObjectif(this.ctrl);
 		this.framePoint = new FramePoint(this.ctrl);
 
@@ -206,19 +204,16 @@ public class FramePlateau extends JFrame
 		{
 			case "couleur" -> 
 				{
-					this.frameCouleur.setVisible(true);
 					this.frameObjectif.setVisible(false);
 					this.framePoint.setVisible(false);
 				}
 			case "objectif" -> 
 				{
-					this.frameCouleur.setVisible(false);
 					this.frameObjectif.setVisible(true);
 					this.framePoint.setVisible(false);
 				}
 			case "points" -> 
 				{
-					this.frameCouleur.setVisible(false);
 					this.frameObjectif.setVisible(false);
 					this.framePoint.setVisible(true);
 				}

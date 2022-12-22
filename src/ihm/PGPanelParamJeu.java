@@ -329,7 +329,7 @@ public class PGPanelParamJeu extends JPanel
     private void txtPathImgCarteWagonActionPerformed(ActionEvent e) {}
 
 
-    private void btnCouleursActionPerformed (ActionEvent e) { this.ctrl.afficher("couleur" ); }
+    private void btnCouleursActionPerformed (ActionEvent e) { new FrameCouleur(ctrl); }
     private void btnPointsActionPerformed   (ActionEvent e) { this.ctrl.afficher("points"  ); }
     private void btnObjectifsActionPerformed(ActionEvent e) { this.ctrl.afficher("objectif"); }
 
