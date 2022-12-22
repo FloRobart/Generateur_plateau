@@ -13,7 +13,7 @@ javac -encoding utf8 @compile.list
 #echo Lancement des tests XML
 #java -cp ./bin:$CLASSPATH metier.Metier
 echo Lancement de l\'interface graphique...
-java -cp ./bin:$CLASSPATH controleur.Controleur
+java -cp "./bin:$CLASSPATH" controleur.Controleur
 
 echo Fin de l\'execution.
 
