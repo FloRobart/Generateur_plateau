@@ -7,12 +7,12 @@ import java.util.List;
 
 import ihm.FramePlateau;
 import metier.Arete;
-import metier.CarteObjectif;
 //import metier.Metier;
 import metier.Metier;
 import metier.Noeud;
 
 import java.awt.image.BufferedImage;
+
 
 public class Controleur
 {

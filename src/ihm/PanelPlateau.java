@@ -30,10 +30,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.Component;
+
+
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
     private Controleur ctrl;
-    private JPanel panelPlateau;
     private JLabel lblImagePlateau;
     private List<Noeud> lstNoeudOfIHM;
 
@@ -55,6 +56,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     private int yDiff;
     private Point startPoint;
 
+
     public PanelPlateau(Controleur ctrl, BufferedImage image, int longueurFrame, int hauteurFrame)
     {
         this.ctrl = ctrl;
@@ -74,9 +76,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         initTransferHandle();
         new MonDropTargetListener(this);
     }
-    /**
-     * 
-     */
+
+
     private void initTransferHandle() 
     {
         TransferHandler dnd = new TransferHandler()
@@ -100,9 +101,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                 }
 
                 Transferable tansferable = support.getTransferable();
-                Icon ico;
                 try {
-                    ico = (Icon) tansferable.getTransferData(DataFlavor.imageFlavor);
+                    tansferable.getTransferData(DataFlavor.imageFlavor);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
@@ -343,20 +343,18 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
     class MonDropTargetListener extends DropTargetAdapter
     {
-        private DropTarget dropTarget;
         private JPanel p;
         public MonDropTargetListener (JPanel panel)
         {
             p = panel;
-            dropTarget = new DropTarget(panel, DnDConstants.ACTION_COPY, this, true, null);
+            new DropTarget(panel, DnDConstants.ACTION_COPY, this, true, null);
         }
         @Override
         public void drop(DropTargetDropEvent event) 
         {
-            try {
-                DropTarget test = (DropTarget) event.getSource();
-                Component ca = (Component) test.getComponent();
-                Point dropPoint = ca.getMousePosition();
+            try
+            {
+                ((Component) ((DropTarget) event.getSource()).getComponent()).getMousePosition();
                 Transferable tr = event.getTransferable();
     
                 if (event.isDataFlavorSupported(DataFlavor.imageFlavor)) {

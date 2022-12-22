@@ -1,8 +1,7 @@
 package metier;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Arete 
 {
