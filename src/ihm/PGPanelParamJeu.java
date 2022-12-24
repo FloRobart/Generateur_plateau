@@ -1,15 +1,22 @@
 package ihm;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
 
 import controleur.Controleur;
 
@@ -378,7 +385,28 @@ public class PGPanelParamJeu extends JPanel
 
     private void jButton1ActionPerformed(ActionEvent e)
     {                                         
-        //new FrameCreerCarteJoueur(this.ctrl);
+        String filePath = "";
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int result = fc.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION)
+		{
+			File file = fc.getSelectedFile();
+			filePath  = file.getAbsolutePath();
+			BufferedImage img;
+			try 
+			{
+				img = ImageIO.read(new File(filePath));
+				this.ctrl.setImageFond(img);
+			}
+            catch(IOException ex)
+            {
+                ex.printStackTrace();
+                System.out.println("Erreur lors de la lecture de l'image");
+            }
+        }
     }
 
 
