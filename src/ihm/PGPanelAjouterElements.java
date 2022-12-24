@@ -112,7 +112,7 @@ public class PGPanelAjouterElements extends JPanel
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addComponent(this.imgArrete, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
                         .addComponent(this.lblArrete, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)))
-                .addGap(61, 61, 61)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(this.imgObjectif, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
                     .addComponent(this.lblObjectif, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
