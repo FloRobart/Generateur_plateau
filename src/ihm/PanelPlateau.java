@@ -363,8 +363,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                     if (ico != null) {
                         /* Action à faite quand on drop */
                         int x, y;
-                        x = (int) event.getLocation().getX();
-                        y = (int) event.getLocation().getY();  
+                        x = (int) event.getLocation().getX() - (int) xOffset;
+                        y = (int) event.getLocation().getY() - (int) yOffset;  
                         lstNoeudOfIHM.add(new Noeud("Noeud Nouveau", x, y, 0, -20, Color.BLACK));                 
                         p.revalidate();
                         p.repaint();
