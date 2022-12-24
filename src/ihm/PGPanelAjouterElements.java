@@ -65,12 +65,14 @@ public class PGPanelAjouterElements extends JPanel
         this.setPreferredSize(new Dimension(403, 215));
 
         this.lblAjouterElements.setText(" Ajouter éléments");
-        
+
+        this.imgArrete.setHorizontalAlignment(SwingConstants.CENTER);            
         this.imgArrete.setIcon(new ImageIcon(getClass().getResource("/images/arete.png")));
-        this.imgArrete.setPreferredSize(new Dimension(60, 60));
-        
+
+        this.imgNoeud.setHorizontalAlignment(SwingConstants.CENTER);
         this.imgNoeud.setIcon(new ImageIcon(getClass().getResource("/images/noeud.png")));
 
+        this.imgObjectif.setHorizontalAlignment(SwingConstants.CENTER);
         this.imgObjectif.setIcon(new ImageIcon(getClass().getResource("/images/objectif.png")));
 
         this.lblNoeud.setText("Noeud");
@@ -103,13 +105,13 @@ public class PGPanelAjouterElements extends JPanel
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(this.imgNoeud, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(this.lblNoeud, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
+                    .addComponent(this.lblNoeud, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(this.btnListElements, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addComponent(this.imgArrete, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(this.lblArrete, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(this.lblArrete, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)))
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(this.imgObjectif, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
