@@ -1,12 +1,14 @@
 package ihm;
 import java.awt.dnd.*; //Drag and Drop pakcage
 import java.awt.dnd.DragGestureListener;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.io.IOException;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.GroupLayout;
 import javax.swing.Icon;
@@ -15,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.StrokeBorder;
 
 import java.awt.datatransfer.*;
 
@@ -143,12 +146,27 @@ public class PGPanelAjouterElements extends JPanel
     private void btnListElementsActionPerformed(ActionEvent evt){}
 
 
+    @Override
     public void paint(Graphics g)
     {
         super.paint(g);
+
+        /* Couleurs */
+        Color initialColor = g.getColor();
+        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
         
-        g.setColor(new Color(255, 0, 0));
-        g.drawOval(30, 45, 65, 65);
+        /* Noeud */
+        g.setColor(labelForeColor);
+        g.fillOval(29, 40, 69, 69);
+
+        /* Arrête */
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(5));
+        g2.setColor(labelForeColor);
+        g2.drawLine(190, 40, 132, 98);
+
+
+        g.setColor(initialColor);
     }
 
     
