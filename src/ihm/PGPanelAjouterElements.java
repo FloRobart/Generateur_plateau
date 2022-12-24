@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.io.IOException;
+import java.awt.Graphics;
 
 import javax.swing.GroupLayout;
 import javax.swing.Icon;
@@ -139,7 +140,16 @@ public class PGPanelAjouterElements extends JPanel
         this.appliquerTheme();
     }
 
-    private void btnListElementsActionPerformed(ActionEvent evt){}                                               
+    private void btnListElementsActionPerformed(ActionEvent evt){}
+
+
+    public void paint(Graphics g)
+    {
+        super.paint(g);
+        
+        g.setColor(new Color(255, 0, 0));
+        g.drawOval(30, 45, 65, 65);
+    }
 
     
     class MonDragGestureListener implements DragGestureListener
