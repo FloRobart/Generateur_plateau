@@ -208,9 +208,9 @@ public class Metier
 			pw.close();
 
 			// temporaire
-			pw = new PrintWriter("./donnees/themes/theme_sauvegarde.xml");
-			pw.println("<theme>" + theme + "</theme>");
-			pw.close();
+			//pw = new PrintWriter("./donnees/themes/theme_sauvegarde.xml");
+			//pw.println("<theme>" + theme + "</theme>");
+			//pw.close();
 		}
 		catch (Exception e) { e.printStackTrace(); System.out.println("Erreur lors de l'écriture du fichier XML du themes utilisé"); }
 
