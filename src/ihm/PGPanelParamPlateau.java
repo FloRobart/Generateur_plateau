@@ -30,9 +30,6 @@ public class PGPanelParamPlateau extends JPanel
     private JLabel     lblParamPlateau;
     private JLabel     lblPolice;
     private JLabel     lblbImageFond;
-    private JTextField txtCouleurCourant;
-    private JTextField txtPathImg;
-    private JTextField txtPathPolice;
     private JTextField txtX;
     private JTextField txtY;
 
@@ -48,11 +45,8 @@ public class PGPanelParamPlateau extends JPanel
         this.lblbImageFond     = new JLabel    ();
         this.lblCouleurFond    = new JLabel    ();
         this.lblPolice         = new JLabel    ();
-        this.txtCouleurCourant = new JTextField();
         this.txtX              = new JTextField();
         this.txtY              = new JTextField();
-        this.txtPathImg        = new JTextField();
-        this.txtPathPolice     = new JTextField();
         this.btnParcourirImg   = new JButton   ();
         this.btnChoisirCouleur = new JButton   ();
         this.btnChoisirFont    = new JButton   ();
