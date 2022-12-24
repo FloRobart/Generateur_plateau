@@ -39,12 +39,10 @@ public class FramePlateau extends JFrame
 		this.ctrl = ctrl;
 
 		Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        int longueurEcran = dimEcran.width;
-        int hauteurEcran = dimEcran.height;
 
 		this.setTitle("Générateur de plateau");
 		this.setLocation(0, 0);
-		this.setSize(longueurEcran, hauteurEcran); // Définition une taille minimum
+		this.setSize(dimEcran.width, dimEcran.height); // Définition une taille minimum
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.menuBarre = new MenuBarre(this.ctrl);
@@ -53,12 +51,12 @@ public class FramePlateau extends JFrame
         try
 		{
             BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
-            this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
+            this.panelPlateau = new PanelPlateau(this.ctrl, img, this.getWidth(), this.getHeight());
         }
         catch (Exception e) {e.printStackTrace();}
 
 		JPanel panel = new JPanel();
-        panel.setSize(longueurEcran/2,hauteurEcran/2);
+        panel.setSize(this.getWidth()/2,this.getHeight()/2);
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
 
@@ -68,11 +66,10 @@ public class FramePlateau extends JFrame
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGenerateur, panel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
-		splitPane.setDividerLocation(longueurEcran/4);
+		splitPane.setDividerLocation((int)(this.getWidth()/5.5));
 
 		//Provide minimum sizes for the two components in the split pane
-		Dimension minimumSize = new Dimension(longueurEcran/4, hauteurEcran);
-		panel.setMinimumSize(minimumSize);
+		panel.setMinimumSize(new Dimension(0, 0));
 		this.panelGenerateur.setMinimumSize(new Dimension(0, 0));
 
 		/*frames modif */
