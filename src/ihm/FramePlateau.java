@@ -39,24 +39,26 @@ public class FramePlateau extends JFrame
 		this.ctrl = ctrl;
 
 		Dimension dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        int longueurEcran = dimEcran.width * 9/10;
-        int hauteurEcran = dimEcran.height * 9/10;
+        int longueurEcran = dimEcran.width;
+        int hauteurEcran = dimEcran.height;
 
 		this.setTitle("Générateur de plateau");
-		this.setLocation(50, 50);
-		this.setSize(longueurEcran, hauteurEcran);
+		this.setLocation(0, 0);
+		this.setSize(longueurEcran, hauteurEcran); // Définition une taille minimum
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.menuBarre = new MenuBarre(this.ctrl);
 		this.setJMenuBar(this.menuBarre);
 	
-        try {
+        try
+		{
             BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
             this.panelPlateau = new PanelPlateau(this.ctrl, img, longueurEcran, hauteurEcran);
         }
         catch (Exception e) {e.printStackTrace();}
 
 		JPanel panel = new JPanel();
-        panel.setSize(longueurEcran*1/2,hauteurEcran*1/2);
+        panel.setSize(longueurEcran/2,hauteurEcran/2);
 		panel.setLayout(new GridLayout(1,1));
         panel.add(this.panelPlateau);
 
@@ -66,12 +68,12 @@ public class FramePlateau extends JFrame
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGenerateur, panel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
-		splitPane.setDividerLocation(longueurEcran*1/4);
+		splitPane.setDividerLocation(longueurEcran/4);
 
 		//Provide minimum sizes for the two components in the split pane
-		Dimension minimumSize = new Dimension(longueurEcran*1/4,hauteurEcran);
+		Dimension minimumSize = new Dimension(longueurEcran/4, hauteurEcran);
 		panel.setMinimumSize(minimumSize);
-		panelGenerateur.setMinimumSize(minimumSize);
+		this.panelGenerateur.setMinimumSize(new Dimension(0, 0));
 
 		/*frames modif */
 		this.frameObjectif = new FrameObjectif(this.ctrl);
@@ -177,6 +179,9 @@ public class FramePlateau extends JFrame
 	}
 
 
+	/**
+	 * Applique le thème à la menuBarre et à tout les panels du panelGenerateur
+	 */
 	public void appliquerTheme()
 	{
 		this.menuBarre.appliquerTheme();

@@ -28,7 +28,6 @@ public class PGPanelParamJeu extends JPanel
     private JButton    btnPlusJoker;
     private JButton    btnPoints;
     private JButton    jButton1;
-    private JLabel     lblCartesWagon;
     private JLabel     lblImgCarte;
     private JLabel     lblModif;
     private JLabel     lblMultiCoul;
@@ -39,7 +38,6 @@ public class PGPanelParamJeu extends JPanel
     private JTextField txtMinJoueur;
     private JTextField txtNbCarteParCoul;
     private JTextField txtNbJoker;
-    private JTextField txtPathImgCarteWagon;
 
 
 
@@ -57,12 +55,10 @@ public class PGPanelParamJeu extends JPanel
         this.lblMultiCoul         = new JLabel    ();
         this.lblNbCarteParCoul    = new JLabel    ();
         this.lblImgCarte          = new JLabel    ();
-        this.lblCartesWagon       = new JLabel    ();
         this.txtMinJoueur         = new JTextField();
         this.txtMaxNbJoueur       = new JTextField();
         this.txtNbJoker           = new JTextField();
         this.txtNbCarteParCoul    = new JTextField();
-        this.txtPathImgCarteWagon = new JTextField();
         this.btnPlusJoker         = new JButton   ();
         this.btnCouleurs          = new JButton   ();
         this.btnPoints            = new JButton   ();
@@ -74,7 +70,6 @@ public class PGPanelParamJeu extends JPanel
 
 
         this.lblParamJeu.setText(" Parametre du jeu");
-        this.lblParamJeu.setOpaque(true);
 
         this.lblNbJoueurs.setFont(new Font("Segoe UI", 1, 12));
         this.lblNbJoueurs.setText("Nombre de joueurs");
@@ -82,14 +77,14 @@ public class PGPanelParamJeu extends JPanel
         this.lblModif.setFont(new Font("Segoe UI", 1, 12));
         this.lblModif.setText("Modifier");
 
+        this.lblMultiCoul.setFont(new Font("Segoe UI", 1, 12));
         this.lblMultiCoul.setText("multicouleurs");
 
+        this.lblNbCarteParCoul.setFont(new Font("Segoe UI", 1, 12));
         this.lblNbCarteParCoul.setText("nb couleurs");
 
+        this.lblImgCarte.setFont(new Font("Segoe UI", 1, 12));
         this.lblImgCarte.setText("image cartes");
-
-        this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12));
-        this.lblCartesWagon.setText("Cartes wagon");
 
 
         this.txtMinJoueur.setText("Min");
@@ -113,6 +108,7 @@ public class PGPanelParamJeu extends JPanel
 
 
         this.txtNbJoker.setText("10");
+        this.txtNbJoker.setHorizontalAlignment(JTextField.CENTER);
         this.txtNbJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -123,21 +119,12 @@ public class PGPanelParamJeu extends JPanel
 
 
         this.txtNbCarteParCoul.setText("10");
+        this.txtNbCarteParCoul.setHorizontalAlignment(JTextField.CENTER);
         this.txtNbCarteParCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 txtNbCarteParCoulActionPerformed(e);
-            }
-        });
-
-
-        this.txtPathImgCarteWagon.setText("Parcourir");
-        this.txtPathImgCarteWagon.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                txtPathImgCarteWagonActionPerformed(e);
             }
         });
 
@@ -216,7 +203,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.jButton1.setText("...");
+        this.jButton1.setText("Choisir une image");
         this.jButton1.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -237,9 +224,8 @@ public class PGPanelParamJeu extends JPanel
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(this.lblNbJoueurs)
-                            .addComponent(this.lblCartesWagon)
                             .addComponent(this.lblNbCarteParCoul))
-                        .addGap(15, 15, 15)
+                        .addGap(18, 18, 18) // ancienne valeurs (15, 15, 15)
                         .addComponent(this.txtMinJoueur, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(this.txtMaxNbJoueur, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
@@ -248,18 +234,18 @@ public class PGPanelParamJeu extends JPanel
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(this.lblModif)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(this.btnCouleurs, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(this.btnCouleurs, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(this.lblMultiCoul)
-                                .addGap(52, 52, 52)
+                                .addGap(18, 18, 18) // ancienne valeurs (52, 52, 52)
                                 .addComponent(this.btnMoinsJoker))
                             .addComponent(this.btnMoinsCoul))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(this.btnObjectifs, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(this.btnObjectifs, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(this.btnPoints, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(this.btnPoints, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(this.txtNbCarteParCoul, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -270,10 +256,9 @@ public class PGPanelParamJeu extends JPanel
                                 .addComponent(this.btnPlusJoker))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(this.lblImgCarte)
-                        .addGap(55, 55, 55)
-                        .addComponent(this.txtPathImgCarteWagon, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18) // ancienne valeurs (55, 55, 55)
                         .addGap(0, 0, 0)
-                        .addComponent(this.jButton1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(this.jButton1, 150, 150, 150)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
@@ -290,7 +275,6 @@ public class PGPanelParamJeu extends JPanel
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(this.lblCartesWagon)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(this.lblNbCarteParCoul))
                     .addGroup(GroupLayout.Alignment.TRAILING, layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -306,7 +290,6 @@ public class PGPanelParamJeu extends JPanel
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblImgCarte)
-                    .addComponent(this.txtPathImgCarteWagon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(this.jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -326,7 +309,6 @@ public class PGPanelParamJeu extends JPanel
     private void txtMaxNbJoueurActionPerformed      (ActionEvent e) {}
     private void txtNbJokerActionPerformed          (ActionEvent e) {}
     private void txtNbCarteParCoulActionPerformed   (ActionEvent e) {}
-    private void txtPathImgCarteWagonActionPerformed(ActionEvent e) {}
 
 
     private void btnCouleursActionPerformed (ActionEvent e) { new FrameCouleur(ctrl); }
@@ -418,6 +400,7 @@ public class PGPanelParamJeu extends JPanel
 
         this.setBackground(background);
 
+        this.lblParamJeu.setOpaque(true);
         this.lblParamJeu.setBorder(null);
         this.lblParamJeu.setBackground(titleBackColor);
         this.lblParamJeu.setForeground(titleForeColor);
@@ -442,10 +425,6 @@ public class PGPanelParamJeu extends JPanel
         this.lblImgCarte.setBackground(labelBackColor);
         this.lblImgCarte.setForeground(labelForeColor);
 
-        this.lblCartesWagon.setBorder(null);
-        this.lblCartesWagon.setBackground(labelBackColor);
-        this.lblCartesWagon.setForeground(labelForeColor);
-
         this.txtMinJoueur.setBorder(null);
         this.txtMinJoueur.setBackground(saisiBackColor);
         this.txtMinJoueur.setForeground(saisiForeColor);
@@ -461,10 +440,6 @@ public class PGPanelParamJeu extends JPanel
         this.txtNbCarteParCoul.setBorder(null);
         this.txtNbCarteParCoul.setBackground(saisiBackColor);
         this.txtNbCarteParCoul.setForeground(saisiForeColor);
-
-        this.txtPathImgCarteWagon.setBorder(null);
-        this.txtPathImgCarteWagon.setBackground(saisiBackColor);
-        this.txtPathImgCarteWagon.setForeground(saisiForeColor);
 
         this.btnCouleurs.setBorder(null);
         this.btnCouleurs.setBackground(btnBackColor);

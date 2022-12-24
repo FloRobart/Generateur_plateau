@@ -60,7 +60,6 @@ public class PGPanelParamPlateau extends JPanel
 
         /* Titre (Parametre du Plateau) */
         this.lblParamPlateau.setText      (" Parametre du Plateau");
-        this.lblParamPlateau.setOpaque    (true);
 
         /* Dimension */
         this.lblDimension.setFont      (new Font("Segoe UI", 1, 12));
@@ -79,10 +78,7 @@ public class PGPanelParamPlateau extends JPanel
         this.lblPolice.setText      ("Police d'écriture");
 
         /* Zone de saisie X */
-        this.txtX.setDisabledTextColor(new Color(255, 0, 0));
-        this.txtX.setText             (" X:");
-        this.txtX.setBorder           (null);
-        this.txtX.setOpaque           (true);
+        this.txtX.setText             ("X:");
         this.txtX.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -92,9 +88,7 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Zone de saisie Y */
-        this.txtY.setText(" Y:");
-        this.txtY.setBorder(null);
-        this.txtY.setOpaque(true);
+        this.txtY.setText("Y:");
         this.txtY.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -103,22 +97,8 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        /* Zone de saisie d'image */
-        this.txtPathImg.setText("Parcourir");
-        this.txtPathImg.setBorder(null);
-        this.txtPathImg.setOpaque(true);
-        this.txtPathImg.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                txtPathImgActionPerformed(e);
-            }
-        });
-
         /* Bouton parcourir image */
-        this.btnParcourirImg.setText("...");
-        this.btnParcourirImg.setBorder(null);
-        this.btnParcourirImg.setOpaque(true);
+        this.btnParcourirImg.setText("Choisir une image");
         this.btnParcourirImg.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -128,9 +108,7 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Bouton de choix de la couleur */
-        this.btnChoisirCouleur.setText("...");
-        this.btnChoisirCouleur.setBorder(null);
-        this.btnChoisirCouleur.setOpaque(true);
+        this.btnChoisirCouleur.setText("Choisir une couleur");
         this.btnChoisirCouleur.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -140,31 +118,12 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Bouton de choix de la police */
-        this.btnChoisirFont.setText("...");
-        this.btnChoisirFont.setBorder(null);
-        this.btnChoisirFont.setOpaque(true);
+        this.btnChoisirFont.setText("Choisir une police");
         this.btnChoisirFont.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 btnChoisirFontActionPerformed(e);
-            }
-        });
-
-        /* Couleur courente */
-        this.txtCouleurCourant.setText("Choisir votre couleur");
-        this.txtCouleurCourant.setBorder(null);
-        this.txtCouleurCourant.setOpaque(true);
-
-        /* Path police */
-        this.txtPathPolice.setText("Parcourir");
-        this.txtPathPolice.setBorder(null);
-        this.txtPathPolice.setOpaque(true);
-        this.txtPathPolice.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                txtPathPoliceActionPerformed(e);
             }
         });
 
@@ -187,15 +146,10 @@ public class PGPanelParamPlateau extends JPanel
                                 .addGap(52, 52, 52)
                                 .addComponent(this.txtY, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(this.txtCouleurCourant, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                    .addComponent(this.txtPathPolice, GroupLayout.Alignment.TRAILING)
-                                    .addComponent(this.txtPathImg))
-                                .addGap(0, 0, 0)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(this.btnParcourirImg, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(this.btnChoisirCouleur, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(this.btnChoisirFont, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(this.btnParcourirImg, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(this.btnChoisirCouleur, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(this.btnChoisirFont, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(this.lblPolice)
                     .addComponent(this.lblCouleurFond))
                 .addContainerGap(49, Short.MAX_VALUE))
@@ -215,22 +169,17 @@ public class PGPanelParamPlateau extends JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblbImageFond)
-                    .addComponent(this.txtPathImg, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
                     .addComponent(this.btnParcourirImg, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblCouleurFond)
-                    .addComponent(this.btnChoisirCouleur, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(this.txtCouleurCourant))
+                    .addComponent(this.btnChoisirCouleur, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblPolice)
-                    .addComponent(this.btnChoisirFont, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(this.txtPathPolice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(this.btnChoisirFont, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 21, Short.MAX_VALUE))
         );
-
-        this.txtCouleurCourant.getAccessibleContext().setAccessibleName("txtCouleurCourant");
 
 
         this.appliquerTheme();
@@ -239,8 +188,6 @@ public class PGPanelParamPlateau extends JPanel
 
     private void txtXActionPerformed         (ActionEvent e) {}
     private void txtYActionPerformed         (ActionEvent e) {}
-    private void txtPathImgActionPerformed   (ActionEvent e) {}
-    private void txtPathPoliceActionPerformed(ActionEvent e) {}
 
 
     private void btnParcourirImgActionPerformed(ActionEvent e) 
@@ -310,6 +257,7 @@ public class PGPanelParamPlateau extends JPanel
         /* Titre (Parametre du Plateau) */
         this.lblParamPlateau.setBackground(titleBackColor);
         this.lblParamPlateau.setForeground(titleForeColor);
+        this.lblParamPlateau.setOpaque    (true);
 
         /* Dimention */
         this.lblDimension.setBackground(labelBackColor);
@@ -330,36 +278,33 @@ public class PGPanelParamPlateau extends JPanel
         /* Zone de saisie X */
         this.txtX.setBackground(saisiBackColor);
         this.txtX.setForeground(saisiForeColor);
+        this.txtX.setBorder    (null);
+        this.txtX.setOpaque    (true);
+        this.txtX.setDisabledTextColor(new Color(255, 0, 0));
 
         /* Zone de saisie Y */
         this.txtY.setBackground(saisiBackColor);
         this.txtY.setForeground(saisiForeColor);
+        this.txtY.setBorder    (null);
+        this.txtY.setOpaque    (true);
         this.txtY.setDisabledTextColor(new Color(255, 0, 0));
-
-        /* Zone de saisie d'image */
-        this.txtPathImg.setBackground(saisiBackColor);
-        this.txtPathImg.setForeground(saisiForeColor);
-        this.txtPathImg.setDisabledTextColor(new Color(255, 0, 0));
 
         /* Bouton parcourir image */
         this.btnParcourirImg.setBackground(btnBackColor);
         this.btnParcourirImg.setForeground(btnForeColor);
+        this.btnParcourirImg.setBorder    (null);
+        this.btnParcourirImg.setOpaque    (true);
 
         /* Bouton de choix de la couleur */
         this.btnChoisirCouleur.setBackground(btnBackColor);
         this.btnChoisirCouleur.setForeground(btnForeColor);
+        this.btnChoisirCouleur.setBorder    (null);
+        this.btnChoisirCouleur.setOpaque    (true);
 
         /* Bouton de choix de la police */
         this.btnChoisirFont.setBackground(btnBackColor);
         this.btnChoisirFont.setForeground(btnForeColor);
-
-        /* Couleur courente */
-        this.txtCouleurCourant.setBackground(saisiBackColor);
-        this.txtCouleurCourant.setForeground(saisiForeColor);
-
-        /* Path police */
-        this.txtPathPolice.setBackground(saisiBackColor);
-        this.txtPathPolice.setForeground(saisiForeColor);
-        this.txtPathPolice.setDisabledTextColor(new Color(255, 0, 0));
+        this.btnChoisirFont.setBorder    (null);
+        this.btnChoisirFont.setOpaque    (true);
 	}
 }
