@@ -87,8 +87,10 @@ public class Metier
 		this.noeuds.add(new Noeud("Mon noeud 3", 200, 400, 0, -20, Color.CYAN));
 		this.noeuds.add(new Noeud("Mon noeud 4", 300, 300, 0, -20, Color.GREEN));
 
-		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 3, Color.BLUE, Color.gray));
-		this.aretes.add(new Arete(this.noeuds.get(2), this.noeuds.get(1), 3, Color.RED , null      ));
+		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 7, Color.BLUE , Color.gray));
+		this.aretes.add(new Arete(this.noeuds.get(2), this.noeuds.get(1), 3, Color.RED  , null      ));
+		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(2), 4, Color.GREEN, null      ));
+		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(1), 2, Color.PINK , null      ));
 		
 		this.couleurs.add(Color.BLUE);
 		this.couleurs.add(Color.RED);
