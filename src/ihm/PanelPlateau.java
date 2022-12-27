@@ -13,6 +13,7 @@ import metier.Noeud;
 
 import java.awt.datatransfer.*;
 import java.awt.dnd.*; 
+import java.awt.Shape;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -29,6 +30,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.Component;
 
 
@@ -184,19 +186,34 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
 		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
         g2.drawImage(image, (int) xOffset, (int) yOffset, this);
-
         g2.setFont(this.ctrl.getPolicePlateau());
 
 		for (Arete arete : this.ctrl.getAretes())
 		{
-			g2.setColor(arete.getCouleur1());
+			Point n1, n2;
+			// on calcul l'angle de rotation à partir de la tangante de notre angle
+			double angle = Math.atan((double) (arete.getNoeud2().getY() - arete.getNoeud1().getY()) / 
+			                                  (arete.getNoeud2().getX() - arete.getNoeud1().getX())  );
 
-			int x1 = (int) xOffset + arete.getNoeud1().getX();
-			int y1 = (int) yOffset + arete.getNoeud1().getY();
-			int x2 = (int) xOffset + arete.getNoeud2().getX();
-			int y2 = (int) yOffset + arete.getNoeud2().getY();
+			if (arete.getCouleur2() == null)
+			{
+				n1 = new Point(arete.getNoeud1().getX(), arete.getNoeud1().getY());
+				n2 = new Point(arete.getNoeud2().getX(), arete.getNoeud2().getY());
+				this.paintArete(g2, n1, n2, arete.getDistance(), arete.getCouleur1(), angle);
+			}
+			else
+			{
+				int adj = (int) (12 * Math.cos(angle + 1.57)); //90° = 1.57
+				int opp = (int) (12 * Math.sin(angle + 1.57));
 
-			g2.drawLine(x1, y1, x2, y2);
+				n1 = new Point(arete.getNoeud1().getX() + adj, arete.getNoeud1().getY() + opp);
+				n2 = new Point(arete.getNoeud2().getX() + adj, arete.getNoeud2().getY() + opp);
+				this.paintArete(g2, n1, n2, arete.getDistance(), arete.getCouleur1(), angle);
+
+				n1 = new Point(arete.getNoeud1().getX() - adj, arete.getNoeud1().getY() - opp);
+				n2 = new Point(arete.getNoeud2().getX() - adj, arete.getNoeud2().getY() - opp);
+				this.paintArete(g2, n1, n2, arete.getDistance(), arete.getCouleur2(), angle);
+			}
 		}
 
 		int i = 0;
@@ -230,6 +247,30 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			              midY + noeud.getYNom() + 4);
         }
     }
+
+	private void paintArete(Graphics2D g2, Point n1, Point n2, int d, Color c, double angle)
+	{
+		for (double cpt = 1 ; cpt < d + 1 ; cpt++)
+		{
+			// on récupère les coordonnées centrale de notre tronçon
+			int x = (int) (this.xOffset + n1.getX() + ((n2.getX() - n1.getX()) * (cpt / (d + 1))));
+			int y = (int) (this.yOffset + n1.getY() + ((n2.getY() - n1.getY()) * (cpt / (d + 1))));
+
+			// on créer notre tronçon sans son angle
+			RoundRectangle2D fig1 = new RoundRectangle2D.Double(x - 25, y - 10, 50, 20, 25, 25);
+
+			// on créer un autre tronçon mais avec son angle cette fois-ci
+			AffineTransform t = new AffineTransform();
+			t.rotate(angle, fig1.getX()+25, fig1.getY()+10);
+			Shape fig2 = t.createTransformedShape(fig1);
+
+			// on dessine notre troncon
+			g2.setColor(c);
+			g2.fill(fig2);
+			g2.setColor(Color.BLACK);
+			g2.draw(fig2);
+		}
+	}
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) 
