@@ -69,13 +69,13 @@ public class PGPanelAjouterElements extends JPanel
         this.lblAjouterElements.setText(" Ajouter éléments");
 
         this.imgArrete.setHorizontalAlignment(SwingConstants.CENTER);            
-        this.imgArrete.setIcon(new ImageIcon(getClass().getResource("/images/arete.png")));
+        this.imgArrete.setIcon(new ImageIcon(getClass().getResource("/donnees/images/arete.png")));
 
         this.imgNoeud.setHorizontalAlignment(SwingConstants.CENTER);
-        this.imgNoeud.setIcon(new ImageIcon(getClass().getResource("/images/noeud.png")));
+        this.imgNoeud.setIcon(new ImageIcon(getClass().getResource("/donnees/images/noeud.png")));
 
         this.imgObjectif.setHorizontalAlignment(SwingConstants.CENTER);
-        this.imgObjectif.setIcon(new ImageIcon(getClass().getResource("/images/objectif.png")));
+        this.imgObjectif.setIcon(new ImageIcon(getClass().getResource("/donnees/images/objectif.png")));
 
         this.lblNoeud.setText("Noeud");
         this.lblNoeud.setFont(new Font("Segoe UI", 1, 12));
