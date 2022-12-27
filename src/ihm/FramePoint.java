@@ -18,17 +18,17 @@ import controleur.Controleur;
 public class FramePoint extends JFrame implements ActionListener
 {
     private Controleur ctrl;
-    private JPanel panelPoint;
+    private JPanel     panelPoint;
 
-    private JTable tablePoint;
-    private String[] tabEntetes;
+    private JTable     tablePoint;
+    private String[]   tabEntetes;
     private Object[][] tabDonnees;
 
-    private JButton   btnAjouter;
-    private JButton   btnSupprimer;
-    private JButton   btnOk;
+    private JButton    btnAjouter;
+    private JButton    btnSupprimer;
+    private JButton    btnOk;
 
-    private int index=0;
+    private int        index=0;
     
     public FramePoint(Controleur ctrl)
     {
@@ -87,7 +87,6 @@ public class FramePoint extends JFrame implements ActionListener
         panelButton.add(this.btnAjouter);
         panelButton.add(this.btnSupprimer);
         panelButton.add(this.btnOk);
-
 
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
