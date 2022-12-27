@@ -107,7 +107,10 @@ public class FramePoint extends JFrame implements ActionListener
         }
         if (e.getSource() == this.btnSupprimer) 
         {
-
+            this.tabDonnees[this.index-1][0] = null;
+            this.tabDonnees[this.index-1][1] = null;
+            this.index--;
+            this.tablePoint.updateUI();
         }
 
         if (e.getSource() == this.btnOk) 
