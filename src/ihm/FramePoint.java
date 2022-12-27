@@ -28,7 +28,7 @@ public class FramePoint extends JFrame implements ActionListener
     private JButton   btnSupprimer;
     private JButton   btnOk;
 
-    private int index=5;
+    private int index=0;
     
     public FramePoint(Controleur ctrl)
     {
@@ -48,7 +48,7 @@ public class FramePoint extends JFrame implements ActionListener
         List<Integer> listPoint = this.ctrl.getMetier().getPoints();
         this.tabDonnees = new Object[100][2];
 
-        for (int cpt=0; cpt < this.index; cpt++)
+        for (int cpt=0; cpt < listPoint.size(); cpt++)
         {
             this.tabDonnees[cpt][0] = cpt+1;
             this.tabDonnees[cpt][1] = listPoint.get(cpt);
