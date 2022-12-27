@@ -10,25 +10,30 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import controleur.Controleur;
 
 
 public class FramePoint extends JFrame implements ActionListener
 {
-    private JPanel panelPoint;
+    private Controleur ctrl;
+    private JPanel     panelPoint;
 
-    private JTable tablePoint;
-    private String[] tabEntetes;
+    private JTable     tablePoint;
+    private String[]   tabEntetes;
     private Object[][] tabDonnees;
 
-    private JButton   btnAjouter;
-    private JButton   btnSupprimer;
-    private JButton   btnOk;
+    private JButton    btnAjouter;
+    private JButton    btnSupprimer;
+    private JButton    btnOk;
 
-    private int index=5;
+    private int        index=0;
     
     public FramePoint(Controleur ctrl)
     {
+        this.ctrl = ctrl;
+
         this.setTitle("Modifier les points");
         this.setSize(470, 200);
         this.setLocation(500, 300);
@@ -40,11 +45,13 @@ public class FramePoint extends JFrame implements ActionListener
         JScrollPane spGrilleDonnees;
 
         //création du tableau de points 
+        List<Integer> listPoint = this.ctrl.getMetier().getPoints();
         this.tabDonnees = new Object[100][2];
-        for (int cpt=0; cpt < this.index; cpt++)
+
+        for (int cpt=0; cpt < listPoint.size(); cpt++)
         {
             this.tabDonnees[cpt][0] = cpt+1;
-            this.tabDonnees[cpt][1] = cpt+1;
+            this.tabDonnees[cpt][1] = listPoint.get(cpt);
         }
 
         this.tabEntetes = new String[] {"Distance", "Points"}; 
@@ -55,8 +62,6 @@ public class FramePoint extends JFrame implements ActionListener
         this.tablePoint.setBackground(new Color(68, 71, 90));
         this.tablePoint.setForeground(Color.WHITE);
         this.tablePoint.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        //this.tablePoint.setPreferredScrollableViewportSize(this.tablePoint.getPreferredSize());
         this.tablePoint.setFillsViewportHeight(true);
 
         spGrilleDonnees = new JScrollPane(this.tablePoint);
@@ -83,7 +88,6 @@ public class FramePoint extends JFrame implements ActionListener
         panelButton.add(this.btnSupprimer);
         panelButton.add(this.btnOk);
 
-
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
         this.setVisible(false);
@@ -103,11 +107,15 @@ public class FramePoint extends JFrame implements ActionListener
             this.tabDonnees[this.index][1] = this.index+1;
             this.index++;
             this.tablePoint.updateUI();
+            this.ctrl.getMetier().setNbPoint(this.index);
             
         }
         if (e.getSource() == this.btnSupprimer) 
         {
-
+            this.tabDonnees[this.index-1][0] = null;
+            this.tabDonnees[this.index-1][1] = null;
+            this.index--;
+            this.tablePoint.updateUI();
         }
 
         if (e.getSource() == this.btnOk) 

@@ -668,6 +668,14 @@ public class Metier
 		}
     }
 
+	/**
+	 * Ajoute une Arete
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 * @param distance : distance entre les deux noeuds
+	 * @param couleur1 : couleur de la première arrête
+	 * @param couleur2 : couleur de la deuxième arrête si c'est une double voie
+	 */
     public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
 	{
 		Noeud nA=null;
@@ -689,6 +697,11 @@ public class Metier
 		this.aretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
     }
 
+	/**
+	 * Supprime une arete
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 */
     public void supprimerArete(String nom1, String nom2) 
 	{
 		for(Arete a : this.aretes)
@@ -701,6 +714,12 @@ public class Metier
 		}
     }
 
+	/**
+	 * Ajoute un objectif
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 * @param point : nombre de point que rapporte l'objectif
+	 */
 	public void ajouterObjectif(String nom1, String nom2, int point) 
 	{
 		Noeud nA=null;
@@ -721,6 +740,11 @@ public class Metier
 		this.carteObjectif.add(new CarteObjectif(nA, nB, point, null));
 	}
 
+	/**
+	 * Supprime un objectif
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 */
     public void supprimerObjectif(String nom1, String nom2) 
 	{
 		for(CarteObjectif c : this.carteObjectif)
@@ -732,4 +756,13 @@ public class Metier
 			}
 		}
     }
+
+	/**
+	 * 
+	 * @param index : ajout d'un score dans la liste des scores
+	 */
+	public void setNbPoint(int index) 
+	{
+		this.points.add(index);
+	}
 }

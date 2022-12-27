@@ -29,7 +29,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 {
     private Controleur ctrl;
 
-    private JList<String>      listNoeuds;
+    private JList<String> listNoeuds;
     
     private JTextField txtPosX;
     private JTextField txtPosY;
@@ -43,7 +43,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 
     private Color      couleur;
 
-    private ListModel<String>  listModel;
+    private ListModel<String> listModel;
     private List<Noeud>       noeuds;
 
     public PanelNoeud(Controleur ctrl) 
@@ -242,6 +242,9 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         this.effacerForm();
     }
 
+    /**
+     * efface le formulaire suite à l'ajout ou la suppression d'un noeud
+     */
     private void effacerForm()
     {
         this.txtNom.setText("");
@@ -282,12 +285,8 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
     public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
-
     @Override
-    public void mouseClicked(MouseEvent e) 
-    {
-        
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) 
@@ -312,20 +311,9 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseReleased(MouseEvent e) {}
     @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseEntered(MouseEvent e) {}
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void mouseExited(MouseEvent e) {}
 }
