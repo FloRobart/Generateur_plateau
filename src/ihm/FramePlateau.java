@@ -47,13 +47,9 @@ public class FramePlateau extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.menuBarre = new MenuBarre(this.ctrl);
 		this.setJMenuBar(this.menuBarre);
-	
-        try
-		{
-            BufferedImage img = ImageIO.read(new File("./donnees/images/les_aventuriers_du_rail.jpg"));
-            this.panelPlateau = new PanelPlateau(this.ctrl, img, this.getWidth(), this.getHeight());
-        }
-        catch (Exception e) {e.printStackTrace();}
+
+        this.panelPlateau = new PanelPlateau(this.ctrl, this.getWidth(), this.getHeight());
+
 
 		JPanel panel = new JPanel();
         panel.setSize(this.getWidth()/2,this.getHeight()/2);
@@ -186,9 +182,9 @@ public class FramePlateau extends JFrame
 	}
 
 
-	public void setCouleur(Color color)
+	public void majIHM()
 	{
-		this.panelPlateau.setCouleur(color);
+		this.panelPlateau.majIHM();
 	}
 
 	public void setImageFond(BufferedImage img)

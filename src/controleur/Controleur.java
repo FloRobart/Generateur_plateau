@@ -36,6 +36,9 @@ public class Controleur
 
 	/* Getters */
 	public Metier getMetier() { return this.metier;}
+	public int[] getTaillePlateau() { return this.metier.getTaillePlateau(); }
+	public BufferedImage getImagePlateau() { return this.metier.getImagePlateau(); }
+	public Color getCouleurPlateau() { return this.metier.getCouleurPlateau(); }
 	public Font getPolicePlateau() { return this.metier.getPolicePlateau(); }
 	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
 	public List<Arete> getAretes() { return this.metier.getAretes(); }
@@ -63,9 +66,10 @@ public class Controleur
 		this.metier.supprimerCouleur(c);
 	}
 
-	public void setCouleur(Color color) {
+	public void setCouleurPlateau(Color c) {
 
-		this.ihm.setCouleur(color);
+		this.metier.setCouleurPlateau(c);
+		this.ihm.majIHM();
     }
 
 	public void setImageFond(BufferedImage img) {

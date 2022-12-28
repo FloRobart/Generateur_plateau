@@ -215,7 +215,7 @@ public class PGPanelParamPlateau extends JPanel
     {
         Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
 		if (color != null) 
-		 	this.ctrl.setCouleur(color);
+		 	this.ctrl.setCouleurPlateau(color);
     }                                                 
 
     private void btnChoisirFontActionPerformed(ActionEvent e)

@@ -71,26 +71,30 @@ public class Metier
 		this.hmColorThemes     = new HashMap<String, List<Color>>();
 /*
 		this.policePlateau = new Font("Arial", Font.PLAIN, 12);
-		this.couleurPlateau = Color.WHITE;
 		this.nbJoueursMin = 2;
 		this.nbJoueursMax = 5;
 		this.nbCarteCoul = 12;
 		this.nbCarteLocomotive = 14;
-		this.taillePlateau[0] = 1000;
-		this.taillePlateau[1] = 1000;
-		this.imagePlateau = new BufferedImage(this.taillePlateau[0], this.taillePlateau[1], BufferedImage.TYPE_INT_RGB);
 */
+		this.taillePlateau[0] = 800;
+		this.taillePlateau[1] = 800;
 
+		this.couleurPlateau = Color.BLUE;
+		try 
+		{
+			this.imagePlateau = ImageIO.read(new File("./donnees/images/France.png"));
+		}
+		catch (Exception e) {}
 
-		this.noeuds.add(new Noeud("Mon noeud 1", 100, 100, 0, -20, Color.CYAN));
-		this.noeuds.add(new Noeud("Mon noeud 2", 500, 500, 0, -20, Color.RED));
-		this.noeuds.add(new Noeud("Mon noeud 3", 200, 400, 0, -20, Color.CYAN));
-		this.noeuds.add(new Noeud("Mon noeud 4", 300, 300, 0, -20, Color.GREEN));
+		this.noeuds.add(new Noeud("Le Havre", 306, 152,   0, -20, Color.CYAN ));
+		this.noeuds.add(new Noeud("Lyon"    , 559, 467,  43, -20, Color.RED  ));
+		this.noeuds.add(new Noeud("Nantes"  , 179, 365, -35, -20, Color.CYAN ));
+		this.noeuds.add(new Noeud("Paris"   , 445, 235,  55,   0, Color.GREEN));
 
-		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 7, Color.BLUE , Color.gray));
-		this.aretes.add(new Arete(this.noeuds.get(2), this.noeuds.get(1), 3, Color.RED  , null      ));
+		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 2, Color.BLUE , Color.GRAY));
+		this.aretes.add(new Arete(this.noeuds.get(2), this.noeuds.get(1), 5, Color.RED  , Color.BLUE));
 		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(2), 4, Color.GREEN, null      ));
-		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(1), 2, Color.PINK , null      ));
+		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(1), 4, Color.PINK , null      ));
 		
 		this.couleurs.add(Color.BLUE);
 		this.couleurs.add(Color.RED);
@@ -200,6 +204,10 @@ public class Metier
 	public List<Arete>                  getAretes              () { return this.aretes;               }
 	public HashMap<String, List<Color>> getTheme               () { return this.hmColorThemes;        }
 
+	public void setCouleurPlateau(Color c)
+	{
+		this.couleurPlateau = c;
+	}
 
 	public void setThemeUsed(String theme)
 	{
