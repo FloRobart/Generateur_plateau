@@ -178,6 +178,7 @@ public class FramePlateau extends JFrame
 	{
 		this.menuBarre.appliquerTheme();
 		this.panelGenerateur.appliquerTheme();
+		this.panelPlateau.appliquerTheme();
 	}
 
 

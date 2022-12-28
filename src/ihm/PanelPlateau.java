@@ -64,19 +64,26 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         this.ctrl = ctrl;
 		
 
-        lstNoeudOfIHM =  this.ctrl.getNoeuds();
+        this.lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
 
-		this.setBackground(this.ctrl.getTheme().get("background").get(0));
-        initComponent();
+        this.initComponent();
+
         this.lblImagePlateau = new JLabel("");
         this.add(lblImagePlateau);
+
+        /* Application du theme */
+        this.appliquerTheme();
         
         //Drag and Drop features
-        initTransferHandle();
+        this.initTransferHandle();
         new MonDropTargetListener(this);
     }
 
+    public void appliquerTheme()
+    {
+        this.setBackground(this.ctrl.getTheme().get("background").get(0));
+    }
 
     private void initTransferHandle() 
     {
