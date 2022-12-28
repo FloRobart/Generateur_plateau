@@ -167,6 +167,9 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
         this.listObjectif.addMouseListener(this);
     }
 
+    /**
+     * Suprimme un objectif de la listes
+     */
     private void supprimerObjectif() 
     {
         String[] noms = this.listModel.getElementAt(this.listObjectif.getSelectedIndex()).split("-");
@@ -177,6 +180,9 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
         this.effacerForm();
     }
 
+    /**
+     * Ajoute un objectif à la liste
+     */
     private void ajouterObjectif()
     {
         String nom1     = (String) this.cbA.getSelectedItem();
@@ -192,6 +198,9 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
        this.effacerForm();
     }
 
+    /**
+     * Efface le formulaire suite à l'ajout ou la suppression d'un objectif
+     */
     private void effacerForm() 
     {
         this.cbA.setSelectedIndex(0);
@@ -205,12 +214,8 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
     public void keyPressed(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
-
     @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) 
@@ -233,21 +238,9 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseReleased(MouseEvent e) {}
     @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseEntered(MouseEvent e) {}
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseExited(MouseEvent e) {}
 }
