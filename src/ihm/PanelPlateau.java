@@ -121,11 +121,6 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         this.setTransferHandler(dnd);
     }
 
-    public void majIHM()
-    {
-		this.repaint();
-	}
-
     public BufferedImage getImage()
     {
         return this.image;
@@ -134,7 +129,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     public void setImageFond(BufferedImage img)
     {
         this.image = img;
-        repaint();
+        this.repaint();
     }
 
     private void initComponent() 

@@ -184,7 +184,7 @@ public class FramePlateau extends JFrame
 
 	public void majIHM()
 	{
-		this.panelPlateau.majIHM();
+		this.panelPlateau.repaint();
 	}
 
 	public void setImageFond(BufferedImage img)
