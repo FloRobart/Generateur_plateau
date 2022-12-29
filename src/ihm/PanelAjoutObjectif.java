@@ -174,7 +174,7 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
     {
         String[] noms = this.listModel.getElementAt(this.listObjectif.getSelectedIndex()).split("-");
 
-        this.ctrl.getMetier().supprimerObjectif(noms[0], noms[1]);
+        this.ctrl.supprimerObjectif(noms[0], noms[1]);
 
         ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
         this.effacerForm();
@@ -192,7 +192,7 @@ public class PanelAjoutObjectif extends JPanel implements KeyListener, MouseList
         ((DefaultListModel<String>) this.listModel).addElement(nom1 + "-" + nom2);
         if(!nom1.equals(nom2))
         {
-            this.ctrl.getMetier().ajouterObjectif(nom1, nom2, point);
+            this.ctrl.ajouterObjectif(nom1, nom2, point);
         }
         
        this.effacerForm();
