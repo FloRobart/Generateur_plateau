@@ -66,14 +66,15 @@ public class Controleur
 		this.metier.supprimerCouleur(c);
 	}
 
-	public void setCouleurPlateau(Color c) {
-
+	public void setCouleurPlateau(Color c)
+	{
 		this.metier.setCouleurPlateau(c);
 		this.ihm.majIHM();
     }
 
-	public void setImageFond(BufferedImage img) {
-
+	public void setImagePlateau(BufferedImage img)
+	{
+		this.metier.setImagePlateau(img);
 		this.ihm.setImageFond(img);
     }
 

@@ -42,33 +42,33 @@ public class Metier
 	private int nbJetonJoueur;
 	private int nbJetonFin;
 
-	private List<Color>         couleurs;
+	private List<Color>         lstCouleurs;
 	private BufferedImage       imageVersoCouleur;
 	private BufferedImage       imageRectoLocomotive;
-	private List<BufferedImage> imagesRectoCouleur;
+	private List<BufferedImage> lstImagesRectoCouleur;
 
-	private List<Integer> points;
+	private List<Integer> lstPoints;
 
 	private BufferedImage       imageVersoObjectif;
 	private List<CarteObjectif> carteObjectif;
 
-	private List<Noeud>         noeuds;
-	private List<Arete>         aretes;
+	private List<Noeud>         lstNoeuds;
+	private List<Arete>         lstAretes;
 
 	private HashMap<String, List<Color>> hmColorThemes;
 
 
 	public Metier()
 	{
-		this.taillePlateau      = new int[2];
-		this.couleurs           = new ArrayList<Color>();
-		this.imagesRectoCouleur = new ArrayList<BufferedImage>();
-		this.points             = new ArrayList<Integer>();
-		this.carteObjectif      = new ArrayList<CarteObjectif>();
-		this.noeuds             = new ArrayList<Noeud>();
-		this.aretes             = new ArrayList<Arete>();
+		this.taillePlateau         = new int[2];
+		this.lstCouleurs           = new ArrayList<Color>();
+		this.lstImagesRectoCouleur = new ArrayList<BufferedImage>();
+		this.lstPoints             = new ArrayList<Integer>();
+		this.carteObjectif         = new ArrayList<CarteObjectif>();
+		this.lstNoeuds             = new ArrayList<Noeud>();
+		this.lstAretes             = new ArrayList<Arete>();
 
-		this.hmColorThemes     = new HashMap<String, List<Color>>();
+		this.hmColorThemes         = new HashMap<String, List<Color>>();
 /*
 		this.policePlateau = new Font("Arial", Font.PLAIN, 12);
 		this.nbJoueursMin = 2;
@@ -82,30 +82,31 @@ public class Metier
 		this.couleurPlateau = Color.BLUE;
 		try 
 		{
-			this.imagePlateau = ImageIO.read(new File("./donnees/images/France.png"));
+			this.imagePlateau = ImageIO.read(new File("./bin/donnees/images/France.png"));
 		}
-		catch (Exception e) {}
+		catch (Exception e) { e.printStackTrace(); }
 
-		this.noeuds.add(new Noeud("Le Havre", 306, 152,   0, -20, Color.CYAN ));
-		this.noeuds.add(new Noeud("Lyon"    , 559, 467,  43, -20, Color.RED  ));
-		this.noeuds.add(new Noeud("Nantes"  , 179, 365, -35, -20, Color.CYAN ));
-		this.noeuds.add(new Noeud("Paris"   , 445, 235,  55,   0, Color.GREEN));
+		this.lstNoeuds.add(new Noeud("Le Havre", 306, 152,   0, -20, Color.CYAN ));
+		this.lstNoeuds.add(new Noeud("Lyon"    , 559, 467,  43, -20, Color.RED  ));
+		this.lstNoeuds.add(new Noeud("Nantes"  , 179, 365, -35, -20, Color.CYAN ));
+		this.lstNoeuds.add(new Noeud("Paris"   , 445, 235,  55,   0, Color.GREEN));
 
-		this.aretes.add(new Arete(this.noeuds.get(0), this.noeuds.get(3), 2, Color.BLUE , Color.GRAY));
-		this.aretes.add(new Arete(this.noeuds.get(2), this.noeuds.get(1), 5, Color.RED  , Color.BLUE));
-		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(2), 4, Color.GREEN, null      ));
-		this.aretes.add(new Arete(this.noeuds.get(3), this.noeuds.get(1), 4, Color.PINK , null      ));
+		this.lstAretes.add(new Arete(this.lstNoeuds.get(0), this.lstNoeuds.get(3), 2, Color.BLUE , Color.GRAY));
+		this.lstAretes.add(new Arete(this.lstNoeuds.get(2), this.lstNoeuds.get(1), 5, Color.RED  , Color.BLUE));
+		this.lstAretes.add(new Arete(this.lstNoeuds.get(3), this.lstNoeuds.get(2), 4, Color.GREEN, null      ));
+		this.lstAretes.add(new Arete(this.lstNoeuds.get(3), this.lstNoeuds.get(1), 4, Color.PINK , null      ));
 		
-		this.couleurs.add(Color.BLUE);
-		this.couleurs.add(Color.RED);
-		this.couleurs.add(Color.YELLOW);
-		this.couleurs.add(Color.GREEN);
-		this.couleurs.add(Color.PINK);
+		this.lstCouleurs.add(Color.BLUE);
+		this.lstCouleurs.add(Color.RED);
+		this.lstCouleurs.add(Color.YELLOW);
+		this.lstCouleurs.add(Color.GREEN);
+		this.lstCouleurs.add(Color.PINK);
 
-/*		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(0), this.noeuds.get(1), 10, null));
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(2),  5, null));
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(2), this.noeuds.get(3),  5, null));
-		this.carteObjectif.add(new CarteObjectif(this.noeuds.get(1), this.noeuds.get(3), 15, null));
+/*
+		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
+		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(2),  5, null));
+		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(2), this.lstNoeuds.get(3),  5, null));
+		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(3), 15, null));
 */
 
 		String themeUsed = this.getThemeUsed();
@@ -193,15 +194,15 @@ public class Metier
 	public int                          getNbCarteLocomotive   () { return this.nbCarteLocomotive;    }
 	public int                          getNbJetonJoueur       () { return this.nbJetonJoueur;        }
 	public int                          getNbJetonFin          () { return this.nbJetonFin;           }
-	public List<Color>                  getCouleurs            () { return this.couleurs;             }
+	public List<Color>                  getCouleurs            () { return this.lstCouleurs;          }
 	public BufferedImage                getImageVersoCouleur   () { return this.imageVersoCouleur;    }
 	public BufferedImage                getImageRectoLocomotive() { return this.imageRectoLocomotive; }
-	public List<BufferedImage>          getImagesRectoCouleur  () { return this.imagesRectoCouleur;   }
-	public List<Integer>                getPoints              () { return this.points;               }
+	public List<BufferedImage>          getImagesRectoCouleur  () { return this.lstImagesRectoCouleur;}
+	public List<Integer>                getPoints              () { return this.lstPoints;            }
 	public BufferedImage                getImageVersoObjectif  () { return this.imageVersoObjectif;   }
 	public List<CarteObjectif>          getCarteObjectif       () { return this.carteObjectif;        }
-	public List<Noeud>                  getNoeuds              () { return this.noeuds;               }
-	public List<Arete>                  getAretes              () { return this.aretes;               }
+	public List<Noeud>                  getNoeuds              () { return this.lstNoeuds;            }
+	public List<Arete>                  getAretes              () { return this.lstAretes;            }
 	public HashMap<String, List<Color>> getTheme               () { return this.hmColorThemes;        }
 
 	public void setCouleurPlateau(Color c)
@@ -231,22 +232,27 @@ public class Metier
 
 	public void setPositionNoeud(int id, int x, int y)
 	{
-		this.noeuds.get(id).setXY(x, y);
+		this.lstNoeuds.get(id).setXY(x, y);
 	}
 
 	public void setPositionNomNoeud(int id, int x, int y)
 	{
-		this.noeuds.get(id).setXYNom(x, y);
+		this.lstNoeuds.get(id).setXYNom(x, y);
 	}
 
 	public void ajouterCouleur(Color c)
 	{
-		this.couleurs.add(c);
+		this.lstCouleurs.add(c);
 	}
 
 	public void supprimerCouleur(Color c)
 	{
-		this.couleurs.remove(c);
+		this.lstCouleurs.remove(c);
+	}
+
+	public void setImagePlateau(BufferedImage img)
+	{
+		this.imagePlateau = img;
 	}
 
 	private void lireFichier(File fichier)
@@ -284,14 +290,14 @@ public class Metier
 			
 			Element plateau = racine.getChild("plateau");
 			
-			/* <liste-couleurs> */
-			List<Element> listCouleurs = plateau.getChild("liste-couleurs").getChildren("couleur");
-			Iterator<Element> itCouleurs = listCouleurs.iterator();
+			/* <liste-lstCouleurs> */
+			List<Element> listlstCouleurs = plateau.getChild("liste-lstCouleurs").getChildren("couleur");
+			Iterator<Element> itlstCouleurs = listlstCouleurs.iterator();
 			
-			while(itCouleurs.hasNext())
+			while(itlstCouleurs.hasNext())
 			{
-				Element couleur = (Element)itCouleurs.next();
-				this.couleurs.add(Color.decode(couleur.getText()));
+				Element couleur = (Element)itlstCouleurs.next();
+				this.lstCouleurs.add(Color.decode(couleur.getText()));
 			}
 
 			/* <liste-image_cartes> */
@@ -306,27 +312,27 @@ public class Metier
 			{
 				Element imageCarte = (Element)itImagesCartes.next();
 				BufferedImage image = this.base64ToImage(imageCarte.getText());
-				this.imagesRectoCouleur.add(image);
+				this.lstImagesRectoCouleur.add(image);
 			}
 			
-			/* <tableau-points */
-			 List<Element> listPoints = plateau.getChild("tableau-points").getChildren("distance");
-			 Iterator<Element> itPoints = listPoints.iterator();
+			/* <tableau-lstPoints */
+			 List<Element> listlstPoints = plateau.getChild("tableau-lstPoints").getChildren("distance");
+			 Iterator<Element> itlstPoints = listlstPoints.iterator();
 
-			 while(itPoints.hasNext())
+			 while(itlstPoints.hasNext())
 			 {
-				 Element point = (Element)itPoints.next();
-				 this.points.add(Integer.parseInt(point.getText()));
+				 Element point = (Element)itlstPoints.next();
+				 this.lstPoints.add(Integer.parseInt(point.getText()));
 			 }
 
-			/* <liste-noeuds> */
+			/* <liste-lstNoeuds> */
 			Noeud.reinitialiserId();
-			List<Element> listNoeuds = plateau.getChild("liste-noeuds").getChildren("noeud");
-			Iterator<Element> itNoeuds = listNoeuds.iterator();
+			List<Element> listlstNoeuds = plateau.getChild("liste-lstNoeuds").getChildren("noeud");
+			Iterator<Element> itlstNoeuds = listlstNoeuds.iterator();
 
-			while(itNoeuds.hasNext())
+			while(itlstNoeuds.hasNext())
 			{
-				Element noeud = (Element)itNoeuds.next();
+				Element noeud = (Element)itlstNoeuds.next();
 
 				Element position = noeud.getChild("position");
 				int x = Integer.parseInt(position.getAttributeValue("x"));
@@ -340,20 +346,20 @@ public class Metier
 
 				Color couleur = Color.decode(noeud.getChild("couleur").getText());
 
-				this.noeuds.add(new Noeud(nom, x, y, xNom, yNom, couleur));
+				this.lstNoeuds.add(new Noeud(nom, x, y, xNom, yNom, couleur));
 			}
 
-			/* <liste-aretes> */
-			List<Element> listAretes = plateau.getChild("liste-aretes").getChildren("arete");
-			Iterator<Element> itAretes = listAretes.iterator();
+			/* <liste-lstAretes> */
+			List<Element> listlstAretes = plateau.getChild("liste-lstAretes").getChildren("arete");
+			Iterator<Element> itlstAretes = listlstAretes.iterator();
 
-			while(itAretes.hasNext())
+			while(itlstAretes.hasNext())
 			{
-				Element arete = (Element)itAretes.next();
+				Element arete = (Element)itlstAretes.next();
 
 				Element noeud = arete.getChild("noeud");
-				Noeud n1 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
-				Noeud n2 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
+				Noeud n1 = this.lstNoeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
+				Noeud n2 = this.lstNoeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
 
 				Color couleur1 = Color.decode(arete.getChild("couleur1").getText());
 
@@ -365,7 +371,7 @@ public class Metier
 
 				int distance = Integer.parseInt(arete.getChild("distance").getText());
 
-				this.aretes.add(new Arete(n1, n2, distance, couleur1, couleur2));
+				this.lstAretes.add(new Arete(n1, n2, distance, couleur1, couleur2));
 			}
 
 			/* <liste-objectifs> */
@@ -380,14 +386,14 @@ public class Metier
 				Element objectif = (Element)itObjectifs.next();
 
 				Element noeud = objectif.getChild("noeud");
-				Noeud n1 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
-				Noeud n2 = this.noeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
+				Noeud n1 = this.lstNoeuds.get(Integer.parseInt(noeud.getAttributeValue("n1"))-1);
+				Noeud n2 = this.lstNoeuds.get(Integer.parseInt(noeud.getAttributeValue("n2"))-1);
 
-				int points = Integer.parseInt(objectif.getChild("points").getText());
+				int lstPoints = Integer.parseInt(objectif.getChild("lstPoints").getText());
 
 				BufferedImage imageRecto = this.base64ToImage(objectif.getChild("image-recto").getText());
 
-				this.carteObjectif.add(new CarteObjectif(n1, n2, points, imageRecto));
+				this.carteObjectif.add(new CarteObjectif(n1, n2, lstPoints, imageRecto));
 			}
 		} catch (Exception e){ e.printStackTrace(); }
 	}
@@ -440,16 +446,16 @@ public class Metier
 			Element plateau = new Element("plateau");
 			racine.addContent(plateau);
 
-			/* <liste-couleurs> */
-			Element couleurs = new Element("liste-couleurs");
-			plateau.addContent(couleurs);
+			/* <liste-lstCouleurs> */
+			Element lstCouleurs = new Element("liste-lstCouleurs");
+			plateau.addContent(lstCouleurs);
 
-			for (int i = 0; i < this.couleurs.size(); i++)
+			for (int i = 0; i < this.lstCouleurs.size(); i++)
 			{
 				Element couleur = new Element("couleur");
-				couleurs.addContent(couleur);
+				lstCouleurs.addContent(couleur);
 				couleur.setAttribute("id", Integer.toString(i+1));
-				couleur.setText(this.colorToHexa(this.couleurs.get(i)));
+				couleur.setText(this.colorToHexa(this.lstCouleurs.get(i)));
 			}
 
 			/* <liste-image-cartes> */
@@ -465,83 +471,83 @@ public class Metier
 			imageRectoLoco.setAttribute("id", "locomotive");
 			imageRectoLoco.setText(imageToBase64(this.imageRectoLocomotive));
 
-			for (int i = 0; i < this.imagesRectoCouleur.size(); i++)
+			for (int i = 0; i < this.lstImagesRectoCouleur.size(); i++)
 			{
 				Element imageRecto = new Element("image-recto");
 				imagesCartes.addContent(imageRecto);
 				imageRecto.setAttribute("id", Integer.toString(i+1));
-				imageRecto.setText(this.imageToBase64(this.imagesRectoCouleur.get(i)));
+				imageRecto.setText(this.imageToBase64(this.lstImagesRectoCouleur.get(i)));
 			}
 			
-			/* <tableau-points> */
-			Element tabPoints = new Element("tableau-points");
-			plateau.addContent(tabPoints);
+			/* <tableau-lstPoints> */
+			Element tablstPoints = new Element("tableau-lstPoints");
+			plateau.addContent(tablstPoints);
 
-			for (int i = 0; i < this.points.size(); i++)
+			for (int i = 0; i < this.lstPoints.size(); i++)
 			{
 				Element distance = new Element("distance");
-				tabPoints.addContent(distance);
+				tablstPoints.addContent(distance);
 				distance.setAttribute("id", Integer.toString(i+1));
-				distance.setText(Integer.toString(this.points.get(i)));
+				distance.setText(Integer.toString(this.lstPoints.get(i)));
 			}
 
-			/* <liste-noeuds> */
-			Element noeuds = new Element("liste-noeuds");
-			plateau.addContent(noeuds);
+			/* <liste-lstNoeuds> */
+			Element lstNoeuds = new Element("liste-lstNoeuds");
+			plateau.addContent(lstNoeuds);
 
-			for (int i = 0; i < this.noeuds.size(); i++)
+			for (int i = 0; i < this.lstNoeuds.size(); i++)
 			{
 				Element noeud = new Element("noeud");
-				noeuds.addContent(noeud);
+				lstNoeuds.addContent(noeud);
 				noeud.setAttribute("id", Integer.toString(i+1));
 				
 				Element position = new Element("position");
 				noeud.addContent(position);
-				position.setAttribute("x", Integer.toString(this.noeuds.get(i).getX()));
-				position.setAttribute("y", Integer.toString(this.noeuds.get(i).getY()));
+				position.setAttribute("x", Integer.toString(this.lstNoeuds.get(i).getX()));
+				position.setAttribute("y", Integer.toString(this.lstNoeuds.get(i).getY()));
 
 				Element nom = new Element("nom");
 				noeud.addContent(nom);
-				nom.setText(this.noeuds.get(i).getNom());
+				nom.setText(this.lstNoeuds.get(i).getNom());
 
 				Element position_nom = new Element("position-nom");
 				noeud.addContent(position_nom);
-				position_nom.setAttribute("x", Integer.toString(this.noeuds.get(i).getXNom()));
-				position_nom.setAttribute("y", Integer.toString(this.noeuds.get(i).getYNom()));
+				position_nom.setAttribute("x", Integer.toString(this.lstNoeuds.get(i).getXNom()));
+				position_nom.setAttribute("y", Integer.toString(this.lstNoeuds.get(i).getYNom()));
 
 				Element couleur = new Element("couleur");
 				noeud.addContent(couleur);
-				couleur.setText(this.colorToHexa(this.noeuds.get(i).getCouleur()));
+				couleur.setText(this.colorToHexa(this.lstNoeuds.get(i).getCouleur()));
 			}
 
-			/* <liste-aretes> */
-			Element arrets = new Element("liste-aretes");
+			/* <liste-lstAretes> */
+			Element arrets = new Element("liste-lstAretes");
 			plateau.addContent(arrets);
 
-			for (int i = 0; i < this.aretes.size(); i++)
+			for (int i = 0; i < this.lstAretes.size(); i++)
 			{
 				Element arret = new Element("arete");
 				arrets.addContent(arret);
 
 				Element noeud = new Element("noeud");
 				arret.addContent(noeud);
-				noeud.setAttribute("n1", Integer.toString(this.aretes.get(i).getNoeud1().getId()));
-				noeud.setAttribute("n2", Integer.toString(this.aretes.get(i).getNoeud2().getId()));
+				noeud.setAttribute("n1", Integer.toString(this.lstAretes.get(i).getNoeud1().getId()));
+				noeud.setAttribute("n2", Integer.toString(this.lstAretes.get(i).getNoeud2().getId()));
 
 				Element couleur1 = new Element("couleur1");
 				arret.addContent(couleur1);
-				couleur1.setText(this.colorToHexa(this.aretes.get(i).getCouleur1()));
+				couleur1.setText(this.colorToHexa(this.lstAretes.get(i).getCouleur1()));
 
 				Element couleur2 = new Element("couleur2");
 				arret.addContent(couleur2);
-				if (this.aretes.get(i).getCouleur2() == null)
+				if (this.lstAretes.get(i).getCouleur2() == null)
 					couleur2.setText("NULL");
 				else
-					couleur2.setText(this.colorToHexa(this.aretes.get(i).getCouleur2()));
+					couleur2.setText(this.colorToHexa(this.lstAretes.get(i).getCouleur2()));
 
 				Element distance = new Element("distance");
 				arret.addContent(distance);
-				distance.setText(Integer.toString(this.aretes.get(i).getDistance()));
+				distance.setText(Integer.toString(this.lstAretes.get(i).getDistance()));
 			}
 
 			/* <liste-objectifs> */
@@ -562,9 +568,9 @@ public class Metier
 				noeud.setAttribute("n1", Integer.toString(this.carteObjectif.get(i).getNoeud1().getId()));
 				noeud.setAttribute("n2", Integer.toString(this.carteObjectif.get(i).getNoeud2().getId()));
 
-				Element points = new Element("points");
-				objectif.addContent(points);
-				points.setText(Integer.toString(this.carteObjectif.get(i).getPoints()));
+				Element lstPoints = new Element("lstPoints");
+				objectif.addContent(lstPoints);
+				lstPoints.setText(Integer.toString(this.carteObjectif.get(i).getPoints()));
 
 				Element rectoObjectif = new Element("image-recto");
 				objectif.addContent(rectoObjectif);
@@ -634,15 +640,15 @@ public class Metier
 		s += "nbCarteLocomotive : " + this.nbCarteLocomotive + "\n\n";
 		s += "nbJetonJoueur : " + this.nbJetonJoueur + "\n\n";
 		s += "nbJetonFin : " + this.nbJetonFin + "\n\n";
-		s += "couleurs : " + this.couleurs + "\n\n";
+		s += "lstCouleurs : " + this.lstCouleurs + "\n\n";
 		s += "imageVersoCouleur : " + this.imageVersoCouleur + "\n\n";
 		s += "imageRectoLocomotive : " + this.imageRectoLocomotive + "\n\n";
-		s += "imagesRectoCouleur : " + this.imagesRectoCouleur + "\n\n";
-		s += "points : " + this.points + "\n\n";
+		s += "lstImagesRectoCouleur : " + this.lstImagesRectoCouleur + "\n\n";
+		s += "lstPoints : " + this.lstPoints + "\n\n";
 		s += "imageVersoObjectif : " + this.imageVersoObjectif + "\n\n";
 		s += "carteObjectif : " + this.carteObjectif + "\n\n";
-		s += "noeuds : " + this.noeuds + "\n\n";
-		s += "aretes : " + this.aretes + "\n\n";
+		s += "lstNoeuds : " + this.lstNoeuds + "\n\n";
+		s += "lstAretes : " + this.lstAretes + "\n\n";
 
 		return s;
 	}
@@ -658,7 +664,7 @@ public class Metier
 	 */
     public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
 	{
-		this.noeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
+		this.lstNoeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
     }
 
 
@@ -668,11 +674,11 @@ public class Metier
 	 */
     public void supprimerNoeud(String nom) 
 	{
-		for (int i = 0; i < this.noeuds.size(); i++)
+		for (int i = 0; i < this.lstNoeuds.size(); i++)
 		{
-			if (this.noeuds.get(i).getNom().equals(nom))
+			if (this.lstNoeuds.get(i).getNom().equals(nom))
 			{
-				this.noeuds.remove(i);
+				this.lstNoeuds.remove(i);
 				return;
 			}
 		}
@@ -682,7 +688,7 @@ public class Metier
 	 * Ajoute une Arete
 	 * @param nom1 : nom du noeud 1
 	 * @param nom2 : nom du noeud 2
-	 * @param distance : distance entre les deux noeuds
+	 * @param distance : distance entre les deux lstNoeuds
 	 * @param couleur1 : couleur de la première arrête
 	 * @param couleur2 : couleur de la deuxième arrête si c'est une double voie
 	 */
@@ -691,7 +697,7 @@ public class Metier
 		Noeud nA=null;
 		Noeud nB=null;
 
-		for (Noeud n : this.noeuds)
+		for (Noeud n : this.lstNoeuds)
 		{
 			if (n.getNom().equals(nom1))
 			{
@@ -704,7 +710,7 @@ public class Metier
 			}
 		}
 
-		this.aretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
+		this.lstAretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
     }
 
 	/**
@@ -714,11 +720,11 @@ public class Metier
 	 */
     public void supprimerArete(String nom1, String nom2) 
 	{
-		for(Arete a : this.aretes)
+		for(Arete a : this.lstAretes)
 		{
 			if (a.getNoeud1().getNom().equals(nom1) && a.getNoeud2().getNom().equals(nom2))
 			{
-				this.aretes.remove(a);
+				this.lstAretes.remove(a);
 				return;
 			}
 		}
@@ -735,7 +741,7 @@ public class Metier
 		Noeud nA=null;
 		Noeud nB=null;
 
-		for (Noeud n : this.noeuds)
+		for (Noeud n : this.lstNoeuds)
 		{
 			if (n.getNom().equals(nom1))
 			{
@@ -773,6 +779,6 @@ public class Metier
 	 */
 	public void setNbPoint(int index) 
 	{
-		this.points.add(index);
+		this.lstPoints.add(index);
 	}
 }
