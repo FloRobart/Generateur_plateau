@@ -128,20 +128,92 @@ public class Controleur
 	}
 
 	/**
-	 * Main
-	 * @param args : Tableau de String
+	 * Ajouter une ligne au tableau des scores
+	 * @param index : Index de la ligne
 	 */
-	public static void main(String[] args) { new Controleur(); }
-
 	public void setNbPoint(int index) 
 	{
 		this.metier.setNbPoint(index);
 	}
 
+	/**
+	 * Supprimer une ligne du tableau des scores
+	 */
     public void supprimerPoint() 
 	{
 		this.metier.supprimerPoint();
     }
-    
+
+	/**
+	 * Ajouter un objectif
+	 * @param nom1 : Nom du premier noeud
+	 * @param nom2 : Nom du second noeud
+	 * @param point : Nombre de points
+	 */
+	public void ajouterObjectif(String nom1, String nom2, int point) 
+	{
+		this.metier.ajouterObjectif(nom1, nom2, point);
+	}
+
+	/**
+	 * Supprimer un objectif
+	 * @param string : Nom du premier noeud
+	 * @param string2 : Nom du second noeud
+	 */
+    public void supprimerObjectif(String string, String string2) 
+	{
+		this.metier.supprimerObjectif(string, string2);
+    }
+
+	/**
+	 * Ajouter une arête
+	 * @param nom1 : Nom du premier noeud
+	 * @param nom2 : Nom du second noeud 
+	 * @param distance : Distance entre les deux noeuds 
+	 * @param couleur1 : Couleur de l'arete 
+	 * @param couleur2 : Couleur 2 de l'arete si double voie 
+	 */
+    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+	{
+		this.metier.ajouterArete(nom1, nom2, distance, couleur1, couleur2);
+    }
+	/**
+	 * Supprimer une arête
+	 * @param nom1 Nom du premier noeud
+	 * @param nom2 Nom du second noeud
+	 */
+	public void supprimerArete(String nom1, String nom2)
+	{
+		this.metier.supprimerArete(nom1, nom2);
+	}
+
+	/**
+	 * Supprimer un noeud
+	 * @param nom : Nom du noeud
+	 */
+    public void supprimerNoeud(String nom) 
+	{
+		this.metier.supprimerNoeud(nom);
+    }
+
+	/**
+	 * Ajouter un noeud
+	 * @param nom : Nom du noeud
+	 * @param posX : Position X du noeud
+	 * @param posY : Position Y du noeud
+	 * @param posNomX : Position X du nom du noeud
+	 * @param posNomY : Position Y du nom du noeud
+	 * @param couleur : Couleur du noeud
+	 */
+    public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
+	{
+		this.metier.ajouterNoeud(nom, posX, posY, posNomX, posNomY, couleur);
+    }
+
+	/**
+	 * Main
+	 * @param args : Tableau de String
+	 */
+	public static void main(String[] args) { new Controleur(); }
     
 }
