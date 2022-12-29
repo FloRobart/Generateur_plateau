@@ -82,7 +82,7 @@ public class FramePlateau extends JFrame
 	{
 
 		// Ouvrir fenetre enregistrement
-		if (nomFichier.isBlank())
+		//if (nomFichier.isBlank())
 		{
 			JFileChooser choose = new JFileChooser(".");
 			choose.setDialogTitle("Enregistrer un fichier");
@@ -201,17 +201,17 @@ public class FramePlateau extends JFrame
 	{
 		switch (frame) 
 		{
-			case "couleur" -> 
+			case "couleur" :
 				{
 					this.frameObjectif.setVisible(false);
 					this.framePoint.setVisible(false);
 				}
-			case "objectif" -> 
+			case "objectif" : 
 				{
 					this.frameObjectif.setVisible(true);
 					this.framePoint.setVisible(false);
 				}
-			case "points" -> 
+			case "points" : 
 				{
 					this.frameObjectif.setVisible(false);
 					this.framePoint.setVisible(true);
