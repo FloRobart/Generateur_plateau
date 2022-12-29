@@ -781,4 +781,9 @@ public class Metier
 	{
 		this.lstPoints.add(index);
 	}
+
+    public void supprimerPoint() 
+	{
+		this.lstPoints.remove(this.lstPoints.size()-1);
+    }
 }

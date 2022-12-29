@@ -132,6 +132,16 @@ public class Controleur
 	 * @param args : Tableau de String
 	 */
 	public static void main(String[] args) { new Controleur(); }
+
+	public void setNbPoint(int index) 
+	{
+		this.metier.setNbPoint(index);
+	}
+
+    public void supprimerPoint() 
+	{
+		this.metier.supprimerPoint();
+    }
     
     
 }
