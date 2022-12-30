@@ -298,9 +298,9 @@ public class PGPanelListA extends JPanel
         this.setForeground(titleForeColor);
         this.setBackground(background);
     
-        this.jList1            .setForeground(saisiForeColor);
-        this.jList1            .setBackground(background    );
-        this.jList1            .setSelectionForeground(background);
+        this.jList1            .setForeground         (saisiForeColor);
+        this.jList1            .setBackground         (background    );
+        this.jList1            .setSelectionForeground(background    );
 
         this.lblNoeudA         .setForeground(labelForeColor);
         this.lblNoeudA         .setBackground(labelBackColor);
