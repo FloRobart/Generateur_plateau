@@ -268,6 +268,8 @@ public class PGPanelListA extends JPanel
                     .addComponent(btnSupprimer, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        this.appliquerTheme();
     }                      
 
 
@@ -325,7 +327,7 @@ public class PGPanelListA extends JPanel
         this.comboBoxListNoeudB.setBackground(saisiBackColor);
         
         this.cb2Sens           .setForeground(saisiForeColor);
-        this.cb2Sens           .setBackground(saisiForeColor);
+        this.cb2Sens           .setOpaque    (false);
         
         this.txtDistance       .setForeground(saisiForeColor);
         this.txtDistance       .setBackground(saisiBackColor);
