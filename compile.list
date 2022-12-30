@@ -1,10 +1,5 @@
 ./src/controleur/Controleur.java
 
-./src/metier/Noeud.java
-./src/metier/Arete.java
-./src/metier/CarteObjectif.java
-./src/metier/Metier.java
-
 ./src/ihm/FrameCouleur.java
 ./src/ihm/FrameCreerCarteJoueur.java
 ./src/ihm/FrameModif.java
@@ -28,5 +23,12 @@
 ./src/ihm/PGPanelModifier.java
 ./src/ihm/PGPanelParamJeu.java
 ./src/ihm/PGPanelParamPlateau.java
+
+./src/ihm/customComponent/TextFieldWithHint.java
+
+./src/metier/Arete.java
+./src/metier/CarteObjectif.java
+./src/metier/Metier.java
+./src/metier/Noeud.java
 
 -d bin
