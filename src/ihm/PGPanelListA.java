@@ -270,46 +270,21 @@ public class PGPanelListA extends JPanel
         );
     }                      
 
-                       
 
-    private void cb2SensActionPerformed(ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
+    private void cb2SensActionPerformed           (ActionEvent e){}
+    private void btnSupprimerActionPerformed      (ActionEvent e){}
+    private void btnAjouterActionPerformed        (ActionEvent e){}
+    private void btnCouleurBAActionPerformed      (ActionEvent e){}
+    private void btnCouleurABActionPerformed      (ActionEvent e){}
+    private void txtDistanceActionPerformed       (ActionEvent e){}
+    private void comboBoxListNoeudBActionPerformed(ActionEvent e){}
+    private void comboBoxListNoeudAActionPerformed(ActionEvent e){}
 
-    private void btnSupprimerActionPerformed(ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
 
-    private void btnAjouterActionPerformed(ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void btnCouleurBAActionPerformed(ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-
-    private void btnCouleurABActionPerformed(ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-
-    private void txtDistanceActionPerformed(ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
-    private void comboBoxListNoeudBActionPerformed(ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }                                                  
-
-    private void comboBoxListNoeudAActionPerformed(ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }
-
-    
     public void appliquerTheme()
     {
         Color background     = this.ctrl.getTheme().get("background").get(0);
         Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
         Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
 		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
         Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
@@ -317,16 +292,54 @@ public class PGPanelListA extends JPanel
         Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
 		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
 
-        this.setForeground(new Color(255, 255, 255));
-        this.setBackground(new Color(68, 71, 90));
 
+        this.setForeground(titleForeColor);
+        this.setBackground(background);
+    
+        this.jList1            .setForeground(saisiForeColor);
+        this.jList1            .setBackground(background    );
+        this.jList1            .setSelectionForeground(background);
 
-        this.lblNoeudA         .setForeground(new Color(255, 255, 255));
-        this.lblNoeudB         .setForeground(new Color(255, 255, 255));
-        this.lbl2Sens          .setForeground(new Color(255, 255, 255));
-        this.lblCouleurAB      .setForeground(new Color(255, 255, 255));
-        this.lblDistance       .setForeground(new Color(255, 255, 255));
-        this.lblCouleurBA      .setForeground(new Color(255, 255, 255));
-        this.comboBoxListNoeudA.setForeground(new Color(255, 255, 255));
+        this.lblNoeudA         .setForeground(labelForeColor);
+        this.lblNoeudA         .setBackground(labelBackColor);
+
+        this.lblNoeudB         .setForeground(labelForeColor);
+        this.lblNoeudB         .setBackground(labelBackColor);
+        
+        this.lbl2Sens          .setForeground(labelForeColor);
+        this.lbl2Sens          .setBackground(labelBackColor);
+        
+        this.lblCouleurAB      .setForeground(labelForeColor);
+        this.lblCouleurAB      .setBackground(labelBackColor);
+
+        this.lblDistance       .setForeground(labelForeColor);
+        this.lblDistance       .setBackground(labelBackColor);
+        
+        this.lblCouleurBA      .setForeground(labelForeColor);
+        this.lblCouleurBA      .setBackground(labelBackColor);
+        
+        this.comboBoxListNoeudA.setForeground(saisiForeColor);
+        this.comboBoxListNoeudA.setBackground(saisiBackColor);
+        
+        this.comboBoxListNoeudB.setForeground(saisiForeColor);
+        this.comboBoxListNoeudB.setBackground(saisiBackColor);
+        
+        this.cb2Sens           .setForeground(saisiForeColor);
+        this.cb2Sens           .setBackground(saisiForeColor);
+        
+        this.txtDistance       .setForeground(saisiForeColor);
+        this.txtDistance       .setBackground(saisiBackColor);
+        
+        this.btnCouleurAB      .setForeground(btnForeColor);
+        this.btnCouleurAB      .setBackground(btnBackColor);
+        
+        this.btnCouleurBA      .setForeground(btnForeColor);
+        this.btnCouleurBA      .setBackground(btnBackColor);
+        
+        this.btnAjouter        .setForeground(btnForeColor);
+        this.btnAjouter        .setBackground(btnBackColor);
+        
+        this.btnSupprimer      .setForeground(btnForeColor);
+        this.btnSupprimer      .setBackground(btnBackColor);
     }
 }
