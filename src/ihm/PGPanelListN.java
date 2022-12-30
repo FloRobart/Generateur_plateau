@@ -275,6 +275,10 @@ public class PGPanelListN extends javax.swing.JPanel
     private javax.swing.JTextField txtPosNomY;
     private javax.swing.JTextField txtPosX;
     private javax.swing.JTextField txtPosY;
-    // End of variables declaration                   
-
+    // End of variables declaration        
+    
+    public void appliquerTheme()
+    {
+        
+    }
 }

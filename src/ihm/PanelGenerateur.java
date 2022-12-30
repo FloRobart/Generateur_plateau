@@ -55,6 +55,6 @@ public class PanelGenerateur extends JPanel
         this.pGPanelParamPlateau   .appliquerTheme();
         this.pGPanelParamJeu       .appliquerTheme();
         this.pGPanelAjouterElements.appliquerTheme();
-        //this.pGPanelExplorer       .appliquerTheme();
+        this.pGPanelExplorer       .appliquerTheme();
     }
 }

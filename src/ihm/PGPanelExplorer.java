@@ -1,11 +1,19 @@
 package ihm;
 
 import controleur.Controleur;
+
+import java.awt.Color;
+
 import javax.swing.JTabbedPane;
 
 public class PGPanelExplorer extends javax.swing.JPanel
 {
     private Controleur ctrl;
+
+    private JTabbedPane  jTabbedPane1;
+    private PGPanelListA pGPanelListA;
+    private PGPanelListN pGPanelListN;
+    private PGPanelListO pGPanelListO;
     /**
      * Creates new form PGPanelExplorer
      */
@@ -18,7 +26,7 @@ public class PGPanelExplorer extends javax.swing.JPanel
         pGPanelListA = new PGPanelListA(ctrl);
         pGPanelListO = new PGPanelListO(ctrl);
 
-        setBackground(new java.awt.Color(68, 71, 93));
+        
 
         jTabbedPane1.setName("");
         jTabbedPane1.addTab("Noeud", pGPanelListN);
@@ -39,13 +47,18 @@ public class PGPanelExplorer extends javax.swing.JPanel
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("List Noeud");
-    }// </editor-fold>                        
 
+        this.appliquerTheme();
+    }
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private  PGPanelListA pGPanelListA;
-    private  PGPanelListN pGPanelListN;
-    private  PGPanelListO pGPanelListO;
-    // End of variables declaration                   
+    public void appliquerTheme()
+    {
+        Color background = this.ctrl.getTheme().get("background").get(0);
+
+        this.setBackground(background);
+
+        this.pGPanelListA.appliquerTheme();
+        this.pGPanelListN.appliquerTheme();
+        this.pGPanelListO.appliquerTheme();
+    }
 }

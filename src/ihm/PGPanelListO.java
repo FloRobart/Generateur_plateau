@@ -1,6 +1,22 @@
 package ihm;
-import java.awt.event.*;
-import javax.swing.*;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.AbstractListModel;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
 import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
@@ -8,236 +24,286 @@ import controleur.Controleur;
 
 public class PGPanelListO extends  JPanel
 {
+    private Controleur        ctrl;
+    private JButton           btnAjouter;
+    private JButton           btnImgRecto;
+    private JButton           btnImgVerso;
+    private JButton           btnSupprimer;
+    private JComboBox<String> comboBoxListNoeudA;
+    private JComboBox<String> comboBoxListNoeudB;
+    private JList<String>     jList1;
+    private JLabel            lblNoeudA;
+    private JLabel            lblNoeudB;
+    private JLabel            lblPoint;
+    private JLabel            lblRecto;
+    private JLabel            lblVerso;
+    private JScrollPane       jspNoeud;
+    private JTextField        txtPoint;
+
     /**
      * Creates new form PGPanelListO
      */
     public PGPanelListO(Controleur ctrl)
     {
-        lstNoeud = new  JScrollPane();
-        jList1 = new  JList<>();
-        btnAjouter = new  JButton();
-        btnSupprimer = new  JButton();
-        comboBoxListNoeudB = new  JComboBox<>();
-        lblNoeudA = new  JLabel();
-        lblNoeudB = new  JLabel();
-        comboBoxListNoeudA = new  JComboBox<>();
-        txtPoint = new  JTextField();
-        lblPoint = new  JLabel();
-        lblRecto = new  JLabel();
-        lblVerso = new  JLabel();
-        btnImgRecto = new  JButton();
-        btnImgVerso = new  JButton();
+        this.ctrl               = ctrl;
+        this.jspNoeud           = new  JScrollPane      ();
+        this.jList1             = new  JList<String>    ();
+        this.btnAjouter         = new  JButton          ();
+        this.btnSupprimer       = new  JButton          ();
+        this.comboBoxListNoeudB = new  JComboBox<String>();
+        this.lblNoeudA          = new  JLabel           ();
+        this.lblNoeudB          = new  JLabel           ();
+        this.comboBoxListNoeudA = new  JComboBox<String>();
+        this.txtPoint           = new  JTextField       ();
+        this.lblPoint           = new  JLabel           ();
+        this.lblRecto           = new  JLabel           ();
+        this.lblVerso           = new  JLabel           ();
+        this.btnImgRecto        = new  JButton          ();
+        this.btnImgVerso        = new  JButton          ();
 
-        setBackground(new java.awt.Color(68, 71, 90));
 
-        jList1.setModel(new  AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        this.jList1.setModel(new  AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "item 6", "item 7", "item 8" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        lstNoeud.setViewportView(jList1);
+        this.jspNoeud.setViewportView(jList1);
 
-        btnAjouter.setBackground(new java.awt.Color(40, 42, 54));
-        btnAjouter.setForeground(new java.awt.Color(255, 255, 255));
-        btnAjouter.setText("Ajouter");
-        btnAjouter.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
-        btnAjouter.addActionListener(new  ActionListener() {
+        
+        this.btnAjouter.setText("Ajouter");
+        this.btnAjouter.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
+        this.btnAjouter.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 btnAjouterActionPerformed(evt);
             }
         });
 
-        btnSupprimer.setBackground(new java.awt.Color(40, 42, 54));
-        btnSupprimer.setForeground(new java.awt.Color(255, 255, 255));
-        btnSupprimer.setText("Supprimer");
-        btnSupprimer.setBorder( BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        btnSupprimer.addActionListener(new  ActionListener() {
+        this.btnSupprimer.setBackground(new Color(40, 42, 54));
+        this.btnSupprimer.setForeground(new Color(255, 255, 255));
+        this.btnSupprimer.setText("Supprimer");
+        this.btnSupprimer.setBorder( BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnSupprimer.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 btnSupprimerActionPerformed(evt);
             }
         });
 
-        comboBoxListNoeudB.setBackground(new java.awt.Color(40, 42, 54));
-        comboBoxListNoeudB.setForeground(new java.awt.Color(255, 255, 255));
-        comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBoxListNoeudB.setBorder(null);
-        comboBoxListNoeudB.addActionListener(new  ActionListener() {
+        this.comboBoxListNoeudB.setBackground(new Color(40, 42, 54));
+        this.comboBoxListNoeudB.setForeground(new Color(255, 255, 255));
+        this.comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        this.comboBoxListNoeudB.setBorder(null);
+        this.comboBoxListNoeudB.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudBActionPerformed(evt);
             }
         });
 
-        lblNoeudA.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNoeudA.setForeground(new java.awt.Color(255, 255, 255));
-        lblNoeudA.setText("Noeud A");
+        this.lblNoeudA.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        this.lblNoeudA.setForeground(new Color(255, 255, 255));
+        this.lblNoeudA.setText("Noeud A");
 
-        lblNoeudB.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNoeudB.setForeground(new java.awt.Color(255, 255, 255));
-        lblNoeudB.setText("Noeud B");
+        this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
+        this.lblNoeudB.setForeground(new Color(255, 255, 255));
+        this.lblNoeudB.setText("Noeud B");
 
-        comboBoxListNoeudA.setBackground(new java.awt.Color(40, 42, 54));
-        comboBoxListNoeudA.setForeground(new java.awt.Color(255, 255, 255));
-        comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBoxListNoeudA.setBorder(null);
-        comboBoxListNoeudA.setFocusable(false);
-        comboBoxListNoeudA.addActionListener(new  ActionListener() {
+        this.comboBoxListNoeudA.setBackground(new Color(40, 42, 54));
+        this.comboBoxListNoeudA.setForeground(new Color(255, 255, 255));
+        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        this.comboBoxListNoeudA.setBorder(null);
+        this.comboBoxListNoeudA.setFocusable(false);
+        this.comboBoxListNoeudA.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudAActionPerformed(evt);
             }
         });
 
-        txtPoint.setBackground(new java.awt.Color(40, 42, 54));
-        txtPoint.setForeground(new java.awt.Color(255, 255, 255));
-        txtPoint.setBorder(null);
-        txtPoint.addActionListener(new  ActionListener() {
+        this.txtPoint.setBackground(new Color(40, 42, 54));
+        this.txtPoint.setForeground(new Color(255, 255, 255));
+        this.txtPoint.setBorder(null);
+        this.txtPoint.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 txtPointActionPerformed(evt);
             }
         });
 
-        lblPoint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblPoint.setForeground(new java.awt.Color(255, 255, 255));
-        lblPoint.setText("Point");
+        this.lblPoint.setFont(new Font("Segoe UI", 1, 12));
+        this.lblPoint.setText("Point");
 
-        lblRecto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblRecto.setForeground(new java.awt.Color(255, 255, 255));
-        lblRecto.setText("Recto");
+        this.lblRecto.setFont(new Font("Segoe UI", 1, 12));
+        this.lblRecto.setText("Recto");
 
-        lblVerso.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblVerso.setForeground(new java.awt.Color(255, 255, 255));
-        lblVerso.setText("Verso");
+        this.lblVerso.setFont(new Font("Segoe UI", 1, 12));
+        this.lblVerso.setText("Verso");
 
-        btnImgRecto.setBackground(new java.awt.Color(40, 42, 54));
-        btnImgRecto.setForeground(new java.awt.Color(255, 255, 255));
-        btnImgRecto.setText("Image");
-        btnImgRecto.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
-        btnImgRecto.setFocusPainted(false);
-        btnImgRecto.addActionListener(new  ActionListener() {
-            public void actionPerformed( ActionEvent evt) {
+        this.btnImgRecto.setText("Image");
+        this.btnImgRecto.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
+        this.btnImgRecto.setFocusPainted(false);
+        this.btnImgRecto.addActionListener(new  ActionListener()
+        {
+            public void actionPerformed( ActionEvent evt)
+            {
                 btnImgRectoActionPerformed(evt);
             }
         });
 
-        btnImgVerso.setBackground(new java.awt.Color(40, 42, 54));
-        btnImgVerso.setForeground(new java.awt.Color(255, 255, 255));
-        btnImgVerso.setText("Image");
-        btnImgVerso.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
-        btnImgVerso.setFocusPainted(false);
-        btnImgVerso.addActionListener(new  ActionListener() {
-            public void actionPerformed( ActionEvent evt) {
+        this.btnImgVerso.setBackground(new Color(40, 42, 54));
+        this.btnImgVerso.setForeground(new Color(255, 255, 255));
+        this.btnImgVerso.setText("Image");
+        this.btnImgVerso.setBorder( BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnImgVerso.setFocusPainted(false);
+        this.btnImgVerso.addActionListener(new  ActionListener()
+        {
+            public void actionPerformed( ActionEvent evt)
+            {
                 btnImgVersoActionPerformed(evt);
             }
         });
 
-         GroupLayout layout = new  GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup( GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup( GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSupprimer,  GroupLayout.PREFERRED_SIZE, 80,  GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lstNoeud,  GroupLayout.PREFERRED_SIZE, 148,  GroupLayout.PREFERRED_SIZE))
+                    .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.jspNoeud, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup( GroupLayout.Alignment.TRAILING, false)
                     .addGroup( GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblNoeudA)
+                        .addComponent(this.lblNoeudA)
                         .addGap(32, 32, 32)
-                        .addComponent(comboBoxListNoeudA, 0,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(this.comboBoxListNoeudA, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup( GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblNoeudB)
+                        .addComponent(this.lblNoeudB)
                         .addGap(33, 33, 33)
-                        .addComponent(comboBoxListNoeudB,  GroupLayout.PREFERRED_SIZE, 82,  GroupLayout.PREFERRED_SIZE))
-                    .addGroup( GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblPoint)
-                        .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED,  GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPoint,  GroupLayout.PREFERRED_SIZE, 82,  GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(this.lblPoint)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(this.txtPoint, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRecto)
-                            .addComponent(lblVerso))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(this.lblRecto)
+                            .addComponent(this.lblVerso))
                         .addPreferredGap( LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                            .addComponent(btnImgVerso,  GroupLayout.PREFERRED_SIZE, 50,  GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnImgRecto,  GroupLayout.PREFERRED_SIZE, 50,  GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnAjouter,  GroupLayout.PREFERRED_SIZE, 80,  GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(this.btnImgVerso, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.btnImgRecto, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup( GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                    .addComponent(lstNoeud,  GroupLayout.PREFERRED_SIZE, 100,  GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(this.jspNoeud, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup( GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoeudA)
-                            .addComponent(comboBoxListNoeudA,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRecto)
-                            .addComponent(btnImgRecto))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblNoeudA)
+                            .addComponent(this.comboBoxListNoeudA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblRecto)
+                            .addComponent(this.btnImgRecto))
                         .addPreferredGap( LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup( GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoeudB)
-                            .addComponent(comboBoxListNoeudB,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblVerso)
-                            .addComponent(btnImgVerso))
+                            .addComponent(this.lblNoeudB)
+                            .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblVerso)
+                            .addComponent(this.btnImgVerso))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPoint,  GroupLayout.PREFERRED_SIZE,  GroupLayout.DEFAULT_SIZE,  GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPoint))))
+                            .addComponent(this.txtPoint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblPoint))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup( GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSupprimer,  GroupLayout.PREFERRED_SIZE, 20,  GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAjouter,  GroupLayout.PREFERRED_SIZE, 20,  GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
 
-    private void btnAjouterActionPerformed( ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+        this.appliquerTheme();
+    }                 
 
-    private void btnSupprimerActionPerformed( ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-
-    private void comboBoxListNoeudBActionPerformed( ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }                                                  
-
-    private void comboBoxListNoeudAActionPerformed( ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }                                                  
-
-    private void txtPointActionPerformed( ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void btnImgRectoActionPerformed( ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
-    private void btnImgVersoActionPerformed( ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+    private void btnAjouterActionPerformed        (ActionEvent evt){}
+    private void btnSupprimerActionPerformed      (ActionEvent evt){}
+    private void comboBoxListNoeudBActionPerformed(ActionEvent evt){}
+    private void comboBoxListNoeudAActionPerformed(ActionEvent evt){}
+    private void txtPointActionPerformed          (ActionEvent evt){}
+    private void btnImgRectoActionPerformed       (ActionEvent evt){}
+    private void btnImgVersoActionPerformed       (ActionEvent evt){}
+    
+    public void appliquerTheme()
+    {
+        Color background     = this.ctrl.getTheme().get("background").get(0);
+        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
+		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
+        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
+		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
+        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
+		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
 
 
-    // Variables declaration - do not modify                     
-    private  JButton btnAjouter;
-    private  JButton btnImgRecto;
-    private  JButton btnImgVerso;
-    private  JButton btnSupprimer;
-    private  JComboBox<String> comboBoxListNoeudA;
-    private  JComboBox<String> comboBoxListNoeudB;
-    private  JList<String> jList1;
-    private  JLabel lblNoeudA;
-    private  JLabel lblNoeudB;
-    private  JLabel lblPoint;
-    private  JLabel lblRecto;
-    private  JLabel lblVerso;
-    private  JScrollPane lstNoeud;
-    private  JTextField txtPoint;
-    // End of variables declaration                   
+        /* Couleur de fond du panel */
+        this.setBackground(background);
+
+        /* ScrollPane contenant la liste des noeuds */
+        //this.jspNoeud          .setForeground(saisiForeColor);
+        this.jspNoeud          .setBackground(saisiBackColor);
+        
+        // changer la couleur de fond du scrollpane
+        this.jspNoeud.getViewport().setOpaque(true);
+        this.jspNoeud.getViewport().setBackground(Color.RED);
+        
+
+        /* Bouton ajouter */
+        this.btnAjouter        .setForeground(btnForeColor);
+        this.btnAjouter        .setBackground(btnBackColor);
+
+        /* Bouton supprimer */
+        this.btnSupprimer      .setForeground(btnForeColor);
+        this.btnSupprimer      .setBackground(btnBackColor);
+
+        /* Liste des noeuds A */
+        this.comboBoxListNoeudB.setForeground(saisiForeColor);
+        this.comboBoxListNoeudB.setBackground(saisiBackColor);
+
+        /* Label noeuds A */
+        this.lblNoeudA         .setForeground(labelForeColor);
+        this.lblNoeudA         .setBackground(labelBackColor);
+
+        /* Label noeuds B */
+        this.lblNoeudB         .setForeground(labelForeColor);
+        this.lblNoeudB         .setBackground(labelBackColor);
+
+        /* Liste des noeuds B */
+        this.comboBoxListNoeudA.setForeground(saisiForeColor);
+        this.comboBoxListNoeudA.setBackground(saisiBackColor);
+
+        /* TexteField des points */
+        this.txtPoint          .setForeground(saisiForeColor);
+        this.txtPoint          .setBackground(saisiBackColor);
+
+        /* Label des points */
+        this.lblPoint          .setForeground(labelForeColor);
+        this.lblPoint          .setBackground(labelBackColor);
+
+        /* Label recto */
+        this.lblRecto          .setForeground(labelForeColor);
+        this.lblRecto          .setBackground(labelBackColor);
+
+        /* Label verso */
+        this.lblVerso          .setForeground(labelForeColor);
+        this.lblVerso          .setBackground(labelBackColor);
+
+        /* Bouton image recto */
+        this.btnImgRecto       .setForeground(btnForeColor);
+        this.btnImgRecto       .setBackground(btnBackColor);
+
+        /* Bouton image verso */
+        this.btnImgVerso       .setForeground(btnForeColor);
+        this.btnImgVerso       .setBackground(btnBackColor);
+    }
 }

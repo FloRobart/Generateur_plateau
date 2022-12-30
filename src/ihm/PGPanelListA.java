@@ -49,6 +49,7 @@ public class PGPanelListA extends JPanel
      */
     public PGPanelListA(Controleur ctrl)
     {
+        this.ctrl               = ctrl;
         this.jScrollPane1       = new JScrollPane      ();
         this.jList1             = new JList<String>    ();
         this.lblNoeudA          = new JLabel           ();
