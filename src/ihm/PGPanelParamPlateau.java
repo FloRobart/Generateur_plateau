@@ -1,5 +1,5 @@
 package ihm;
-
+import ihm.customComponent.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldWithHint;
 
 
 public class PGPanelParamPlateau extends JPanel
@@ -45,8 +46,8 @@ public class PGPanelParamPlateau extends JPanel
         this.lblbImageFond     = new JLabel    ();
         this.lblCouleurFond    = new JLabel    ();
         this.lblPolice         = new JLabel    ();
-        this.txtX              = new JTextField();
-        this.txtY              = new JTextField();
+        this.txtX              = new TextFieldWithHint("X");
+        this.txtY              = new TextFieldWithHint("Y");
         this.btnParcourirImg   = new JButton   ();
         this.btnChoisirCouleur = new JButton   ();
         this.btnChoisirFont    = new JButton   ();
@@ -72,7 +73,6 @@ public class PGPanelParamPlateau extends JPanel
         this.lblPolice.setText      ("Police d'écriture");
 
         /* Zone de saisie X */
-        this.txtX.setText             ("X:");
         this.txtX.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -82,7 +82,6 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Zone de saisie Y */
-        this.txtY.setText("Y:");
         this.txtY.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

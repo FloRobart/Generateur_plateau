@@ -59,6 +59,6 @@ public class Noeud
 
 	public String toString()
 	{
-		return "Noeud : " + this.nom + " (" + this.x + ", " + this.y + ")";
+		return this.nom + " (" + this.x + ", " + this.y + ")";
 	}
 }
