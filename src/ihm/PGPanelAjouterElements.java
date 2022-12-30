@@ -166,17 +166,13 @@ public class PGPanelAjouterElements extends JPanel
 
 
         this.setBackground(background);
-
         
         this.lblAjouterElements.setOpaque(true);
-        this.lblAjouterElements.setBackground(titleBackColor);
         this.lblAjouterElements.setForeground(titleForeColor);
+        this.lblAjouterElements.setBackground(titleBackColor);
 
-        this.lblNoeud.setBackground(labelBackColor);
         this.lblNoeud.setForeground(labelForeColor);
-
-
-
+        this.lblNoeud.setBackground(labelBackColor);
 	}
 }
 
