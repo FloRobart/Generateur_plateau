@@ -5,20 +5,28 @@
 ./src/metier/CarteObjectif.java
 ./src/metier/Metier.java
 
-./src/ihm/FramePlateau.java
 ./src/ihm/FrameCouleur.java
+./src/ihm/FrameCreerCarteJoueur.java
+./src/ihm/FrameModif.java
 ./src/ihm/FrameObjectif.java
+./src/ihm/FramePlateau.java
 ./src/ihm/FramePoint.java
 ./src/ihm/MenuBarre.java
+./src/ihm/PanelAjoutObjectif.java
+./src/ihm/PanelArrete.java
 ./src/ihm/PanelGenerateur.java
+./src/ihm/PanelGererObjectif.java
+./src/ihm/PanelJoueur.java
+./src/ihm/PanelModifObjectif.java
+./src/ihm/PanelNoeud.java
+./src/ihm/PanelPlateau.java
 ./src/ihm/PGPanelAjouterElements.java
+./src/ihm/PGPanelExplorer.java
+./src/ihm/PGPanelListA.java
+./src/ihm/PGPanelListN.java
+./src/ihm/PGPanelListO.java
 ./src/ihm/PGPanelModifier.java
 ./src/ihm/PGPanelParamJeu.java
 ./src/ihm/PGPanelParamPlateau.java
-./src/ihm/PanelAjoutObjectif.java
-./src/ihm/PanelGererObjectif.java
-
-./src/ihm/PanelJoueur.java
-./src/ihm/PanelPlateau.java
 
 -d bin
