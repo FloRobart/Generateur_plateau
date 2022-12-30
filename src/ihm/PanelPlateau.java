@@ -59,26 +59,31 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     private Point startPoint;
 
 
-    public PanelPlateau(Controleur ctrl, BufferedImage image, int longueurFrame, int hauteurFrame)
+    public PanelPlateau(Controleur ctrl, int longueurFrame, int hauteurFrame)
     {
         this.ctrl = ctrl;
 		
 
-        lstNoeudOfIHM =  this.ctrl.getNoeuds();
+        this.lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
 
+        this.initComponent();
 
-        this.image = image;
-		this.setBackground(new Color(255, 183, 110));
-        initComponent();
         this.lblImagePlateau = new JLabel("");
         this.add(lblImagePlateau);
+
+        /* Application du theme */
+        this.appliquerTheme();
         
         //Drag and Drop features
-        initTransferHandle();
+        this.initTransferHandle();
         new MonDropTargetListener(this);
     }
 
+    public void appliquerTheme()
+    {
+        this.setBackground(this.ctrl.getTheme().get("background").get(0));
+    }
 
     private void initTransferHandle() 
     {
@@ -116,11 +121,6 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         this.setTransferHandler(dnd);
     }
 
-    public void setCouleur(Color color)
-    {
-		this.setBackground(color);
-	}
-
     public BufferedImage getImage()
     {
         return this.image;
@@ -129,7 +129,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     public void setImageFond(BufferedImage img)
     {
         this.image = img;
-        repaint();
+        this.repaint();
     }
 
     private void initComponent() 
@@ -185,6 +185,11 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
         // All drawings go here
 		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
 		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
+		this.image = this.ctrl.getImagePlateau();
+
+		int[] taillePlateau = this.ctrl.getTaillePlateau();
+		g2.setColor(this.ctrl.getCouleurPlateau());
+		g2.fillRect((int) xOffset, (int) yOffset, taillePlateau[0], taillePlateau[1]);
         g2.drawImage(image, (int) xOffset, (int) yOffset, this);
         g2.setFont(this.ctrl.getPolicePlateau());
 
@@ -195,6 +200,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			double angle = Math.atan((double) (arete.getNoeud2().getY() - arete.getNoeud1().getY()) / 
 			                                  (arete.getNoeud2().getX() - arete.getNoeud1().getX())  );
 
+			// si la couleur 2 est null alors nous somme sur une arete simple
+			// sinon nous sommes sur une arete double
 			if (arete.getCouleur2() == null)
 			{
 				n1 = new Point(arete.getNoeud1().getX(), arete.getNoeud1().getY());
@@ -215,7 +222,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 				this.paintArete(g2, n1, n2, arete.getDistance(), arete.getCouleur2(), angle);
 			}
 		}
-
+		
 		int i = 0;
         for (Noeud noeud : lstNoeudOfIHM)
         {
@@ -245,6 +252,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             g2.drawString(noeud.getNom(), 
 			              midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
 			              midY + noeud.getYNom() + 4);
+
         }
     }
 

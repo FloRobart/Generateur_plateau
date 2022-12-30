@@ -206,7 +206,7 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
     {
         String[] noms = this.listModel.getElementAt(this.listAretes.getSelectedIndex()).split("-");
 
-        this.ctrl.getMetier().supprimerArete(noms[0], noms[1]);
+        this.ctrl.supprimerArete(noms[0], noms[1]);
 
         ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
         this.effacerForm();
@@ -225,9 +225,9 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
         if(!nom1.equals(nom2))
         {
             if(this.couleur2 == null)
-            this.ctrl.getMetier().ajouterArete(nom1, nom2, distance, couleur1, null);
+            this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
 
-            this.ctrl.getMetier().ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
+            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
         }
         
         this.effacerForm();
@@ -263,11 +263,7 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
     public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseClicked(MouseEvent e) {}
     @Override
     public void mousePressed(MouseEvent e) 
     {
@@ -290,21 +286,10 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseReleased(MouseEvent e) {}
     @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    public void mouseEntered(MouseEvent e) {}
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void mouseExited(MouseEvent e) {}
     
 }

@@ -237,7 +237,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
     private void supprimerNoeud() 
     {
         String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
-        this.ctrl.getMetier().supprimerNoeud(nom);
+        this.ctrl.supprimerNoeud(nom);
         ((DefaultListModel<String>) this.listModel).removeElement(nom);
         this.effacerForm();
     }
@@ -268,7 +268,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 
         ((DefaultListModel<String>) this.listModel).addElement(nom);
 
-        this.ctrl.getMetier().ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
+        this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
         this.effacerForm();
         
     }

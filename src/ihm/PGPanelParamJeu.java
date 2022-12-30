@@ -407,7 +407,7 @@ public class PGPanelParamJeu extends JPanel
 			try 
 			{
 				img = ImageIO.read(new File(filePath));
-				this.ctrl.setImageFond(img);
+				this.ctrl.setImagePlateau(img);
 			}
             catch(IOException ex)
             {

@@ -61,7 +61,7 @@ public class PGPanelParamPlateau extends JPanel
 
         /* Image de fond */
         this.lblbImageFond.setFont      (new Font("Segoe UI", 1, 12));
-        this.lblbImageFond.setText      ("Image Fond");
+        this.lblbImageFond.setText      ("Image de fond");
 
         /* Couleur de fond */
         this.lblCouleurFond.setFont      (new Font("Segoe UI", 1, 12));
@@ -185,23 +185,20 @@ public class PGPanelParamPlateau extends JPanel
 
 
     private void btnParcourirImgActionPerformed(ActionEvent e) 
-    {         
-                                               
-        String filePath = "";
+    {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setMultiSelectionEnabled(false);
 		int result = fc.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION)
 		{
-			File file = fc.getSelectedFile();
-			filePath  = file.getAbsolutePath();
 			BufferedImage img;
-			try 
+			try
 			{
-				img = ImageIO.read(new File(filePath));
-				this.ctrl.setImageFond(img);
+				img = ImageIO.read(new File(fc.getSelectedFile().getAbsolutePath()));
+                this.ctrl.setImagePlateau(img);
 			}
             catch(IOException ex)
             {
@@ -215,7 +212,7 @@ public class PGPanelParamPlateau extends JPanel
     {
         Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
 		if (color != null) 
-		 	this.ctrl.setCouleur(color);
+		 	this.ctrl.setCouleurPlateau(color);
     }                                                 
 
     private void btnChoisirFontActionPerformed(ActionEvent e)

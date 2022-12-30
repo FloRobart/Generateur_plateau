@@ -98,6 +98,12 @@ public class FramePoint extends JFrame implements ActionListener
         
     }
 
+    public void majIHM()
+	{
+		new FramePoint(ctrl);
+		this.dispose();
+	}
+
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -107,7 +113,7 @@ public class FramePoint extends JFrame implements ActionListener
             this.tabDonnees[this.index][1] = this.index+1;
             this.index++;
             this.tablePoint.updateUI();
-            this.ctrl.getMetier().setNbPoint(this.index);
+            this.ctrl.setNbPoint(this.index);
             
         }
         if (e.getSource() == this.btnSupprimer) 
@@ -116,6 +122,7 @@ public class FramePoint extends JFrame implements ActionListener
             this.tabDonnees[this.index-1][1] = null;
             this.index--;
             this.tablePoint.updateUI();
+            this.ctrl.supprimerPoint();
         }
 
         if (e.getSource() == this.btnOk) 
