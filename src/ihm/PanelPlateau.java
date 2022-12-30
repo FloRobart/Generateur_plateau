@@ -32,13 +32,14 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.Component;
+import java.awt.Font;
 
 
 public class PanelPlateau extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener
 {
     private Controleur ctrl;
     private JLabel lblImagePlateau;
-    private List<Noeud> lstNoeudOfIHM;
+	private int[] taillePlateau;
 
 	private Ellipse2D[]   tabNoeud;
 	private Integer       idNoeudDrag;
@@ -59,12 +60,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     private Point startPoint;
 
 
-    public PanelPlateau(Controleur ctrl, int longueurFrame, int hauteurFrame)
+    public PanelPlateau(Controleur ctrl)
     {
         this.ctrl = ctrl;
 		
-
-        this.lstNoeudOfIHM =  this.ctrl.getNoeuds();
 		this.idNoeudDrag = null;
 
         this.initComponent();
@@ -146,6 +145,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         Graphics2D g2 = (Graphics2D) g;
 
+		// affichage du zoom
         if (zoomer) 
         {
 			AffineTransform at = new AffineTransform();
@@ -165,12 +165,11 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             zoomer = false;
         }
 
+		// affichage du déplacement
         if (dragger) 
         {
             AffineTransform at = new AffineTransform();
-			//System.out.println("------------------\n" + xOffset + " " + yOffset + " | " + xDiff + " " + yDiff);
             at.translate(xOffset + xDiff, yOffset + yDiff);
-			//System.out.println(xOffset + " " + yOffset + " | " + xDiff + " " + yDiff);
             at.scale(zoomFactor, zoomFactor);
             g2.transform(at);
 
@@ -178,21 +177,41 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
             {
 				xOffset += xDiff;
                 yOffset += yDiff;
+				
                 dragger = false;
             }
         }
 
-        // All drawings go here
-		this.tabNoeud = new Ellipse2D[this.lstNoeudOfIHM.size()];
-		this.tabNomNoeud = new Rectangle2D[this.lstNoeudOfIHM.size()];
-		this.image = this.ctrl.getImagePlateau();
+        //      affichage du plateau
 
-		int[] taillePlateau = this.ctrl.getTaillePlateau();
+		// récupération des variables et initialisation des tableaux
+		this.taillePlateau   = this.ctrl.getTaillePlateau();
+		List<Noeud> lstNoeud = this.ctrl.getNoeuds();
+		this.tabNoeud    = new Ellipse2D  [lstNoeud.size()];
+		this.tabNomNoeud = new Rectangle2D[lstNoeud.size()];
+
+		// affichage de la couleur de fond
 		g2.setColor(this.ctrl.getCouleurPlateau());
-		g2.fillRect((int) xOffset, (int) yOffset, taillePlateau[0], taillePlateau[1]);
-        g2.drawImage(image, (int) xOffset, (int) yOffset, this);
-        g2.setFont(this.ctrl.getPolicePlateau());
+		g2.fillRect(0, 0, taillePlateau[0], taillePlateau[1]);
 
+		// affichage de l'image de fond
+		BufferedImage img = this.ctrl.getImagePlateau();
+		if (img != null)
+		{
+			// on redimensionne l'image de fond pour qu'elle corresponde à la taille du plateau
+			BufferedImage imgPlateau = new BufferedImage(taillePlateau[0], taillePlateau[1], img.getType());
+			Graphics2D gImg = imgPlateau.createGraphics();
+			gImg.drawImage(img, 0, 0, null);
+
+			g2.drawImage(imgPlateau, 0, 0, this);
+		}
+
+		// définition de la police d'écriture
+		Font police = this.ctrl.getPolicePlateau();
+		if (police != null)
+       		g2.setFont(police);
+
+		// affichage des aretes
 		for (Arete arete : this.ctrl.getAretes())
 		{
 			Point n1, n2;
@@ -200,7 +219,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			double angle = Math.atan((double) (arete.getNoeud2().getY() - arete.getNoeud1().getY()) / 
 			                                  (arete.getNoeud2().getX() - arete.getNoeud1().getX())  );
 
-			// si la couleur 2 est null alors nous somme sur une arete simple
+			// si couleur 2 est null alors nous somme sur une arete simple
 			// sinon nous sommes sur une arete double
 			if (arete.getCouleur2() == null)
 			{
@@ -223,20 +242,24 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			}
 		}
 		
+		// affichage des noeuds
 		int i = 0;
-        for (Noeud noeud : lstNoeudOfIHM)
+        for (Noeud noeud : lstNoeud)
         {
-			int midX = (int) xOffset + noeud.getX();
-			int midY = (int) yOffset + noeud.getY();
+			int midX = noeud.getX();
+			int midY = noeud.getY();
 
+			// contour du noeud
 			g2.setColor(Color.BLACK);
 			g2.fillOval(midX-12, midY-12, 24, 24);
 
+			// noeud
             g2.setColor(noeud.getCouleur());
             g2.fillOval(midX-10, midY-10, 20, 20);
 
 			this.tabNoeud[i] = new Ellipse2D.Double(midX-12, midY-12, 24, 24);
 
+			// contour du nom du noeud
 			g2.setColor(Color.WHITE);
 			g2.fillRect(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
 			            midY + noeud.getYNom() - 7, 
@@ -248,6 +271,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			                                               noeud.getNom().length() * 6, 
 			                                               14);
 
+			// nom du noeud
 			g2.setColor(Color.BLACK);
             g2.drawString(noeud.getNom(), 
 			              midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
@@ -261,8 +285,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 		for (double cpt = 1 ; cpt < d + 1 ; cpt++)
 		{
 			// on récupère les coordonnées centrale de notre tronçon
-			int x = (int) (this.xOffset + n1.getX() + ((n2.getX() - n1.getX()) * (cpt / (d + 1))));
-			int y = (int) (this.yOffset + n1.getY() + ((n2.getY() - n1.getY()) * (cpt / (d + 1))));
+			int x = (int) (n1.getX() + ((n2.getX() - n1.getX()) * (cpt / (d + 1))));
+			int y = (int) (n1.getY() + ((n2.getY() - n1.getY()) * (cpt / (d + 1))));
 
 			// on créer notre tronçon sans son angle
 			RoundRectangle2D fig1 = new RoundRectangle2D.Double(x - 25, y - 10, 50, 20, 25, 25);
@@ -306,12 +330,12 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 		if (SwingUtilities.isLeftMouseButton(e))
 		{
 			if (this.idNoeudDrag != null)
-				this.ctrl.setPositionNoeud(this.idNoeudDrag, e.getX() - (int) xOffset, e.getY() - (int) yOffset);
+				this.ctrl.setPositionNoeud(this.idNoeudDrag, e.getX(), e.getY());
 
 			if (this.idNomNoeudDrag != null)
 			{
-				int x = e.getX() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getX() - (int) xOffset; 
-				int y = e.getY() - this.lstNoeudOfIHM.get(this.idNomNoeudDrag).getY() - (int) yOffset; 
+				int x = e.getX() - this.ctrl.getNoeuds().get(this.idNomNoeudDrag).getX(); 
+				int y = e.getY() - this.ctrl.getNoeuds().get(this.idNomNoeudDrag).getY(); 
 
 				this.ctrl.setPositionNomNoeud(this.idNomNoeudDrag, x, y);
 			}
@@ -326,8 +350,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			double prevXOffset = xOffset + curPoint.x - startPoint.x;
 			double prevYOffset = yOffset + curPoint.y - startPoint.y;
 
-			if (prevXOffset < 400 && prevXOffset > (-this.image.getWidth()  /2 - 400)*zoomFactor &&
-				prevYOffset < 300 && prevYOffset > (-this.image.getHeight() /2 - 300)*zoomFactor    )
+			if (prevXOffset < 400 && prevXOffset > -(this.taillePlateau[0] / 2 + 400) * zoomFactor &&
+				prevYOffset < 300 && prevYOffset > -(this.taillePlateau[1] / 2 + 300) * zoomFactor    )
 			{
 				xDiff = curPoint.x - startPoint.x;
 				yDiff = curPoint.y - startPoint.y;
@@ -412,9 +436,9 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                     if (ico != null) {
                         /* Action à faite quand on drop */
                         int x, y;
-                        x = (int) event.getLocation().getX() - (int) xOffset;
-                        y = (int) event.getLocation().getY() - (int) yOffset;  
-                        lstNoeudOfIHM.add(new Noeud("Noeud Nouveau", x, y, 0, -20, Color.BLACK));                 
+                        x = (int) event.getLocation().getX();
+                        y = (int) event.getLocation().getY();  
+						PanelPlateau.this.ctrl.ajouterNoeud("Noeud Nouveau", x, y, 0, -20, Color.BLACK);            
                         p.revalidate();
                         p.repaint();
                         event.dropComplete(true);
