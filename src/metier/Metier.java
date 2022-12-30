@@ -173,6 +173,16 @@ public class Metier
 
 				this.hmColorThemes.put(lstCles[i], lst);
 			}
+
+
+			/*-------------------------------------------------*/
+			/* Récupération de la couleur du PlaceHolder (=ph) */
+			/*-------------------------------------------------*/
+			Element ph = racine.getChild("placeholder");
+
+			lst = new ArrayList<Color>();
+			lst.add(new Color(Integer.parseInt(ph.getAttributeValue("red")), Integer.parseInt(ph.getAttributeValue("green")), Integer.parseInt(ph.getAttributeValue("blue")), Integer.parseInt(ph.getAttributeValue("alpha"))));
+			this.hmColorThemes.put("placeholder", lst);
 		}
 		catch (Exception e)
 		{

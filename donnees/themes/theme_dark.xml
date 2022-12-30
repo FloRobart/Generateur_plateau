@@ -20,4 +20,5 @@
         <foreground red="255" green="255" blue="255"></foreground>
         <background red="63" green="63" blue="63"></background>
     </menuBar>
+    <placeholder red="255" green="255" blue="255" alpha="100"></placeholder>
 </theme>
