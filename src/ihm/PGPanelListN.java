@@ -1,36 +1,46 @@
 package ihm;
+import java.util.List;
+import ihm.customComponent.*;
+import javax.swing.AbstractListModel;
+import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
 
 import controleur.Controleur;
+import metier.Noeud;
+import java.awt.event.*;
 
-
-public class PGPanelListN extends javax.swing.JPanel
+public class PGPanelListN extends javax.swing.JPanel 
 {
+    private Controleur ctrl;
     /**
      * Creates new form PGPanelListN
      */
     public PGPanelListN(Controleur ctrl)
-    {
+    {   
+        this.ctrl = ctrl;
         lstNoeud = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<Noeud>();
         lblNom = new javax.swing.JLabel();
         lblPosition = new javax.swing.JLabel();
         lblPositionNom = new javax.swing.JLabel();
         lblCouleur = new javax.swing.JLabel();
-        txtNom = new javax.swing.JTextField(9);
-        txtPosY = new javax.swing.JTextField();
-        txtPosX = new javax.swing.JTextField();
-        txtPosNomX = new javax.swing.JTextField();
-        txtPosNomY = new javax.swing.JTextField();
+        txtNom      = new TextFieldWithHint("New");
+        txtPosY     = new TextFieldWithHint("Y");
+        txtPosX     = new TextFieldWithHint("X");
+        txtPosNomX  = new TextFieldWithHint("X");
+        txtPosNomY  = new TextFieldWithHint("Y");
         btnCouleur = new javax.swing.JButton();
         btnAjouter = new javax.swing.JButton();
         btnSupprimer = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(68, 71, 90));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jList1.setModel(new AbstractListModel<Noeud>() {
+            List<Noeud> lstNoeud = ctrl.getNoeuds();
+            public int getSize() { return lstNoeud.size();}
+            public Noeud getElementAt(int index) {return lstNoeud.get(index);}
+            
         });
         lstNoeud.setViewportView(jList1);
 
@@ -51,18 +61,17 @@ public class PGPanelListN extends javax.swing.JPanel
         lblCouleur.setText("Couleur");
 
         txtNom.setBackground(new java.awt.Color(40, 42, 54));
-        txtNom.setForeground(new java.awt.Color(255, 255, 255));
-        txtNom.setText("New");
+        txtNom.setForeground(new java.awt.Color(255, 255, 255,100));
+        txtNom.setColumns(9);
         txtNom.setBorder(null);
         txtNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomActionPerformed(evt);
             }
         });
-
+        
         txtPosY.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosY.setForeground(new java.awt.Color(255, 255, 255));
-        txtPosY.setText("Y:");
+        txtPosY.setForeground(new java.awt.Color(255, 255, 255,100));
         txtPosY.setBorder(null);
         txtPosY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,8 +80,7 @@ public class PGPanelListN extends javax.swing.JPanel
         });
 
         txtPosX.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosX.setForeground(new java.awt.Color(255, 255, 255));
-        txtPosX.setText("X:");
+        txtPosX.setForeground(new java.awt.Color(255, 255, 255,100));
         txtPosX.setBorder(null);
         txtPosX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +89,7 @@ public class PGPanelListN extends javax.swing.JPanel
         });
 
         txtPosNomX.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosNomX.setForeground(new java.awt.Color(255, 255, 255));
-        txtPosNomX.setText("X:");
+        txtPosNomX.setForeground(new java.awt.Color(255, 255, 255,100));
         txtPosNomX.setBorder(null);
         txtPosNomX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,8 +98,7 @@ public class PGPanelListN extends javax.swing.JPanel
         });
 
         txtPosNomY.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosNomY.setForeground(new java.awt.Color(255, 255, 255));
-        txtPosNomY.setText("Y:");
+        txtPosNomY.setForeground(new java.awt.Color(255, 255, 255,100));
         txtPosNomY.setBorder(null);
         txtPosNomY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +207,7 @@ public class PGPanelListN extends javax.swing.JPanel
 
     private void txtNomActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
+        
     }                                      
 
     private void txtPosXActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -222,9 +229,30 @@ public class PGPanelListN extends javax.swing.JPanel
     private void btnCouleurActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
     }                                          
-
+    private boolean isFormValide ()
+    {
+        try
+        {
+            int posX,posY,posNomX,posNomY;
+            posX    = Integer.parseInt(txtPosX.getText());
+            posY    = Integer.parseInt(txtPosY.getText());
+            posNomX = Integer.parseInt(txtPosNomX.getText());
+            posNomY = Integer.parseInt(txtPosNomY.getText());
+            return true;
+        }
+        catch (NumberFormatException e) {return false;}
+    }
     private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+        if (isFormValide())
+        {
+            this.ctrl.ajouterNoeud(this.txtNom.getText(), Integer.parseInt(this.txtPosX.getText()), 
+                                   Integer.parseInt(this.txtPosY.getText()), Integer.parseInt(this.txtPosNomX.getText()), Integer.parseInt(this.txtPosNomY.getText()), 
+                                   this.btnCouleur.getBackground());
+            this.jList1.updateUI();
+        }
+
+
     }                                          
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -236,7 +264,7 @@ public class PGPanelListN extends javax.swing.JPanel
     private javax.swing.JButton btnAjouter;
     private javax.swing.JButton btnCouleur;
     private javax.swing.JButton btnSupprimer;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<Noeud> jList1;
     private javax.swing.JLabel lblCouleur;
     private javax.swing.JLabel lblNom;
     private javax.swing.JLabel lblPosition;
@@ -248,4 +276,5 @@ public class PGPanelListN extends javax.swing.JPanel
     private javax.swing.JTextField txtPosX;
     private javax.swing.JTextField txtPosY;
     // End of variables declaration                   
+
 }
