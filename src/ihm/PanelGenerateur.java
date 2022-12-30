@@ -11,7 +11,7 @@ public class PanelGenerateur extends JPanel
     private PGPanelParamJeu pGPanelParamJeu;
     private PGPanelParamPlateau pGPanelParamPlateau;
 	private PGPanelAjouterElements pGPanelAjouterElements;
-    private PGPanelModifier pGPanelModifier;
+    private PGPanelExplorer pGPanelExplorer;
 
 
 	/**
@@ -23,7 +23,7 @@ public class PanelGenerateur extends JPanel
         this.pGPanelParamPlateau    = new PGPanelParamPlateau(ctrl);
         this.pGPanelParamJeu        = new PGPanelParamJeu(ctrl);
         this.pGPanelAjouterElements = new PGPanelAjouterElements(ctrl);
-        this.pGPanelModifier        = new PGPanelModifier(ctrl);
+        this.pGPanelExplorer        = new PGPanelExplorer();
 
 
         GroupLayout layout = new GroupLayout(this);
@@ -36,16 +36,16 @@ public class PanelGenerateur extends JPanel
                         .addComponent(this.pGPanelParamPlateau, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(this.pGPanelParamJeu, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
                     .addComponent(this.pGPanelAjouterElements, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(this.pGPanelModifier, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(this.pGPanelExplorer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(this.pGPanelParamPlateau, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(this.pGPanelParamPlateau, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
                 .addComponent(this.pGPanelParamJeu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(this.pGPanelAjouterElements, GroupLayout.PREFERRED_SIZE, 189, Short.MAX_VALUE)
-                .addComponent(this.pGPanelModifier, GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(this.pGPanelExplorer, GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE)
                 )
         );
     }
@@ -55,6 +55,6 @@ public class PanelGenerateur extends JPanel
         this.pGPanelParamPlateau   .appliquerTheme();
         this.pGPanelParamJeu       .appliquerTheme();
         this.pGPanelAjouterElements.appliquerTheme();
-        this.pGPanelModifier       .appliquerTheme();
+        //this.pGPanelExplorer       .appliquerTheme();
     }
 }

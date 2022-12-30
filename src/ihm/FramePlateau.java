@@ -66,7 +66,7 @@ public class FramePlateau extends JFrame
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGenerateur, panel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
-		splitPane.setDividerLocation(this.getWidth()/4);
+		splitPane.setDividerLocation(this.getWidth()/2);
 
 		//Provide minimum sizes for the two components in the split pane
 		panel.setMinimumSize(new Dimension(0, 0));
