@@ -2,9 +2,8 @@ package ihm;
 
 import controleur.Controleur;
 
-import java.awt.Color;
-
 import javax.swing.JTabbedPane;
+
 
 public class PGPanelExplorer extends javax.swing.JPanel
 {

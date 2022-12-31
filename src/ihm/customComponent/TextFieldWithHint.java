@@ -57,23 +57,34 @@ public class TextFieldWithHint extends JTextField implements FocusListener
         return this.showingHint ? "" : super.getText();
     }
 
+    /**
+     * Permet de modifier la couleur du texte par défaut
+     * @param placeholderColor : Couleur du texte par défaut
+     */
     public void setPlaceholderColor(Color placeholderColor)
     {
         this.placeholderColor = placeholderColor;
-
-        /* Permet de mettre à jour la couleur des éléments */
-        this.setCaretColor(this.foregroundColor);
-        this.focusGained(null);
-        this.focusLost  (null);
+        this.majColor();
     }
 
+    /**
+     * Permet de modifier la couleur du texte écrit par l'utilisateur
+     * @param foregroundColor : Couleur du texte écrit par l'utilisateur
+     */
     public void setForegroundColor(Color foregroundColor)
     {
         this.foregroundColor = foregroundColor;
+        this.majColor();
+    }
 
-        /* Permet de mettre à jour la couleur des éléments */
+
+    /**
+     * Permet de mettre à jour la couleur des éléments
+     */
+    private void majColor()
+    {
         this.setCaretColor(this.foregroundColor);
-        this.focusGained(null);
-        this.focusLost  (null);
+        this.focusGained  (null);
+        this.focusLost    (null);
     }
 }
