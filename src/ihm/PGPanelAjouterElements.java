@@ -1,22 +1,20 @@
 package ihm;
+
 import java.awt.dnd.*; //Drag and Drop pakcage
 import java.awt.dnd.DragGestureListener;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
-import java.awt.event.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.GroupLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import java.awt.datatransfer.*;
 
@@ -58,13 +56,10 @@ public class PGPanelAjouterElements extends JPanel
 
         this.lblAjouterElements.setText(" Ajouter éléments");
 
-        this.imgNoeud.setHorizontalAlignment(SwingConstants.CENTER);
         this.imgNoeud.setIcon(new ImageIcon(getClass().getResource("/donnees/images/noeud.png")));
 
         this.lblNoeud.setText("Noeud");
         this.lblNoeud.setFont(new Font("Segoe UI", 1, 12));
-        this.lblNoeud.setHorizontalAlignment(SwingConstants.CENTER);
-
 
 
         GroupLayout layout = new GroupLayout(this);
@@ -80,6 +75,7 @@ public class PGPanelAjouterElements extends JPanel
 
             )
         );
+
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -93,6 +89,7 @@ public class PGPanelAjouterElements extends JPanel
                 )
         );
 
+
         this.appliquerTheme();
     }
 
@@ -105,10 +102,9 @@ public class PGPanelAjouterElements extends JPanel
 
         /* Couleurs */
         Color initialColor = g.getColor();
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
         
         /* Noeud */
-        g.setColor(labelForeColor);
+        g.setColor(this.ctrl.getTheme().get("labels").get(0));
         g.fillOval(29, 40, 69, 69);
 
 
@@ -158,11 +154,13 @@ public class PGPanelAjouterElements extends JPanel
      */
     public void appliquerTheme()
 	{
-		Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+		Color background     = theme.get("background").get(0);
+        Color titleForeColor = theme.get("titles"    ).get(0);
+		Color titleBackColor = theme.get("titles"    ).get(1);
+        Color labelForeColor = theme.get("labels"    ).get(0);
+		Color labelBackColor = theme.get("labels"    ).get(1);
 
 
         this.setBackground(background);
@@ -173,6 +171,9 @@ public class PGPanelAjouterElements extends JPanel
 
         this.lblNoeud.setForeground(labelForeColor);
         this.lblNoeud.setBackground(labelBackColor);
+        this.lblNoeud.setHorizontalAlignment(JLabel.CENTER);
+
+        this.imgNoeud.setHorizontalAlignment(JLabel.CENTER);
 	}
 }
 

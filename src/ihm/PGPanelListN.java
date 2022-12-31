@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
@@ -27,20 +28,20 @@ public class PGPanelListN extends JPanel
 {
     private Controleur ctrl;
 
-    private JButton      btnAjouter;
-    private JButton      btnCouleur;
-    private JButton      btnSupprimer;
-    private JList<Noeud> jList1;
-    private JLabel       lblCouleur;
-    private JLabel       lblNom;
-    private JLabel       lblPosition;
-    private JLabel       lblPositionNom;
-    private JScrollPane  lstNoeud;
-    private JTextField   txtNom;
-    private JTextField   txtPosNomX;
-    private JTextField   txtPosNomY;
-    private JTextField   txtPosX;
-    private JTextField   txtPosY;
+    private JButton           btnAjouter;
+    private JButton           btnCouleur;
+    private JButton           btnSupprimer;
+    private JList<Noeud>      jList1;
+    private JLabel            lblCouleur;
+    private JLabel            lblNom;
+    private JLabel            lblPosition;
+    private JLabel            lblPositionNom;
+    private JScrollPane       lstNoeud;
+    private TextFieldWithHint txtNom;
+    private TextFieldWithHint txtPosNomX;
+    private TextFieldWithHint txtPosNomY;
+    private TextFieldWithHint txtPosX;
+    private TextFieldWithHint txtPosY;
     /**
      * Creates new form PGPanelListN
      */
@@ -54,11 +55,11 @@ public class PGPanelListN extends JPanel
         this.lblPosition    = new JLabel           (     );
         this.lblPositionNom = new JLabel           (     );
         this.lblCouleur     = new JLabel           (     );
-        this.txtNom         = new TextFieldWithHint("New");
-        this.txtPosY        = new TextFieldWithHint("Y"  );
-        this.txtPosX        = new TextFieldWithHint("X"  );
-        this.txtPosNomX     = new TextFieldWithHint("X"  );
-        this.txtPosNomY     = new TextFieldWithHint("Y"  );
+        this.txtNom         = new TextFieldWithHint("New", ctrl);
+        this.txtPosY        = new TextFieldWithHint("Y"  , ctrl);
+        this.txtPosX        = new TextFieldWithHint("X"  , ctrl);
+        this.txtPosNomX     = new TextFieldWithHint("X"  , ctrl);
+        this.txtPosNomY     = new TextFieldWithHint("Y"  , ctrl);
         this.btnCouleur     = new JButton          (     );
         this.btnAjouter     = new JButton          (     );
         this.btnSupprimer   = new JButton          (     );
@@ -81,91 +82,67 @@ public class PGPanelListN extends JPanel
 
         this.lstNoeud.setViewportView(jList1);
 
-        this.lblNom.setFont(new Font("Segoe UI", 1, 12));
-        this.lblNom.setForeground(new Color(255, 255, 255));
         this.lblNom.setText("Nom");
+        this.lblNom.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblPosition.setFont(new Font("Segoe UI", 1, 12));
-        this.lblPosition.setForeground(new Color(255, 255, 255));
         this.lblPosition.setText("Position");
+        this.lblPosition.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblPositionNom.setFont(new Font("Segoe UI", 1, 12));
-        this.lblPositionNom.setForeground(new Color(255, 255, 255));
         this.lblPositionNom.setText("Position Nom");
+        this.lblPositionNom.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblCouleur.setFont(new Font("Segoe UI", 1, 12));
-        this.lblCouleur.setForeground(new Color(255, 255, 255));
         this.lblCouleur.setText("Couleur");
+        this.lblCouleur.setFont(new Font("Segoe UI", 1, 12));
 
-        this.txtNom.setBackground(new Color(40, 42, 54));
-        this.txtNom.setForeground(new Color(255, 255, 255, 100));
         this.txtNom.setColumns(9);
-        this.txtNom.setBorder(null);
         this.txtNom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txtNomActionPerformed(evt);
             }
         });
-        
-        this.txtPosY.setBackground(new Color(40, 42, 54));
-        this.txtPosY.setForeground(new Color(255, 255, 255,100));
-        this.txtPosY.setBorder(null);
+
         this.txtPosY.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txtPosYActionPerformed(evt);
             }
         });
 
-        this.txtPosX.setBackground(new Color(40, 42, 54));
-        this.txtPosX.setForeground(new Color(255, 255, 255,100));
-        this.txtPosX.setBorder(null);
         this.txtPosX.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txtPosXActionPerformed(evt);
             }
         });
 
-        this.txtPosNomX.setBackground(new Color(40, 42, 54));
-        this.txtPosNomX.setForeground(new Color(255, 255, 255,100));
-        this.txtPosNomX.setBorder(null);
         this.txtPosNomX.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txtPosNomXActionPerformed(evt);
             }
         });
 
-        this.txtPosNomY.setBackground(new Color(40, 42, 54));
-        this.txtPosNomY.setForeground(new Color(255, 255, 255,100));
-        this.txtPosNomY.setBorder(null);
         this.txtPosNomY.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txtPosNomYActionPerformed(evt);
             }
         });
+
+        this.btnCouleur.setText("Couleur");
         this.btnCouleur.setFocusPainted(false);
-        this.btnCouleur.setBackground(new Color(255, 102, 153));
-        this.btnCouleur.setText(" ");
-        this.btnCouleur.setBorder(null);
         this.btnCouleur.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 btnCouleurActionPerformed(evt);
             }
         });
-        this.btnAjouter.setFocusPainted(false);
-        this.btnAjouter.setBackground(new Color(40, 42, 54));
-        this.btnAjouter.setForeground(new Color(255, 255, 255));
+
         this.btnAjouter.setText("Ajouter");
-        this.btnAjouter.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnAjouter.setFocusPainted(false);
         this.btnAjouter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 btnAjouterActionPerformed(evt);
             }
         });
-        this.btnSupprimer.setFocusPainted(false);
-        this.btnSupprimer.setBackground(new Color(40, 42, 54));
-        this.btnSupprimer.setForeground(new Color(255, 255, 255));
+
         this.btnSupprimer.setText("Supprimer");
-        this.btnSupprimer.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnSupprimer.setFocusPainted(false);
         this.btnSupprimer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 btnSupprimerActionPerformed(evt);
@@ -279,13 +256,16 @@ public class PGPanelListN extends JPanel
 
     public void appliquerTheme()
     {
-        Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+        Color background       = theme.get("background").get(0);
+        Color labelForeColor   = theme.get("labels"    ).get(0);
+		Color labelBackColor   = theme.get("labels"    ).get(1);
+        Color saisiForeColor   = theme.get("saisies"   ).get(0);
+		Color saisiBackColor   = theme.get("saisies"   ).get(1);
+        Color placeholderColor = theme.get("saisies"   ).get(2);
+        Color btnForeColor     = theme.get("bottuns"   ).get(0);
+		Color btnBackColor     = theme.get("bottuns"   ).get(1);
 
 
         this.setBackground(background);
@@ -309,28 +289,56 @@ public class PGPanelListN extends JPanel
         this.lblCouleur    .setForeground(labelForeColor);
         this.lblCouleur    .setBackground(labelBackColor);
 
-        this.txtNom        .setForeground(new Color(255, 255, 255, 100));
-        this.txtNom        .setBackground(saisiBackColor);
-
-        this.txtPosY       .setForeground(saisiForeColor);
-        this.txtPosY       .setBackground(saisiBackColor);
-
-        this.txtPosX       .setForeground(saisiForeColor);
-        this.txtPosX       .setBackground(saisiBackColor);
-
-        this.txtPosNomX    .setForeground(saisiForeColor);
-        this.txtPosNomX    .setBackground(saisiBackColor);
-
-        this.txtPosNomY    .setForeground(saisiForeColor);
-        this.txtPosNomY    .setBackground(saisiBackColor);
-
+        this.btnCouleur    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnCouleur    .setForeground(btnForeColor);
         this.btnCouleur    .setBackground(btnBackColor);
 
+        this.btnAjouter    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnAjouter    .setForeground(btnForeColor);
         this.btnAjouter    .setBackground(btnBackColor);
 
+        this.btnSupprimer  .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnSupprimer  .setForeground(btnForeColor);
         this.btnSupprimer  .setBackground(btnBackColor);
+
+        this.txtNom        .setOpaque(true);
+        this.txtNom        .setBorder(null);
+        this.txtNom        .setForeground(placeholderColor);
+        this.txtNom        .setBackground(saisiBackColor);
+        this.txtNom        .setForegroundColor (saisiForeColor  );
+        this.txtNom        .setPlaceholderColor(placeholderColor);
+        this.txtNom        .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosY       .setOpaque(true);
+        this.txtPosY       .setBorder(null);
+        this.txtPosY       .setForeground(placeholderColor);
+        this.txtPosY       .setBackground(saisiBackColor);
+        this.txtPosY       .setForegroundColor (saisiForeColor  );
+        this.txtPosY       .setPlaceholderColor(placeholderColor);
+        this.txtPosY       .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosX       .setOpaque(true);
+        this.txtPosX       .setBorder(null);
+        this.txtPosX       .setForeground(placeholderColor);
+        this.txtPosX       .setBackground(saisiBackColor);
+        this.txtPosX       .setForegroundColor (saisiForeColor  );
+        this.txtPosX       .setPlaceholderColor(placeholderColor);
+        this.txtPosX       .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosNomX    .setOpaque(true);
+        this.txtPosNomX    .setBorder(null);
+        this.txtPosNomX    .setForeground(placeholderColor);
+        this.txtPosNomX    .setBackground(saisiBackColor);
+        this.txtPosNomX    .setForegroundColor (saisiForeColor  );
+        this.txtPosNomX    .setPlaceholderColor(placeholderColor);
+        this.txtPosNomX    .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosNomY    .setOpaque(true);
+        this.txtPosNomY    .setBorder(null);
+        this.txtPosNomY    .setForeground(placeholderColor);
+        this.txtPosNomY    .setBackground(saisiBackColor);
+        this.txtPosNomY    .setForegroundColor (saisiForeColor  );
+        this.txtPosNomY    .setPlaceholderColor(placeholderColor);
+        this.txtPosNomY    .setDisabledTextColor(new Color(255, 0, 0));
     }
 }

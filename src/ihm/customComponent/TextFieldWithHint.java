@@ -6,22 +6,25 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
+import controleur.Controleur;
+
 
 public class TextFieldWithHint extends JTextField implements FocusListener
 {
-    private final String HINT;
-
+    private final String hint;
     private boolean showingHint;
-    private Color placeholderColor = new Color(255, 255, 255, 100);
-    private Color foregroundColor = new Color(255, 0, 0, 255);
+    private Color foregroundColor;
+    private Color placeholderColor;
 
   
-    public TextFieldWithHint(final String hint)
+    public TextFieldWithHint(final String hint, Controleur ctrl)
     {
         super(hint);
-        this.setCaretColor(new Color (255,255,255));
+        this.setCaretColor     (ctrl.getTheme().get("saisies").get(0));
+        this.foregroundColor  = ctrl.getTheme().get("saisies").get(0) ;
+        this.placeholderColor = ctrl.getTheme().get("saisies").get(2) ;
 
-        this.HINT = hint;
+        this.hint = hint;
         this.showingHint = true;
         super.addFocusListener(this);
     }
@@ -32,7 +35,7 @@ public class TextFieldWithHint extends JTextField implements FocusListener
         if(this.getText().isEmpty())
         {
             super.setText("");
-            this.setForeground(new Color(255, 0, 0, 255)); // texte quand on écrit
+            this.setForeground(this.foregroundColor);
             this.showingHint = false;
         }
     }
@@ -42,8 +45,8 @@ public class TextFieldWithHint extends JTextField implements FocusListener
     {
         if(this.getText().isEmpty())
         {
-            super.setText(HINT);
-            this.setForeground(new Color(255, 255, 255,100)); // placeholder
+            super.setText(hint);
+            this.setForeground(this.placeholderColor);
             this.showingHint = true;
         }
     }
@@ -57,10 +60,20 @@ public class TextFieldWithHint extends JTextField implements FocusListener
     public void setPlaceholderColor(Color placeholderColor)
     {
         this.placeholderColor = placeholderColor;
+
+        /* Permet de mettre à jour la couleur des éléments */
+        this.setCaretColor(this.foregroundColor);
+        this.focusGained(null);
+        this.focusLost  (null);
     }
 
-    public void setForeground(Color foregroundColor)
+    public void setForegroundColor(Color foregroundColor)
     {
         this.foregroundColor = foregroundColor;
+
+        /* Permet de mettre à jour la couleur des éléments */
+        this.setCaretColor(this.foregroundColor);
+        this.focusGained(null);
+        this.focusLost  (null);
     }
 }

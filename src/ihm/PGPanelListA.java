@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
@@ -18,8 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldWithHint;
 
 
 public class PGPanelListA extends JPanel
@@ -41,7 +45,7 @@ public class PGPanelListA extends JPanel
     private JLabel            lblDistance;
     private JLabel            lblNoeudA;
     private JLabel            lblNoeudB;
-    private JTextField        txtDistance;
+    private TextFieldWithHint txtDistance;
 
 
     /**
@@ -61,7 +65,7 @@ public class PGPanelListA extends JPanel
         this.comboBoxListNoeudA = new JComboBox<String>();
         this.comboBoxListNoeudB = new JComboBox<String>();
         this.cb2Sens            = new JCheckBox        ();
-        this.txtDistance        = new JTextField       ();
+        this.txtDistance        = new TextFieldWithHint("Distance", ctrl);
         this.btnCouleurAB       = new JButton          ();
         this.btnCouleurBA       = new JButton          ();
         this.btnAjouter         = new JButton          ();
@@ -69,42 +73,42 @@ public class PGPanelListA extends JPanel
 
 
         /* jList1 */
-        this.jList1.setModel(new AbstractListModel<String>() {
+        this.jList1.setModel(new AbstractListModel<String>()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+
         /* Ajout de la list1 dans un JScrollPane */
         this.jScrollPane1.setViewportView(jList1);
 
         /* lblNoeudA */
-        this.lblNoeudA.setFont(new Font("Segoe UI", 1, 12));
         this.lblNoeudA.setText("Noeud A");
+        this.lblNoeudA.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblNoeudB */
-        this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12));
         this.lblNoeudB.setText("Noeud B");
+        this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12));
 
         /* lbl2Sens */
-        this.lbl2Sens.setFont(new Font("Segoe UI", 1, 12));
         this.lbl2Sens.setText("2 sens");
+        this.lbl2Sens.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblCouleurAB */
-        this.lblCouleurAB.setFont(new Font("Segoe UI", 1, 12));
         this.lblCouleurAB.setText("Couleur AB");
+        this.lblCouleurAB.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblDistance */
-        this.lblDistance.setFont(new Font("Segoe UI", 1, 12));
         this.lblDistance.setText("Distance");
+        this.lblDistance.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblCouleurBA */
-        this.lblCouleurBA.setFont(new Font("Segoe UI", 1, 12));
         this.lblCouleurBA.setText("Couleur BA");
+        this.lblCouleurBA.setFont(new Font("Segoe UI", 1, 12));
 
         /* comboBoxListNoeudA */
-        this.comboBoxListNoeudA.setBackground(new Color(40, 42, 54));
         this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        this.comboBoxListNoeudA.setBorder(null);
         this.comboBoxListNoeudA.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -113,11 +117,8 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        comboBoxListNoeudB.setBackground(new Color(40, 42, 54));
-        comboBoxListNoeudB.setForeground(new Color(255, 255, 255));
-        comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBoxListNoeudB.setBorder(null);
-        comboBoxListNoeudB.addActionListener(new ActionListener()
+        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        this.comboBoxListNoeudB.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -125,10 +126,8 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        cb2Sens.setBackground(new Color(68, 71, 90));
-        cb2Sens.setSelected(true);
-        cb2Sens.setBorder(null);
-        cb2Sens.addActionListener(new ActionListener()
+        this.cb2Sens.setSelected(true);
+        this.cb2Sens.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -136,10 +135,7 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        txtDistance.setBackground(new Color(40, 42, 54));
-        txtDistance.setForeground(new Color(255, 255, 255));
-        txtDistance.setBorder(null);
-        txtDistance.addActionListener(new ActionListener()
+        this.txtDistance.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -147,10 +143,9 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        btnCouleurAB.setFocusPainted(false);
-        btnCouleurAB.setText(" ");
-        btnCouleurAB.setBorder(null);
-        btnCouleurAB.addActionListener(new ActionListener()
+        this.btnCouleurAB.setText("Couleur");
+        this.btnCouleurAB.setFocusPainted(false);
+        this.btnCouleurAB.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -158,10 +153,9 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        btnCouleurBA.setFocusPainted(false);
-        btnCouleurBA.setText(" ");
-        btnCouleurBA.setBorder(null);
-        btnCouleurBA.addActionListener(new ActionListener()
+        this.btnCouleurBA.setText("Couleur");
+        this.btnCouleurBA.setFocusPainted(false);
+        this.btnCouleurBA.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -169,12 +163,9 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        btnAjouter.setFocusPainted(false);
-        btnAjouter.setBackground(new Color(40, 42, 54));
-        btnAjouter.setForeground(new Color(255, 255, 255));
-        btnAjouter.setText("Ajouter");
-        btnAjouter.setBorder(BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnAjouter.addActionListener(new ActionListener()
+        this.btnAjouter.setText("Ajouter");
+        this.btnAjouter.setFocusPainted(false);
+        this.btnAjouter.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -182,12 +173,9 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        btnSupprimer.setFocusPainted(false);
-        btnSupprimer.setBackground(new Color(40, 42, 54));
-        btnSupprimer.setForeground(new Color(255, 255, 255));
-        btnSupprimer.setText("Supprimer");
-        btnSupprimer.setBorder(BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSupprimer.addActionListener(new ActionListener()
+        this.btnSupprimer.setText("Supprimer");
+        this.btnSupprimer.setFocusPainted(false);
+        this.btnSupprimer.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -202,41 +190,42 @@ public class PGPanelListA extends JPanel
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSupprimer, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(this.jScrollPane1, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl2Sens)
+                        .addComponent(this.lbl2Sens)
                         .addGap(47, 47, 47)
-                        .addComponent(cb2Sens))
+                        .addComponent(this.cb2Sens))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNoeudA)
+                            .addComponent(this.lblNoeudA)
                             .addGap(32, 32, 32)
-                            .addComponent(comboBoxListNoeudA, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(this.comboBoxListNoeudA, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNoeudB)
+                            .addComponent(this.lblNoeudB)
                             .addGap(33, 33, 33)
-                            .addComponent(comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAjouter, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDistance)
+                        .addComponent(this.lblDistance)
                         .addGap(34, 34, 34)
-                        .addComponent(txtDistance, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(this.txtDistance, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblCouleurBA)
+                            .addComponent(this.lblCouleurBA)
                             .addGap(18, 18, 18)
-                            .addComponent(btnCouleurBA, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(this.btnCouleurBA, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblCouleurAB)
+                            .addComponent(this.lblCouleurAB)
                             .addGap(18, 18, 18)
-                            .addComponent(btnCouleurAB, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(this.btnCouleurAB, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
+
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -244,28 +233,28 @@ public class PGPanelListA extends JPanel
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoeudA)
-                            .addComponent(comboBoxListNoeudA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDistance)
-                            .addComponent(txtDistance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(this.lblNoeudA)
+                            .addComponent(this.comboBoxListNoeudA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblDistance)
+                            .addComponent(this.txtDistance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoeudB)
-                            .addComponent(comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCouleurAB)
-                            .addComponent(btnCouleurAB))
+                            .addComponent(this.lblNoeudB)
+                            .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblCouleurAB)
+                            .addComponent(this.btnCouleurAB))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(lbl2Sens)
-                                .addComponent(cb2Sens, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblCouleurBA))
-                            .addComponent(btnCouleurBA)))
-                    .addComponent(jScrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(this.lbl2Sens)
+                                .addComponent(this.cb2Sens, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(this.lblCouleurBA))
+                            .addComponent(this.btnCouleurBA)))
+                    .addComponent(this.jScrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAjouter, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSupprimer, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -285,14 +274,17 @@ public class PGPanelListA extends JPanel
 
     public void appliquerTheme()
     {
-        Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+        Color background       = theme.get("background"  ).get(0);
+        Color titleForeColor   = theme.get("titles"      ).get(0);
+        Color labelForeColor   = theme.get("labels"      ).get(0);
+		Color labelBackColor   = theme.get("labels"      ).get(1);
+        Color saisiForeColor   = theme.get("saisies"     ).get(0);
+		Color saisiBackColor   = theme.get("saisies"     ).get(1);
+        Color placeholderColor = theme.get("saisies"     ).get(2);
+        Color btnForeColor     = theme.get("bottuns"     ).get(0);
+		Color btnBackColor     = theme.get("bottuns"     ).get(1);
 
 
         this.setForeground(titleForeColor);
@@ -320,27 +312,38 @@ public class PGPanelListA extends JPanel
         this.lblCouleurBA      .setForeground(labelForeColor);
         this.lblCouleurBA      .setBackground(labelBackColor);
         
+        this.comboBoxListNoeudA.setBorder(null);
         this.comboBoxListNoeudA.setForeground(saisiForeColor);
         this.comboBoxListNoeudA.setBackground(saisiBackColor);
         
+        this.comboBoxListNoeudB.setBorder(null);
         this.comboBoxListNoeudB.setForeground(saisiForeColor);
         this.comboBoxListNoeudB.setBackground(saisiBackColor);
         
-        this.cb2Sens           .setForeground(saisiForeColor);
         this.cb2Sens           .setOpaque    (false);
+        this.cb2Sens           .setForeground(saisiForeColor);
         
-        this.txtDistance       .setForeground(saisiForeColor);
-        this.txtDistance       .setBackground(saisiBackColor);
+        this.txtDistance       .setOpaque(true);
+        this.txtDistance       .setBorder(null);
+        this.txtDistance       .setForeground(placeholderColor);
+        this.txtDistance       .setBackground(saisiBackColor  );
+        this.txtDistance       .setForegroundColor (saisiForeColor  );
+        this.txtDistance       .setPlaceholderColor(placeholderColor);
+        this.txtDistance       .setDisabledTextColor(new Color(255, 0, 0));
         
+        this.btnCouleurAB      .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnCouleurAB      .setForeground(btnForeColor);
         this.btnCouleurAB      .setBackground(btnBackColor);
         
+        this.btnCouleurBA      .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnCouleurBA      .setForeground(btnForeColor);
         this.btnCouleurBA      .setBackground(btnBackColor);
         
+        this.btnAjouter        .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnAjouter        .setForeground(btnForeColor);
         this.btnAjouter        .setBackground(btnBackColor);
         
+        this.btnSupprimer      .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnSupprimer      .setForeground(btnForeColor);
         this.btnSupprimer      .setBackground(btnBackColor);
     }
