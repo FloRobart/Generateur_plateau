@@ -187,12 +187,12 @@ public class PGPanelListA extends JPanel
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAjouter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAjouter, javax.swing.GroupLayout.DEFAULT_SIZE, 71, 71))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -267,7 +267,10 @@ public class PGPanelListA extends JPanel
 
     private void cb2SensActionPerformed           (ActionEvent e){}
     private void btnSupprimerActionPerformed      (ActionEvent e){}
-    private void btnAjouterActionPerformed        (ActionEvent e){}
+    private void btnAjouterActionPerformed        (ActionEvent e)
+    {
+        //TODO Open a new Frame to add Arrete
+    }
     private void btnCouleurBAActionPerformed      (ActionEvent e){}
     private void btnCouleurABActionPerformed      (ActionEvent e){}
     private void txtDistanceActionPerformed       (ActionEvent e){}

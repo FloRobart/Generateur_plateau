@@ -215,5 +215,10 @@ public class Controleur
 	 * @param args : Tableau de String
 	 */
 	public static void main(String[] args) { new Controleur(); }
+
+    public void majIHMPlateau() 
+	{
+		this.ihm.majIHM();
+    }
     
 }

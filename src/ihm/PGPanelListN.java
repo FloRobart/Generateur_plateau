@@ -2,8 +2,7 @@ package ihm;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,15 +10,18 @@ import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controleur.Controleur;
-import ihm.customComponent.TextFieldWithHint;
 import metier.Noeud;
 
 
@@ -36,11 +38,11 @@ public class PGPanelListN extends JPanel
     private JLabel            lblPosition;
     private JLabel            lblPositionNom;
     private JScrollPane       lstNoeud;
-    private TextFieldWithHint txtNom;
-    private TextFieldWithHint txtPosNomX;
-    private TextFieldWithHint txtPosNomY;
-    private TextFieldWithHint txtPosX;
-    private TextFieldWithHint txtPosY;
+    private JTextField txtNom;
+    private JTextField txtPosNomX;
+    private JTextField txtPosNomY;
+    private JTextField txtPosX;
+    private JTextField txtPosY;
     /**
      * Creates new form PGPanelListN
      */
@@ -49,16 +51,16 @@ public class PGPanelListN extends JPanel
         this.ctrl = ctrl;
 
         this.lstNoeud       = new JScrollPane      (     );
-        this.listNoeuds         = new JList<Noeud>     (     );
+        this.listNoeuds     = new JList<Noeud>     (     );
         this.lblNom         = new JLabel           (     );
         this.lblPosition    = new JLabel           (     );
         this.lblPositionNom = new JLabel           (     );
         this.lblCouleur     = new JLabel           (     );
-        this.txtNom         = new TextFieldWithHint("New", ctrl);
-        this.txtPosY        = new TextFieldWithHint("Y"  , ctrl);
-        this.txtPosX        = new TextFieldWithHint("X"  , ctrl);
-        this.txtPosNomX     = new TextFieldWithHint("X"  , ctrl);
-        this.txtPosNomY     = new TextFieldWithHint("Y"  , ctrl);
+        this.txtNom         = new JTextField();
+        this.txtPosY        = new JTextField();
+        this.txtPosX        = new JTextField();
+        this.txtPosNomX     = new JTextField();
+        this.txtPosNomY     = new JTextField();
         this.btnCouleur     = new JButton          (     );
         this.btnAjouter     = new JButton          (     );
         this.btnSupprimer   = new JButton          (     );
@@ -78,6 +80,21 @@ public class PGPanelListN extends JPanel
                 return lstNoeuds.get(index);
             }
         });
+        this.listNoeuds.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Noeud noeudSelected = listNoeuds.getSelectedValue();
+                txtNom      .setText(noeudSelected.getNom());
+                txtPosX     .setText(noeudSelected.getX()+"");
+                txtPosY     .setText(noeudSelected.getY()+"");
+                txtPosNomX  .setText(noeudSelected.getXNom()+"");
+                txtPosNomY  .setText(noeudSelected.getYNom()+"");
+                btnCouleur.setBackground(noeudSelected.getCouleur());
+            }
+            
+        });
+        this.listNoeuds.setSelectedIndex(0);
 
         this.lstNoeud.setViewportView(listNoeuds);
 
@@ -124,7 +141,8 @@ public class PGPanelListN extends JPanel
             }
         });
 
-        this.btnCouleur.setText("Couleur");
+        this.btnCouleur.setText(" ");
+        this.btnCouleur.setOpaque(true);
         this.btnCouleur.setFocusPainted(false);
         this.btnCouleur.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -222,7 +240,15 @@ public class PGPanelListN extends JPanel
     private void txtPosYActionPerformed     (ActionEvent e){}
     private void txtPosNomXActionPerformed  (ActionEvent e){}
     private void txtPosNomYActionPerformed  (ActionEvent e){}
-    private void btnCouleurActionPerformed  (ActionEvent e){}
+    private void btnCouleurActionPerformed  (ActionEvent e)
+    {
+        JButton button = (JButton) e.getSource();
+        Color oldColor = button.getBackground();
+        Color newColor = JColorChooser.showDialog(this, "Choisir une couleur",oldColor);
+        this.btnCouleur.setBackground(newColor);
+        this.listNoeuds.getSelectedValue().setCouleur(newColor);
+        this.ctrl.majIHMPlateau();
+    }
     private void btnSupprimerActionPerformed(ActionEvent e){}
 
     private boolean isFormValide ()
@@ -254,7 +280,6 @@ public class PGPanelListN extends JPanel
 		Color labelBackColor   = theme.get("labels"    ).get(1);
         Color saisiForeColor   = theme.get("saisies"   ).get(0);
 		Color saisiBackColor   = theme.get("saisies"   ).get(1);
-        Color placeholderColor = theme.get("saisies"   ).get(2);
         Color btnForeColor     = theme.get("bottuns"   ).get(0);
 		Color btnBackColor     = theme.get("bottuns"   ).get(1);
 
@@ -267,7 +292,6 @@ public class PGPanelListN extends JPanel
         this.listNoeuds        .setForeground         (saisiForeColor);
         this.listNoeuds        .setBackground         (background    );
         this.listNoeuds        .setSelectionForeground(background    );
-
         this.lblNom        .setForeground(labelForeColor);
         this.lblNom        .setBackground(labelBackColor);
 
@@ -294,42 +318,32 @@ public class PGPanelListN extends JPanel
 
         this.txtNom        .setOpaque(true);
         this.txtNom        .setBorder(null);
-        this.txtNom        .setForeground(placeholderColor);
+        this.txtNom        .setForeground(saisiForeColor);
         this.txtNom        .setBackground(saisiBackColor);
-        this.txtNom        .setForegroundColor (saisiForeColor  );
-        this.txtNom        .setPlaceholderColor(placeholderColor);
         this.txtNom        .setDisabledTextColor(new Color(255, 0, 0));
 
         this.txtPosY       .setOpaque(true);
         this.txtPosY       .setBorder(null);
-        this.txtPosY       .setForeground(placeholderColor);
+        this.txtPosY       .setForeground(saisiForeColor);
         this.txtPosY       .setBackground(saisiBackColor);
-        this.txtPosY       .setForegroundColor (saisiForeColor  );
-        this.txtPosY       .setPlaceholderColor(placeholderColor);
         this.txtPosY       .setDisabledTextColor(new Color(255, 0, 0));
 
         this.txtPosX       .setOpaque(true);
         this.txtPosX       .setBorder(null);
-        this.txtPosX       .setForeground(placeholderColor);
+        this.txtPosX       .setForeground(saisiForeColor);
         this.txtPosX       .setBackground(saisiBackColor);
-        this.txtPosX       .setForegroundColor (saisiForeColor  );
-        this.txtPosX       .setPlaceholderColor(placeholderColor);
         this.txtPosX       .setDisabledTextColor(new Color(255, 0, 0));
 
         this.txtPosNomX    .setOpaque(true);
         this.txtPosNomX    .setBorder(null);
-        this.txtPosNomX    .setForeground(placeholderColor);
+        this.txtPosNomX    .setForeground(saisiForeColor);
         this.txtPosNomX    .setBackground(saisiBackColor);
-        this.txtPosNomX    .setForegroundColor (saisiForeColor  );
-        this.txtPosNomX    .setPlaceholderColor(placeholderColor);
         this.txtPosNomX    .setDisabledTextColor(new Color(255, 0, 0));
 
         this.txtPosNomY    .setOpaque(true);
         this.txtPosNomY    .setBorder(null);
-        this.txtPosNomY    .setForeground(placeholderColor);
+        this.txtPosNomY    .setForeground(saisiForeColor);
         this.txtPosNomY    .setBackground(saisiBackColor);
-        this.txtPosNomY    .setForegroundColor (saisiForeColor  );
-        this.txtPosNomY    .setPlaceholderColor(placeholderColor);
         this.txtPosNomY    .setDisabledTextColor(new Color(255, 0, 0));
     }
 }
