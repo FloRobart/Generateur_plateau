@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;

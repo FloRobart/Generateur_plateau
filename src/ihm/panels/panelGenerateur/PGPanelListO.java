@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels.panelGenerateur;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle;
 import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;

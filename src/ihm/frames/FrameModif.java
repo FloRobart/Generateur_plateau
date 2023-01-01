@@ -1,7 +1,10 @@
-package ihm;
+package ihm.frames;
 
 import javax.swing.JFrame;
 import controleur.Controleur;
+import ihm.panels.PanelAjoutObjectif;
+import ihm.panels.PanelArrete;
+import ihm.panels.PanelNoeud;
 /*
  * FrameModif.java
  * Frame de test pour les panels de modification

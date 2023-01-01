@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels;
 import javax.swing.JPanel;
 
 public class PanelJoueur extends JPanel

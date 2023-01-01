@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels.panelGenerateur;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
+import ihm.frames.FrameCouleur;
 
 
 public class PGPanelParamJeu extends JPanel

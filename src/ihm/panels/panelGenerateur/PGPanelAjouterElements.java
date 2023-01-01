@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels.panelGenerateur;
 
 import java.awt.dnd.*; //Drag and Drop pakcage
 import java.awt.dnd.DragGestureListener;
