@@ -1,8 +1,9 @@
-package ihm;
+package ihm.frames;
 
 import javax.swing.JFrame;
 
 import controleur.Controleur;
+import ihm.panels.PanelAjoutObjectif;
 
 public class FrameObjectif extends JFrame
 {

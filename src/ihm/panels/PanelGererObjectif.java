@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels;
 import java.awt.Color;
 import java.util.List;
 

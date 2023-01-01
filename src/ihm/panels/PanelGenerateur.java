@@ -1,9 +1,13 @@
-package ihm;
+package ihm.panels;
 
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 
 import controleur.Controleur;
+import ihm.panels.panelGenerateur.PGPanelAjouterElements;
+import ihm.panels.panelGenerateur.PGPanelExplorer;
+import ihm.panels.panelGenerateur.PGPanelParamJeu;
+import ihm.panels.panelGenerateur.PGPanelParamPlateau;
 
 
 public class PanelGenerateur extends JPanel 

@@ -1,4 +1,4 @@
-package ihm;
+package ihm.frames;
 
 import java.awt.GridLayout;
 import java.awt.Dimension;
@@ -18,6 +18,9 @@ import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileSystemView;
 
 import controleur.Controleur;
+import ihm.menuBarre.MenuBarre;
+import ihm.panels.PanelGenerateur;
+import ihm.panels.PanelPlateau;
 
 
 public class FramePlateau extends JFrame

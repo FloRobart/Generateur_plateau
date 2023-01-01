@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import ihm.FramePlateau;
+import ihm.frames.FramePlateau;
 import metier.Arete;
 //import metier.Metier;
 import metier.Metier;
