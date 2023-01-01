@@ -1,28 +1,38 @@
-package ihm;
+package ihm.panels.panelGenerateur;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
+import javax.swing.ListModel;
 import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
+import metier.Arete;
+import metier.Noeud;
 
 
 public class PGPanelListA extends JPanel
@@ -36,7 +46,7 @@ public class PGPanelListA extends JPanel
     private JCheckBox         cb2Sens;
     private JComboBox<String> comboBoxListNoeudA;
     private JComboBox<String> comboBoxListNoeudB;
-    private JList<String>     jList1;
+    private JList<String>     jListAretes;
     private JScrollPane       jScrollPane1;
     private JLabel            lbl2Sens;
     private JLabel            lblCouleurAB;
@@ -46,6 +56,14 @@ public class PGPanelListA extends JPanel
     private JLabel            lblNoeudB;
     private TextFieldWithHint txtDistance;
 
+    private List<Noeud>       lstNoeudA;
+    private List<Noeud>       lstNoeudB;
+
+    private Color             couleurAB;
+    private Color             couleurBA;
+
+    private ListModel<String> listModel;
+
 
     /**
      * Creates new form PGPanelListA
@@ -53,8 +71,9 @@ public class PGPanelListA extends JPanel
     public PGPanelListA(Controleur ctrl)
     {
         this.ctrl               = ctrl;
+
         this.jScrollPane1       = new JScrollPane      ();
-        this.jList1             = new JList<String>    ();
+        this.jListAretes        = new JList<String>    ();
         this.lblNoeudA          = new JLabel           ();
         this.lblNoeudB          = new JLabel           ();
         this.lbl2Sens           = new JLabel           ();
@@ -69,18 +88,35 @@ public class PGPanelListA extends JPanel
         this.btnCouleurBA       = new JButton          ();
         this.btnAjouter         = new JButton          ();
         this.btnSupprimer       = new JButton          ();
+        this.lstNoeudA          = ctrl.getNoeuds       ();
+        this.lstNoeudB          = ctrl.getNoeuds       ();
+        this.listModel          = new DefaultListModel<>();
 
 
-        /* jList1 */
-        this.jList1.setModel(new AbstractListModel<String>()
+        /* jListAretes */
+
+        for (Arete a : this.ctrl.getAretes()) {
+            ((DefaultListModel<String>) this.listModel).addElement(a.toString());
+        }
+        this.jListAretes.setModel(new AbstractListModel<String>()
         {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            ListModel<String> lstAretes = listModel;
+
+            public int getSize()
+            {
+                return lstAretes.getSize();
+            }
+
+            public String getElementAt(int index)
+            {
+                return lstAretes.getElementAt(index);
+            }
         });
 
+
+
         /* Ajout de la list1 dans un JScrollPane */
-        this.jScrollPane1.setViewportView(jList1);
+        this.jScrollPane1.setViewportView(jListAretes);
 
         /* lblNoeudA */
         this.lblNoeudA.setText("Noeud A");
@@ -107,7 +143,15 @@ public class PGPanelListA extends JPanel
         this.lblCouleurBA.setFont(new Font("Segoe UI", 1, 12));
 
         /* comboBoxListNoeudA */
-        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] tabNoeudA = new String[lstNoeudA.size()];
+        String[] tabNoeudB = new String[lstNoeudB.size()];
+        for (int i = 0; i < lstNoeudA.size(); i++)
+        {
+            tabNoeudA[i] = lstNoeudA.get(i).getNom();
+            tabNoeudB[i] = lstNoeudB.get(i).getNom();
+        }
+
+        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
         this.comboBoxListNoeudA.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -116,7 +160,7 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(tabNoeudB));
         this.comboBoxListNoeudB.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -125,7 +169,7 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        this.cb2Sens.setSelected(true);
+        this.cb2Sens.setSelected(false);
         this.cb2Sens.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -134,32 +178,25 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        this.txtDistance.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
+        this.txtDistance.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) 
             {
-                txtDistanceActionPerformed(evt);
+               txtDistanceKeyPressed(ke);
             }
-        });
+         });
 
         this.btnCouleurAB.setText("Couleur");
         this.btnCouleurAB.setFocusPainted(false);
-        this.btnCouleurAB.addActionListener(new ActionListener()
+        this.btnCouleurAB.addActionListener(e ->
         {
-            public void actionPerformed(ActionEvent evt)
-            {
-                btnCouleurABActionPerformed(evt);
-            }
+            selectColorAB();
         });
 
         this.btnCouleurBA.setText("Couleur");
         this.btnCouleurBA.setFocusPainted(false);
-        this.btnCouleurBA.addActionListener(new ActionListener()
+        this.btnCouleurBA.addActionListener(e ->
         {
-            public void actionPerformed(ActionEvent evt)
-            {
-                btnCouleurBAActionPerformed(evt);
-            }
+            selectColorBA();
         });
 
         this.btnAjouter.setText("Ajouter");
@@ -185,7 +222,7 @@ public class PGPanelListA extends JPanel
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,false)
                     .addGroup(layout.createSequentialGroup()
@@ -195,87 +232,177 @@ public class PGPanelListA extends JPanel
                         .addComponent(btnAjouter, javax.swing.GroupLayout.DEFAULT_SIZE, 71, 71))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(this.jScrollPane1, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl2Sens)
+                        .addComponent(this.lbl2Sens)
                         .addGap(47, 47, 47)
-                        .addComponent(cb2Sens))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(this.cb2Sens))
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNoeudA)
+                            .addComponent(this.lblNoeudA)
                             .addGap(32, 32, 32)
-                            .addComponent(comboBoxListNoeudA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(this.comboBoxListNoeudA, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNoeudB)
+                            .addComponent(this.lblNoeudB)
                             .addGap(33, 33, 33)
-                            .addComponent(comboBoxListNoeudB, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDistance)
+                        .addComponent(this.lblDistance)
                         .addGap(34, 34, 34)
-                        .addComponent(txtDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(this.txtDistance, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblCouleurBA)
+                            .addComponent(this.lblCouleurBA)
                             .addGap(18, 18, 18)
-                            .addComponent(btnCouleurBA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(this.btnCouleurBA, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblCouleurAB)
+                            .addComponent(this.lblCouleurAB)
                             .addGap(18, 18, 18)
-                            .addComponent(btnCouleurAB, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(this.btnCouleurAB, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(10,10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoeudA)
-                            .addComponent(comboBoxListNoeudA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDistance)
-                            .addComponent(txtDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNoeudB)
-                            .addComponent(comboBoxListNoeudB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCouleurAB)
-                            .addComponent(btnCouleurAB))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lbl2Sens)
-                                .addComponent(cb2Sens, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblCouleurBA))
-                            .addComponent(btnCouleurBA)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblNoeudA)
+                            .addComponent(this.comboBoxListNoeudA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblDistance)
+                            .addComponent(this.txtDistance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblNoeudB)
+                            .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.lblCouleurAB)
+                            .addComponent(this.btnCouleurAB))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(this.lbl2Sens)
+                                .addComponent(this.cb2Sens, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(this.lblCouleurBA))
+                            .addComponent(this.btnCouleurBA)))
+                    .addComponent(this.jScrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                 )
         );
 
-
+       
+        /*Mouse listener */ 
+        MouseListener mouseListener = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) 
+            {
+                if(e.getSource() == jListAretes)
+                {
+                    String[] noms = listModel.getElementAt(jListAretes.getSelectedIndex()).split("-");
+                    
+                    for(Arete a : ctrl.getAretes())
+                    {
+                        if(a.getNoeud1().getNom().equals(noms[0]) && a.getNoeud2().getNom().equals(noms[1]))
+                        {
+                            comboBoxListNoeudA.setSelectedItem(a.getNoeud1());
+                            comboBoxListNoeudB.setSelectedItem(a.getNoeud2());
+                            txtDistance.setText(String.valueOf(a.getDistance()));
+                            btnCouleurAB.setBackground(a.getCouleur1());
+                            btnCouleurBA.setBackground(a.getCouleur2());
+                            cb2Sens.setSelected(a.is2Sens());
+                        }
+                    }
+                }   
+            }
+        };
+        
         this.appliquerTheme();
     }                      
 
+    private void selectColorBA() 
+    {
+        this.couleurBA = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
+        this.btnCouleurBA.setBackground(this.couleurBA);
+    }
 
-    private void cb2SensActionPerformed           (ActionEvent e){}
-    private void btnSupprimerActionPerformed      (ActionEvent e){}
+
+    private void selectColorAB() 
+    {
+        this.couleurAB = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
+        this.btnCouleurAB.setBackground(this.couleurAB);
+    }
+
+
     private void btnAjouterActionPerformed        (ActionEvent e)
     {
-        //TODO Open a new Frame to add Arrete
+        String nom1     = (String) this.comboBoxListNoeudA.getSelectedItem();
+        String nom2     = (String) this.comboBoxListNoeudB.getSelectedItem();
+        int    distance = Integer.parseInt(this.txtDistance.getText());
+        
+        if(!nom1.equals(nom2))
+        {
+            if(!this.cb2Sens.isSelected())
+                this.ctrl.ajouterArete(nom1, nom2, distance, couleurAB, null);
+
+            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleurAB, this.couleurBA);
+        }
+
+        ((DefaultListModel<String>) this.listModel).addElement(nom1 + " - " + nom2);
+        this.jListAretes.setModel(this.listModel);
+
+        this.effacerForm(); 
     }
+
+
+    private void btnSupprimerActionPerformed      (ActionEvent e)
+    {
+        String[] noms = this.listModel.getElementAt(this.jListAretes.getSelectedIndex()).split("-");
+
+        this.ctrl.supprimerArete(noms[0], noms[1]);
+
+        ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
+        this.jListAretes.setModel(this.listModel);
+
+        this.effacerForm();
+    }
+    private void cb2SensActionPerformed           (ActionEvent e){}
+ 
+    
     private void btnCouleurBAActionPerformed      (ActionEvent e){}
     private void btnCouleurABActionPerformed      (ActionEvent e){}
     private void txtDistanceActionPerformed       (ActionEvent e){}
+    
+    private void txtDistanceKeyPressed(KeyEvent ke) 
+    {
+        if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE )
+        {
+            txtDistance.setEditable(true);
+        }
+        else
+        {
+            txtDistance.setEditable(false);
+        }
+    }
+
     private void comboBoxListNoeudBActionPerformed(ActionEvent e){}
     private void comboBoxListNoeudAActionPerformed(ActionEvent e){}
+
+    private void effacerForm() 
+    {
+        this.txtDistance.setText("");
+        this.comboBoxListNoeudA.setSelectedIndex(0);
+        this.comboBoxListNoeudB.setSelectedIndex(0);
+        this.cb2Sens.setSelected(false);
+        this.btnCouleurAB.setBackground(this.ctrl.getTheme().get("bottuns").get(1));
+        this.btnCouleurBA.setBackground(this.ctrl.getTheme().get("bottuns").get(1));
+    }
+
 
 
     public void appliquerTheme()
@@ -296,9 +423,9 @@ public class PGPanelListA extends JPanel
         this.setForeground(titleForeColor);
         this.setBackground(background);
     
-        this.jList1            .setForeground         (saisiForeColor);
-        this.jList1            .setBackground         (background    );
-        this.jList1            .setSelectionForeground(background    );
+        this.jListAretes            .setForeground         (saisiForeColor);
+        this.jListAretes            .setBackground         (background    );
+        this.jListAretes            .setSelectionForeground(background    );
 
         this.lblNoeudA         .setForeground(labelForeColor);
         this.lblNoeudA         .setBackground(labelBackColor);
@@ -353,4 +480,5 @@ public class PGPanelListA extends JPanel
         this.btnSupprimer      .setForeground(btnForeColor);
         this.btnSupprimer      .setBackground(btnBackColor);
     }
+
 }

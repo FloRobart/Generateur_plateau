@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels.panelGenerateur;
 
 import controleur.Controleur;
 

@@ -1,4 +1,4 @@
-package ihm;
+package ihm.frames;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;

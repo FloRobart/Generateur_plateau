@@ -1,4 +1,4 @@
-package ihm;
+package ihm.frames;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;

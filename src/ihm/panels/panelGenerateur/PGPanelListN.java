@@ -1,4 +1,4 @@
-package ihm;
+package ihm.panels.panelGenerateur;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,7 +16,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -266,8 +265,7 @@ public class PGPanelListN extends JPanel
 
     private void btnAjouterActionPerformed(ActionEvent e)
     {
-        //TODO Open a new Frame to add a new NOEUD
-
+        
     }
 
 
