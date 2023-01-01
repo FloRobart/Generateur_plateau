@@ -171,6 +171,14 @@ public class Metier
 				lst.add(0, new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
 				lst.add(1, new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
 
+				/* Récupération de la couleur du PlaceHolder */
+				if (lstCles[i].equals("saisies"))
+				{
+					Element placeholder = racine.getChild(lstCles[i]).getChild("placeholder");
+					lst.add(2, new Color(Integer.parseInt(placeholder.getAttributeValue("red")), Integer.parseInt(placeholder.getAttributeValue("green")), Integer.parseInt(placeholder.getAttributeValue("blue")), Integer.parseInt(placeholder.getAttributeValue("alpha"))));
+				}
+
+
 				this.hmColorThemes.put(lstCles[i], lst);
 			}
 		}

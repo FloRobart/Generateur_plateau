@@ -1,249 +1,246 @@
 package ihm;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
-import ihm.customComponent.*;
+
 import javax.swing.AbstractListModel;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle;
+import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldWithHint;
 import metier.Noeud;
-import java.awt.event.*;
 
-public class PGPanelListN extends javax.swing.JPanel 
+
+public class PGPanelListN extends JPanel 
 {
     private Controleur ctrl;
+
+    private JButton           btnAjouter;
+    private JButton           btnCouleur;
+    private JButton           btnSupprimer;
+    private JList<Noeud>      jList1;
+    private JLabel            lblCouleur;
+    private JLabel            lblNom;
+    private JLabel            lblPosition;
+    private JLabel            lblPositionNom;
+    private JScrollPane       lstNoeud;
+    private TextFieldWithHint txtNom;
+    private TextFieldWithHint txtPosNomX;
+    private TextFieldWithHint txtPosNomY;
+    private TextFieldWithHint txtPosX;
+    private TextFieldWithHint txtPosY;
     /**
      * Creates new form PGPanelListN
      */
     public PGPanelListN(Controleur ctrl)
     {   
         this.ctrl = ctrl;
-        lstNoeud = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<Noeud>();
-        lblNom = new javax.swing.JLabel();
-        lblPosition = new javax.swing.JLabel();
-        lblPositionNom = new javax.swing.JLabel();
-        lblCouleur = new javax.swing.JLabel();
-        txtNom      = new TextFieldWithHint("New");
-        txtPosY     = new TextFieldWithHint("Y");
-        txtPosX     = new TextFieldWithHint("X");
-        txtPosNomX  = new TextFieldWithHint("X");
-        txtPosNomY  = new TextFieldWithHint("Y");
-        btnCouleur = new javax.swing.JButton();
-        btnAjouter = new javax.swing.JButton();
-        btnSupprimer = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(68, 71, 90));
+        this.lstNoeud       = new JScrollPane      (     );
+        this.jList1         = new JList<Noeud>     (     );
+        this.lblNom         = new JLabel           (     );
+        this.lblPosition    = new JLabel           (     );
+        this.lblPositionNom = new JLabel           (     );
+        this.lblCouleur     = new JLabel           (     );
+        this.txtNom         = new TextFieldWithHint("New", ctrl);
+        this.txtPosY        = new TextFieldWithHint("Y"  , ctrl);
+        this.txtPosX        = new TextFieldWithHint("X"  , ctrl);
+        this.txtPosNomX     = new TextFieldWithHint("X"  , ctrl);
+        this.txtPosNomY     = new TextFieldWithHint("Y"  , ctrl);
+        this.btnCouleur     = new JButton          (     );
+        this.btnAjouter     = new JButton          (     );
+        this.btnSupprimer   = new JButton          (     );
 
-        jList1.setModel(new AbstractListModel<Noeud>() {
-            List<Noeud> lstNoeud = ctrl.getNoeuds();
-            public int getSize() { return lstNoeud.size();}
-            public Noeud getElementAt(int index) {return lstNoeud.get(index);}
-            
+
+        this.jList1.setModel(new AbstractListModel<Noeud>()
+        {
+            List<Noeud> lstNoeuds = ctrl.getNoeuds();
+
+            public int getSize()
+            {
+                return lstNoeuds.size();
+            }
+
+            public Noeud getElementAt(int index)
+            {
+                return lstNoeuds.get(index);
+            }
         });
-        lstNoeud.setViewportView(jList1);
 
-        lblNom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNom.setForeground(new java.awt.Color(255, 255, 255));
-        lblNom.setText("Nom");
+        this.lstNoeud.setViewportView(jList1);
 
-        lblPosition.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblPosition.setForeground(new java.awt.Color(255, 255, 255));
-        lblPosition.setText("Position");
+        this.lblNom.setText("Nom");
+        this.lblNom.setFont(new Font("Segoe UI", 1, 12));
 
-        lblPositionNom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblPositionNom.setForeground(new java.awt.Color(255, 255, 255));
-        lblPositionNom.setText("Position Nom");
+        this.lblPosition.setText("Position");
+        this.lblPosition.setFont(new Font("Segoe UI", 1, 12));
 
-        lblCouleur.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCouleur.setForeground(new java.awt.Color(255, 255, 255));
-        lblCouleur.setText("Couleur");
+        this.lblPositionNom.setText("Position Nom");
+        this.lblPositionNom.setFont(new Font("Segoe UI", 1, 12));
 
-        txtNom.setBackground(new java.awt.Color(40, 42, 54));
-        txtNom.setForeground(new java.awt.Color(255, 255, 255,100));
-        txtNom.setColumns(9);
-        txtNom.setBorder(null);
-        txtNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.lblCouleur.setText("Couleur");
+        this.lblCouleur.setFont(new Font("Segoe UI", 1, 12));
+
+        this.txtNom.setColumns(9);
+        this.txtNom.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtNomActionPerformed(evt);
             }
         });
-        
-        txtPosY.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosY.setForeground(new java.awt.Color(255, 255, 255,100));
-        txtPosY.setBorder(null);
-        txtPosY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+        this.txtPosY.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtPosYActionPerformed(evt);
             }
         });
 
-        txtPosX.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosX.setForeground(new java.awt.Color(255, 255, 255,100));
-        txtPosX.setBorder(null);
-        txtPosX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.txtPosX.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtPosXActionPerformed(evt);
             }
         });
 
-        txtPosNomX.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosNomX.setForeground(new java.awt.Color(255, 255, 255,100));
-        txtPosNomX.setBorder(null);
-        txtPosNomX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.txtPosNomX.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtPosNomXActionPerformed(evt);
             }
         });
 
-        txtPosNomY.setBackground(new java.awt.Color(40, 42, 54));
-        txtPosNomY.setForeground(new java.awt.Color(255, 255, 255,100));
-        txtPosNomY.setBorder(null);
-        txtPosNomY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.txtPosNomY.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtPosNomYActionPerformed(evt);
             }
         });
-        btnCouleur.setFocusPainted(false);
-        btnCouleur.setBackground(new java.awt.Color(255, 102, 153));
-        btnCouleur.setText(" ");
-        btnCouleur.setBorder(null);
-        btnCouleur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+        this.btnCouleur.setText("Couleur");
+        this.btnCouleur.setFocusPainted(false);
+        this.btnCouleur.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnCouleurActionPerformed(evt);
             }
         });
-        btnAjouter.setFocusPainted(false);
-        btnAjouter.setBackground(new java.awt.Color(40, 42, 54));
-        btnAjouter.setForeground(new java.awt.Color(255, 255, 255));
-        btnAjouter.setText("Ajouter");
-        btnAjouter.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnAjouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+        this.btnAjouter.setText("Ajouter");
+        this.btnAjouter.setFocusPainted(false);
+        this.btnAjouter.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnAjouterActionPerformed(evt);
             }
         });
-        btnSupprimer.setFocusPainted(false);
-        btnSupprimer.setBackground(new java.awt.Color(40, 42, 54));
-        btnSupprimer.setForeground(new java.awt.Color(255, 255, 255));
-        btnSupprimer.setText("Supprimer");
-        btnSupprimer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSupprimer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+        this.btnSupprimer.setText("Supprimer");
+        this.btnSupprimer.setFocusPainted(false);
+        this.btnSupprimer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnSupprimerActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20,20,20)
-                        .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(lstNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(this.lstNoeud, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNom)
-                            .addComponent(lblPosition)
-                            .addComponent(lblCouleur))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(this.lblNom)
+                            .addComponent(this.lblPosition)
+                            .addComponent(this.lblCouleur))
                         .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPositionNom)
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(this.lblPositionNom)
                         .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCouleur, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnCouleur, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.txtNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPosNomX, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(this.txtPosNomX, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPosNomY, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(this.txtPosNomY, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(this.txtPosX, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(this.txtPosY, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(10,15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNom)
-                            .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPosition)
-                            .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPositionNom)
-                            .addComponent(txtPosNomX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPosNomY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblNom)
+                            .addComponent(this.txtNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblPosition)
+                            .addComponent(this.txtPosX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.txtPosY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblPositionNom)
+                            .addComponent(this.txtPosNomX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(this.txtPosNomY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCouleur)
-                            .addComponent(btnCouleur)))
-                    .addComponent(lstNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(this.lblCouleur)
+                            .addComponent(this.btnCouleur)))
+                    .addComponent(this.lstNoeud, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnAjouter, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
+    }
 
-    private void txtNomActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
-        
-    }                                      
+    private void txtNomActionPerformed      (ActionEvent e){}
+    private void txtPosXActionPerformed     (ActionEvent e){}
+    private void txtPosYActionPerformed     (ActionEvent e){}
+    private void txtPosNomXActionPerformed  (ActionEvent e){}
+    private void txtPosNomYActionPerformed  (ActionEvent e){}
+    private void btnCouleurActionPerformed  (ActionEvent e){}
+    private void btnSupprimerActionPerformed(ActionEvent e){}
 
-    private void txtPosXActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
-    private void txtPosYActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
-    private void txtPosNomXActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void txtPosNomYActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void btnCouleurActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
     private boolean isFormValide ()
     {
         try
         {
-            int posX,posY,posNomX,posNomY;
-            posX    = Integer.parseInt(txtPosX.getText());
-            posY    = Integer.parseInt(txtPosY.getText());
-            posNomX = Integer.parseInt(txtPosNomX.getText());
-            posNomY = Integer.parseInt(txtPosNomY.getText());
+            Integer.parseInt(this.txtPosX   .getText());
+            Integer.parseInt(this.txtPosY   .getText());
+            Integer.parseInt(this.txtPosNomX.getText());
+            Integer.parseInt(this.txtPosNomY.getText());
             return true;
         }
         catch (NumberFormatException e) {return false;}
     }
-    private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
+
+    private void btnAjouterActionPerformed(ActionEvent e)
+    {
         if (isFormValide())
         {
             this.ctrl.ajouterNoeud(this.txtNom.getText(), Integer.parseInt(this.txtPosX.getText()), 
@@ -253,32 +250,94 @@ public class PGPanelListN extends javax.swing.JPanel
         }
 
 
-    }                                          
-
-    private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
+    }
 
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton btnAjouter;
-    private javax.swing.JButton btnCouleur;
-    private javax.swing.JButton btnSupprimer;
-    private javax.swing.JList<Noeud> jList1;
-    private javax.swing.JLabel lblCouleur;
-    private javax.swing.JLabel lblNom;
-    private javax.swing.JLabel lblPosition;
-    private javax.swing.JLabel lblPositionNom;
-    private javax.swing.JScrollPane lstNoeud;
-    private javax.swing.JTextField txtNom;
-    private javax.swing.JTextField txtPosNomX;
-    private javax.swing.JTextField txtPosNomY;
-    private javax.swing.JTextField txtPosX;
-    private javax.swing.JTextField txtPosY;
-    // End of variables declaration        
-    
     public void appliquerTheme()
     {
-        
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+        Color background       = theme.get("background").get(0);
+        Color labelForeColor   = theme.get("labels"    ).get(0);
+		Color labelBackColor   = theme.get("labels"    ).get(1);
+        Color saisiForeColor   = theme.get("saisies"   ).get(0);
+		Color saisiBackColor   = theme.get("saisies"   ).get(1);
+        Color placeholderColor = theme.get("saisies"   ).get(2);
+        Color btnForeColor     = theme.get("bottuns"   ).get(0);
+		Color btnBackColor     = theme.get("bottuns"   ).get(1);
+
+
+        this.setBackground(background);
+
+        this.lstNoeud      .setForeground(labelForeColor);
+        this.lstNoeud      .setBackground(labelBackColor);
+
+        this.jList1        .setForeground         (saisiForeColor);
+        this.jList1        .setBackground         (background    );
+        this.jList1        .setSelectionForeground(background    );
+
+        this.lblNom        .setForeground(labelForeColor);
+        this.lblNom        .setBackground(labelBackColor);
+
+        this.lblPosition   .setForeground(labelForeColor);
+        this.lblPosition   .setBackground(labelBackColor);
+
+        this.lblPositionNom.setForeground(labelForeColor);
+        this.lblPositionNom.setBackground(labelBackColor);
+
+        this.lblCouleur    .setForeground(labelForeColor);
+        this.lblCouleur    .setBackground(labelBackColor);
+
+        this.btnCouleur    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnCouleur    .setForeground(btnForeColor);
+        this.btnCouleur    .setBackground(btnBackColor);
+
+        this.btnAjouter    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnAjouter    .setForeground(btnForeColor);
+        this.btnAjouter    .setBackground(btnBackColor);
+
+        this.btnSupprimer  .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnSupprimer  .setForeground(btnForeColor);
+        this.btnSupprimer  .setBackground(btnBackColor);
+
+        this.txtNom        .setOpaque(true);
+        this.txtNom        .setBorder(null);
+        this.txtNom        .setForeground(placeholderColor);
+        this.txtNom        .setBackground(saisiBackColor);
+        this.txtNom        .setForegroundColor (saisiForeColor  );
+        this.txtNom        .setPlaceholderColor(placeholderColor);
+        this.txtNom        .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosY       .setOpaque(true);
+        this.txtPosY       .setBorder(null);
+        this.txtPosY       .setForeground(placeholderColor);
+        this.txtPosY       .setBackground(saisiBackColor);
+        this.txtPosY       .setForegroundColor (saisiForeColor  );
+        this.txtPosY       .setPlaceholderColor(placeholderColor);
+        this.txtPosY       .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosX       .setOpaque(true);
+        this.txtPosX       .setBorder(null);
+        this.txtPosX       .setForeground(placeholderColor);
+        this.txtPosX       .setBackground(saisiBackColor);
+        this.txtPosX       .setForegroundColor (saisiForeColor  );
+        this.txtPosX       .setPlaceholderColor(placeholderColor);
+        this.txtPosX       .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosNomX    .setOpaque(true);
+        this.txtPosNomX    .setBorder(null);
+        this.txtPosNomX    .setForeground(placeholderColor);
+        this.txtPosNomX    .setBackground(saisiBackColor);
+        this.txtPosNomX    .setForegroundColor (saisiForeColor  );
+        this.txtPosNomX    .setPlaceholderColor(placeholderColor);
+        this.txtPosNomX    .setDisabledTextColor(new Color(255, 0, 0));
+
+        this.txtPosNomY    .setOpaque(true);
+        this.txtPosNomY    .setBorder(null);
+        this.txtPosNomY    .setForeground(placeholderColor);
+        this.txtPosNomY    .setBackground(saisiBackColor);
+        this.txtPosNomY    .setForegroundColor (saisiForeColor  );
+        this.txtPosNomY    .setPlaceholderColor(placeholderColor);
+        this.txtPosNomY    .setDisabledTextColor(new Color(255, 0, 0));
     }
 }

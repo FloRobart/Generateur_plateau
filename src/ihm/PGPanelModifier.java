@@ -61,7 +61,7 @@ public class PGPanelModifier extends JPanel
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent
             (
-                lblTitre, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE
+                this.lblTitre, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE
             )
         );
 
@@ -70,7 +70,7 @@ public class PGPanelModifier extends JPanel
             .addGroup
             (
                 layout.createSequentialGroup()
-                .addComponent(lblTitre, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+                .addComponent(this.lblTitre, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
             )
         );
 

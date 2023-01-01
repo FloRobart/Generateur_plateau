@@ -11,6 +11,7 @@
     <saisies>
         <foreground red="255" green="255" blue="255"></foreground>
         <background red="47" green="49" blue="63"></background>
+        <placeholder red="255" green="255" blue="255" alpha="100"></placeholder>
     </saisies>
     <bottuns>
         <foreground red="255" green="255" blue="255"></foreground>

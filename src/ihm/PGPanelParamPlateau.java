@@ -1,20 +1,23 @@
 package ihm;
-import ihm.customComponent.*;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
@@ -31,8 +34,8 @@ public class PGPanelParamPlateau extends JPanel
     private JLabel     lblParamPlateau;
     private JLabel     lblPolice;
     private JLabel     lblbImageFond;
-    private JTextField txtX;
-    private JTextField txtY;
+    private TextFieldWithHint txtX;
+    private TextFieldWithHint txtY;
 
     private Controleur ctrl;
 
@@ -41,36 +44,36 @@ public class PGPanelParamPlateau extends JPanel
     {
         this.ctrl = ctrl;
 
-        this.lblParamPlateau   = new JLabel    ();
-        this.lblDimension      = new JLabel    ();
-        this.lblbImageFond     = new JLabel    ();
-        this.lblCouleurFond    = new JLabel    ();
-        this.lblPolice         = new JLabel    ();
-        this.txtX              = new TextFieldWithHint("X");
-        this.txtY              = new TextFieldWithHint("Y");
-        this.btnParcourirImg   = new JButton   ();
-        this.btnChoisirCouleur = new JButton   ();
-        this.btnChoisirFont    = new JButton   ();
+        this.lblParamPlateau   = new JLabel           ();
+        this.lblDimension      = new JLabel           ();
+        this.lblbImageFond     = new JLabel           ();
+        this.lblCouleurFond    = new JLabel           ();
+        this.lblPolice         = new JLabel           ();
+        this.txtX              = new TextFieldWithHint("X", ctrl);
+        this.txtY              = new TextFieldWithHint("Y", ctrl);
+        this.btnParcourirImg   = new JButton          ();
+        this.btnChoisirCouleur = new JButton          ();
+        this.btnChoisirFont    = new JButton          ();
 
 
         /* Titre (Parametre du Plateau) */
         this.lblParamPlateau.setText      (" Parametre du Plateau");
 
         /* Dimension */
-        this.lblDimension.setFont      (new Font("Segoe UI", 1, 12));
         this.lblDimension.setText      ("Dimension");
+        this.lblDimension.setFont      (new Font("Segoe UI", 1, 12));
 
         /* Image de fond */
-        this.lblbImageFond.setFont      (new Font("Segoe UI", 1, 12));
         this.lblbImageFond.setText      ("Image de fond");
+        this.lblbImageFond.setFont      (new Font("Segoe UI", 1, 12));
 
         /* Couleur de fond */
-        this.lblCouleurFond.setFont      (new Font("Segoe UI", 1, 12));
         this.lblCouleurFond.setText      ("Couleur de fond");
+        this.lblCouleurFond.setFont      (new Font("Segoe UI", 1, 12));
 
         /* Police d'écriture */
-        this.lblPolice.setFont      (new Font("Segoe UI", 1, 12));
         this.lblPolice.setText      ("Police d'écriture");
+        this.lblPolice.setFont      (new Font("Segoe UI", 1, 12));
 
         /* Zone de saisie X */
         this.txtX.addActionListener(new ActionListener()
@@ -148,7 +151,6 @@ public class PGPanelParamPlateau extends JPanel
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(this.lblParamPlateau, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
 
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -231,70 +233,77 @@ public class PGPanelParamPlateau extends JPanel
      */
     public void appliquerTheme()
 	{
-		Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+		Color background       = theme.get("background").get(0);
+        Color titleForeColor   = theme.get("titles"    ).get(0);
+		Color titleBackColor   = theme.get("titles"    ).get(1);
+        Color labelForeColor   = theme.get("labels"    ).get(0);
+		Color labelBackColor   = theme.get("labels"    ).get(1);
+        Color saisiForeColor   = theme.get("saisies"   ).get(0);
+		Color saisiBackColor   = theme.get("saisies"   ).get(1);
+        Color placeholderColor = theme.get("saisies"   ).get(2);
+        Color btnForeColor     = theme.get("bottuns"   ).get(0);
+		Color btnBackColor     = theme.get("bottuns"   ).get(1);
 
 
         this.setBackground(background);
 
         /* Titre (Parametre du Plateau) */
-        this.lblParamPlateau.setBackground(titleBackColor);
-        this.lblParamPlateau.setForeground(titleForeColor);
         this.lblParamPlateau.setOpaque    (true);
+        this.lblParamPlateau.setForeground(titleForeColor);
+        this.lblParamPlateau.setBackground(titleBackColor);
 
         /* Dimention */
-        this.lblDimension.setBackground(labelBackColor);
         this.lblDimension.setForeground(labelForeColor);
+        this.lblDimension.setBackground(labelBackColor);
 
         /* Image de fond */
-        this.lblbImageFond.setBackground(labelBackColor);
         this.lblbImageFond.setForeground(labelForeColor);
+        this.lblbImageFond.setBackground(labelBackColor);
 
         /* Couleur de fond */
-        this.lblCouleurFond.setBackground(labelBackColor);
         this.lblCouleurFond.setForeground(labelForeColor);
+        this.lblCouleurFond.setBackground(labelBackColor);
 
         /* Police d'écriture */
-        this.lblPolice.setBackground(labelBackColor);
         this.lblPolice.setForeground(labelForeColor);
+        this.lblPolice.setBackground(labelBackColor);
 
         /* Zone de saisie X */
-        this.txtX.setBackground(saisiBackColor);
-        this.txtX.setForeground(saisiForeColor);
-        this.txtX.setBorder    (null);
         this.txtX.setOpaque    (true);
+        this.txtX.setBorder    (null);
+        this.txtY.setForeground(placeholderColor);
+        this.txtX.setBackground(saisiBackColor  );
+        this.txtX.setForegroundColor (saisiForeColor  );
+        this.txtX.setPlaceholderColor(placeholderColor);
         this.txtX.setDisabledTextColor(new Color(255, 0, 0));
 
         /* Zone de saisie Y */
-        this.txtY.setBackground(saisiBackColor);
-        this.txtY.setForeground(saisiForeColor);
-        this.txtY.setBorder    (null);
         this.txtY.setOpaque    (true);
+        this.txtY.setBorder    (null);
+        this.txtY.setForeground(placeholderColor);
+        this.txtY.setBackground(saisiBackColor  );
+        this.txtY.setForegroundColor (saisiForeColor  );
+        this.txtY.setPlaceholderColor(placeholderColor);
         this.txtY.setDisabledTextColor(new Color(255, 0, 0));
 
         /* Bouton parcourir image */
-        this.btnParcourirImg.setBackground(btnBackColor);
-        this.btnParcourirImg.setForeground(btnForeColor);
-        this.btnParcourirImg.setBorder    (null);
         this.btnParcourirImg.setOpaque    (true);
+        this.btnParcourirImg.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnParcourirImg.setForeground(btnForeColor);
+        this.btnParcourirImg.setBackground(btnBackColor);
 
         /* Bouton de choix de la couleur */
-        this.btnChoisirCouleur.setBackground(btnBackColor);
-        this.btnChoisirCouleur.setForeground(btnForeColor);
-        this.btnChoisirCouleur.setBorder    (null);
         this.btnChoisirCouleur.setOpaque    (true);
+        this.btnChoisirCouleur.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnChoisirCouleur.setBackground(btnBackColor);
+        this.btnChoisirCouleur.setForeground(btnForeColor); 
 
         /* Bouton de choix de la police */
-        this.btnChoisirFont.setBackground(btnBackColor);
-        this.btnChoisirFont.setForeground(btnForeColor);
-        this.btnChoisirFont.setBorder    (null);
         this.btnChoisirFont.setOpaque    (true);
+        this.btnChoisirFont.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnChoisirFont.setForeground(btnForeColor);
+        this.btnChoisirFont.setBackground(btnBackColor);
 	}
 }

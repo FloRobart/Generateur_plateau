@@ -47,7 +47,7 @@ public class FramePlateau extends JFrame
 		this.menuBarre = new MenuBarre(this.ctrl);
 		this.setJMenuBar(this.menuBarre);
 
-        this.panelPlateau = new PanelPlateau(this.ctrl, this.getWidth(), this.getHeight());
+        this.panelPlateau = new PanelPlateau(this.ctrl);
 
 
 		JPanel panel = new JPanel();
@@ -61,7 +61,7 @@ public class FramePlateau extends JFrame
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGenerateur, panel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
-		splitPane.setDividerLocation(this.getWidth()/2);
+		splitPane.setDividerLocation(this.getWidth()/3);
 
 		//Provide minimum sizes for the two components in the split pane
 		panel.setMinimumSize(new Dimension(0, 0));
@@ -150,7 +150,7 @@ public class FramePlateau extends JFrame
 			filePath  = file.getAbsolutePath();
 
 			// Importation du panel en image
-			Dimension     d     = new Dimension (this.panelPlateau.getImage().getWidth(), this.panelPlateau.getImage().getHeight()) ;
+			Dimension     d     = new Dimension (this.ctrl.getTaillePlateau()[0], this.ctrl.getTaillePlateau()[1]) ;
 			BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
 			Graphics2D    g2d   = image.createGraphics();
 			this.panelPlateau.print(g2d);

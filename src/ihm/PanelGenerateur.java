@@ -8,10 +8,10 @@ import controleur.Controleur;
 
 public class PanelGenerateur extends JPanel 
 {
-    private PGPanelParamJeu pGPanelParamJeu;
-    private PGPanelParamPlateau pGPanelParamPlateau;
+    private PGPanelParamJeu        pGPanelParamJeu;
+    private PGPanelParamPlateau    pGPanelParamPlateau;
 	private PGPanelAjouterElements pGPanelAjouterElements;
-    private PGPanelExplorer pGPanelExplorer;
+    private PGPanelExplorer        pGPanelExplorer;
 
 
 	/**
@@ -20,10 +20,10 @@ public class PanelGenerateur extends JPanel
 	 */
     public PanelGenerateur(Controleur ctrl)
     {
-        this.pGPanelParamPlateau    = new PGPanelParamPlateau(ctrl);
-        this.pGPanelParamJeu        = new PGPanelParamJeu(ctrl);
+        this.pGPanelParamPlateau    = new PGPanelParamPlateau   (ctrl);
+        this.pGPanelParamJeu        = new PGPanelParamJeu       (ctrl);
         this.pGPanelAjouterElements = new PGPanelAjouterElements(ctrl);
-        this.pGPanelExplorer        = new PGPanelExplorer(ctrl);
+        this.pGPanelExplorer        = new PGPanelExplorer       (ctrl);
 
 
         GroupLayout layout = new GroupLayout(this);

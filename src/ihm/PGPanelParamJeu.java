@@ -1,19 +1,22 @@
 package ihm;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -45,11 +48,11 @@ public class PGPanelParamJeu extends JPanel
     private JLabel     lblParamJeu;
     private JLabel     lblCartesWagon;
 
-    private JTextField txtMaxNbJoueur;
-    private JTextField txtMinJoueur;
     private JTextField txtNbCarteParCoul;
     private JTextField txtNbJoker;
 
+    private TextFieldWithHint txtMaxNbJoueur;
+    private TextFieldWithHint txtMinJoueur;
 
 
 	/**
@@ -67,10 +70,10 @@ public class PGPanelParamJeu extends JPanel
         this.lblNbCarteParCoul    = new JLabel    ();
         this.lblImgCarte          = new JLabel    ();
         this.lblCartesWagon       = new JLabel    ();
-        this.txtMinJoueur         = new TextFieldWithHint("Min");
-        this.txtMaxNbJoueur       = new TextFieldWithHint("Max");
-        this.txtNbJoker           = new TextFieldWithHint("10");
-        this.txtNbCarteParCoul    = new TextFieldWithHint("10");
+        this.txtMinJoueur         = new TextFieldWithHint("Min", ctrl);
+        this.txtMaxNbJoueur       = new TextFieldWithHint("Max", ctrl);
+        this.txtNbJoker           = new JTextField();
+        this.txtNbCarteParCoul    = new JTextField();
         this.btnPlusJoker         = new JButton   ();
         this.btnCouleurs          = new JButton   ();
         this.btnPoints            = new JButton   ();
@@ -78,31 +81,29 @@ public class PGPanelParamJeu extends JPanel
         this.btnPlusCoul          = new JButton   ();
         this.btnMoinsJoker        = new JButton   ();
         this.btnMoinsCoul         = new JButton   ();
-        this.btnChoisirImg             = new JButton   ();
+        this.btnChoisirImg        = new JButton   ();
 
 
         this.lblParamJeu.setText(" Parametre du jeu");
 
-        this.lblNbJoueurs.setFont(new Font("Segoe UI", 1, 12));
         this.lblNbJoueurs.setText("Nombre de joueurs");
+        this.lblNbJoueurs.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblModif.setFont(new Font("Segoe UI", 1, 12));
         this.lblModif.setText("Modifier");
+        this.lblModif.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblMultiCoul.setFont(new Font("Segoe UI", 1, 12));
         this.lblMultiCoul.setText("multicouleurs");
+        this.lblMultiCoul.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblNbCarteParCoul.setFont(new Font("Segoe UI", 1, 12));
         this.lblNbCarteParCoul.setText("nb couleurs");
+        this.lblNbCarteParCoul.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblImgCarte.setFont(new Font("Segoe UI", 1, 12));
         this.lblImgCarte.setText("image cartes");
+        this.lblImgCarte.setFont(new Font("Segoe UI", 1, 12));
+        
+        this.lblCartesWagon.setText("Cartes wagon");
+        this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12));
 
-        lblCartesWagon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCartesWagon.setForeground(new java.awt.Color(255, 255, 255));
-        lblCartesWagon.setText("Cartes wagon");
-
-        this.txtMinJoueur.setText("Min");
         this.txtMinJoueur.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -111,8 +112,6 @@ public class PGPanelParamJeu extends JPanel
             }
         });
 
-
-        this.txtMaxNbJoueur.setText("Max");
         this.txtMaxNbJoueur.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -123,7 +122,6 @@ public class PGPanelParamJeu extends JPanel
 
 
         this.txtNbJoker.setText("10");
-        this.txtNbJoker.setHorizontalAlignment(JTextField.CENTER);
         this.txtNbJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -134,7 +132,6 @@ public class PGPanelParamJeu extends JPanel
 
 
         this.txtNbCarteParCoul.setText("10");
-        this.txtNbCarteParCoul.setHorizontalAlignment(JTextField.CENTER);
         this.txtNbCarteParCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -231,89 +228,90 @@ public class PGPanelParamJeu extends JPanel
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblParamJeu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(this.lblParamJeu, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNbJoueurs)
-                            .addComponent(lblCartesWagon))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(this.lblNbJoueurs)
+                            .addComponent(this.lblCartesWagon))
                         .addGap(15, 15, 15)
-                        .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(this.txtMinJoueur, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(this.txtMaxNbJoueur, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblModif)
+                        .addComponent(this.lblModif)
                         .addGap(43, 43, 43)
-                        .addComponent(btnCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnObjectifs, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lblImgCarte)
+                        .addComponent(this.btnCouleurs, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(this.btnPoints, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(this.btnObjectifs, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(this.lblImgCarte)
                             .addGap(55, 55, 55)
-                            .addComponent(btnChoisirImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(this.btnChoisirImg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblMultiCoul)
+                                    .addComponent(this.lblMultiCoul)
                                     .addGap(52, 52, 52)
-                                    .addComponent(btnMoinsJoker))
+                                    .addComponent(this.btnMoinsJoker))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblNbCarteParCoul)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnMoinsCoul)))
+                                    .addComponent(this.lblNbCarteParCoul)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(this.btnMoinsCoul)))
                             .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtNbCarteParCoul, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(this.txtNbCarteParCoul, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnPlusCoul))
+                                    .addComponent(this.btnPlusCoul))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtNbJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(this.txtNbJoker, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnPlusJoker))))))
+                                    .addComponent(this.btnPlusJoker))))))
                 )
         );
+
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblParamJeu, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(this.lblParamJeu, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNbJoueurs)
-                    .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.lblNbJoueurs)
+                    .addComponent(this.txtMinJoueur, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.txtMaxNbJoueur, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCartesWagon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNbCarteParCoul))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNbCarteParCoul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnMoinsCoul, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnPlusCoul, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMultiCoul)
-                    .addComponent(txtNbJoker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPlusJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMoinsJoker, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblImgCarte)
-                    .addComponent(btnChoisirImg))
+                        .addComponent(this.lblCartesWagon)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(this.lblNbCarteParCoul))
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(this.txtNbCarteParCoul, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(this.btnMoinsCoul, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(this.btnPlusCoul, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.lblMultiCoul)
+                    .addComponent(this.txtNbJoker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnPlusJoker, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnMoinsJoker, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.lblImgCarte)
+                    .addComponent(this.btnChoisirImg))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblModif)
-                    .addComponent(btnCouleurs, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnObjectifs, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(this.lblModif)
+                    .addComponent(this.btnCouleurs, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnPoints, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(this.btnObjectifs, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
                 )
         );
 
@@ -327,7 +325,7 @@ public class PGPanelParamJeu extends JPanel
     private void txtNbCarteParCoulActionPerformed   (ActionEvent e) {}
 
 
-    private void btnCouleursActionPerformed (ActionEvent e) { new FrameCouleur(ctrl); }
+    private void btnCouleursActionPerformed (ActionEvent e) { new FrameCouleur(this.ctrl); }
     private void btnPointsActionPerformed   (ActionEvent e) { this.ctrl.afficher("points"  ); }
     private void btnObjectifsActionPerformed(ActionEvent e) { this.ctrl.afficher("objectif"); }
 
@@ -424,15 +422,18 @@ public class PGPanelParamJeu extends JPanel
      */
     public void appliquerTheme()
 	{
-		Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color titleForeColor = this.ctrl.getTheme().get("titles"    ).get(0);
-		Color titleBackColor = this.ctrl.getTheme().get("titles"    ).get(1);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+		Color background       = theme.get("background").get(0);
+        Color titleForeColor   = theme.get("titles"    ).get(0);
+		Color titleBackColor   = theme.get("titles"    ).get(1);
+        Color labelForeColor   = theme.get("labels"    ).get(0);
+		Color labelBackColor   = theme.get("labels"    ).get(1);
+        Color saisiForeColor   = theme.get("saisies"   ).get(0);
+		Color saisiBackColor   = theme.get("saisies"   ).get(1);
+        Color placeholderColor = theme.get("saisies"   ).get(2);
+        Color btnForeColor     = theme.get("bottuns"   ).get(0);
+		Color btnBackColor     = theme.get("bottuns"   ).get(1);
 
 
         this.setBackground(background);
@@ -462,51 +463,63 @@ public class PGPanelParamJeu extends JPanel
         this.lblImgCarte.setBackground(labelBackColor);
         this.lblImgCarte.setForeground(labelForeColor);
 
+        this.lblCartesWagon.setBorder(null);
+        this.lblCartesWagon.setBackground(labelBackColor);
+        this.lblCartesWagon.setForeground(labelForeColor);
+
         this.txtMinJoueur.setBorder(null);
-        this.txtMinJoueur.setBackground(saisiBackColor);
-        this.txtMinJoueur.setForeground(saisiForeColor);
+        this.txtMinJoueur.setBackground(saisiBackColor  );
+        this.txtMinJoueur.setForeground(placeholderColor);
+        this.txtMinJoueur.setForegroundColor (saisiForeColor  );
+        this.txtMinJoueur.setPlaceholderColor(placeholderColor);
 
         this.txtMaxNbJoueur.setBorder(null);
-        this.txtMaxNbJoueur.setBackground(saisiBackColor);
-        this.txtMaxNbJoueur.setForeground(saisiForeColor);
+        this.txtMaxNbJoueur.setBackground(saisiBackColor  );
+        this.txtMaxNbJoueur.setForeground(placeholderColor);
+        this.txtMaxNbJoueur.setForegroundColor (saisiForeColor  );
+        this.txtMaxNbJoueur.setPlaceholderColor(placeholderColor);
 
         this.txtNbJoker.setBorder(null);
+        this.txtNbJoker.setCaretColor(saisiForeColor);
         this.txtNbJoker.setBackground(saisiBackColor);
         this.txtNbJoker.setForeground(saisiForeColor);
+        this.txtNbJoker.setHorizontalAlignment(JTextField.CENTER);
 
         this.txtNbCarteParCoul.setBorder(null);
+        this.txtNbCarteParCoul.setCaretColor(saisiForeColor);
         this.txtNbCarteParCoul.setBackground(saisiBackColor);
         this.txtNbCarteParCoul.setForeground(saisiForeColor);
+        this.txtNbCarteParCoul.setHorizontalAlignment(JTextField.CENTER);
 
-        this.btnCouleurs.setBorder(null);
+        this.btnCouleurs.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnCouleurs.setBackground(btnBackColor);
         this.btnCouleurs.setForeground(btnForeColor);
 
-        this.btnPoints.setBorder(null);
+        this.btnPoints.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnPoints.setBackground(btnBackColor);
         this.btnPoints.setForeground(btnForeColor);
 
-        this.btnObjectifs.setBorder(null);
+        this.btnObjectifs.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnObjectifs.setBackground(btnBackColor);
         this.btnObjectifs.setForeground(btnForeColor);
 
-        this.btnPlusCoul.setBorder(null);
+        this.btnPlusCoul.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnPlusCoul.setBackground(btnBackColor);
         this.btnPlusCoul.setForeground(btnForeColor);
 
-        this.btnMoinsJoker.setBorder(null);
+        this.btnMoinsJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnMoinsJoker.setBackground(btnBackColor);
         this.btnMoinsJoker.setForeground(btnForeColor);
 
-        this.btnPlusJoker.setBorder(null);
+        this.btnPlusJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnPlusJoker.setBackground(btnBackColor);
         this.btnPlusJoker.setForeground(btnForeColor);
 
-        this.btnMoinsCoul.setBorder(null);
+        this.btnMoinsCoul.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnMoinsCoul.setBackground(btnBackColor);
         this.btnMoinsCoul.setForeground(btnForeColor);
 
-        this.btnChoisirImg.setBorder(null);
+        this.btnChoisirImg.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnChoisirImg.setBackground(btnBackColor);
         this.btnChoisirImg.setForeground(btnForeColor);
 	}

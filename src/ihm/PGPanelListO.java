@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
@@ -15,11 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldWithHint;
 
 
 public class PGPanelListO extends  JPanel
@@ -38,7 +40,7 @@ public class PGPanelListO extends  JPanel
     private JLabel            lblRecto;
     private JLabel            lblVerso;
     private JScrollPane       jspNoeud;
-    private JTextField        txtPoint;
+    private TextFieldWithHint txtPoint;
 
     /**
      * Creates new form PGPanelListO
@@ -54,7 +56,7 @@ public class PGPanelListO extends  JPanel
         this.lblNoeudA          = new  JLabel           ();
         this.lblNoeudB          = new  JLabel           ();
         this.comboBoxListNoeudA = new  JComboBox<String>();
-        this.txtPoint           = new  JTextField       ();
+        this.txtPoint           = new  TextFieldWithHint("Point", ctrl);
         this.lblPoint           = new  JLabel           ();
         this.lblRecto           = new  JLabel           ();
         this.lblVerso           = new  JLabel           ();
@@ -71,72 +73,56 @@ public class PGPanelListO extends  JPanel
 
         
         this.btnAjouter.setText("Ajouter");
-        this.btnAjouter.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
         this.btnAjouter.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 btnAjouterActionPerformed(evt);
             }
         });
 
-        this.btnSupprimer.setBackground(new Color(40, 42, 54));
-        this.btnSupprimer.setForeground(new Color(255, 255, 255));
         this.btnSupprimer.setText("Supprimer");
-        this.btnSupprimer.setBorder( BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnSupprimer.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 btnSupprimerActionPerformed(evt);
             }
         });
 
-        this.comboBoxListNoeudB.setBackground(new Color(40, 42, 54));
-        this.comboBoxListNoeudB.setForeground(new Color(255, 255, 255));
         this.comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        this.comboBoxListNoeudB.setBorder(null);
         this.comboBoxListNoeudB.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudBActionPerformed(evt);
             }
         });
 
-        this.lblNoeudA.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
-        this.lblNoeudA.setForeground(new Color(255, 255, 255));
         this.lblNoeudA.setText("Noeud A");
+        this.lblNoeudA.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12)); // NOI18N
-        this.lblNoeudB.setForeground(new Color(255, 255, 255));
         this.lblNoeudB.setText("Noeud B");
+        this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12));
 
-        this.comboBoxListNoeudA.setBackground(new Color(40, 42, 54));
-        this.comboBoxListNoeudA.setForeground(new Color(255, 255, 255));
-        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        this.comboBoxListNoeudA.setBorder(null);
         this.comboBoxListNoeudA.setFocusable(false);
+        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         this.comboBoxListNoeudA.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudAActionPerformed(evt);
             }
         });
 
-        this.txtPoint.setBackground(new Color(40, 42, 54));
-        this.txtPoint.setForeground(new Color(255, 255, 255));
-        this.txtPoint.setBorder(null);
         this.txtPoint.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 txtPointActionPerformed(evt);
             }
         });
 
-        this.lblPoint.setFont(new Font("Segoe UI", 1, 12));
         this.lblPoint.setText("Point");
+        this.lblPoint.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblRecto.setFont(new Font("Segoe UI", 1, 12));
         this.lblRecto.setText("Recto");
+        this.lblRecto.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblVerso.setFont(new Font("Segoe UI", 1, 12));
         this.lblVerso.setText("Verso");
+        this.lblVerso.setFont(new Font("Segoe UI", 1, 12));
 
         this.btnImgRecto.setText("Image");
-        this.btnImgRecto.setBorder( BorderFactory.createBevelBorder( BevelBorder.RAISED));
         this.btnImgRecto.setFocusPainted(false);
         this.btnImgRecto.addActionListener(new  ActionListener()
         {
@@ -146,10 +132,7 @@ public class PGPanelListO extends  JPanel
             }
         });
 
-        this.btnImgVerso.setBackground(new Color(40, 42, 54));
-        this.btnImgVerso.setForeground(new Color(255, 255, 255));
         this.btnImgVerso.setText("Image");
-        this.btnImgVerso.setBorder( BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnImgVerso.setFocusPainted(false);
         this.btnImgVerso.addActionListener(new  ActionListener()
         {
@@ -237,72 +220,86 @@ public class PGPanelListO extends  JPanel
     
     public void appliquerTheme()
     {
-        Color background     = this.ctrl.getTheme().get("background").get(0);
-        Color labelForeColor = this.ctrl.getTheme().get("labels"    ).get(0);
-		Color labelBackColor = this.ctrl.getTheme().get("labels"    ).get(1);
-        Color saisiForeColor = this.ctrl.getTheme().get("saisies"   ).get(0);
-		Color saisiBackColor = this.ctrl.getTheme().get("saisies"   ).get(1);
-        Color btnForeColor   = this.ctrl.getTheme().get("bottuns"   ).get(0);
-		Color btnBackColor   = this.ctrl.getTheme().get("bottuns"   ).get(1);
+        HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+        Color background       = theme.get("background").get(0);
+        Color title            = theme.get("titles"    ).get(0);
+        Color labelForeColor   = theme.get("labels"    ).get(0);
+		Color labelBackColor   = theme.get("labels"    ).get(1);
+        Color saisiForeColor   = theme.get("saisies"   ).get(0);
+		Color saisiBackColor   = theme.get("saisies"   ).get(1);
+        Color placeholderColor = theme.get("saisies"   ).get(2);
+        Color btnForeColor     = theme.get("bottuns"   ).get(0);
+		Color btnBackColor     = theme.get("bottuns"   ).get(1);
 
 
         /* Couleur de fond du panel */
         this.setBackground(background);
 
         /* ScrollPane contenant la liste des noeuds */
-        //this.jspNoeud          .setForeground(saisiForeColor);
-        this.jspNoeud          .setBackground(saisiBackColor);
-        
-        // changer la couleur de fond du scrollpane
-        this.jspNoeud.getViewport().setOpaque(true);
-        this.jspNoeud.getViewport().setBackground(Color.RED);
+        this.jList1.setForeground(title);
+        this.jList1.setBackground(background);
         
 
         /* Bouton ajouter */
+        this.btnAjouter        .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnAjouter        .setForeground(btnForeColor);
         this.btnAjouter        .setBackground(btnBackColor);
 
         /* Bouton supprimer */
+        this.btnSupprimer      .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnSupprimer      .setForeground(btnForeColor);
         this.btnSupprimer      .setBackground(btnBackColor);
 
         /* Liste des noeuds A */
+        this.comboBoxListNoeudB.setBorder(null);
         this.comboBoxListNoeudB.setForeground(saisiForeColor);
         this.comboBoxListNoeudB.setBackground(saisiBackColor);
 
         /* Label noeuds A */
+        this.lblNoeudA         .setBorder(null);
         this.lblNoeudA         .setForeground(labelForeColor);
         this.lblNoeudA         .setBackground(labelBackColor);
 
         /* Label noeuds B */
+        this.lblNoeudB         .setBorder(null);
         this.lblNoeudB         .setForeground(labelForeColor);
         this.lblNoeudB         .setBackground(labelBackColor);
 
         /* Liste des noeuds B */
+        this.comboBoxListNoeudA.setBorder(null);
         this.comboBoxListNoeudA.setForeground(saisiForeColor);
         this.comboBoxListNoeudA.setBackground(saisiBackColor);
 
         /* TexteField des points */
-        this.txtPoint          .setForeground(saisiForeColor);
-        this.txtPoint          .setBackground(saisiBackColor);
+        this.txtPoint          .setBorder(null);
+        this.txtPoint          .setForeground(placeholderColor);
+        this.txtPoint          .setBackground(saisiBackColor  );
+        this.txtPoint          .setForegroundColor (saisiForeColor  );
+        this.txtPoint          .setPlaceholderColor(placeholderColor);
 
         /* Label des points */
+        this.lblPoint          .setBorder(null);
         this.lblPoint          .setForeground(labelForeColor);
         this.lblPoint          .setBackground(labelBackColor);
 
         /* Label recto */
+        this.lblRecto          .setBorder(null);
         this.lblRecto          .setForeground(labelForeColor);
         this.lblRecto          .setBackground(labelBackColor);
 
         /* Label verso */
+        this.lblVerso          .setBorder(null);
         this.lblVerso          .setForeground(labelForeColor);
         this.lblVerso          .setBackground(labelBackColor);
 
         /* Bouton image recto */
+        this.btnImgRecto       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnImgRecto       .setForeground(btnForeColor);
         this.btnImgRecto       .setBackground(btnBackColor);
 
         /* Bouton image verso */
+        this.btnImgVerso       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnImgVerso       .setForeground(btnForeColor);
         this.btnImgVerso       .setBackground(btnBackColor);
     }
