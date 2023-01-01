@@ -35,14 +35,14 @@ public class Controleur
     }
 
 	/* Getters */
-	public Metier getMetier() { return this.metier;}
-	public int[] getTaillePlateau() { return this.metier.getTaillePlateau(); }
-	public BufferedImage getImagePlateau() { return this.metier.getImagePlateau(); }
-	public Color getCouleurPlateau() { return this.metier.getCouleurPlateau(); }
-	public Font getPolicePlateau() { return this.metier.getPolicePlateau(); }
-	public List<Noeud> getNoeuds() { return this.metier.getNoeuds(); }
-	public List<Arete> getAretes() { return this.metier.getAretes(); }
-	public List<Color> getCouleurs() {return this.metier.getCouleurs(); }
+	public Metier        getMetier        () { return this.metier; }
+	public int[]         getTaillePlateau () { return this.metier.getTaillePlateau (); }
+	public BufferedImage getImagePlateau  () { return this.metier.getImagePlateau  (); }
+	public Color         getCouleurPlateau() { return this.metier.getCouleurPlateau(); }
+	public Font          getPolicePlateau () { return this.metier.getPolicePlateau (); }
+	public List<Noeud>   getNoeuds        () { return this.metier.getNoeuds        (); }
+	public List<Arete>   getAretes        () { return this.metier.getAretes        (); }
+	public List<Color>   getCouleurs      () { return this.metier.getCouleurs      (); }
 	
 
 	/* Setters */
@@ -78,7 +78,6 @@ public class Controleur
 		this.ihm.setImageFond(img);
     }
 
-	//methodes
 
 	public void ouvrir(File fichier) 
     {
@@ -116,14 +115,18 @@ public class Controleur
 		this.ihm.dispose();
 	}
 
+	/**
+	 * permet d'afficher la bonne frame en fonction du paramètre qui lui est passé
+	 * @param frame : String permettant d'identifer la frame à afficher
+	 */
 	public void afficher(String frame) 
 	{
-		switch (frame) {
-			case "couleur": this.ihm.afficher("couleur"); break;
-			case "objectif": this.ihm.afficher("objectif"); break;	
-			case "points": this.ihm.afficher("points"); break;
-			default:
-				break;
+		switch (frame)
+		{
+			case "couleur"  : this.ihm.afficher("couleur" ); break;
+			case "objectif" : this.ihm.afficher("objectif"); break;	
+			case "points"   : this.ihm.afficher("points"  ); break;
+			default         : break;
 		}
 	}
 
