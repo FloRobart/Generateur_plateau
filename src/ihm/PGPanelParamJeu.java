@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldWithHint;
 
 
 public class PGPanelParamJeu extends JPanel
@@ -66,10 +67,10 @@ public class PGPanelParamJeu extends JPanel
         this.lblNbCarteParCoul    = new JLabel    ();
         this.lblImgCarte          = new JLabel    ();
         this.lblCartesWagon       = new JLabel    ();
-        this.txtMinJoueur         = new JTextField();
-        this.txtMaxNbJoueur       = new JTextField();
-        this.txtNbJoker           = new JTextField();
-        this.txtNbCarteParCoul    = new JTextField();
+        this.txtMinJoueur         = new TextFieldWithHint("Min");
+        this.txtMaxNbJoueur       = new TextFieldWithHint("Max");
+        this.txtNbJoker           = new TextFieldWithHint("10");
+        this.txtNbCarteParCoul    = new TextFieldWithHint("10");
         this.btnPlusJoker         = new JButton   ();
         this.btnCouleurs          = new JButton   ();
         this.btnPoints            = new JButton   ();
