@@ -35,7 +35,7 @@ public class FramePoint extends JFrame implements ActionListener
         this.ctrl = ctrl;
 
         this.setTitle("Modifier les points");
-        this.setSize(470, 200);
+        this.setSize(500, 200);
         this.setLocation(500, 300);
         this.setLayout(new BorderLayout());
 
