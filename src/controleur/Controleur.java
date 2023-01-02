@@ -10,6 +10,7 @@ import metier.Arete;
 //import metier.Metier;
 import metier.Metier;
 import metier.Noeud;
+import metier.CarteObjectif;
 
 import java.awt.image.BufferedImage;
 
@@ -34,14 +35,33 @@ public class Controleur
     }
 
 	/* Getters */
-	public Metier        getMetier        () { return this.metier; }
+	public Metier getMetier() { return this.metier; } // à enlever
+
 	public int[]         getTaillePlateau () { return this.metier.getTaillePlateau (); }
 	public BufferedImage getImagePlateau  () { return this.metier.getImagePlateau  (); }
 	public Color         getCouleurPlateau() { return this.metier.getCouleurPlateau(); }
 	public Font          getPolicePlateau () { return this.metier.getPolicePlateau (); }
-	public List<Noeud>   getNoeuds        () { return this.metier.getNoeuds        (); }
-	public List<Arete>   getAretes        () { return this.metier.getAretes        (); }
-	public List<Color>   getCouleurs      () { return this.metier.getCouleurs      (); }
+
+	public int getNbJoueursMin     () { return this.metier.getNbJoueursMin     (); }
+	public int getNbJoueursMax     () { return this.metier.getNbJoueursMax     (); }
+	public int getNbCarteCoul      () { return this.metier.getNbCarteCoul      (); }
+	public int getNbCarteLocomotive() { return this.metier.getNbCarteLocomotive(); }
+	public int getNbJetonJoueur    () { return this.metier.getNbJetonJoueur    (); }
+	public int getNbJetonFin       () { return this.metier.getNbJetonFin       (); }
+
+	public List<Color>         getCouleurs            () { return this.metier.getCouleurs            (); }
+	public BufferedImage       getImageVersoCouleur   () { return this.metier.getImageVersoCouleur   (); }
+	public BufferedImage       getImageRectoLocomotive() { return this.metier.getImageRectoLocomotive(); }
+	public List<BufferedImage> getImagesRectoCouleur  () { return this.metier.getImagesRectoCouleur  (); }
+	public List<Integer>       getPoints              () { return this.metier.getPoints              (); }
+
+	public BufferedImage       getImageVersoObjectif() { return this.metier.getImageVersoObjectif(); }
+	public List<CarteObjectif> getCarteObjectif     () { return this.metier.getCarteObjectif     (); }
+	public List<Noeud>         getNoeuds            () { return this.metier.getNoeuds            (); }
+	public List<Arete>         getAretes            () { return this.metier.getAretes            (); }
+
+	public HashMap<String, List<Color>> getTheme() { return this.metier.getTheme(); }
+	
 	
 
 	/* Setters */
@@ -104,10 +124,7 @@ public class Controleur
 		this.ihm.appliquerTheme();
 	}
 
-	public HashMap<String, List<Color>> getTheme()
-	{
-		return this.metier.getTheme();
-	}
+	
 
 	public void genererTxt(String type, String nomFichier)
 	{
