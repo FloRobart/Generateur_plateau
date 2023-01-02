@@ -247,12 +247,27 @@ public class PGPanelListN extends JPanel
     private void txtPosXActionPerformed     (ActionEvent e)
     {
         Noeud noeud = this.listNoeuds.getSelectedValue();
-
+        noeud.setXY(Integer.parseInt(this.txtPosX.getText()),Integer.parseInt(this.txtPosY.getText()));
         this.ctrl.majIHMPlateau();
     }
-    private void txtPosYActionPerformed     (ActionEvent e){}
-    private void txtPosNomXActionPerformed  (ActionEvent e){}
-    private void txtPosNomYActionPerformed  (ActionEvent e){}
+    private void txtPosYActionPerformed     (ActionEvent e)
+    {
+        Noeud noeud = this.listNoeuds.getSelectedValue();
+        noeud.setXY(Integer.parseInt(this.txtPosX.getText()),Integer.parseInt(this.txtPosY.getText()));
+        this.ctrl.majIHMPlateau();
+    }
+    private void txtPosNomXActionPerformed  (ActionEvent e)
+    {
+        Noeud noeud = this.listNoeuds.getSelectedValue();
+        noeud.setXYNom(Integer.parseInt(this.txtPosNomX.getText()),Integer.parseInt(this.txtPosNomY.getText()));
+        this.ctrl.majIHMPlateau();
+    }
+    private void txtPosNomYActionPerformed  (ActionEvent e)
+    {
+        Noeud noeud = this.listNoeuds.getSelectedValue();
+        noeud.setXYNom(Integer.parseInt(this.txtPosNomX.getText()),Integer.parseInt(this.txtPosNomY.getText()));
+        this.ctrl.majIHMPlateau();
+    }
     private void btnCouleurActionPerformed  (ActionEvent e)
     {
         JButton button = (JButton) e.getSource();
