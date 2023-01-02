@@ -121,7 +121,10 @@ public class Metier
 		this.lstCouleurs.add(Color.YELLOW);
 		this.lstCouleurs.add(Color.GREEN);
 		this.lstCouleurs.add(Color.PINK);
-
+		for (int i = 0; i < this.lstCouleurs.size(); i++)
+		{
+			this.lstImagesRectoCouleur.add(null);
+		}
 /*
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(2),  5, null));

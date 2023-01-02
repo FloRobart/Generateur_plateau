@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -21,6 +22,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import controleur.Controleur;
+import ihm.panels.PanelArrete;
+import ihm.panels.PanelNoeud;
 import metier.Noeud;
 
 
@@ -265,7 +268,11 @@ public class PGPanelListN extends JPanel
 
     private void btnAjouterActionPerformed(ActionEvent e)
     {
-        
+        JDialog dialog = new JDialog(this.ctrl.getIHM(),"Ajouter Noeud");
+        dialog.setSize(400,200);
+        dialog.add(new PanelNoeud(ctrl));
+
+        dialog.setVisible(true);
     }
 
 

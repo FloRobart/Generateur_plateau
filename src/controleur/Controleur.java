@@ -1,6 +1,7 @@
 package controleur;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -247,6 +248,10 @@ public class Controleur
     public void majIHMPlateau() 
 	{
 		this.ihm.majIHM();
+    }
+
+    public FramePlateau getIHM() {
+        return this.ihm;
     }
     
 }
