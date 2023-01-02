@@ -229,7 +229,7 @@ public class PGPanelListA extends JPanel
                         .addGap(21, 21, 21)
                         .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(this.btnAjouter, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(this.btnAjouter, GroupLayout.DEFAULT_SIZE, 71, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(this.jScrollPane1, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
