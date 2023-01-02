@@ -17,6 +17,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -54,7 +55,7 @@ public class PGPanelParamPlateau extends JPanel
         this.txtY              = new TextFieldWithHint("Y", ctrl);
         this.btnParcourirImg   = new JButton          ();
         this.btnChoisirCouleur = new JButton          ();
-        this.ddlstChoisirFont  = new JComboBox          ();
+        this.ddlstChoisirFont  = new JComboBox        ();
 
 
         /* Titre (Parametre du Plateau) */
@@ -185,9 +186,55 @@ public class PGPanelParamPlateau extends JPanel
     }
 
 
-    private void txtXActionPerformed         (ActionEvent e) {}
-    private void txtYActionPerformed         (ActionEvent e) {}
+    private void txtXActionPerformed(ActionEvent e) 
+	{
+		if (this.txtX.getText().length() > 0)
+		{
+			try
+			{
+				int x = Integer.parseInt(this.txtX.getText());
+				if (x < 0)
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtX.setText("" + this.ctrl.getTaillePlateau()[0]);
+				}
+				else
+				{
+					this.ctrl.setTaillePlateauX(x);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtX.setText("" + this.ctrl.getTaillePlateau()[0]);
+			}
+		}
+	}
 
+    private void txtYActionPerformed(ActionEvent e) 
+	{
+		if (this.txtY.getText().length() > 0)
+		{
+			try
+			{
+				int y = Integer.parseInt(this.txtY.getText());
+				if (y < 0)
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtY.setText("" + this.ctrl.getTaillePlateau()[1]);
+				}
+				else
+				{
+					this.ctrl.setTaillePlateauY(y);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtY.setText("" + this.ctrl.getTaillePlateau()[1]);
+			}
+		}
+	}
 
     private void btnParcourirImgActionPerformed(ActionEvent e) 
     {
@@ -195,20 +242,27 @@ public class PGPanelParamPlateau extends JPanel
 		fc.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fc.setMultiSelectionEnabled(false);
-		int result = fc.showOpenDialog(this);
 
-        if (result == JFileChooser.APPROVE_OPTION)
+		int result = fc.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION  && fc.getSelectedFile().getPath() != null)
 		{
-			BufferedImage img;
 			try
 			{
-				img = ImageIO.read(new File(fc.getSelectedFile().getAbsolutePath()));
-                this.ctrl.setImagePlateau(img);
+				File fichier = fc.getSelectedFile();
+				String extention = fichier.getName().substring(fichier.getName().lastIndexOf('.') + 1);
+
+				if (extention.equals("jpg") || extention.equals("gif") || 
+				    extention.equals("png") || extention.equals("jpeg")  )
+				{
+					BufferedImage img = ImageIO.read(fichier);
+					this.ctrl.setImagePlateau(img);
+				}
+				else
+					JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format JPG, GIF, PNG ou JPEG", "Erreur", JOptionPane.ERROR_MESSAGE);         
 			}
             catch(IOException ex)
             {
-                ex.printStackTrace();
-                System.out.println("Erreur lors de la lecture de l'image");
+                JOptionPane.showMessageDialog(this, "Le fichier choisi n'est pas une image supportée", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
     }                                               
