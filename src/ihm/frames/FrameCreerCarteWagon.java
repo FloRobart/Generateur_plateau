@@ -21,7 +21,7 @@ import java.awt.Color;
 import controleur.Controleur;
 
 
-public class FrameCreerCarteJoueur extends JFrame implements ActionListener
+public class FrameCreerCarteWagon extends JFrame implements ActionListener
 {
     private JPanel panelParametrageCarte;
     private JPanel panelVisualisatonCarte;
@@ -40,7 +40,7 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
     private JLabel lblCarteWagon;
 
 
-    public FrameCreerCarteJoueur(Controleur ctrl)
+    public FrameCreerCarteWagon(Controleur ctrl)
     {
         //Paramètres de la frame
         this.setTitle("Concepteur de cartes");
