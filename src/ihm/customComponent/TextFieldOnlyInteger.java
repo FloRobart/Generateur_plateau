@@ -1,12 +1,24 @@
 package ihm.customComponent;
 
 import javax.swing.JTextField;
+
+import controleur.Controleur;
+
 import java.awt.event.*;
-public class TextFieldOnlyInteger extends JTextField 
+public class TextFieldOnlyInteger extends TextFieldWithHint 
 {
     public TextFieldOnlyInteger()
     {
         super();
+        setOnlyInteger();
+    }
+    public TextFieldOnlyInteger(String hint, Controleur ctrl)
+    {
+        super(hint,ctrl);
+        setOnlyInteger();
+    }
+    public void setOnlyInteger()
+    {
         JTextField txt = this;
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
@@ -17,7 +29,6 @@ public class TextFieldOnlyInteger extends JTextField
                   txt.setEditable(false);
                }               
             }
-         });    
+         });  
     }
-
 }

@@ -279,18 +279,6 @@ public class PGPanelListN extends JPanel
     }
     private void btnSupprimerActionPerformed(ActionEvent e){}
 
-    private boolean isFormValide ()
-    {
-        try
-        {
-            Integer.parseInt(this.txtPosX   .getText());
-            Integer.parseInt(this.txtPosY   .getText());
-            Integer.parseInt(this.txtPosNomX.getText());
-            Integer.parseInt(this.txtPosNomY.getText());
-            return true;
-        }
-        catch (NumberFormatException e) {return false;}
-    }
 
     private void btnAjouterActionPerformed(ActionEvent e)
     {
