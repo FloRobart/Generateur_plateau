@@ -204,6 +204,8 @@ public class Metier
 	public void setImageRectoLocomotive(BufferedImage img) { this.imageRectoLocomotive = img; }
 	public void setImageRectoCouleur(int ind, BufferedImage img) { this.lstImagesRectoCouleur.set(ind, img); }
 
+	public void supprimerImageRectoCouleur(int ind) { this.lstImagesRectoCouleur.remove(ind); }
+
 	public void setImageVersoObjectif(BufferedImage img) { this.imageVersoObjectif = img; }
 	public void setPositionNoeud   (int id, int x, int y) { this.lstNoeuds.get(id).setXY   (x, y); }
 	public void setPositionNomNoeud(int id, int x, int y) { this.lstNoeuds.get(id).setXYNom(x, y); }
