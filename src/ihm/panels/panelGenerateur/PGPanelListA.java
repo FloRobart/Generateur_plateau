@@ -1,4 +1,4 @@
-package ihm.panels.panelGenerateur;
+  package ihm.panels.panelGenerateur;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -224,12 +224,12 @@ public class PGPanelListA extends JPanel
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,false)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAjouter, javax.swing.GroupLayout.DEFAULT_SIZE, 71, 71))
+                        .addComponent(this.btnSupprimer, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(this.btnAjouter, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(this.jScrollPane1, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
@@ -372,11 +372,6 @@ public class PGPanelListA extends JPanel
         this.effacerForm();
     }
     private void cb2SensActionPerformed           (ActionEvent e){}
- 
-    
-    private void btnCouleurBAActionPerformed      (ActionEvent e){}
-    private void btnCouleurABActionPerformed      (ActionEvent e){}
-    private void txtDistanceActionPerformed       (ActionEvent e){}
     
     private void txtDistanceKeyPressed(KeyEvent ke) 
     {
