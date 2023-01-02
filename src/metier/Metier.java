@@ -28,7 +28,7 @@ import controleur.Controleur;
 
 public class Metier 
 {
-	private Controleur    ctrl;
+	private Controleur ctrl;
 
 	private int[]         taillePlateau;
 	private BufferedImage imagePlateau;
@@ -46,31 +46,50 @@ public class Metier
 	private BufferedImage       imageVersoCouleur;
 	private BufferedImage       imageRectoLocomotive;
 	private List<BufferedImage> lstImagesRectoCouleur;
-
-	private List<Integer> lstPoints;
+	private List<Integer>       lstPoints;
 
 	private BufferedImage       imageVersoObjectif;
 	private List<CarteObjectif> carteObjectif;
-
 	private List<Noeud>         lstNoeuds;
 	private List<Arete>         lstAretes;
 
 	private HashMap<String, List<Color>> hmColorThemes;
 
-
-	public Metier()
+	/*
+	 * Constructeur vide avec des paramètres par défault pour l'ouverture de l'éditeur ou la
+	 * création d'un nouveau plateau
+	 */
+	public Metier(Controleur ctrl)
 	{
-		this.taillePlateau         = new int[2];
+		this.ctrl = ctrl;
+
+		this.taillePlateau  = new int[2];
+		this.imagePlateau   = null;
+		this.couleurPlateau = Color.WHITE;
+		this.policePlateau  = new Font("Arial", Font.PLAIN, 12);
+
+		this.nbJoueursMin      = 2;
+		this.nbJoueursMax      = 5;
+		this.nbCarteCoul       = 25;
+		this.nbCarteLocomotive = 30;
+		this.nbJetonJoueur     = 50;
+		this.nbJetonFin        = 2;
+
 		this.lstCouleurs           = new ArrayList<Color>();
+		this.imageVersoCouleur     = null;
+		this.imageRectoLocomotive  = null;
 		this.lstImagesRectoCouleur = new ArrayList<BufferedImage>();
 		this.lstPoints             = new ArrayList<Integer>();
-		this.carteObjectif         = new ArrayList<CarteObjectif>();
-		this.lstNoeuds             = new ArrayList<Noeud>();
-		this.lstAretes             = new ArrayList<Arete>();
 
-		this.hmColorThemes         = new HashMap<String, List<Color>>();
+		this.imageVersoObjectif = null;
+		this.carteObjectif      = new ArrayList<CarteObjectif>();
+		this.lstNoeuds          = new ArrayList<Noeud>();
+		this.lstAretes          = new ArrayList<Arete>();
+
+		this.hmColorThemes = new HashMap<String, List<Color>>();
+
 /*
-		this.policePlateau = new Font("Arial", Font.PLAIN, 12);
+		
 		this.nbJoueursMin = 2;
 		this.nbJoueursMax = 5;
 		this.nbCarteCoul = 12;
@@ -113,18 +132,12 @@ public class Metier
 		this.chargerThemes(themeUsed);
 	}
 
-	public Metier(File fichier)
+	public Metier(Controleur ctrl, File fichier)
 	{
-		this();
+		this(ctrl);
 
 		this.lireFichier(fichier);
 	}
-
-	public void addControleur(Controleur ctrl)
-	{
-		this.ctrl = ctrl;
-	}
-
 
 	public String getThemeUsed()
 	{
