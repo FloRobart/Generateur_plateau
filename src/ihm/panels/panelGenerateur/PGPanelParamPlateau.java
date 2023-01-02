@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,8 +28,8 @@ import ihm.customComponent.TextFieldWithHint;
 public class PGPanelParamPlateau extends JPanel
 {
     private JButton    btnChoisirCouleur;
-    private JButton    btnChoisirFont;
     private JButton    btnParcourirImg;
+	private JComboBox  ddlstChoisirFont;
     private JLabel     lblCouleurFond;
     private JLabel     lblDimension;
     private JLabel     lblParamPlateau;
@@ -53,7 +54,7 @@ public class PGPanelParamPlateau extends JPanel
         this.txtY              = new TextFieldWithHint("Y", ctrl);
         this.btnParcourirImg   = new JButton          ();
         this.btnChoisirCouleur = new JButton          ();
-        this.btnChoisirFont    = new JButton          ();
+        this.ddlstChoisirFont  = new JComboBox          ();
 
 
         /* Titre (Parametre du Plateau) */
@@ -113,13 +114,16 @@ public class PGPanelParamPlateau extends JPanel
             }
         });
 
-        /* Bouton de choix de la police */
-        this.btnChoisirFont.setText("Choisir une police");
-        this.btnChoisirFont.addActionListener(new ActionListener()
+        /* Liste de choix de la police */
+		this.ddlstChoisirFont.setModel(new javax.swing.DefaultComboBoxModel(new String[] 
+			{ "Arial", "Calibri", "Comic Sans MS", "Courier New", "Georgia", "Impact", 
+			"Lucida Console", "Lucida Sans Unicode", "Tahoma", "Times New Roman", 
+			"Trebuchet MS", "Verdana" }));
+		this.ddlstChoisirFont.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                btnChoisirFontActionPerformed(e);
+                ddlstChoisirFontActionPerformed(e);
             }
         });
 
@@ -145,7 +149,7 @@ public class PGPanelParamPlateau extends JPanel
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addComponent(this.btnParcourirImg, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(this.btnChoisirCouleur, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(this.btnChoisirFont, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(this.ddlstChoisirFont, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(this.lblPolice)
                     .addComponent(this.lblCouleurFond))
                 .addContainerGap(49, Short.MAX_VALUE))
@@ -172,7 +176,7 @@ public class PGPanelParamPlateau extends JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(this.lblPolice)
-                    .addComponent(this.btnChoisirFont, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(this.ddlstChoisirFont, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 21, Short.MAX_VALUE))
         );
 
@@ -216,15 +220,10 @@ public class PGPanelParamPlateau extends JPanel
 		 	this.ctrl.setCouleurPlateau(color);
     }                                                 
 
-    private void btnChoisirFontActionPerformed(ActionEvent e)
+    private void ddlstChoisirFontActionPerformed(ActionEvent e)
     {                                               
-        JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
-        fileChooser.setMultiSelectionEnabled(false);
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		int result = fileChooser.showOpenDialog(this);
-
-		if (result == JFileChooser.APPROVE_OPTION) { return; }
+        Font font = new Font(this.ddlstChoisirFont.getSelectedItem().toString(), Font.PLAIN, 12);
+		this.ctrl.setPolicePlateau(font);
     }
 
 
@@ -301,9 +300,9 @@ public class PGPanelParamPlateau extends JPanel
         this.btnChoisirCouleur.setForeground(btnForeColor); 
 
         /* Bouton de choix de la police */
-        this.btnChoisirFont.setOpaque    (true);
-        this.btnChoisirFont.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnChoisirFont.setForeground(btnForeColor);
-        this.btnChoisirFont.setBackground(btnBackColor);
+        this.ddlstChoisirFont.setOpaque    (true);
+        this.ddlstChoisirFont.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.ddlstChoisirFont.setForeground(btnForeColor);
+        this.ddlstChoisirFont.setBackground(btnBackColor);
 	}
 }
