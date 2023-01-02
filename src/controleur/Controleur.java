@@ -26,8 +26,7 @@ public class Controleur
 
     public void nouveau() 
     {
-        this.metier = new Metier();
-		this.metier.addControleur(this);
+        this.metier = new Metier(this);
         
         if (this.ihm != null)
             this.ihm.dispose();
@@ -81,7 +80,7 @@ public class Controleur
 
 	public void ouvrir(File fichier) 
     {
-		this.metier = new Metier(fichier);
+		this.metier = new Metier(this, fichier);
 		
         this.ihm.dispose();
         this.ihm = new FramePlateau(this);
