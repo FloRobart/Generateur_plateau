@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
 import ihm.frames.FrameCouleur;
+import ihm.frames.FrameCreerCarteWagon;
 
 
 public class PGPanelParamJeu extends JPanel
@@ -41,6 +42,7 @@ public class PGPanelParamJeu extends JPanel
     private JButton    btnPlusJoker;
     private JButton    btnPoints;
     private JButton    btnChoisirImg;
+
     private JLabel     lblImgCarte;
     private JLabel     lblModif;
     private JLabel     lblMultiCoul;
@@ -99,7 +101,7 @@ public class PGPanelParamJeu extends JPanel
         this.lblNbCarteParCoul.setText("nb couleurs");
         this.lblNbCarteParCoul.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblImgCarte.setText("image cartes");
+        this.lblImgCarte.setText("Créer cartes wagon");
         this.lblImgCarte.setFont(new Font("Segoe UI", 1, 12));
         
         this.lblCartesWagon.setText("Cartes wagon");
@@ -216,7 +218,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnChoisirImg.setText("Choisir une image");
+        this.btnChoisirImg.setText("Définir image");
         this.btnChoisirImg.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -393,28 +395,7 @@ public class PGPanelParamJeu extends JPanel
 
     private void btnChoisirImgActionPerformed(ActionEvent e)
     {                                         
-        String filePath = "";
-		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
-		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		int result = fc.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION)
-		{
-			File file = fc.getSelectedFile();
-			filePath  = file.getAbsolutePath();
-			BufferedImage img;
-			try 
-			{
-				img = ImageIO.read(new File(filePath));
-				this.ctrl.setImagePlateau(img);
-			}
-            catch(IOException ex)
-            {
-                ex.printStackTrace();
-                System.out.println("Erreur lors de la lecture de l'image");
-            }
-        }
+        new FrameCreerCarteWagon(this.ctrl);
     }
 
 

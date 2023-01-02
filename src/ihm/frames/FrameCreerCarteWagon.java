@@ -7,8 +7,10 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,14 +23,13 @@ import java.awt.Color;
 import controleur.Controleur;
 
 
-public class FrameCreerCarteJoueur extends JFrame implements ActionListener
+public class FrameCreerCarteWagon extends JFrame implements ActionListener
 {
     private JPanel panelParametrageCarte;
     private JPanel panelVisualisatonCarte;
     private JPanel panelActionCarte;
 
     private List lstCarte;
-    private List lstCartePredefini;
 
     private JButton btnAjouter;
     private JButton btnModifier;
@@ -40,7 +41,7 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
     private JLabel lblCarteWagon;
 
 
-    public FrameCreerCarteJoueur(Controleur ctrl)
+    public FrameCreerCarteWagon(Controleur ctrl)
     {
         //Paramètres de la frame
         this.setTitle("Concepteur de cartes");
@@ -53,9 +54,10 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
 
         //Creation des composants
         this.panelParametrageCarte = new JPanel();
-        this.panelParametrageCarte.setLayout(new BorderLayout());
+        this.panelParametrageCarte.setLayout(new GridLayout(4,1));
 
         this.panelVisualisatonCarte = new JPanel();
+        this.panelVisualisatonCarte.setLayout(new GridLayout(1,1));
         this.lblCarteWagon = new JLabel("");
 
         this.panelActionCarte = new JPanel();
@@ -64,10 +66,6 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
         this.lstCarte.add("Salut");
         this.lstCarte.add("Salut");
         this.lstCarte.add("Bonjour");
-
-        this.lstCartePredefini = new List();
-        this.lstCartePredefini.add("1");
-        this.lstCartePredefini.add("1");
 
         this.btnAjouter = new JButton("Ajouter");
         this.btnModifier= new JButton("Modifier");
@@ -91,7 +89,6 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
 
         this.panelParametrageCarte.add(this.lstCarte, BorderLayout.NORTH);
         this.panelParametrageCarte.add(this.btnChoisirImage, BorderLayout.NORTH);
-        //image predef
         this.panelParametrageCarte.add(this.btnChoisirCouleur);
         this.panelParametrageCarte.add(this.btnVerso, BorderLayout.SOUTH);
 
@@ -108,12 +105,75 @@ public class FrameCreerCarteJoueur extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) 
     {
+        if ( e.getSource() == btnAjouter )
+        {
+            String nomFichier;
+
+            // Choix du nom du fichier
+            nomFichier = JOptionPane.showInputDialog("Entrez le nom du fichier");
+
+            if (nomFichier != null) 
+            {
+                File dossierWagon = new File("wagon");
+
+                if (!dossierWagon.exists())
+                    dossierWagon.mkdir();
+
+                // Importation du panel en image
+                Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
+                BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+                Graphics2D    g2d   = image.createGraphics();
+                this.panelVisualisatonCarte.print(g2d);
+                g2d.dispose();
+
+                // Enregistrement du fichier dans le répertoire choisi
+                try 
+                {
+                    ImageIO.write(image, "png", new File("wagon\\" + nomFichier + ".png"));
+                    JOptionPane.showMessageDialog(this, "Exportation réussi dans le dossier wagon");
+                } 
+                catch (IOException ex) 
+                {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Erreur lors de l'exportation");
+                }
+            }
+        }
+
+        if ( e.getSource() == btnModifier )
+        {
+            
+        }
+
+        if ( e.getSource() == btnSupprimer )
+        {
+            //Supprime l'image de la carte
+            try{
+
+            File file = new File("./Generateur_plateau/donnees/images/cartes_joueurs/" + this.lstCarte.getSelectedItem() + ".png");
+
+            if(file.delete())
+            {
+                System.out.println(file.getName() + " est supprimé.");
+            }
+            else
+            {
+                System.out.println("Opération de suppression echouée");
+            }
+
+            }catch(Exception ex){ex.printStackTrace();}
+
+            //Supprime la carte de la liste
+            this.lstCarte.remove(this.lstCarte.getSelectedIndex());
+        }
+
         if ( e.getSource() == this.btnChoisirCouleur )
         {
             Color color = JColorChooser.showDialog(this, "Choisissez une couleur", Color.WHITE);
             if (color != null) 
                 this.panelVisualisatonCarte.setBackground(color);
         }
+
         if ( e.getSource() == this.btnChoisirImage )
         {
             String filePath = "";

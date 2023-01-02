@@ -28,7 +28,10 @@ import controleur.Controleur;
 
 public class Metier 
 {
-	private Controleur    ctrl;
+	/* --------------------------- */
+	/*         Attributs           */
+	/* --------------------------- */
+	private Controleur ctrl;
 
 	private int[]         taillePlateau;
 	private BufferedImage imagePlateau;
@@ -46,36 +49,53 @@ public class Metier
 	private BufferedImage       imageVersoCouleur;
 	private BufferedImage       imageRectoLocomotive;
 	private List<BufferedImage> lstImagesRectoCouleur;
-
-	private List<Integer> lstPoints;
+	private List<Integer>       lstPoints;
 
 	private BufferedImage       imageVersoObjectif;
 	private List<CarteObjectif> carteObjectif;
-
 	private List<Noeud>         lstNoeuds;
 	private List<Arete>         lstAretes;
 
 	private HashMap<String, List<Color>> hmColorThemes;
 
+	/* --------------------------- */
+	/*      Constructeurs          */
+	/* --------------------------- */	
 
-	public Metier()
+	/*
+	 * Constructeur vide avec des paramètres par défault pour l'ouverture de l'éditeur ou la
+	 * création d'un nouveau plateau
+	 */
+	public Metier(Controleur ctrl)
 	{
-		this.taillePlateau         = new int[2];
+		this.ctrl = ctrl;
+
+		this.taillePlateau  = new int[2];
+		this.imagePlateau   = null;
+		this.couleurPlateau = Color.WHITE;
+		this.policePlateau  = new Font("Arial", Font.PLAIN, 12);
+
+		this.nbJoueursMin      = 2;
+		this.nbJoueursMax      = 5;
+		this.nbCarteCoul       = 25;
+		this.nbCarteLocomotive = 30;
+		this.nbJetonJoueur     = 50;
+		this.nbJetonFin        = 2;
+
 		this.lstCouleurs           = new ArrayList<Color>();
+		this.imageVersoCouleur     = null;
+		this.imageRectoLocomotive  = null;
 		this.lstImagesRectoCouleur = new ArrayList<BufferedImage>();
 		this.lstPoints             = new ArrayList<Integer>();
-		this.carteObjectif         = new ArrayList<CarteObjectif>();
-		this.lstNoeuds             = new ArrayList<Noeud>();
-		this.lstAretes             = new ArrayList<Arete>();
 
-		this.hmColorThemes         = new HashMap<String, List<Color>>();
-/*
-		this.policePlateau = new Font("Arial", Font.PLAIN, 12);
-		this.nbJoueursMin = 2;
-		this.nbJoueursMax = 5;
-		this.nbCarteCoul = 12;
-		this.nbCarteLocomotive = 14;
-*/
+		this.imageVersoObjectif = null;
+		this.carteObjectif      = new ArrayList<CarteObjectif>();
+		this.lstNoeuds          = new ArrayList<Noeud>();
+		this.lstAretes          = new ArrayList<Arete>();
+
+		this.hmColorThemes = new HashMap<String, List<Color>>();
+
+		// Valeurs de test
 		this.taillePlateau[0] = 800;
 		this.taillePlateau[1] = 800;
 
@@ -113,18 +133,39 @@ public class Metier
 		this.chargerThemes(themeUsed);
 	}
 
-	public Metier(File fichier)
+	public Metier(Controleur ctrl, File fichier)
 	{
-		this();
+		this(ctrl);
 
 		this.lireFichier(fichier);
 	}
 
-	public void addControleur(Controleur ctrl)
-	{
-		this.ctrl = ctrl;
-	}
+	/* --------------------------- */
+	/*          Getters            */
+	/* --------------------------- */
+	public int[]                        getTaillePlateau       () { return this.taillePlateau;        }
+	public BufferedImage                getImagePlateau        () { return this.imagePlateau;         }
+	public Color                        getCouleurPlateau      () { return this.couleurPlateau;       }
+	public Font                         getPolicePlateau       () { return this.policePlateau;        }
 
+	public int                          getNbJoueursMin        () { return this.nbJoueursMin;         }
+	public int                          getNbJoueursMax        () { return this.nbJoueursMax;         }
+	public int                          getNbCarteCoul         () { return this.nbCarteCoul;          }
+	public int                          getNbCarteLocomotive   () { return this.nbCarteLocomotive;    }
+	public int                          getNbJetonJoueur       () { return this.nbJetonJoueur;        }
+	public int                          getNbJetonFin          () { return this.nbJetonFin;           }
+
+	public List<Color>                  getCouleurs            () { return this.lstCouleurs;          }
+	public BufferedImage                getImageVersoCouleur   () { return this.imageVersoCouleur;    }
+	public BufferedImage                getImageRectoLocomotive() { return this.imageRectoLocomotive; }
+	public List<BufferedImage>          getImagesRectoCouleur  () { return this.lstImagesRectoCouleur;}
+	public List<Integer>                getPoints              () { return this.lstPoints;            }
+
+	public BufferedImage                getImageVersoObjectif  () { return this.imageVersoObjectif;   }
+	public List<CarteObjectif>          getCarteObjectif       () { return this.carteObjectif;        }
+	public List<Noeud>                  getNoeuds              () { return this.lstNoeuds;            }
+	public List<Arete>                  getAretes              () { return this.lstAretes;            }
+	public HashMap<String, List<Color>> getTheme               () { return this.hmColorThemes;        }
 
 	public String getThemeUsed()
 	{
@@ -140,83 +181,29 @@ public class Metier
 		return themeUsed;
 	}
 
-	public HashMap<String, List<Color>> chargerThemes(String theme)
-	{
-		SAXBuilder sxb = new SAXBuilder();
+	/* --------------------------- */
+	/*          Setters            */
+	/* --------------------------- */
+	public void setTaillePlateauX(int x)             { this.taillePlateau[0] = x;   }
+	public void setTaillePlateauY(int y)             { this.taillePlateau[1] = y;   }
+	public void setCouleurPlateau(Color c)           { this.couleurPlateau   = c;   }
+	public void setImagePlateau  (BufferedImage img) { this.imagePlateau     = img; }
+	public void setPolicePlateau (Font f)            { this.policePlateau    = f;   }
 
-		try
-		{
-			Element racine = sxb.build("./bin/donnees/themes/theme_" + theme + ".xml").getRootElement();
+	public void setNbJoueursMin     (int val) { this.nbJoueursMin      = val; }
+	public void setNbJoueursMax     (int val) { this.nbJoueursMax      = val; }
+	public void setNbCarteCoul      (int val) { this.nbCarteCoul       = val; }
+	public void setNbCarteLocomotive(int val) { this.nbCarteLocomotive = val; }
+	public void setNbJetonJoueur    (int val) { this.nbJetonJoueur     = val; }
+	public void setNbJetonFin       (int val) { this.nbJetonFin        = val; }
 
-			/*----------------------------*/
-			/* BacKground Générale (=bkg) */
-			/*----------------------------*/
-			Element bkg = racine.getChild("background");
+	public void setImageVersoCouleur   (BufferedImage img) { this.imageVersoCouleur    = img; }
+	public void setImageRectoLocomotive(BufferedImage img) { this.imageRectoLocomotive = img; }
+	public void setImageRectoCouleur(int ind, BufferedImage img) { this.lstImagesRectoCouleur.set(ind, img); }
 
-			List<Color> lst = new ArrayList<Color>();
-			lst.add(new Color(Integer.parseInt(bkg.getAttributeValue("red")), Integer.parseInt(bkg.getAttributeValue("green")), Integer.parseInt(bkg.getAttributeValue("blue"))));
-			this.hmColorThemes.put("background", lst);
-
-
-			/*------------------------------------------*/
-			/* Récupération de tout les autres éléments */
-			/*------------------------------------------*/
-			String[] lstCles = new String[] {"titles", "labels", "saisies", "bottuns", "menuBar"};
-			for (int i = 0; i < lstCles.length; i++)
-			{
-				lst = new ArrayList<Color>();
-				Element foreground = racine.getChild(lstCles[i]).getChild("foreground");
-				Element background = racine.getChild(lstCles[i]).getChild("background");
-
-				lst.add(0, new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
-				lst.add(1, new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
-
-				/* Récupération de la couleur du PlaceHolder */
-				if (lstCles[i].equals("saisies"))
-				{
-					Element placeholder = racine.getChild(lstCles[i]).getChild("placeholder");
-					lst.add(2, new Color(Integer.parseInt(placeholder.getAttributeValue("red")), Integer.parseInt(placeholder.getAttributeValue("green")), Integer.parseInt(placeholder.getAttributeValue("blue")), Integer.parseInt(placeholder.getAttributeValue("alpha"))));
-				}
-
-
-				this.hmColorThemes.put(lstCles[i], lst);
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			System.out.println("Erreur lors de la lecture du fichier XML des informations du theme");
-		}
-
-		return this.hmColorThemes;
-	}
-
-
-	public int[]                        getTaillePlateau       () { return this.taillePlateau;        }
-	public BufferedImage                getImagePlateau        () { return this.imagePlateau;         }
-	public Color                        getCouleurPlateau      () { return this.couleurPlateau;       }
-	public Font                         getPolicePlateau       () { return this.policePlateau;        }
-	public int                          getNbJoueursMin        () { return this.nbJoueursMin;         }
-	public int                          getNbJoueursMax        () { return this.nbJoueursMax;         }
-	public int                          getNbCarteCoul         () { return this.nbCarteCoul;          }
-	public int                          getNbCarteLocomotive   () { return this.nbCarteLocomotive;    }
-	public int                          getNbJetonJoueur       () { return this.nbJetonJoueur;        }
-	public int                          getNbJetonFin          () { return this.nbJetonFin;           }
-	public List<Color>                  getCouleurs            () { return this.lstCouleurs;          }
-	public BufferedImage                getImageVersoCouleur   () { return this.imageVersoCouleur;    }
-	public BufferedImage                getImageRectoLocomotive() { return this.imageRectoLocomotive; }
-	public List<BufferedImage>          getImagesRectoCouleur  () { return this.lstImagesRectoCouleur;}
-	public List<Integer>                getPoints              () { return this.lstPoints;            }
-	public BufferedImage                getImageVersoObjectif  () { return this.imageVersoObjectif;   }
-	public List<CarteObjectif>          getCarteObjectif       () { return this.carteObjectif;        }
-	public List<Noeud>                  getNoeuds              () { return this.lstNoeuds;            }
-	public List<Arete>                  getAretes              () { return this.lstAretes;            }
-	public HashMap<String, List<Color>> getTheme               () { return this.hmColorThemes;        }
-
-	public void setCouleurPlateau(Color c)
-	{
-		this.couleurPlateau = c;
-	}
+	public void setImageVersoObjectif(BufferedImage img) { this.imageVersoObjectif = img; }
+	public void setPositionNoeud   (int id, int x, int y) { this.lstNoeuds.get(id).setXY   (x, y); }
+	public void setPositionNomNoeud(int id, int x, int y) { this.lstNoeuds.get(id).setXYNom(x, y); }
 
 	public void setThemeUsed(String theme)
 	{
@@ -238,30 +225,159 @@ public class Metier
 		this.ctrl.appliquerTheme();
 	}
 
-	public void setPositionNoeud(int id, int x, int y)
-	{
-		this.lstNoeuds.get(id).setXY(x, y);
-	}
-
-	public void setPositionNomNoeud(int id, int x, int y)
-	{
-		this.lstNoeuds.get(id).setXYNom(x, y);
-	}
+	/* --------------------------- */
+	/*     Gestion des listes      */
+	/* --------------------------- */
 
 	public void ajouterCouleur(Color c)
 	{
 		this.lstCouleurs.add(c);
+		this.lstImagesRectoCouleur.add(null);
 	}
 
 	public void supprimerCouleur(Color c)
 	{
+		int ind = this.lstCouleurs.indexOf(c);
+		this.lstImagesRectoCouleur.remove(ind);
 		this.lstCouleurs.remove(c);
 	}
 
-	public void setImagePlateau(BufferedImage img)
+	/**
+	 * Ajoute un Noeud
+	 * @param nom : nom du noeud
+	 * @param posX : position X du noeud
+	 * @param posY	: position Y du noeud
+	 * @param posNomX : position X du nom du noeud
+	 * @param posNomY : position Y du nom du noeud
+	 * @param couleur : couleur du noeud
+	 */
+    public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
 	{
-		this.imagePlateau = img;
+		this.lstNoeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
+    }
+
+
+	/**
+	 * Supprime un Noeud
+	 * @param nom : nom du noeud
+	 */
+    public void supprimerNoeud(String nom) 
+	{
+		for (int i = 0; i < this.lstNoeuds.size(); i++)
+		{
+			if (this.lstNoeuds.get(i).getNom().equals(nom))
+			{
+				this.lstNoeuds.remove(i);
+				return;
+			}
+		}
+    }
+
+	/**
+	 * Ajoute une Arete
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 * @param distance : distance entre les deux lstNoeuds
+	 * @param couleur1 : couleur de la première arrête
+	 * @param couleur2 : couleur de la deuxième arrête si c'est une double voie
+	 */
+    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+	{
+		Noeud nA=null;
+		Noeud nB=null;
+
+		for (Noeud n : this.lstNoeuds)
+		{
+			if (n.getNom().equals(nom1))
+			{
+				nA = n;
+			}
+
+			if(n.getNom().equals(nom2))
+			{
+				nB = n;
+			}
+		}
+
+		this.lstAretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
+    }
+
+	/**
+	 * Supprime une arete
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 */
+    public void supprimerArete(String nom1, String nom2) 
+	{
+		for(Arete a : this.lstAretes)
+		{
+			if (a.getNoeud1().getNom().equals(nom1) && a.getNoeud2().getNom().equals(nom2))
+			{
+				this.lstAretes.remove(a);
+				return;
+			}
+		}
+    }
+
+	/**
+	 * Ajoute un objectif
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 * @param point : nombre de point que rapporte l'objectif
+	 */
+	public void ajouterObjectif(String nom1, String nom2, int point) 
+	{
+		Noeud nA=null;
+		Noeud nB=null;
+
+		for (Noeud n : this.lstNoeuds)
+		{
+			if (n.getNom().equals(nom1))
+			{
+				nA = n;
+			}
+
+			if(n.getNom().equals(nom2))
+			{
+				nB = n;
+			}
+		}
+		this.carteObjectif.add(new CarteObjectif(nA, nB, point, null));
 	}
+
+	/**
+	 * Supprime un objectif
+	 * @param nom1 : nom du noeud 1
+	 * @param nom2 : nom du noeud 2
+	 */
+    public void supprimerObjectif(String nom1, String nom2) 
+	{
+		for(CarteObjectif c : this.carteObjectif)
+		{
+			if (c.getNoeud1().getNom().equals(nom1) && c.getNoeud2().getNom().equals(nom2))
+			{
+				this.carteObjectif.remove(c);
+				return;
+			}
+		}
+    }
+
+	/**
+	 * @param index : ajout d'un score dans la liste des scores
+	 */
+	public void setNbPoint(int index) 
+	{
+		this.lstPoints.add(index);
+	}
+
+    public void supprimerPoint() 
+	{
+		this.lstPoints.remove(this.lstPoints.size()-1);
+    }
+
+	/* --------------------------- */
+	/*       Lecture XML           */
+	/* --------------------------- */
 
 	private void lireFichier(File fichier)
 	{
@@ -634,6 +750,57 @@ public class Metier
 		return "#" + Integer.toHexString(color.getRGB()).substring(2);
 	}
 
+	public HashMap<String, List<Color>> chargerThemes(String theme)
+	{
+		SAXBuilder sxb = new SAXBuilder();
+
+		try
+		{
+			Element racine = sxb.build("./bin/donnees/themes/theme_" + theme + ".xml").getRootElement();
+
+			/*----------------------------*/
+			/* BacKground Générale (=bkg) */
+			/*----------------------------*/
+			Element bkg = racine.getChild("background");
+
+			List<Color> lst = new ArrayList<Color>();
+			lst.add(new Color(Integer.parseInt(bkg.getAttributeValue("red")), Integer.parseInt(bkg.getAttributeValue("green")), Integer.parseInt(bkg.getAttributeValue("blue"))));
+			this.hmColorThemes.put("background", lst);
+
+
+			/*------------------------------------------*/
+			/* Récupération de tout les autres éléments */
+			/*------------------------------------------*/
+			String[] lstCles = new String[] {"titles", "labels", "saisies", "bottuns", "menuBar"};
+			for (int i = 0; i < lstCles.length; i++)
+			{
+				lst = new ArrayList<Color>();
+				Element foreground = racine.getChild(lstCles[i]).getChild("foreground");
+				Element background = racine.getChild(lstCles[i]).getChild("background");
+
+				lst.add(0, new Color(Integer.parseInt(foreground.getAttributeValue("red")), Integer.parseInt(foreground.getAttributeValue("green")), Integer.parseInt(foreground.getAttributeValue("blue"))));
+				lst.add(1, new Color(Integer.parseInt(background.getAttributeValue("red")), Integer.parseInt(background.getAttributeValue("green")), Integer.parseInt(background.getAttributeValue("blue"))));
+
+				/* Récupération de la couleur du PlaceHolder */
+				if (lstCles[i].equals("saisies"))
+				{
+					Element placeholder = racine.getChild(lstCles[i]).getChild("placeholder");
+					lst.add(2, new Color(Integer.parseInt(placeholder.getAttributeValue("red")), Integer.parseInt(placeholder.getAttributeValue("green")), Integer.parseInt(placeholder.getAttributeValue("blue")), Integer.parseInt(placeholder.getAttributeValue("alpha"))));
+				}
+
+
+				this.hmColorThemes.put(lstCles[i], lst);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("Erreur lors de la lecture du fichier XML des informations du theme");
+		}
+
+		return this.hmColorThemes;
+	}
+
 	public String toString()
 	{
 		String s = "";
@@ -660,138 +827,4 @@ public class Metier
 
 		return s;
 	}
-
-	/**
-	 * Ajoute un Noeud
-	 * @param nom : nom du noeud
-	 * @param posX : position X du noeud
-	 * @param posY	: position Y du noeud
-	 * @param posNomX : position X du nom du noeud
-	 * @param posNomY : position Y du nom du noeud
-	 * @param couleur : couleur du noeud
-	 */
-    public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
-	{
-		this.lstNoeuds.add(new Noeud(nom, posX, posY, posNomX, posNomY, couleur));
-    }
-
-
-	/**
-	 * Supprime un Noeud
-	 * @param nom : nom du noeud
-	 */
-    public void supprimerNoeud(String nom) 
-	{
-		for (int i = 0; i < this.lstNoeuds.size(); i++)
-		{
-			if (this.lstNoeuds.get(i).getNom().equals(nom))
-			{
-				this.lstNoeuds.remove(i);
-				return;
-			}
-		}
-    }
-
-	/**
-	 * Ajoute une Arete
-	 * @param nom1 : nom du noeud 1
-	 * @param nom2 : nom du noeud 2
-	 * @param distance : distance entre les deux lstNoeuds
-	 * @param couleur1 : couleur de la première arrête
-	 * @param couleur2 : couleur de la deuxième arrête si c'est une double voie
-	 */
-    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
-	{
-		Noeud nA=null;
-		Noeud nB=null;
-
-		for (Noeud n : this.lstNoeuds)
-		{
-			if (n.getNom().equals(nom1))
-			{
-				nA = n;
-			}
-
-			if(n.getNom().equals(nom2))
-			{
-				nB = n;
-			}
-		}
-
-		this.lstAretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
-    }
-
-	/**
-	 * Supprime une arete
-	 * @param nom1 : nom du noeud 1
-	 * @param nom2 : nom du noeud 2
-	 */
-    public void supprimerArete(String nom1, String nom2) 
-	{
-		for(Arete a : this.lstAretes)
-		{
-			if (a.getNoeud1().getNom().equals(nom1) && a.getNoeud2().getNom().equals(nom2))
-			{
-				this.lstAretes.remove(a);
-				return;
-			}
-		}
-    }
-
-	/**
-	 * Ajoute un objectif
-	 * @param nom1 : nom du noeud 1
-	 * @param nom2 : nom du noeud 2
-	 * @param point : nombre de point que rapporte l'objectif
-	 */
-	public void ajouterObjectif(String nom1, String nom2, int point) 
-	{
-		Noeud nA=null;
-		Noeud nB=null;
-
-		for (Noeud n : this.lstNoeuds)
-		{
-			if (n.getNom().equals(nom1))
-			{
-				nA = n;
-			}
-
-			if(n.getNom().equals(nom2))
-			{
-				nB = n;
-			}
-		}
-		this.carteObjectif.add(new CarteObjectif(nA, nB, point, null));
-	}
-
-	/**
-	 * Supprime un objectif
-	 * @param nom1 : nom du noeud 1
-	 * @param nom2 : nom du noeud 2
-	 */
-    public void supprimerObjectif(String nom1, String nom2) 
-	{
-		for(CarteObjectif c : this.carteObjectif)
-		{
-			if (c.getNoeud1().getNom().equals(nom1) && c.getNoeud2().getNom().equals(nom2))
-			{
-				this.carteObjectif.remove(c);
-				return;
-			}
-		}
-    }
-
-	/**
-	 * 
-	 * @param index : ajout d'un score dans la liste des scores
-	 */
-	public void setNbPoint(int index) 
-	{
-		this.lstPoints.add(index);
-	}
-
-    public void supprimerPoint() 
-	{
-		this.lstPoints.remove(this.lstPoints.size()-1);
-    }
 }
