@@ -22,6 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldOnlyInteger;
 import ihm.panels.PanelArrete;
 import ihm.panels.PanelNoeud;
 import metier.Noeud;
@@ -41,10 +42,10 @@ public class PGPanelListN extends JPanel
     private JLabel            lblPositionNom;
     private JScrollPane       lstNoeud;
     private JTextField txtNom;
-    private JTextField txtPosNomX;
-    private JTextField txtPosNomY;
-    private JTextField txtPosX;
-    private JTextField txtPosY;
+    private TextFieldOnlyInteger txtPosNomX;
+    private TextFieldOnlyInteger txtPosNomY;
+    private TextFieldOnlyInteger txtPosX;
+    private TextFieldOnlyInteger txtPosY;
     /**
      * Creates new form PGPanelListN
      */
@@ -59,10 +60,10 @@ public class PGPanelListN extends JPanel
         this.lblPositionNom = new JLabel           (     );
         this.lblCouleur     = new JLabel           (     );
         this.txtNom         = new JTextField();
-        this.txtPosY        = new JTextField();
-        this.txtPosX        = new JTextField();
-        this.txtPosNomX     = new JTextField();
-        this.txtPosNomY     = new JTextField();
+        this.txtPosY        = new TextFieldOnlyInteger();
+        this.txtPosX        = new TextFieldOnlyInteger();
+        this.txtPosNomX     = new TextFieldOnlyInteger();
+        this.txtPosNomY     = new TextFieldOnlyInteger();
         this.btnCouleur     = new JButton          (     );
         this.btnAjouter     = new JButton          (     );
         this.btnSupprimer   = new JButton          (     );
@@ -237,8 +238,18 @@ public class PGPanelListN extends JPanel
         );
     }
 
-    private void txtNomActionPerformed      (ActionEvent e){}
-    private void txtPosXActionPerformed     (ActionEvent e){}
+    private void txtNomActionPerformed      (ActionEvent e)
+    {
+        Noeud noeud = this.listNoeuds.getSelectedValue();
+        noeud.setNom(this.txtNom.getText());
+        this.ctrl.majIHMPlateau();
+    }
+    private void txtPosXActionPerformed     (ActionEvent e)
+    {
+        Noeud noeud = this.listNoeuds.getSelectedValue();
+
+        this.ctrl.majIHMPlateau();
+    }
     private void txtPosYActionPerformed     (ActionEvent e){}
     private void txtPosNomXActionPerformed  (ActionEvent e){}
     private void txtPosNomYActionPerformed  (ActionEvent e){}
