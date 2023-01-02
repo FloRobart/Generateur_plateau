@@ -62,9 +62,25 @@ public class Controleur
 
 	public HashMap<String, List<Color>> getTheme() { return this.metier.getTheme(); }
 	
-	
-
 	/* Setters */
+	public void setTaillePlateauX(int x)             { this.metier.setTaillePlateauX(x); this.majIHMPlateau(); }
+	public void setTaillePlateauY(int y)             { this.metier.setTaillePlateauY(y); this.majIHMPlateau(); }
+	public void setCouleurPlateau(Color c)           { this.metier.setCouleurPlateau(c); this.majIHMPlateau(); }
+	public void setImagePlateau  (BufferedImage img) { this.metier.setImagePlateau(img); this.majIHMPlateau(); }
+	public void setPolicePlateau (Font f)            { this.metier.setPolicePlateau (f); this.majIHMPlateau(); }
+
+	public void setNbJoueursMin     (int val) { this.metier.setNbJoueursMin     (val); }
+	public void setNbJoueursMax     (int val) { this.metier.setNbJoueursMax     (val); }
+	public void setNbCarteCoul      (int val) { this.metier.setNbCarteCoul      (val); }
+	public void setNbCarteLocomotive(int val) { this.metier.setNbCarteLocomotive(val); }
+	public void setNbJetonJoueur    (int val) { this.metier.setNbJetonJoueur    (val); }
+	public void setNbJetonFin       (int val) { this.metier.setNbJetonFin       (val); }
+
+	public void setImageVersoCouleur   (BufferedImage img) { this.metier.setImageVersoCouleur   (img); }
+	public void setImageRectoLocomotive(BufferedImage img) { this.metier.setImageRectoLocomotive(img); }
+	public void setImageRectoCouleur(int ind, BufferedImage img) { this.metier.setImageRectoCouleur(ind, img); }
+	public void setImageVersoObjectif  (BufferedImage img) { this.metier.setImageVersoObjectif  (img); }
+
 	public void setPositionNoeud(int id, int x, int y)
 	{
 		this.metier.setPositionNoeud(id, x, y);
@@ -84,19 +100,6 @@ public class Controleur
 	{
 		this.metier.supprimerCouleur(c);
 	}
-
-	public void setCouleurPlateau(Color c)
-	{
-		this.metier.setCouleurPlateau(c);
-		this.ihm.majIHM();
-    }
-
-	public void setImagePlateau(BufferedImage img)
-	{
-		this.metier.setImagePlateau(img);
-		this.ihm.setImageFond(img);
-    }
-
 
 	public void ouvrir(File fichier) 
     {

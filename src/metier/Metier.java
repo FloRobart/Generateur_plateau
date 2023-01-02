@@ -197,7 +197,7 @@ public class Metier
 	public void setNbJetonJoueur    (int val) { this.nbJetonJoueur     = val; }
 	public void setNbJetonFin       (int val) { this.nbJetonFin        = val; }
 
-	public void setImageVersoCouleur(BufferedImage img) { this.imageVersoCouleur = img; }
+	public void setImageVersoCouleur   (BufferedImage img) { this.imageVersoCouleur    = img; }
 	public void setImageRectoLocomotive(BufferedImage img) { this.imageRectoLocomotive = img; }
 	public void setImageRectoCouleur(int ind, BufferedImage img) { this.lstImagesRectoCouleur.set(ind, img); }
 
