@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileSystemView;
 
@@ -59,9 +60,11 @@ public class FramePlateau extends JFrame
         panel.add(this.panelPlateau);
 
 		this.panelGenerateur = new PanelGenerateur(this.ctrl);
+		JScrollPane scrollPane = new JScrollPane(this.panelGenerateur);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		//Create a split pane with the two scroll panes in it.
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGenerateur, panel);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, panel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
 		splitPane.setDividerLocation(this.getWidth()/3);
@@ -69,7 +72,7 @@ public class FramePlateau extends JFrame
 		//Provide minimum sizes for the two components in the split pane
 		panel.setMinimumSize(new Dimension(0, 0));
 		this.panelGenerateur.setMinimumSize(new Dimension(0, 0));
-
+		scrollPane.setMinimumSize(new Dimension(0,0));
 		/*frames modif */
 		this.frameObjectif = new FrameObjectif(this.ctrl);
 		this.framePoint = new FramePoint(this.ctrl);
