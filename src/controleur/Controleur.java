@@ -254,4 +254,8 @@ public class Controleur
         return this.ihm;
     }
     
+	public void envoyerCouleur(Color c, String nomPanel) 
+	{
+		this.ihm.envoyerCouleur(c, nomPanel);
+	}
 }

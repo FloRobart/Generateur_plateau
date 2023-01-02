@@ -1,8 +1,10 @@
 ./src/controleur/Controleur.java
 
 ./src/ihm/customComponent/TextFieldWithHint.java
+./src/ihm/customComponent/TextFieldOnlyInteger.java
 
 ./src/ihm/frames/FrameCouleur.java
+./src/ihm/frames/FrameCouleurChooser.java
 ./src/ihm/frames/FrameCreerCarteWagon.java
 ./src/ihm/frames/FrameModif.java
 ./src/ihm/frames/FrameObjectif.java
