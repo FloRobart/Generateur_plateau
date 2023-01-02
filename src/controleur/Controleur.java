@@ -20,11 +20,13 @@ public class Controleur
 	private FramePlateau ihm;
 	private Metier       metier;
 
+	// Constructeur
     public Controleur()
     {
         this.nouveau();
     }
 
+	// Methodes
     public void nouveau() 
     {
         this.metier = new Metier(this);
@@ -33,6 +35,24 @@ public class Controleur
             this.ihm.dispose();
         this.ihm = new FramePlateau(this);
     }
+
+	public void ouvrir(File fichier) 
+    {
+		this.metier = new Metier(this, fichier);
+		
+        this.ihm.dispose();
+        this.ihm = new FramePlateau(this);
+    }
+
+    public void enregistrer    ()                   { this.ihm.enregistrer (); }
+	public void enregistrerSous()                   { this.ihm.enregistrer (); }
+    public void exporterSous   (String formatImage) { this.ihm.exporterSous(formatImage); }
+    public void frameDispose   ()                   { this.ihm.dispose     (); }
+
+	public void genererTxt(String type, String nomFichier)
+	{
+		this.ihm.dispose();
+	}
 
 	/* Getters */
 	public Metier getMetier() { return this.metier; } // à enlever
@@ -101,18 +121,7 @@ public class Controleur
 		this.metier.supprimerCouleur(c);
 	}
 
-	public void ouvrir(File fichier) 
-    {
-		this.metier = new Metier(this, fichier);
-		
-        this.ihm.dispose();
-        this.ihm = new FramePlateau(this);
-    }
-
-    public void enregistrer    ()                   { this.ihm.enregistrer (); }
-	public void enregistrerSous()                   { this.ihm.enregistrer (); }
-    public void exporterSous   (String formatImage) { this.ihm.exporterSous(formatImage); }
-    public void frameDispose   ()                   { this.ihm.dispose     (); }
+	
 	
 	
 	public void changerTheme(String theme)
@@ -129,10 +138,7 @@ public class Controleur
 
 	
 
-	public void genererTxt(String type, String nomFichier)
-	{
-		this.ihm.dispose();
-	}
+	
 
 	/**
 	 * permet d'afficher la bonne frame en fonction du paramètre qui lui est passé
