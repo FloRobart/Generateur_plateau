@@ -1,5 +1,6 @@
 package ihm.frames;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -223,5 +224,10 @@ public class FramePlateau extends JFrame
 					this.framePoint.setVisible(true);
 				}
 		}
+	}
+
+	public void envoyerCouleur(Color c, String nomPanel)
+	{
+		// à compléter
 	}
 }
