@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
@@ -317,9 +318,28 @@ public class PGPanelListO extends  JPanel
 
     private void txtPointActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setPoints(Integer.parseInt(this.txtPoint.getText()));
-        this.majIHM();
+        if (this.txtPoint.getText().length() > 0)
+		{
+			try
+			{
+				int point = Integer.parseInt(this.txtPoint.getText());
+				if (point < 0)
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtPoint.setText("" + this.jListObj.getSelectedValue().getPoints());
+				}
+				else
+				{
+					this.jListObj.getSelectedValue().setPoints(point);
+					this.ctrl.majIHMPlateau();
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtPoint.setText("" + this.jListObj.getSelectedValue().getPoints());
+			}
+		}
     }
 
     private void btnImgRectoActionPerformed(ActionEvent evt)
