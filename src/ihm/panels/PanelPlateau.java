@@ -204,7 +204,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
 		// affichage de l'image de fond
 		BufferedImage img = this.ctrl.getImagePlateau();
-		if (img != null)
+		if (img != null && taillePlateau[0] > 0 && taillePlateau[1] > 0)
 		{
 			// on redimensionne l'image de fond pour qu'elle corresponde à la taille du plateau
 			BufferedImage imgPlateau = new BufferedImage(taillePlateau[0], taillePlateau[1], img.getType());
@@ -286,7 +286,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			                                               midY + noeud.getYNom() - 7, 
 			                                               width, 14);
 
-			// nom du noeud
+			// nom du noeud	
 			g2.setColor(Color.BLACK);
             g2.drawString(noeud.getNom(), 
 			              midX + noeud.getXNom() - (noeud.getNom().length() * 3), 

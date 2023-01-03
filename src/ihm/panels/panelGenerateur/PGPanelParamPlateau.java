@@ -273,6 +273,13 @@ public class PGPanelParamPlateau extends JPanel
 				{
 					BufferedImage img = ImageIO.read(fichier);
 					this.ctrl.setImagePlateau(img);
+
+					int choix = JOptionPane.showConfirmDialog(null, "Voulez-vous donner au plateau les dimensions de votre image ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+					if (choix == JOptionPane.YES_OPTION)
+					{
+						this.ctrl.setTaillePlateauX(img.getWidth());
+						this.ctrl.setTaillePlateauY(img.getHeight());
+					}
 				}
 				else
 					JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format JPG, GIF, PNG ou JPEG", "Erreur", JOptionPane.ERROR_MESSAGE);         
