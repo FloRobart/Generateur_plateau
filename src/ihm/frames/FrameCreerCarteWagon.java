@@ -5,22 +5,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JList;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
@@ -28,23 +30,20 @@ import controleur.Controleur;
 public class FrameCreerCarteWagon extends JFrame implements ActionListener
 {
     private Controleur ctrl;
-    private int indiceCarte;
+    private int indice;
 
     private JPanel panelParametrageCarte;
     private JPanel panelVisualisationCarte;
     private JPanel panelVisualisation;
     private JPanel panelActionCarte;
 
-    private List lstCarte;
+    private JList<String> lstCarte;
 
-    private JButton btnAjouter;
+    private JButton btnEnregistrer;
     private JButton btnSupprimer;
     private JButton btnQuitter;
 
-    private JButton btnVerso;
-    private JButton btnLocomotive;
     private JButton btnChoisirImage;
-    private JButton btnChoisirCouleur;
 
     private JLabel lblCarteWagon;
 
@@ -53,7 +52,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
     public FrameCreerCarteWagon(Controleur ctrl)
     {
         this.ctrl = ctrl;
-        this.indiceCarte = 2;
+        this.indice = 2;
 
         //Paramètres de la frame
         this.setTitle("Concepteur de cartes wagon");
@@ -64,8 +63,9 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.setLayout( new BorderLayout());
 
         //Creation des composants
+        this.lstCarte = new JList<String>();
         this.panelParametrageCarte = new JPanel();
-        this.panelParametrageCarte.setLayout(new GridLayout(5,1));
+        this.panelParametrageCarte.setLayout(new GridLayout(2,1));
 
         this.panelVisualisation = new JPanel();
 
@@ -74,28 +74,31 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.panelActionCarte = new JPanel();
 
-        this.lstCarte = new List();
+        ArrayList<String> alCartes = new ArrayList<String>();
+        
+        for(Color c : this.ctrl.getCouleurs())
+            alCartes.add(indice++, "Carte " + c.getRGB());
 
-        this.btnAjouter   = new JButton("Ajouter");
+        this.lstCarte.setModel(new AbstractListModel<String>()
+        {
+            public int getSize() { return alCartes.size(); }
+            public String getElementAt(int i) { return alCartes.get(i); }
+        });
+        this.lstCarte.setPreferredSize(new Dimension(60, 40));
+
+        this.btnEnregistrer   = new JButton("Enregistrer");
         this.btnSupprimer = new JButton("Supprimer");
         this.btnQuitter   = new JButton("Quitter");
 
-        this.btnVerso          = new JButton("Carte verso");
-        this.btnLocomotive     = new JButton("Carte Locomotive");
         this.btnChoisirImage   = new JButton("Choisissez l'image de la carte");
-        this.btnChoisirCouleur = new JButton ("Choisissez la couleur de la carte");
 
         //Ajout des composants au ActionListener
-        this.lstCarte.addActionListener(this);
 
-        this.btnAjouter.addActionListener(this);
+        this.btnEnregistrer.addActionListener(this);
         this.btnSupprimer.addActionListener(this);
         this.btnQuitter.addActionListener(this);
 
-        this.btnVerso.addActionListener(this);
-        this.btnLocomotive.addActionListener(this);
         this.btnChoisirImage.addActionListener(this);
-        this.btnChoisirCouleur.addActionListener(this);
 
         //Ajout des composants
         this.panelVisualisation.add(this.panelVisualisationCarte);
@@ -104,11 +107,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.panelParametrageCarte.add(this.lstCarte);
         this.panelParametrageCarte.add(this.btnChoisirImage);
-        this.panelParametrageCarte.add(this.btnChoisirCouleur);
-        this.panelParametrageCarte.add(this.btnVerso);
-        this.panelParametrageCarte.add(this.btnLocomotive);
 
-        this.panelActionCarte.add(this.btnAjouter, BorderLayout.SOUTH);
+        this.panelActionCarte.add(this.btnEnregistrer, BorderLayout.SOUTH);
         this.panelActionCarte.add(this.btnSupprimer, BorderLayout.SOUTH);
         this.panelActionCarte.add(this.btnQuitter, BorderLayout.SOUTH);
 
@@ -137,9 +137,10 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
             
             this.lblCarteWagon.setIcon(new ImageIcon(img));
             this.panelVisualisationCarte.setSize(img.getWidth(), img.getHeight());
+            this.panelVisualisationCarte.setBackground(this.ctrl.getCouleurs().get(this.lstCarte.getSelectedIndex()));
         }
 
-        if ( e.getSource() == btnAjouter )
+        if ( e.getSource() == btnEnregistrer )
         {
             // Importation du panel en image
             Dimension     d     = new Dimension (this.panelVisualisationCarte.getWidth(),this.panelVisualisationCarte.getHeight());
@@ -148,9 +149,14 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
             this.panelVisualisationCarte.print(g2d);
             g2d.dispose();
 
-            this.lstCarte.add("Carte wagon " + (this.indiceCarte-1), this.indiceCarte );
-            this.ctrl.setImageRectoCouleur(indiceCarte, image);
-            this.indiceCarte++;
+            if ( this.lstCarte.getSelectedIndex() == 0 )
+                this.ctrl.setImageVersoCouleur(image);
+
+            else if ( this.lstCarte.getSelectedIndex() == 1 )
+                this.ctrl.setImageRectoLocomotive(image);
+
+            else
+                this.ctrl.setImageRectoCouleur(this.lstCarte.getSelectedIndex(), image);
         }
 
         if ( e.getSource() == this.btnSupprimer )
@@ -164,20 +170,11 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 this.ctrl.supprimerImageRectoLocomotive();
 
             else
-                this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex()-2);
+                this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
+
         }
 
         if ( e.getSource() == this.btnQuitter )  { this.dispose(); }
-
-        if ( e.getSource() == this.btnChoisirCouleur )
-        {
-            List lstCouleurs = new List();
-            for ( Color couleur : this.ctrl.getCouleurs())
-            {
-                lstCouleurs.add(couleur.toString());
-            }
-            this.panelVisualisationCarte.setBackground(this.ctrl.getCouleurs().get(0));
-        }
 
         if ( e.getSource() == this.btnChoisirImage )
         {
@@ -214,30 +211,13 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                     }
                 } catch (IOException ex) {ex.printStackTrace();}
             }
-        }
-
-        if ( e.getSource() == this.btnLocomotive )
-        {  
+            /*
             Dimension     d     = new Dimension (this.panelVisualisationCarte.getWidth(),this.panelVisualisationCarte.getHeight());
             BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
             Graphics2D    g2d   = image.createGraphics();
             this.panelVisualisationCarte.print(g2d);
             g2d.dispose();
-
-            this.lstCarte.add("Carte Locomotive", 1);
-            this.ctrl.setImageRectoLocomotive(image);
-        }
-
-        if ( e.getSource() == this.btnVerso )
-        {  
-            Dimension     d     = new Dimension (this.panelVisualisationCarte.getWidth(),this.panelVisualisationCarte.getHeight());
-            BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
-            Graphics2D    g2d   = image.createGraphics();
-            this.panelVisualisationCarte.print(g2d);
-            g2d.dispose();
-
-            this.lstCarte.add("Carte Verso ", 0);
-            this.ctrl.setImageVersoCouleur(image);
+            this.ctrl.setImageRectoCouleur(this.lstCarte.getSelectedIndex(),image);*/
         }
     }
 
@@ -264,8 +244,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.lstCarte.setForeground(saisiForeColor);
         this.lstCarte.setBackground(background);
 
-        this.btnAjouter.setForeground(btnForeColor);
-        this.btnAjouter.setBackground(btnBackColor);
+        this.btnEnregistrer.setForeground(btnForeColor);
+        this.btnEnregistrer.setBackground(btnBackColor);
 
         this.btnSupprimer.setForeground(btnForeColor);
         this.btnSupprimer.setBackground(btnBackColor);
@@ -273,17 +253,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.btnQuitter.setForeground(btnForeColor);
         this.btnQuitter.setBackground(btnBackColor);
 
-        this.btnVerso.setForeground(btnForeColor);
-        this.btnVerso.setBackground(btnBackColor);
-
-        this.btnLocomotive.setForeground(btnForeColor);
-        this.btnLocomotive.setBackground(btnBackColor);
-
         this.btnChoisirImage.setForeground(btnForeColor);
         this.btnChoisirImage.setBackground(btnBackColor);
-
-        this.btnChoisirCouleur.setForeground(btnForeColor);
-        this.btnChoisirCouleur.setBackground(btnBackColor);
 
         this.lblCarteWagon.setForeground(labelForeColor);
         this.lblCarteWagon.setBackground(labelBackColor);
