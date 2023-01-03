@@ -16,9 +16,7 @@
 ./src/ihm/panels/PanelAjoutObjectif.java
 ./src/ihm/panels/PanelArete.java
 ./src/ihm/panels/PanelGenerateur.java
-./src/ihm/panels/PanelGererObjectif.java
 ./src/ihm/panels/PanelJoueur.java
-./src/ihm/panels/PanelModifObjectif.java
 ./src/ihm/panels/PanelNoeud.java
 ./src/ihm/panels/PanelPlateau.java
 

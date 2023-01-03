@@ -173,7 +173,8 @@ public class PGPanelListA extends JPanel
   
 
         this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
-		this.comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(lstAretes.get(0).getNoeud1()));
+		if (lstAretes.size() != 0)
+			this.comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(lstAretes.get(0).getNoeud1()));
         this.comboBoxListNoeudA.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -183,7 +184,8 @@ public class PGPanelListA extends JPanel
         });
 
         this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(tabNoeudB));
-		this.comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(lstAretes.get(0).getNoeud2()));
+		if (lstAretes.size() != 0)
+			this.comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(lstAretes.get(0).getNoeud2()));
         this.comboBoxListNoeudB.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -201,6 +203,8 @@ public class PGPanelListA extends JPanel
             }
         });
 
+		if (lstAretes.size() != 0)
+			this.txtDistance.setText("" + lstAretes.get(0).getDistance());
         this.txtDistance.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -401,75 +405,82 @@ public class PGPanelListA extends JPanel
 
 	private void comboBoxListNoeudAActionPerformed(ActionEvent e)
 	{
-		Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
-		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
-		boolean erreur = false;
-		
-		if (!estUneMaj)
+		if (this.ctrl.getAretes().size() != 0)
 		{
-			if (noeud1.equals(noeud2))
+			Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+			Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+			boolean erreur = false;
+			
+			if (!estUneMaj)
 			{
-				JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
-				erreur = true;
-			}
-			else
-			{
-				for (Arete a : this.ctrl.getAretes())
+				if (noeud1.equals(noeud2))
 				{
-					if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
-						(a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+					JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+					erreur = true;
+				}
+				else
+				{
+					for (Arete a : this.ctrl.getAretes())
 					{
-						JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-						erreur = true;
-						break;
+						if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
+							(a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+						{
+							JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+							erreur = true;
+							break;
+						}
 					}
 				}
-			}
 
-			if (!erreur)
-			{
-				this.jListAretes.getSelectedValue().setNoeud1(noeud1);
-				this.ctrl.majIHMPlateau();
+				if (!erreur)
+				{
+					this.jListAretes.getSelectedValue().setNoeud1(noeud1);
+					this.ctrl.majIHMPlateau();
+				}
+				else
+					this.comboBoxListNoeudA.setSelectedItem(this.jListAretes.getSelectedValue().getNoeud1());
 			}
-			else
-				this.comboBoxListNoeudA.setSelectedItem(this.jListAretes.getSelectedValue().getNoeud1());
+		
 		}
 	}
 
     private void comboBoxListNoeudBActionPerformed(ActionEvent e)
 	{
-		Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
-		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
-		boolean erreur = false;
-
-		if (!estUneMaj)
+		if (this.ctrl.getAretes().size() != 0) 
 		{
-			if (noeud1.equals(noeud2))
+			Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+			Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+			boolean erreur = false;
+	
+			if (!estUneMaj)
 			{
-				JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
-				erreur = true;
-			}
-			else
-			{
-				for (Arete a : this.ctrl.getAretes())
+				if (noeud1.equals(noeud2))
 				{
-					if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
-						(a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+					JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+					erreur = true;
+				}
+				else
+				{
+					for (Arete a : this.ctrl.getAretes())
 					{
-						JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-						erreur = true;
-						break;
+						if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
+							(a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+						{
+							JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+							erreur = true;
+							break;
+						}
 					}
 				}
+	
+				if (!erreur)
+				{
+					this.jListAretes.getSelectedValue().setNoeud2(noeud2);
+					this.ctrl.majIHMPlateau();
+				}
+				else
+					this.comboBoxListNoeudB.setSelectedItem(this.jListAretes.getSelectedValue().getNoeud2());
 			}
-
-			if (!erreur)
-			{
-				this.jListAretes.getSelectedValue().setNoeud2(noeud2);
-				this.ctrl.majIHMPlateau();
-			}
-			else
-				this.comboBoxListNoeudB.setSelectedItem(this.jListAretes.getSelectedValue().getNoeud2());
 		}
 	}
 

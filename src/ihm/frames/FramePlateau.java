@@ -215,6 +215,11 @@ public class FramePlateau extends JFrame
 		this.panelGenerateur.selectArete(index);
 	}
 
+	public void selectObjectif(int index)
+	{
+		this.panelGenerateur.selectObjectif(index);
+	}
+
 	public void envoyerCouleur(Color c, String nomPanel)
 	{
 		this.panelGenerateur.envoyerCouleur(c, nomPanel);
