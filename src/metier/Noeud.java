@@ -17,7 +17,7 @@ public class Noeud
 	public Noeud(String nom, int x, int y, int xNom, int yNom, Color c)
 	{
 		this.id      = ++Noeud.nbNoeud;
-		if (nom.isBlank())
+		if (nom.length() == 0)
 			this.nom = "Noeud #" + this.id;
 		else
 			this.nom     = nom;
