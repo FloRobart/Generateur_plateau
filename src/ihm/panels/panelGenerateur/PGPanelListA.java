@@ -30,9 +30,12 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 import javax.swing.ListModel;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
+import ihm.frames.FrameCouleurChooser;
 import metier.Arete;
 import metier.Noeud;
 
@@ -42,8 +45,8 @@ public class PGPanelListA extends JPanel
     private Controleur        ctrl;
 
     private JButton           btnAjouter;
-    private JButton           btnCouleurAB;
-    private JButton           btnCouleurBA;
+    private JButton           btnCouleur1;
+    private JButton           btnCouleur2;
     private JButton           btnSupprimer;
     private JCheckBox         cb2Sens;
     private JComboBox<Noeud> comboBoxListNoeudA;
@@ -51,8 +54,8 @@ public class PGPanelListA extends JPanel
     private JList<Arete>     jListAretes;
     private JScrollPane       jScrollPane1;
     private JLabel            lbl2Sens;
-    private JLabel            lblCouleurAB;
-    private JLabel            lblCouleurBA;
+    private JLabel            lblCouleur1;
+    private JLabel            lblCouleur2;
     private JLabel            lblDistance;
     private JLabel            lblNoeudA;
     private JLabel            lblNoeudB;
@@ -61,10 +64,12 @@ public class PGPanelListA extends JPanel
     private List<Noeud>       lstNoeudA;
     private List<Noeud>       lstNoeudB;
 
-    private Color             couleurAB;
-    private Color             couleurBA;
+    private Color             couleur1;
+    private Color             couleur2;
 
-    private ListModel<String> listModel;
+    private ListModel<Arete> listModel;
+
+	private int couleurAttendu = 1;
 
 
     /**
@@ -79,15 +84,15 @@ public class PGPanelListA extends JPanel
         this.lblNoeudA          = new JLabel           ();
         this.lblNoeudB          = new JLabel           ();
         this.lbl2Sens           = new JLabel           ();
-        this.lblCouleurAB       = new JLabel           ();
+        this.lblCouleur1        = new JLabel           ();
         this.lblDistance        = new JLabel           ();
-        this.lblCouleurBA       = new JLabel           ();
+        this.lblCouleur2        = new JLabel           ();
         this.comboBoxListNoeudA = new JComboBox<Noeud>();
         this.comboBoxListNoeudB = new JComboBox<Noeud>();
         this.cb2Sens            = new JCheckBox        ();
         this.txtDistance        = new TextFieldWithHint("Distance", ctrl);
-        this.btnCouleurAB       = new JButton          ();
-        this.btnCouleurBA       = new JButton          ();
+        this.btnCouleur1        = new JButton          ();
+        this.btnCouleur2        = new JButton          ();
         this.btnAjouter         = new JButton          ();
         this.btnSupprimer       = new JButton          ();
         this.lstNoeudA          = ctrl.getNoeuds       ();
@@ -96,9 +101,9 @@ public class PGPanelListA extends JPanel
 
 
         /* jListAretes */
-
-        for (Arete a : this.ctrl.getAretes()) {
-            ((DefaultListModel<String>) this.listModel).addElement(a.toString());
+		List<Arete> lstAretes = ctrl.getAretes();
+        for (Arete a : lstAretes) {
+            ((DefaultListModel<Arete>) this.listModel).addElement(a);
         }
         this.jListAretes.setModel(new AbstractListModel<Arete>()
         {
@@ -115,6 +120,42 @@ public class PGPanelListA extends JPanel
             }
         });
 
+		this.jListAretes.addListSelectionListener(new ListSelectionListener()
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent e)
+            {
+				Arete areteSelected = jListAretes.getSelectedValue();
+
+				if (areteSelected == null && lstAretes.size() != 0) 
+					areteSelected = lstAretes.get(0);
+				
+				if (areteSelected != null)
+				{
+					List<Noeud> lstNoeuds = ctrl.getNoeuds();
+
+        			comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(areteSelected.getNoeud1()));
+        			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(areteSelected.getNoeud2()));
+					txtDistance.setText("" + areteSelected.getDistance());
+					btnCouleur1.setBackground(areteSelected.getCouleur1());
+
+					if (areteSelected.getCouleur2() != null)
+					{
+						cb2Sens.setSelected(true);
+						btnCouleur2.setBackground(areteSelected.getCouleur2());
+					}
+					else
+					{
+						cb2Sens.setSelected(false);
+						btnCouleur2.setBackground(null);
+					}
+				}
+				else
+				{
+					//this.effacerForm();
+				}
+			}
+		});
 
 
         /* Ajout de la list1 dans un JScrollPane */
@@ -133,16 +174,16 @@ public class PGPanelListA extends JPanel
         this.lbl2Sens.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblCouleurAB */
-        this.lblCouleurAB.setText("Couleur AB");
-        this.lblCouleurAB.setFont(new Font("Segoe UI", 1, 12));
+        this.lblCouleur1.setText("Couleur 1");
+        this.lblCouleur1.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblDistance */
         this.lblDistance.setText("Distance");
         this.lblDistance.setFont(new Font("Segoe UI", 1, 12));
 
         /* lblCouleurBA */
-        this.lblCouleurBA.setText("Couleur BA");
-        this.lblCouleurBA.setFont(new Font("Segoe UI", 1, 12));
+        this.lblCouleur2.setText("Couleur 2");
+        this.lblCouleur2.setFont(new Font("Segoe UI", 1, 12));
 
         /* comboBoxListNoeudA */
         Noeud[] tabNoeudA = lstNoeudA.toArray(new Noeud[0]);
@@ -183,18 +224,19 @@ public class PGPanelListA extends JPanel
             }
          });
 
-        this.btnCouleurAB.setText("Couleur");
-        this.btnCouleurAB.setFocusPainted(false);
-        this.btnCouleurAB.addActionListener(e ->
+        this.btnCouleur1.setText("Couleur");
+        this.btnCouleur1.setFocusPainted(false);
+        this.btnCouleur1.addActionListener(e ->
         {
-            selectColorAB();
+            selectColor1();
         });
 
-        this.btnCouleurBA.setText("Couleur");
-        this.btnCouleurBA.setFocusPainted(false);
-        this.btnCouleurBA.addActionListener(e ->
+        this.btnCouleur2.setText("Couleur");
+        this.btnCouleur2.setFocusPainted(false);
+		this.btnCouleur2.setEnabled(false);
+        this.btnCouleur2.addActionListener(e ->
         {
-            selectColorBA();
+            selectColor2();
         });
 
         this.btnAjouter.setText("Ajouter");
@@ -254,13 +296,13 @@ public class PGPanelListA extends JPanel
                         .addComponent(this.txtDistance, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(this.lblCouleurBA)
+                            .addComponent(this.lblCouleur2)
                             .addGap(18, 18, 18)
-                            .addComponent(this.btnCouleurBA, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(this.btnCouleur2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(this.lblCouleurAB)
+                            .addComponent(this.lblCouleur1)
                             .addGap(18, 18, 18)
-                            .addComponent(this.btnCouleurAB, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(this.btnCouleur1, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -278,15 +320,15 @@ public class PGPanelListA extends JPanel
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(this.lblNoeudB)
                             .addComponent(this.comboBoxListNoeudB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(this.lblCouleurAB)
-                            .addComponent(this.btnCouleurAB))
+                            .addComponent(this.lblCouleur1)
+                            .addComponent(this.btnCouleur1))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(this.lbl2Sens)
                                 .addComponent(this.cb2Sens, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(this.lblCouleurBA))
-                            .addComponent(this.btnCouleurBA)))
+                                .addComponent(this.lblCouleur2))
+                            .addComponent(this.btnCouleur2)))
                     .addComponent(this.jScrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -301,7 +343,7 @@ public class PGPanelListA extends JPanel
             public void mousePressed(MouseEvent e) 
             {
                 if(e.getSource() == jListAretes)
-                {
+                {/*
                     String[] noms = listModel.getElementAt(jListAretes.getSelectedIndex()).split("-");
                     
                     for(Arete a : ctrl.getAretes())
@@ -311,11 +353,11 @@ public class PGPanelListA extends JPanel
                             comboBoxListNoeudA.setSelectedItem(a.getNoeud1());
                             comboBoxListNoeudB.setSelectedItem(a.getNoeud2());
                             txtDistance.setText(String.valueOf(a.getDistance()));
-                            btnCouleurAB.setBackground(a.getCouleur1());
-                            btnCouleurBA.setBackground(a.getCouleur2());
+                            btnCouleur1.setBackground(a.getCouleur1());
+                            btnCouleur2.setBackground(a.getCouleur2());
                             cb2Sens.setSelected(a.is2Sens());
                         }
-                    }
+                    }*/
                 }   
             }
         };
@@ -323,53 +365,65 @@ public class PGPanelListA extends JPanel
         this.appliquerTheme();
     }                      
 
-    private void selectColorBA() 
+    private void selectColor1() 
     {
-        this.couleurBA = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        this.btnCouleurBA.setBackground(this.couleurBA);
+		new FrameCouleurChooser(ctrl, this.getClass().getName());
+		this.couleurAttendu = 1;
     }
 
 
-    private void selectColorAB() 
+    private void selectColor2() 
     {
-        this.couleurAB = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        this.btnCouleurAB.setBackground(this.couleurAB);
+        new FrameCouleurChooser(ctrl, this.getClass().getName());
+		this.couleurAttendu = 2;
     }
 
 
-    private void btnAjouterActionPerformed        (ActionEvent e)
+    private void btnAjouterActionPerformed(ActionEvent e)
     {
-        String nom1     = (String) this.comboBoxListNoeudA.getSelectedItem();
+        /*String nom1     = (String) this.comboBoxListNoeudA.getSelectedItem();
         String nom2     = (String) this.comboBoxListNoeudB.getSelectedItem();
         int    distance = Integer.parseInt(this.txtDistance.getText());
         
         if(!nom1.equals(nom2))
         {
             if(!this.cb2Sens.isSelected())
-                this.ctrl.ajouterArete(nom1, nom2, distance, couleurAB, null);
+                this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
 
-            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleurAB, this.couleurBA);
+            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
         }
 
-        ((DefaultListModel<String>) this.listModel).addElement(nom1 + " - " + nom2);
+        ((DefaultListModel<Arete>) this.listModel).addElement(a.get + " - " + nom2);
         this.jListAretes.setModel(this.listModel);
-
+*/
         this.effacerForm(); 
     }
 
 
     private void btnSupprimerActionPerformed      (ActionEvent e)
     {
-        String[] noms = this.listModel.getElementAt(this.jListAretes.getSelectedIndex()).split("-");
+        /*String[] noms = this.listModel.getElementAt(this.jListAretes.getSelectedIndex()).split("-");
 
         this.ctrl.supprimerArete(noms[0], noms[1]);
 
-        ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
+        ((DefaultListModel<Arete>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
         this.jListAretes.setModel(this.listModel);
 
-        this.effacerForm();
+        this.effacerForm();*/
     }
-    private void cb2SensActionPerformed           (ActionEvent e){}
+
+    private void cb2SensActionPerformed(ActionEvent e)
+	{
+		if (this.cb2Sens.isSelected())
+		{
+			this.btnCouleur2.setEnabled(true);
+		}
+		else
+		{
+			this.btnCouleur2.setEnabled(false);
+			this.btnCouleur2.setBackground(null);
+		}
+	}
     
     private void txtDistanceKeyPressed(KeyEvent ke) 
     {
@@ -392,8 +446,8 @@ public class PGPanelListA extends JPanel
         this.comboBoxListNoeudA.setSelectedIndex(0);
         this.comboBoxListNoeudB.setSelectedIndex(0);
         this.cb2Sens.setSelected(false);
-        this.btnCouleurAB.setBackground(this.ctrl.getTheme().get("bottuns").get(1));
-        this.btnCouleurBA.setBackground(this.ctrl.getTheme().get("bottuns").get(1));
+        this.btnCouleur1.setBackground(this.ctrl.getTheme().get("bottuns").get(1));
+        this.btnCouleur2.setBackground(this.ctrl.getTheme().get("bottuns").get(1));
     }
 
 
@@ -429,14 +483,14 @@ public class PGPanelListA extends JPanel
         this.lbl2Sens          .setForeground(labelForeColor);
         this.lbl2Sens          .setBackground(labelBackColor);
         
-        this.lblCouleurAB      .setForeground(labelForeColor);
-        this.lblCouleurAB      .setBackground(labelBackColor);
+        this.lblCouleur1       .setForeground(labelForeColor);
+        this.lblCouleur2       .setBackground(labelBackColor);
 
         this.lblDistance       .setForeground(labelForeColor);
         this.lblDistance       .setBackground(labelBackColor);
         
-        this.lblCouleurBA      .setForeground(labelForeColor);
-        this.lblCouleurBA      .setBackground(labelBackColor);
+        this.lblCouleur2       .setForeground(labelForeColor);
+        this.lblCouleur2       .setBackground(labelBackColor);
         
         this.comboBoxListNoeudA.setBorder(null);
         this.comboBoxListNoeudA.setForeground(saisiForeColor);
@@ -457,13 +511,13 @@ public class PGPanelListA extends JPanel
         this.txtDistance       .setPlaceholderColor(placeholderColor);
         this.txtDistance       .setDisabledTextColor(new Color(255, 0, 0));
         
-        this.btnCouleurAB      .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnCouleurAB      .setForeground(btnForeColor);
-        this.btnCouleurAB      .setBackground(btnBackColor);
+        this.btnCouleur1       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnCouleur1       .setForeground(btnForeColor);
+        this.btnCouleur1       .setBackground(btnBackColor);
         
-        this.btnCouleurBA      .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnCouleurBA      .setForeground(btnForeColor);
-        this.btnCouleurBA      .setBackground(btnBackColor);
+        this.btnCouleur2       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnCouleur2       .setForeground(btnForeColor);
+        this.btnCouleur2       .setBackground(btnBackColor);
         
         this.btnAjouter        .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnAjouter        .setForeground(btnForeColor);
@@ -473,5 +527,19 @@ public class PGPanelListA extends JPanel
         this.btnSupprimer      .setForeground(btnForeColor);
         this.btnSupprimer      .setBackground(btnBackColor);
     }
+
+	public void envoyerCouleur(Color c)
+	{
+		if (this.couleurAttendu == 1)
+		{
+			this.couleur1 = c;
+			this.btnCouleur1.setBackground(c);
+		}
+		else
+		{
+			this.couleur2 = c;
+			this.btnCouleur2.setBackground(c);
+		}
+	}
 
 }

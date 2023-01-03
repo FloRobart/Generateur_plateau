@@ -37,7 +37,7 @@ public class FrameCouleurChooser extends JFrame implements ActionListener
 		/*----------------------------*/
 		/* Initialisation de la frame */
 		/*----------------------------*/
-		this.setSize(300, nbLig * 65);
+		this.setSize(300, nbLig * 70);
 		this.setLocation(500, 300);
 		this.setLayout(new GridLayout(nbLig,5, 20, 20));
 
@@ -83,7 +83,7 @@ public class FrameCouleurChooser extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		for (JButton btnCoul : this.lstBtnCoul)
-			if ( e.getSource() == btnCoul && this.lstBtnCoul.size() > 1 )
+			if ( e.getSource() == btnCoul )
 			{
 				this.ctrl.envoyerCouleur(btnCoul.getBackground(), this.nomPanel);
 				this.dispose();

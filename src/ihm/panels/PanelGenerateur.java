@@ -2,6 +2,7 @@ package ihm.panels;
 
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import java.awt.Color;
 
 import controleur.Controleur;
 import ihm.panels.panelGenerateur.PGPanelAjouterElements;
@@ -70,5 +71,10 @@ public class PanelGenerateur extends JPanel
 	public void selectNoeud(int index)
 	{
 		this.pGPanelExplorer.selectNoeud(index);
+	}
+
+	public void envoyerCouleur(Color c, String nomPanel)
+	{
+		this.pGPanelExplorer.envoyerCouleur(c, nomPanel);
 	}
 }
