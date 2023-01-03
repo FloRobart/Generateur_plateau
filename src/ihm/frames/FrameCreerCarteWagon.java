@@ -175,6 +175,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 }
             }
 
+            //En dessous est le vrai code final pour la méthode ajouter, ne pas toucher !!
             /*
             // Importation du panel en image
             Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
@@ -192,7 +193,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         {
             //Supprime la carte de la liste
             this.lstCarte.remove(this.lstCarte.getSelectedIndex());
-            //this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
+            this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
         }
 
         if ( e.getSource() == btnQuitter )  { this.dispose(); }
@@ -220,22 +221,13 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 File file = fileChooser.getSelectedFile();
                 filePath  = file.getAbsolutePath();
                 BufferedImage img;
-
                 try 
                 {
                     img = ImageIO.read(new File(filePath));
-
-                    BufferedImage imageIO = new BufferedImage(img.getHeight(), img.getWidth(), BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2d = imageIO.createGraphics();
-                    g2d.setColor(Color.WHITE);
-                    g2d.fillRect(1000, 100, 150, 150);
-                    
-                    //g2d.drawImage(imageIO, 100, 100 );
-                    g2d.dispose();
-
-                    //this.lblCarteWagon.setIcon(new ImageIcon(imageIO));
+                    this.lblCarteWagon.setIcon(new ImageIcon(img));
                 } catch (IOException ex) {ex.printStackTrace();}
             }
+            this.repaint();
         }
     }
 }
