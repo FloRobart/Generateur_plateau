@@ -156,7 +156,7 @@ public class PGPanelListN extends JPanel
             }
         });
 
-        this.btnCouleur.setText(" ");
+        this.btnCouleur.setText("Couleur");
         this.btnCouleur.setOpaque(true);
         this.btnCouleur.setFocusPainted(false);
         this.btnCouleur.addActionListener(new ActionListener()
