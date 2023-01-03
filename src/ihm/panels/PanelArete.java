@@ -5,28 +5,20 @@ import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListModel;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldOnlyInteger;
 import ihm.frames.FrameCouleurChooser;
 import metier.Arete;
 import metier.Noeud;
@@ -42,7 +34,7 @@ public class PanelArete extends JPanel
 	private JCheckBox         cbVD;
     private JButton           btnCoul1;
     private JButton           btnCoul2;
-    private JTextField        txtDistance;
+    private TextFieldOnlyInteger txtDistance;
 
     private JButton           btnAjouter;
 
@@ -95,21 +87,9 @@ public class PanelArete extends JPanel
         lblDistance = new JLabel("Distance");
         lblDistance.setForeground(Color.WHITE);
 
-        this.txtDistance = new JTextField();
+        this.txtDistance = new TextFieldOnlyInteger(ctrl);
         this.txtDistance.setBackground(new Color(58, 60, 76));
         this.txtDistance.setForeground(Color.GRAY);
-
-        this.txtDistance.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
-                  txtDistance.setEditable(true);
-               }else
-               {
-                  txtDistance.setEditable(false);
-               }
-               
-            }
-         });
 
 
         lstNoeudA = this.ctrl.getNoeuds();
