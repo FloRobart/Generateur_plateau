@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -14,13 +17,16 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldOnlyInteger;
@@ -32,6 +38,7 @@ import metier.Noeud;
 public class PGPanelListO extends  JPanel
 {
     private Controleur        ctrl;
+    private PanelAjoutObjectif panelAjoutObj;
     private JButton           btnAjouter;
     private JButton           btnImgRecto;
     private JButton           btnImgVerso;
@@ -44,11 +51,11 @@ public class PGPanelListO extends  JPanel
     private JLabel            lblPoint;
     private JLabel            lblRecto;
     private JLabel            lblVerso;
-    private JScrollPane       jspNoeud;
+    private JScrollPane       jspObjectif;
     private TextFieldOnlyInteger txtPoint;
 
-    private List<Noeud>       lstNoeudA;
-    private List<Noeud>       lstNoeudB;
+    private List<Noeud>       lstNoeuds;
+    private List<CarteObjectif> lstObj;
 
     
 
@@ -58,58 +65,58 @@ public class PGPanelListO extends  JPanel
     public PGPanelListO(Controleur ctrl)
     {
         this.ctrl               = ctrl;
-        this.jspNoeud           = new  JScrollPane      ();
+        this.panelAjoutObj      = null;
+        this.jspObjectif        = new  JScrollPane      ();
         this.jListObj           = new  JList<CarteObjectif>();
         this.btnAjouter         = new  JButton          ();
         this.btnSupprimer       = new  JButton          ();
-        this.comboBoxListNoeudB = new  JComboBox<Noeud> ();
         this.lblNoeudA          = new  JLabel           ();
         this.lblNoeudB          = new  JLabel           ();
         this.comboBoxListNoeudA = new  JComboBox<Noeud> ();
+        this.comboBoxListNoeudB = new  JComboBox<Noeud> ();
         this.txtPoint           = new  TextFieldOnlyInteger(ctrl);
         this.lblPoint           = new  JLabel           ();
         this.lblRecto           = new  JLabel           ();
         this.lblVerso           = new  JLabel           ();
         this.btnImgRecto        = new  JButton          ();
         this.btnImgVerso        = new  JButton          ();
-        this.lstNoeudA          = ctrl.getNoeuds();
-        this.lstNoeudB          = ctrl.getNoeuds();
-
-        List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
-
+        this.lstNoeuds          = ctrl.getNoeuds();
+        this.lstObj             = ctrl.getCarteObjectif();
+        
         /*JListObj */
-        this.jListObj.setModel(new  AbstractListModel<CarteObjectif>() {
+        this.jListObj.setModel(new AbstractListModel<CarteObjectif>() 
+        {
             public int getSize() { return lstObj.size(); }
             public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
         });
 
-        this.jListObj.addListSelectionListener(new ListSelectionListener() 
+        this.jListObj.addListSelectionListener(new ListSelectionListener()
         {
             @Override
-            public void valueChanged(ListSelectionEvent e) 
+            public void valueChanged(ListSelectionEvent e)
             {
-                CarteObjectif objSelected = jListObj.getSelectedValue();
+				CarteObjectif objSelected = jListObj.getSelectedValue();
 
-                if(objSelected == null && lstObj.size() != 0)
-                    objSelected = lstObj.get(0);
-                
-                if(objSelected != null)
-                {
-                    comboBoxListNoeudA.setSelectedItem(objSelected.getNoeud1());
-                    comboBoxListNoeudB.setSelectedItem(objSelected.getNoeud2());
-                    txtPoint.setText("" + objSelected.getPoints());
-                }
-                else
-                {
-                    effacerForm();
-                } 
-            }
-        });
+				if (objSelected == null && lstObj.size() != 0) 
+					objSelected = lstObj.get(0);
+				
+				if (objSelected != null)
+				{
+        			comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud1()));
+        			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud2()));
 
-        this.jListObj.setSelectedIndex(0);
+					txtPoint.setText("" + objSelected.getPoints());
+					
+				}
+				else
+				{
+					effacerForm();
+				}
+			}
+		});
 
         /*Ajout de la JlistObjectif dans un JScrollPane */
-        this.jspNoeud.setViewportView(jListObj);
+        this.jspObjectif.setViewportView(jListObj);
 
         //btn Ajouter
         this.btnAjouter.setText("Ajouter");
@@ -136,19 +143,18 @@ public class PGPanelListO extends  JPanel
         this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12));
 
         /* comboBoxListNoeud */
-        Noeud[] tabNoeudA = lstNoeudA.toArray(new Noeud[0]);
-        Noeud[] tabNoeudB = lstNoeudB.toArray(new Noeud[0]);
+        Noeud[] tabNoeudA = lstNoeuds.toArray(new Noeud[0]);
+        Noeud[] tabNoeudB = lstNoeuds.toArray(new Noeud[0]);
 
-        this.comboBoxListNoeudA.setFocusable(false);
-        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(tabNoeudA));
-        this.comboBoxListNoeudA.addActionListener(new  ActionListener() {
+        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
+        this.comboBoxListNoeudA.addActionListener(new ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudActionPerformed(evt);
             }
         });
 
-        this.comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(tabNoeudB));
-        this.comboBoxListNoeudB.addActionListener(new  ActionListener() {
+        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(tabNoeudB));
+        this.comboBoxListNoeudB.addActionListener(new ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudBctionPerformed(evt);
             }
@@ -196,7 +202,7 @@ public class PGPanelListO extends  JPanel
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jspNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jspObjectif, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -246,7 +252,7 @@ public class PGPanelListO extends  JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPoint)))
-                    .addComponent(jspNoeud, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jspObjectif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,69 +260,188 @@ public class PGPanelListO extends  JPanel
                 )
         );
 
-
         this.appliquerTheme();
     }                 
 
+    /**
+     * Effacer les champs du formulaire suite à l'ajout d'un objectif
+     */
     protected void effacerForm() 
     {
         this.comboBoxListNoeudA.setSelectedIndex(0);
         this.comboBoxListNoeudB.setSelectedIndex(0);
         this.txtPoint.setText("");
     }
-
+    
     private void btnAjouterActionPerformed (ActionEvent evt)
     {
         JDialog dialog = new JDialog(this.ctrl.getIHM(), "Ajouter un objectif");
         dialog.setSize(500, 250);
-        dialog.add(new PanelAjoutObjectif(ctrl));
-
+        dialog.setLocationRelativeTo(this.ctrl.getIHM());
+        this.panelAjoutObj = new PanelAjoutObjectif(this.ctrl);
+        dialog.add(this.panelAjoutObj);
+        dialog.pack();
         dialog.setVisible(true);
-        this.majIHM();
-    }
-
-    private void majIHM() 
-    {
-        this.jListObj.setModel(new AbstractListModel<CarteObjectif>()
-        {
-            List<CarteObjectif> cartes = ctrl.getCarteObjectif();
-            public int getSize() { return cartes.size(); }
-            public CarteObjectif getElementAt(int i) { return cartes.get(i); }
-        });
-
-        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
-        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
     }
 
     private void btnSupprimerActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        this.ctrl.supprimerObjectif(carte.getNoeud1().getNom(), carte.getNoeud2().getNom());
-        this.majIHM();  
+        CarteObjectif objSelected = this.jListObj.getSelectedValue();
+        this.ctrl.supprimerArete(objSelected.getNoeud1().getNom(), objSelected.getNoeud2().getNom());
+        this.jListObj.updateUI();
+        this.ctrl.majIHMPlateau();
     }
+
+    public void majIHM() 
+    {    
+        this.jListObj.setModel(new AbstractListModel<CarteObjectif>()
+        {
+            List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
+            public int getSize() { return lstObj.size(); }
+            public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
+        });
+    }
+
     private void comboBoxListNoeudActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud1((Noeud) this.comboBoxListNoeudA.getSelectedItem());
+        Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+		boolean erreur = false;
+
+        /*if (noeud1.equals(noeud2))
+        {
+            JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+            erreur = true;
+        }
+       /*else
+        {
+            for (CarteObjectif c : this.ctrl.getCarteObjectif())
+            {
+                if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
+                    (c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
+                {
+                    JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    erreur = true;
+                    break;
+                }
+            }
+        }*/
+
+        if (!erreur)
+        {
+            this.jListObj.getSelectedValue().setNoeud1(noeud1);
+            this.ctrl.majIHMPlateau();
+        }
+        else
+            this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
+        
+        
         this.majIHM();
     }
 
     private void comboBoxListNoeudBctionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud2((Noeud) this.comboBoxListNoeudB.getSelectedItem());
+        Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+		boolean erreur = false;
+
+        /*if (noeud1.equals(noeud2))
+        {
+            JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+            erreur = true;
+        }
+        /*else
+        {
+            for (CarteObjectif c : this.ctrl.getCarteObjectif())
+            {
+                if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
+                    (c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
+                {
+                    JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    erreur = true;
+                    break;
+                }
+            }
+        }*/
+
+        if (!erreur)
+        {
+            this.jListObj.getSelectedValue().setNoeud1(noeud1);
+            this.ctrl.majIHMPlateau();
+        }
+        else
+            this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
+        
+        
         this.majIHM();
     }
 
     private void txtPointActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setPoints(Integer.parseInt(this.txtPoint.getText()));
-        this.majIHM();
+        if (this.txtPoint.getText().length() > 0)
+		{
+			try
+			{
+				int point = Integer.parseInt(this.txtPoint.getText());
+				if (point < 0)
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtPoint.setText("" + this.jListObj.getSelectedValue().getPoints());
+				}
+				else
+				{
+					this.jListObj.getSelectedValue().setPoints(point);
+					this.ctrl.majIHMPlateau();
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtPoint.setText("" + this.jListObj.getSelectedValue().getPoints());
+			}
+		}
     }
 
-    private void btnImgRectoActionPerformed       (ActionEvent evt){}
-    private void btnImgVersoActionPerformed       (ActionEvent evt){}
+    private void btnImgRectoActionPerformed(ActionEvent evt)
+    {
+        String path = "";
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
+            File file = chooser.getSelectedFile();
+            path = file.getAbsolutePath();
+            try
+            {
+                CarteObjectif carte = this.jListObj.getSelectedValue();
+                carte.setImageRecto(ImageIO.read(new File(path)));
+            } catch (IOException e1) {e1.printStackTrace();}
+            
+            this.majIHM();
+        }
+    }
+    private void btnImgVersoActionPerformed(ActionEvent evt)
+    {
+        String path = "";
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
+            File file = chooser.getSelectedFile();
+            path = file.getAbsolutePath();
+            try
+            {
+                CarteObjectif carte = this.jListObj.getSelectedValue();
+                carte.setImageRecto(ImageIO.read(new File(path)));
+            } catch (IOException e1) {e1.printStackTrace();}
+            
+            this.majIHM();
+        }
+    }
     
     public void appliquerTheme()
     {
@@ -402,5 +527,10 @@ public class PGPanelListO extends  JPanel
         this.btnImgVerso       .setForeground(btnForeColor);
         this.btnImgVerso       .setBackground(btnBackColor);
         this.btnImgVerso       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+    }
+
+    public void selectObjectif(int index) 
+    {
+        this.jListObj.setSelectedIndex(index);
     }
 }

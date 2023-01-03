@@ -15,34 +15,32 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import controleur.Controleur;
-import ihm.customComponent.TextFieldWithHint;
+import ihm.customComponent.TextFieldOnlyInteger;
 import metier.Noeud;
 
 public class PanelAjoutObjectif extends JPanel
 {
     private Controleur ctrl;
     
-    private JComboBox<String> cbA;
-    private JComboBox<String> cbB;
-    private TextFieldWithHint txtPoint;
-    private JButton           btnAjout;
+    private JComboBox<String>    cbA;
+    private JComboBox<String>    cbB;
+    private TextFieldOnlyInteger txtPoint;
+    private JButton              btnAjout;
 
-    private List<Noeud>         lstNoeudA;
-    private List<Noeud>         lstNoeudB;
+    private List<Noeud>          lstNoeudA;
+    private List<Noeud>          lstNoeudB;
 
-    private JButton             btnRecto;
-    private JButton             btnVerso;
+    private JButton              btnRecto;
+    private JButton              btnVerso;
 
-    private BufferedImage               imgRecto;
-    private BufferedImage               imgVerso;
+    private BufferedImage        imgRecto;
+    private BufferedImage        imgVerso;
 
 
     public PanelAjoutObjectif(Controleur ctrl)
@@ -71,26 +69,12 @@ public class PanelAjoutObjectif extends JPanel
         lblVerso = new JLabel("Verso");
         lblVerso.setForeground(Color.WHITE);
        
-        this.txtPoint = new TextFieldWithHint("Point", ctrl);
+        this.txtPoint = new TextFieldOnlyInteger(ctrl);
         this.txtPoint.setBackground(new Color(58, 60, 76));
         this.txtPoint.setForeground(Color.GRAY);
 
-        this.txtPoint.addKeyListener(new KeyAdapter() 
-        {
-            public void keyPressed(KeyEvent ke) 
-            {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
-                  txtPoint.setEditable(true);
-               }else
-               {
-                  txtPoint.setEditable(false);
-               }
-               
-            }
-        });
-
-        this.lstNoeudA = this.ctrl.getMetier().getNoeuds();
-        this.lstNoeudB = this.ctrl.getMetier().getNoeuds();
+        this.lstNoeudA = this.ctrl.getNoeuds();
+        this.lstNoeudB = this.ctrl.getNoeuds();
 
         String[] tabNoeudA = new String[lstNoeudA.size()];
         String[] tabNoeudB = new String[lstNoeudB.size()];

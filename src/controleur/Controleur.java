@@ -51,11 +51,15 @@ public class Controleur
 	public void genererTxt(String type, String nomFichier)
 	{
 		this.ihm.dispose();
+		this.metier.ecrireFichier(nomFichier);
+	}
+
+	public void ecrireFichier(String nomFichier)
+	{
+		this.metier.ecrireFichier(nomFichier);
 	}
 
 	/* Getters */
-	public Metier getMetier() { return this.metier; } // à enlever
-
 	public int[]         getTaillePlateau () { return this.metier.getTaillePlateau (); }
 	public BufferedImage getImagePlateau  () { return this.metier.getImagePlateau  (); }
 	public Color         getCouleurPlateau() { return this.metier.getCouleurPlateau(); }
@@ -96,8 +100,14 @@ public class Controleur
 	public void setNbJetonFin       (int val) { this.metier.setNbJetonFin       (val); }
 
 	public void setImageVersoCouleur   (BufferedImage img) { this.metier.setImageVersoCouleur   (img); }
+	public void supprimerImageVersoCouleur() { this.metier.supprimerImageVersoCouleur(); }
+
 	public void setImageRectoLocomotive(BufferedImage img) { this.metier.setImageRectoLocomotive(img); }
+	public void supprimerImageRectoLocomotive(){ this.metier.supprimerImageRectoLocomotive(); }
+
 	public void setImageRectoCouleur(int ind, BufferedImage img) { this.metier.setImageRectoCouleur(ind, img); }
+	public void supprimerImageRectoCouleur(int indice){ this.metier.supprimerImageRectoCouleur(indice); }
+
 	public void setImageVersoObjectif  (BufferedImage img) { this.metier.setImageVersoObjectif  (img); }
 
 	public void setPositionNoeud(int id, int x, int y)
@@ -165,6 +175,7 @@ public class Controleur
 	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto, BufferedImage verso) 
 	{
 		this.metier.ajouterObjectif(nom1, nom2, point, recto, verso);
+		this.ihm.majListes();
 	}
 
 	/**
@@ -172,9 +183,10 @@ public class Controleur
 	 * @param string : Nom du premier noeud
 	 * @param string2 : Nom du second noeud
 	 */
-    public void supprimerObjectif(String string, String string2) 
+    public void supprimerObjectif(String noeud1, String noeud2) 
 	{
-		this.metier.supprimerObjectif(string, string2);
+		this.metier.supprimerObjectif(noeud1, noeud2);
+		this.ihm.majListes();
     }
 
 	/**
@@ -206,10 +218,13 @@ public class Controleur
 	 * Supprimer un noeud
 	 * @param nom : Nom du noeud
 	 */
-    public void supprimerNoeud(int index) 
+    public boolean supprimerNoeud(int index) 
 	{
-		this.metier.supprimerNoeud(index);
-		this.ihm.majIHM();
+		boolean res = this.metier.supprimerNoeud(index);
+	
+		if (res) this.ihm.majIHM();
+		
+		return res;
     }
 
 	/**

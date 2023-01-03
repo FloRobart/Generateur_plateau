@@ -127,13 +127,12 @@ public class Metier
 		{
 			this.lstImagesRectoCouleur.add(null);
 		}
-/*
-		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
+
+		/*this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(2),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(2), this.lstNoeuds.get(3),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(3), 15, null));
 */
-
 		String themeUsed = this.getThemeUsed();
 		this.chargerThemes(themeUsed);
 	}
@@ -206,6 +205,8 @@ public class Metier
 	public void setImageRectoLocomotive(BufferedImage img) { this.imageRectoLocomotive = img; }
 	public void setImageRectoCouleur(int ind, BufferedImage img) { this.lstImagesRectoCouleur.set(ind, img); }
 
+	public void supprimerImageVersoCouleur()		{this.imageVersoCouleur = null;}
+	public void supprimerImageRectoLocomotive()		{this.imageRectoLocomotive = null;}
 	public void supprimerImageRectoCouleur(int ind) { this.lstImagesRectoCouleur.remove(ind); }
 
 	public void setImageVersoObjectif(BufferedImage img) { this.imageVersoObjectif = img; }
@@ -268,20 +269,24 @@ public class Metier
 	 * Supprime un Noeud
 	 * @param nom : nom du noeud
 	 */
-    public void supprimerNoeud(int index) 
+    public boolean supprimerNoeud(int index) 
 	{
 		Noeud n = this.lstNoeuds.get(index);
+		boolean sansArete = true;
 
-		for (Iterator<Arete> iterator = this.lstAretes.iterator(); iterator.hasNext();) 
+		for (Arete a : this.lstAretes)
 		{
-			Arete a = iterator.next();
-			if(a.getNoeud1() == n || a.getNoeud2() == n) 
-			{
-				iterator.remove();
-			}
+			if (a.getNoeud1() == n || a.getNoeud2() == n)
+				sansArete = false;
 		}
 
-		this.lstNoeuds.remove(n);
+		if (sansArete)
+		{
+			this.lstNoeuds.remove(n);
+			return true;
+		}
+		else
+			return false;
     }
 
 	/**

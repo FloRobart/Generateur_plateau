@@ -99,7 +99,7 @@ public class FramePlateau extends JFrame
 		}
 
 		// Enregistrement du fichier
-		this.ctrl.getMetier().ecrireFichier(this.nomFichier);
+		this.ctrl.ecrireFichier(this.nomFichier);
 
 		// Récupération du nom du fichier
 		

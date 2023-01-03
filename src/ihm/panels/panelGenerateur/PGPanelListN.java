@@ -14,6 +14,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -106,12 +107,7 @@ public class PGPanelListN extends JPanel
 				}
 				else
 				{
-					txtNom      .setText      (""   );
-					txtPosX     .setText      (""   );
-					txtPosY     .setText      (""   );
-					txtPosNomX  .setText      (""   );
-					txtPosNomY  .setText      (""   );
-					btnCouleur  .setBackground(Color.WHITE);
+					effacerForm();
 				}
             }
         });
@@ -273,6 +269,16 @@ public class PGPanelListN extends JPanel
         );
     }
 
+    protected void effacerForm() 
+    {
+        txtNom      .setText      (""   );
+        txtPosX     .setText      (""   );
+        txtPosY     .setText      (""   );
+        txtPosNomX  .setText      (""   );
+        txtPosNomY  .setText      (""   );
+        btnCouleur  .setBackground(Color.WHITE);
+    }
+
     private void txtNomActionPerformed      (ActionEvent e)
     {
         Noeud noeud = this.listNoeuds.getSelectedValue();
@@ -318,8 +324,10 @@ public class PGPanelListN extends JPanel
 	{
 		int index = this.listNoeuds.getSelectedIndex();
 
-        this.ctrl.supprimerNoeud(index);
-		this.majIHM();
+        if (this.ctrl.supprimerNoeud(index))
+			this.majIHM();
+		else
+			JOptionPane.showMessageDialog(this, "Impossible de supprimer le noeud, celui-ci est relié à des aretes", "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
 
 
