@@ -64,7 +64,7 @@ public class PGPanelParamPlateau extends JPanel
 
 
         /* Titre (Parametre du Plateau) */
-        this.lblParamPlateau.setText      (" Parametre du Plateau");
+        this.lblParamPlateau.setText      (" Parametre du plateau");
 
         /* Dimension */
         this.lblDimension.setText      ("Dimension");
