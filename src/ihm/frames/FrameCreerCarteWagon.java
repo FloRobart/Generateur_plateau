@@ -129,9 +129,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 		{
 			public void valueChanged(ListSelectionEvent e) 
 			{
-				System.out.println("ligne " + lstCarte.getSelectedIndex());
-            	System.out.println("ligne max " + indiceMaxlstCouleur);
-
 				if ( lstCarte.getSelectedIndex() == indiceMaxlstCouleur ) 
 				{ 
 					BufferedImage img = ctrl.getImageVersoCouleur();
