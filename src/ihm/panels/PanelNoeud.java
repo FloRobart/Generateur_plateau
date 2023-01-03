@@ -3,30 +3,17 @@ package ihm.panels;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
 
 import java.awt.Color;
 
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import java.awt.BorderLayout;
 import controleur.Controleur;
 import ihm.customComponent.TextFieldOnlyInteger;
 import ihm.customComponent.TextFieldWithHint;
-import metier.Noeud;
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.List;
 
 public class PanelNoeud extends JPanel
 {

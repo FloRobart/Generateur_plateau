@@ -286,31 +286,15 @@ public class Metier
 
 	/**
 	 * Ajoute une Arete
-	 * @param nom1 : nom du noeud 1
-	 * @param nom2 : nom du noeud 2
+	 * @param n1 : Premier noeud
+	 * @param n2 : Second noeud 
 	 * @param distance : distance entre les deux lstNoeuds
 	 * @param couleur1 : couleur de la première arrête
 	 * @param couleur2 : couleur de la deuxième arrête si c'est une double voie
 	 */
-    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+    public void ajouterArete(Noeud n1, Noeud n2, int distance, Color couleur1, Color couleur2) 
 	{
-		Noeud nA=null;
-		Noeud nB=null;
-
-		for (Noeud n : this.lstNoeuds)
-		{
-			if (n.getNom().equals(nom1))
-			{
-				nA = n;
-			}
-
-			if(n.getNom().equals(nom2))
-			{
-				nB = n;
-			}
-		}
-
-		this.lstAretes.add(new Arete(nA, nB, distance, couleur1, couleur2));
+		this.lstAretes.add(new Arete(n1, n2, distance, couleur1, couleur2));
     }
 
 	/**

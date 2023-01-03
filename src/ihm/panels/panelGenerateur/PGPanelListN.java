@@ -23,7 +23,6 @@ import javax.swing.event.ListSelectionListener;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldOnlyInteger;
-import ihm.panels.PanelArrete;
 import ihm.panels.PanelNoeud;
 import metier.Noeud;
 

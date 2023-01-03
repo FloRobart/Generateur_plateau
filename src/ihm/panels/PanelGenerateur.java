@@ -73,6 +73,11 @@ public class PanelGenerateur extends JPanel
 		this.pGPanelExplorer.selectNoeud(index);
 	}
 
+	public void selectArete(int index)
+	{
+		this.pGPanelExplorer.selectArete(index);
+	}
+
 	public void envoyerCouleur(Color c, String nomPanel)
 	{
 		this.pGPanelExplorer.envoyerCouleur(c, nomPanel);
