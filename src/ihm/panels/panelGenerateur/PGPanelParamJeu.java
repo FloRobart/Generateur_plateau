@@ -516,7 +516,17 @@ public class PGPanelParamJeu extends JPanel
 			this.ctrl.setNbCarteLocomotive(nbJoker);
 		}
 		else
+        {
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre de cartes couleurs", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtNbJoker.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtNbJoker.getForeground().equals(saisiForeColor))
+            this.txtNbJoker.setForeground(saisiForeColor);
     }
 
 
@@ -527,6 +537,14 @@ public class PGPanelParamJeu extends JPanel
 
 		this.txtNbJoker.setText(Integer.toString(nbJoker));
 		this.ctrl.setNbCarteLocomotive(nbJoker);
+
+        
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtNbJoker.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtNbJoker.getForeground().equals(saisiForeColor))
+            this.txtNbJoker.setForeground(saisiForeColor);
     }
     
 
@@ -542,7 +560,17 @@ public class PGPanelParamJeu extends JPanel
 			this.ctrl.setNbCarteCoul(nbCarteWagon);
 		}
 		else
+        {
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtNbCarteParCoul.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtNbCarteParCoul.getForeground().equals(saisiForeColor))
+            this.txtNbCarteParCoul.setForeground(saisiForeColor);
     }
     
 
@@ -557,7 +585,17 @@ public class PGPanelParamJeu extends JPanel
 			this.ctrl.setNbCarteCoul(nbCarteWagon);
 		}
 		else
+        {
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre inférieur au nombre de carte multicouleurs", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtNbCarteParCoul.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtNbCarteParCoul.getForeground().equals(saisiForeColor))
+            this.txtNbCarteParCoul.setForeground(saisiForeColor);
     }
 
 	// nb jetons
@@ -622,12 +660,9 @@ public class PGPanelParamJeu extends JPanel
         /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
         this.txtJetonsParJoueur.placeholderToTrueTxt();
 
-
         Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
-        if (!this.txtJetonsParJoueur.getForeground().equals(Color.BLUE))
-        {
-            this.txtJetonsParJoueur.setForeground(Color.BLUE/*saisiForeColor*/);
-        }
+        if (!this.txtJetonsParJoueur.getForeground().equals(saisiForeColor))
+            this.txtJetonsParJoueur.setForeground(saisiForeColor);
 	}                                                      
 
     private void btnPlusJetonsPourFinirActionPerformed(ActionEvent evt) 
@@ -640,7 +675,17 @@ public class PGPanelParamJeu extends JPanel
 			this.ctrl.setNbJetonFin(nbJeton);
 		}
 		else
+        {
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre inférieur au nombre de jeton par joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtJetonsPourFinir.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtJetonsPourFinir.getForeground().equals(saisiForeColor))
+            this.txtJetonsPourFinir.setForeground(saisiForeColor);
     }                                                      
 
     private void btnMoinsJetonsParJoueurActionPerformed(ActionEvent evt) 
@@ -653,8 +698,18 @@ public class PGPanelParamJeu extends JPanel
 			this.ctrl.setNbJetonJoueur(nbJeton);
 		}
 		else
+        {
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre de jeton pour finir la partie", "Erreur", JOptionPane.ERROR_MESSAGE);
-    }                                                        
+        }
+
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtJetonsParJoueur.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtJetonsParJoueur.getForeground().equals(saisiForeColor))
+            this.txtJetonsParJoueur.setForeground(saisiForeColor);
+    }
 
     private void btnMoinsJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
 	{
@@ -667,7 +722,17 @@ public class PGPanelParamJeu extends JPanel
 			this.ctrl.setNbJetonFin(nbJeton);
 		}
 		else
+        {
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtJetonsPourFinir.placeholderToTrueTxt();
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtJetonsPourFinir.getForeground().equals(saisiForeColor))
+            this.txtJetonsPourFinir.setForeground(saisiForeColor);
     }
 
     private void btnCouleursActionPerformed   (ActionEvent e) { this.frameCouleur         = new FrameCouleur        (this.ctrl); }
@@ -773,15 +838,14 @@ public class PGPanelParamJeu extends JPanel
         this.txtJetonsParJoueur.setHorizontalAlignment(JTextField.CENTER);
         if (this.placeholderAncienTheme == null)
         {
-            this.txtJetonsParJoueur.setForegroundColor (Color.MAGENTA);
-            this.txtJetonsParJoueur.setPlaceholderColor(Color.RED);
+            this.txtJetonsParJoueur.setForegroundColor (saisiForeColor);
+            this.txtJetonsParJoueur.setPlaceholderColor(placeholderColor);
         }
         else
         {
             if (!this.txtJetonsParJoueur.getForeground().equals(this.placeholderAncienTheme))
             {
-                // quand il y a un changement de theme
-                this.txtJetonsParJoueur.setForeground(Color.GREEN/*saisiForeColor*/);
+                this.txtJetonsParJoueur.setForeground(saisiForeColor);
             }
             else
             {
