@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import controleur.Controleur;
@@ -20,6 +21,9 @@ public class FrameCouleur extends JFrame implements ActionListener
 {
 	private Controleur    ctrl;
 	
+	private JPanel        panelCouleur;
+	private JPanel        panelOk;
+
 	private List<JButton> lstBtnCoul;
 	private JButton       btnPlus;
 	private JButton       btnOK;
@@ -46,12 +50,12 @@ public class FrameCouleur extends JFrame implements ActionListener
 		/*----------------------------*/
 		/* Création des panels        */
 		/*----------------------------*/
-		JPanel panelCouleur = new JPanel();
-		panelCouleur.setLayout(new GridLayout(nbLig,5, 20, 20));
-		panelCouleur.setBackground(new Color(68, 71, 90));
+		this.panelCouleur = new JPanel();
+		this.panelCouleur.setLayout(new GridLayout(nbLig,5, 20, 20));
+		this.panelCouleur.setBackground(new Color(68, 71, 90));
 
-		JPanel panelOk = new JPanel();
-		panelOk.setBackground(new Color(68, 71, 90));
+		this.panelOk = new JPanel();
+		this.panelOk.setBackground(new Color(68, 71, 90));
 
 		/*----------------------------*/
 		/* Création des Composants    */
@@ -65,11 +69,8 @@ public class FrameCouleur extends JFrame implements ActionListener
 			this.lstBtnCoul.add(btnCoul);
 		}
 
-		this.btnPlus = new JButton("+");
-
-		this.btnOK = new JButton("OK");
-		this.btnOK.setBackground(new Color(40, 42, 54));
-		this.btnOK.setForeground(Color.WHITE);
+		this.btnPlus = new JButton("+" );
+		this.btnOK   = new JButton("OK");
 
 		/*-------------------------------*/
 		/* Positionnement des Composants */
@@ -80,17 +81,17 @@ public class FrameCouleur extends JFrame implements ActionListener
 		// ajout des boutons de couleurs
 		for (JButton btnCoul : this.lstBtnCoul)
 		{
-			panelCouleur.add(btnCoul);
+			this.panelCouleur.add(btnCoul);
 		}
 
 		// ajout du bouton ajouter
-		panelCouleur.add(this.btnPlus);
+		this.panelCouleur.add(this.btnPlus);
 
 		// ajout des espaces manquant
 		for (int cpt = this.lstBtnCoul.size() + 1; cpt < nbLig * 5 ; cpt++)
-			panelCouleur.add(new JLabel());
+			this.panelCouleur.add(new JLabel());
 
-		panelOk.add(this.btnOK);
+		this.panelOk.add(this.btnOK);
 		
 		/*----------------------------*/
 		/* Activation des Composants  */
@@ -104,6 +105,7 @@ public class FrameCouleur extends JFrame implements ActionListener
 		this.btnOK.addActionListener(this);
 
 
+		this.appliquerTheme();
 		this.setVisible(true);
 	}
 
@@ -138,5 +140,38 @@ public class FrameCouleur extends JFrame implements ActionListener
 		{
 			this.dispose();
 		}
+	}
+
+
+	public void appliquerTheme()
+	{
+		HashMap<String, List<Color>> theme = this.ctrl.getTheme();
+
+		Color background       = theme.get("background").get(0);
+        Color titleForeColor   = theme.get("titles"    ).get(0);
+		Color titleBackColor   = theme.get("titles"    ).get(1);
+        Color labelForeColor   = theme.get("labels"    ).get(0);
+		Color labelBackColor   = theme.get("labels"    ).get(1);
+        Color saisiForeColor   = theme.get("saisies"   ).get(0);
+		Color saisiBackColor   = theme.get("saisies"   ).get(1);
+        Color placeholderColor = theme.get("saisies"   ).get(2);
+        Color btnForeColor     = theme.get("bottuns"   ).get(0);
+		Color btnBackColor     = theme.get("bottuns"   ).get(1);
+
+
+		this.setBackground(background);
+		this.setForeground(labelForeColor);
+
+		this.panelCouleur.setForeground(labelForeColor);
+		this.panelCouleur.setBackground(background);
+
+		this.panelOk     .setForeground(labelForeColor);
+		this.panelOk     .setBackground(background);
+
+		this.btnPlus     .setForeground(btnForeColor);
+		this.btnPlus     .setBackground(btnBackColor);
+
+		this.btnOK       .setForeground(btnForeColor);
+		this.btnOK       .setBackground(btnBackColor);
 	}
 }

@@ -57,6 +57,10 @@ public class PGPanelParamJeu extends JPanel
     private JTextField txtJetonsPourFinir;
     private JTextField txtJetonsParJoueur;
 
+    private FrameCouleur         frameCouleur        ;
+    private FramePoint           framePoint          ;
+    private FrameCreerCarteWagon frameCreerCarteWagon;
+
 
 	/**
      * Creates new form PGPanelParamJeu
@@ -656,15 +660,19 @@ public class PGPanelParamJeu extends JPanel
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
     }                   
 
-    private void btnCouleursActionPerformed   (ActionEvent e) { new FrameCouleur(this.ctrl); }
-    private void btnPointsActionPerformed     (ActionEvent e) { new FramePoint  (this.ctrl); }
-    private void btnCartesWagonActionPerformed(ActionEvent e) { new FrameCreerCarteWagon(this.ctrl); }   
+    private void btnCouleursActionPerformed   (ActionEvent e) { this.frameCouleur         = new FrameCouleur        (this.ctrl); }
+    private void btnPointsActionPerformed     (ActionEvent e) { this.framePoint           = new FramePoint          (this.ctrl); }
+    private void btnCartesWagonActionPerformed(ActionEvent e) { this.frameCreerCarteWagon = new FrameCreerCarteWagon(this.ctrl); }   
 	   
     /**
      * Applique le thème à tout les composants du panel
      */
     public void appliquerTheme()
 	{
+        if (this.frameCouleur         != null) { this.frameCouleur        .appliquerTheme(); }
+        if (this.framePoint           != null) { this.framePoint          .appliquerTheme(); }
+        if (this.frameCreerCarteWagon != null) { this.frameCreerCarteWagon.appliquerTheme(); }
+
         HashMap<String, List<Color>> theme = this.ctrl.getTheme();
 
 		Color background       = theme.get("background").get(0);
