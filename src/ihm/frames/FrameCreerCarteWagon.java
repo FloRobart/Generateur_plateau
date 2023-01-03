@@ -149,16 +149,12 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
                 BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
                 Graphics2D    g2d   = image.createGraphics();
-                //BufferedImage imageIO = new BufferedImage(10, 50, BufferedImage.TYPE_INT_ARGB);
-                //Graphics2D g2d = image.createGraphics();
-                g2d.setColor(Color.WHITE);
-                g2d.fillRect(0, 0, 10, 50);
-                //g2d.drawString("Image invalide", 0, 10);
-                g2d.dispose();
+
                 /*this.panelVisualisatonCarte.setSize(this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth());
                 this.panelVisualisatonCarte.print(g2d);
                 this.panelVisualisatonCarte.setSize(500, 500);*/
-                //g2d.dispose();
+                this.panelVisualisatonCarte.print(g2d);
+                g2d.dispose();
 
                 // Enregistrement du fichier dans le répertoire choisi
                 try 
