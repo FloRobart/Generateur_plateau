@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -14,6 +17,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -21,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldOnlyInteger;
@@ -89,14 +94,16 @@ public class PGPanelListO extends  JPanel
             public void valueChanged(ListSelectionEvent e) 
             {
                 CarteObjectif objSelected = jListObj.getSelectedValue();
-
+    
                 if(objSelected == null && lstObj.size() != 0)
                     objSelected = lstObj.get(0);
                 
                 if(objSelected != null)
                 {
-                    comboBoxListNoeudA.setSelectedItem(objSelected.getNoeud1());
-                    comboBoxListNoeudB.setSelectedItem(objSelected.getNoeud2());
+                    List<Noeud> lstNoeuds = ctrl.getNoeuds();
+                    comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud1()));
+        			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud2()));
+
                     txtPoint.setText("" + objSelected.getPoints());
                 }
                 else
@@ -295,14 +302,14 @@ public class PGPanelListO extends  JPanel
     private void comboBoxListNoeudActionPerformed(ActionEvent evt)
     {
         CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud1((Noeud) this.comboBoxListNoeudA.getSelectedItem());
+        carte.setNoeud1(carte.getNoeud1());
         this.majIHM();
     }
 
     private void comboBoxListNoeudBctionPerformed(ActionEvent evt)
     {
         CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud2((Noeud) this.comboBoxListNoeudB.getSelectedItem());
+        carte.setNoeud2(carte.getNoeud2());
         this.majIHM();
     }
 
@@ -313,8 +320,46 @@ public class PGPanelListO extends  JPanel
         this.majIHM();
     }
 
-    private void btnImgRectoActionPerformed       (ActionEvent evt){}
-    private void btnImgVersoActionPerformed       (ActionEvent evt){}
+    private void btnImgRectoActionPerformed(ActionEvent evt)
+    {
+        String path = "";
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
+            File file = chooser.getSelectedFile();
+            path = file.getAbsolutePath();
+            try
+            {
+                CarteObjectif carte = this.jListObj.getSelectedValue();
+                carte.setImageRecto(ImageIO.read(new File(path)));
+            } catch (IOException e1) {e1.printStackTrace();}
+            
+            this.majIHM();
+        }
+    }
+    private void btnImgVersoActionPerformed(ActionEvent evt)
+    {
+        String path = "";
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
+            File file = chooser.getSelectedFile();
+            path = file.getAbsolutePath();
+            try
+            {
+                CarteObjectif carte = this.jListObj.getSelectedValue();
+                carte.setImageRecto(ImageIO.read(new File(path)));
+            } catch (IOException e1) {e1.printStackTrace();}
+            
+            this.majIHM();
+        }
+    }
     
     public void appliquerTheme()
     {
