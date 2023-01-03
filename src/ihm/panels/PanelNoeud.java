@@ -18,6 +18,7 @@ import javax.swing.GroupLayout;
 import java.awt.BorderLayout;
 import controleur.Controleur;
 import ihm.customComponent.TextFieldOnlyInteger;
+import ihm.customComponent.TextFieldWithHint;
 import metier.Noeud;
 
 import java.awt.event.KeyAdapter;
@@ -58,75 +59,30 @@ public class PanelNoeud extends JPanel
         GroupLayout layout = new GroupLayout(panelInfos);
         panelInfos.setLayout(layout);
 
-		this.txtNom = new JTextField(10);
+		this.txtNom = new TextFieldWithHint("Nouveau Noeud",ctrl);
         this.txtNom.setBackground(new Color(58, 60, 76));
 		this.txtNom.setForeground(Color.WHITE);
 
-        this.txtPosX = new TextFieldOnlyInteger("10",this.ctrl);
+        this.txtPosX = new TextFieldOnlyInteger("X",this.ctrl);
         this.txtPosX.setBackground(new Color(58, 60, 76));
         this.txtPosX.setForeground(Color.GRAY);
 
-        this.txtPosX.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
-                  txtPosX.setEditable(true);
-               }else
-               {
-                  txtPosX.setEditable(false);
-               }
-               
-            }
-         });
 
 
-        this.txtPosY = new TextFieldOnlyInteger("10",this.ctrl);
+        this.txtPosY = new TextFieldOnlyInteger("Y",this.ctrl);
         this.txtPosY.setBackground(new Color(58, 60, 76));
         this.txtPosY.setForeground(Color.GRAY);
-        this.txtPosY.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
-                  txtPosY.setEditable(true);
-               }else
-               {
-                  txtPosY.setEditable(false);
-               }
-               
-            }
-         });
 
-        this.txtPosNomX = new TextFieldOnlyInteger("10",this.ctrl);
+        this.txtPosNomX = new TextFieldOnlyInteger("PosNomX",this.ctrl);
         this.txtPosNomX.setBackground(new Color(58, 60, 76));
         this.txtPosNomX.setForeground(Color.GRAY);
 
-        this.txtPosNomX.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
-                  txtPosNomX.setEditable(true);
-               }else
-               {
-                  txtPosNomX.setEditable(false);
-               }
-               
-            }
-         });
 
 
-
-        this.txtPosNomY = new TextFieldOnlyInteger("10",this.ctrl);
+        this.txtPosNomY = new TextFieldOnlyInteger("PosNomY",this.ctrl);
         this.txtPosNomY.setBackground(new Color(58, 60, 76));
         this.txtPosNomY.setForeground(Color.GRAY);
 
-        this.txtPosNomY.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
-               if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
-                  txtPosNomY.setEditable(true);
-               }else
-               {
-                  txtPosNomY.setEditable(false);
-               }
-               
-            }
-         });
 
         this.btnCouleur = new JButton("Couleur");
         this.btnCouleur.setBackground(null);
