@@ -320,7 +320,7 @@ public class Metier
 	 * @param nom2 : nom du noeud 2
 	 * @param point : nombre de point que rapporte l'objectif
 	 */
-	public void ajouterObjectif(String nom1, String nom2, int point) 
+	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto, BufferedImage verso) 
 	{
 		Noeud nA=null;
 		Noeud nB=null;
@@ -337,7 +337,7 @@ public class Metier
 				nB = n;
 			}
 		}
-		this.carteObjectif.add(new CarteObjectif(nA, nB, point, null));
+		this.carteObjectif.add(new CarteObjectif(nA, nB, point, recto));
 	}
 
 	/**

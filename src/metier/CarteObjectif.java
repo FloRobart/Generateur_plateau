@@ -29,6 +29,6 @@ public class CarteObjectif
 
 	public String toString()
 	{
-		return "CarteObjectif : " + this.noeud1 + " - " + this.noeud2 + " (" + this.points + ")" + " (" + this.imageRecto + ")";
+		return this.noeud1.getNom() + " - " + this.noeud2.getNom();
 	}
 }

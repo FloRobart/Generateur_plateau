@@ -1,7 +1,6 @@
 package controleur;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -163,9 +162,9 @@ public class Controleur
 	 * @param nom2 : Nom du second noeud
 	 * @param point : Nombre de points
 	 */
-	public void ajouterObjectif(String nom1, String nom2, int point) 
+	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto, BufferedImage verso) 
 	{
-		this.metier.ajouterObjectif(nom1, nom2, point);
+		this.metier.ajouterObjectif(nom1, nom2, point, recto, verso);
 	}
 
 	/**

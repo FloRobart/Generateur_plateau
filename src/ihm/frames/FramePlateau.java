@@ -207,6 +207,7 @@ public class FramePlateau extends JFrame
 	public void selectNoeud(int index)
 	{
 		this.panelGenerateur.selectNoeud(index);
+		this.panelPlateau.selectNoeud(index);
 	}
 
 	public void selectArete(int index)
