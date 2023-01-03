@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 import controleur.Controleur;
+import ihm.customComponent.TextFieldOnlyInteger;
 import ihm.customComponent.TextFieldWithHint;
 import ihm.frames.FrameCouleur;
 import ihm.frames.FrameCreerCarteWagon;
@@ -29,6 +30,10 @@ public class PGPanelParamJeu extends JPanel
 
 	private TextFieldWithHint txtMaxNbJoueur;
     private TextFieldWithHint txtMinNbJoueur;
+    private TextFieldWithHint txtNbCarteParCoul;
+    private TextFieldWithHint txtNbJoker;
+    private TextFieldWithHint txtJetonsPourFinir;
+    private TextFieldWithHint txtJetonsParJoueur;
 
     private JButton    btnCouleurs;
     private JButton    btnMoinsCoul;
@@ -52,14 +57,12 @@ public class PGPanelParamJeu extends JPanel
     private JLabel     lblJetonsWagons;
     private JLabel     lblJetonsParJoueur;
     private JLabel     lblJetonsWagon;
-    private JTextField txtNbCarteParCoul;
-    private JTextField txtNbJoker;
-    private JTextField txtJetonsPourFinir;
-    private JTextField txtJetonsParJoueur;
 
     private FrameCouleur         frameCouleur        ;
     private FramePoint           framePoint          ;
     private FrameCreerCarteWagon frameCreerCarteWagon;
+    
+    private Color                placeholderAncienTheme;
 
 
 	/**
@@ -80,12 +83,12 @@ public class PGPanelParamJeu extends JPanel
         this.lblJetonsWagons          = new JLabel();
 		this.lblJetonsParJoueur       = new JLabel();
         this.lblJetonsPourFinir       = new JLabel();
-        this.txtMinNbJoueur           = new TextFieldWithHint("Min", ctrl);
-        this.txtMaxNbJoueur           = new TextFieldWithHint("Max", ctrl);
-        this.txtNbJoker               = new JTextField();
-        this.txtNbCarteParCoul        = new JTextField();
-		this.txtJetonsParJoueur       = new JTextField();
-        this.txtJetonsPourFinir       = new JTextField();
+        this.txtMinNbJoueur           = new TextFieldOnlyInteger(""+this.ctrl.getNbJoueursMin     (), ctrl);
+        this.txtMaxNbJoueur           = new TextFieldOnlyInteger(""+this.ctrl.getNbJoueursMax     (), ctrl);
+        this.txtNbJoker               = new TextFieldOnlyInteger(""+this.ctrl.getNbCarteLocomotive(), ctrl);
+        this.txtNbCarteParCoul        = new TextFieldOnlyInteger(""+this.ctrl.getNbCarteCoul      (), ctrl);
+		this.txtJetonsParJoueur       = new TextFieldOnlyInteger(""+this.ctrl.getNbJetonJoueur    (), ctrl);
+        this.txtJetonsPourFinir       = new TextFieldOnlyInteger(""+this.ctrl.getNbJetonFin       (), ctrl);
         this.btnPlusJoker             = new JButton();
         this.btnCouleurs              = new JButton();
         this.btnPoints                = new JButton();
@@ -97,9 +100,11 @@ public class PGPanelParamJeu extends JPanel
         this.btnMoinsJetonsPourFinir  = new JButton();
         this.btnPlusJetonsParJoueur   = new JButton();
         this.btnPlusJetonsPourFinir   = new JButton();
+
         this.frameCouleur             = null;
         this.framePoint               = null;
         this.frameCreerCarteWagon     = null;
+        this.placeholderAncienTheme   = null;
 
         this.lblParamJeu.setText(" Parametre du jeu");
 
@@ -121,15 +126,14 @@ public class PGPanelParamJeu extends JPanel
         this.lblCartesWagon.setText("Cartes wagon");
         this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12));
 
-		this.lblJetonsPourFinir.setForeground(new java.awt.Color(255, 255, 255));
         this.lblJetonsPourFinir.setText("pour finir");
+        this.lblJetonsPourFinir.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblJetonsParJoueur.setForeground(new java.awt.Color(255, 255, 255));
         this.lblJetonsParJoueur.setText("par joueur");
+        this.lblJetonsParJoueur.setFont(new Font("Segoe UI", 1, 12));
 
-        this.lblJetonsWagons.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        this.lblJetonsWagons.setForeground(new java.awt.Color(255, 255, 255));
         this.lblJetonsWagons.setText("Jetons wagon");
+        this.lblJetonsWagons.setFont(new Font("Segoe UI", 1, 12));
 
         this.txtMinNbJoueur.addActionListener(new ActionListener()
         {
@@ -164,21 +168,16 @@ public class PGPanelParamJeu extends JPanel
                 txtNbCarteParCoulActionPerformed(e);
             }
         });
-        this.txtJetonsPourFinir.setBackground(new java.awt.Color(53, 55, 70));
-        this.txtJetonsPourFinir.setForeground(new java.awt.Color(255, 255, 255));
-        this.txtJetonsPourFinir.setBorder(null);
-        this.txtJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+        this.txtJetonsPourFinir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtJetonsPourFinirActionPerformed(evt);
             }
 
         });
 
-        this.txtJetonsParJoueur.setBackground(new java.awt.Color(53, 55, 70));
-        this.txtJetonsParJoueur.setForeground(new java.awt.Color(255, 255, 255));
-        this.txtJetonsParJoueur.setBorder(null);
-        this.txtJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.txtJetonsParJoueur.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 txtJetonsParJoueurActionPerformed(evt);
             }
 
@@ -253,41 +252,40 @@ public class PGPanelParamJeu extends JPanel
 
         this.btnPlusJetonsParJoueur.setText("   +   ");
         this.btnPlusJetonsParJoueur.setToolTipText("+");
-        this.btnPlusJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.btnPlusJetonsParJoueur.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnPlusJetonsParJoueurActionPerformed(evt);
             }
         });
 
         this.btnPlusJetonsPourFinir.setText("   +   ");
         this.btnPlusJetonsPourFinir.setToolTipText("+");
-        this.btnPlusJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.btnPlusJetonsPourFinir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnPlusJetonsPourFinirActionPerformed(evt);
             }
         });
 
         this.btnMoinsJetonsParJoueur.setText("   -   ");
         this.btnMoinsJetonsParJoueur.setToolTipText("-");
-        this.btnMoinsJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.btnMoinsJetonsParJoueur.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnMoinsJetonsParJoueurActionPerformed(evt);
             }
         });
 
         this.btnMoinsJetonsPourFinir.setText("   -   ");
         this.btnMoinsJetonsPourFinir.setToolTipText("-");
-        this.btnMoinsJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.btnMoinsJetonsPourFinir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnMoinsJetonsPourFinirActionPerformed(evt);
             }
         });
-        this.btnCartesWagon.setBackground(new java.awt.Color(40, 42, 54));
-        this.btnCartesWagon.setForeground(new java.awt.Color(255, 255, 255));
+
         this.btnCartesWagon.setText("Cartes");
         this.btnCartesWagon.setBorder(null);
-        this.btnCartesWagon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.btnCartesWagon.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnCartesWagonActionPerformed(evt);
             }
         });
@@ -403,7 +401,6 @@ public class PGPanelParamJeu extends JPanel
         );
 
         this.appliquerTheme();
-		this.majIHM();
     }
 
 	// nb joueurs
@@ -589,7 +586,7 @@ public class PGPanelParamJeu extends JPanel
 		}
     }
 
-	private void txtJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
+	private void txtJetonsPourFinirActionPerformed(ActionEvent evt) 
 	{                                                   
         if (this.txtJetonsPourFinir.getText().length() > 0)
 		{
@@ -614,16 +611,26 @@ public class PGPanelParamJeu extends JPanel
 		}
     }    
 
-	private void btnPlusJetonsParJoueurActionPerformed(java.awt.event.ActionEvent evt) 
+	private void btnPlusJetonsParJoueurActionPerformed(ActionEvent evt) 
 	{                                                       
         int nbJeton = this.ctrl.getNbJetonJoueur();
 		nbJeton++;
 
 		this.txtJetonsParJoueur.setText(Integer.toString(nbJeton));
 		this.ctrl.setNbJetonJoueur(nbJeton);
+
+        /* Permet de mettre le texte en vrai texte qui ne disparaît pas quand on clique dessus */
+        this.txtJetonsParJoueur.placeholderToTrueTxt();
+
+
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies").get(0);
+        if (!this.txtJetonsParJoueur.getForeground().equals(Color.BLUE))
+        {
+            this.txtJetonsParJoueur.setForeground(Color.BLUE/*saisiForeColor*/);
+        }
 	}                                                      
 
-    private void btnPlusJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
+    private void btnPlusJetonsPourFinirActionPerformed(ActionEvent evt) 
 	{                                                       
         int nbJeton = this.ctrl.getNbJetonFin();
 		if (nbJeton + 1 < this.ctrl.getNbJetonJoueur())
@@ -636,7 +643,7 @@ public class PGPanelParamJeu extends JPanel
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre inférieur au nombre de jeton par joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
     }                                                      
 
-    private void btnMoinsJetonsParJoueurActionPerformed(java.awt.event.ActionEvent evt) 
+    private void btnMoinsJetonsParJoueurActionPerformed(ActionEvent evt) 
 	{                                                         
         int nbJeton = this.ctrl.getNbJetonJoueur();
 		if (nbJeton - 1 > 0 && nbJeton - 1 > this.ctrl.getNbJetonFin())
@@ -650,7 +657,7 @@ public class PGPanelParamJeu extends JPanel
     }                                                        
 
     private void btnMoinsJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
-	{                                                        
+	{
         int nbJeton = this.ctrl.getNbJetonFin();
 
 		if (nbJeton - 1 > 0)
@@ -661,7 +668,7 @@ public class PGPanelParamJeu extends JPanel
 		}
 		else
 			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
-    }                   
+    }
 
     private void btnCouleursActionPerformed   (ActionEvent e) { this.frameCouleur         = new FrameCouleur        (this.ctrl); }
     private void btnPointsActionPerformed     (ActionEvent e) { this.framePoint           = new FramePoint          (this.ctrl); }
@@ -682,7 +689,6 @@ public class PGPanelParamJeu extends JPanel
         Color titleForeColor   = theme.get("titles"    ).get(0);
 		Color titleBackColor   = theme.get("titles"    ).get(1);
         Color labelForeColor   = theme.get("labels"    ).get(0);
-		Color labelBackColor   = theme.get("labels"    ).get(1);
         Color saisiForeColor   = theme.get("saisies"   ).get(0);
 		Color saisiBackColor   = theme.get("saisies"   ).get(1);
         Color placeholderColor = theme.get("saisies"   ).get(2);
@@ -698,64 +704,114 @@ public class PGPanelParamJeu extends JPanel
         this.lblParamJeu.setForeground(titleForeColor);
 
         this.lblNbJoueurs.setBorder(null);
-        this.lblNbJoueurs.setBackground(labelBackColor);
+        this.lblNbJoueurs.setOpaque(false);
         this.lblNbJoueurs.setForeground(labelForeColor);
 
         this.lblModif.setBorder(null);
-        this.lblModif.setBackground(labelBackColor);
+        this.lblModif.setOpaque(false);
         this.lblModif.setForeground(labelForeColor);
 
         this.lblMultiCoul.setBorder(null);
-        this.lblMultiCoul.setBackground(labelBackColor);
+        this.lblMultiCoul.setOpaque(false);
         this.lblMultiCoul.setForeground(labelForeColor);
 
         this.lblNbCarteParCoul.setBorder(null);
-        this.lblNbCarteParCoul.setBackground(labelBackColor);
+        this.lblNbCarteParCoul.setOpaque(false);
         this.lblNbCarteParCoul.setForeground(labelForeColor);
 
         this.lblImgCarte.setBorder(null);
-        this.lblImgCarte.setBackground(labelBackColor);
+        this.lblImgCarte.setOpaque(false);
         this.lblImgCarte.setForeground(labelForeColor);
 
         this.lblCartesWagon.setBorder(null);
-        this.lblCartesWagon.setBackground(labelBackColor);
+        this.lblCartesWagon.setOpaque(false);
         this.lblCartesWagon.setForeground(labelForeColor);
+
+        this.lblJetonsWagons.setBorder(null);
+        this.lblJetonsWagons.setOpaque(false);
+        this.lblJetonsWagons.setForeground(labelForeColor);
+
+        this.lblJetonsParJoueur.setBorder(null);
+        this.lblJetonsParJoueur.setOpaque(false);
+        this.lblJetonsParJoueur.setForeground(labelForeColor);
+
+        this.lblJetonsPourFinir.setBorder(null);
+        this.lblJetonsPourFinir.setOpaque(false);
+        this.lblJetonsPourFinir.setForeground(labelForeColor);
 
         this.txtMinNbJoueur.setBorder(null);
         this.txtMinNbJoueur.setBackground(saisiBackColor  );
         this.txtMinNbJoueur.setForeground(placeholderColor);
         this.txtMinNbJoueur.setForegroundColor (saisiForeColor  );
         this.txtMinNbJoueur.setPlaceholderColor(placeholderColor);
+        this.txtMinNbJoueur.setHorizontalAlignment(JTextField.RIGHT);
 
         this.txtMaxNbJoueur.setBorder(null);
         this.txtMaxNbJoueur.setBackground(saisiBackColor  );
         this.txtMaxNbJoueur.setForeground(placeholderColor);
         this.txtMaxNbJoueur.setForegroundColor (saisiForeColor  );
         this.txtMaxNbJoueur.setPlaceholderColor(placeholderColor);
+        this.txtMaxNbJoueur.setHorizontalAlignment(JTextField.RIGHT);
+
+        this.txtNbJoker.setBorder(null);
+        this.txtNbJoker.setBackground(saisiBackColor  );
+        this.txtNbJoker.setForeground(placeholderColor);
+        this.txtNbJoker.setForegroundColor (saisiForeColor  );
+        this.txtNbJoker.setPlaceholderColor(placeholderColor);
+        this.txtNbJoker.setHorizontalAlignment(JTextField.CENTER);
+
+        this.txtNbCarteParCoul.setBorder(null);
+        this.txtNbCarteParCoul.setBackground(saisiBackColor  );
+        this.txtNbCarteParCoul.setForeground(placeholderColor);
+        this.txtNbCarteParCoul.setForegroundColor (saisiForeColor  );
+        this.txtNbCarteParCoul.setPlaceholderColor(placeholderColor);
+        this.txtNbCarteParCoul.setHorizontalAlignment(JTextField.CENTER);
 
         this.txtJetonsParJoueur.setBorder(null);
-        this.txtJetonsParJoueur.setBackground(saisiBackColor  );
-        this.txtJetonsParJoueur.setForeground(placeholderColor);
+        this.txtJetonsParJoueur.setCaretColor(saisiForeColor);
+        this.txtJetonsParJoueur.setBackground(saisiBackColor);
+        this.txtJetonsParJoueur.setHorizontalAlignment(JTextField.CENTER);
+        if (this.placeholderAncienTheme == null)
+        {
+            this.txtJetonsParJoueur.setForegroundColor (Color.MAGENTA);
+            this.txtJetonsParJoueur.setPlaceholderColor(Color.RED);
+        }
+        else
+        {
+            if (!this.txtJetonsParJoueur.getForeground().equals(this.placeholderAncienTheme))
+            {
+                // quand il y a un changement de theme
+                this.txtJetonsParJoueur.setForeground(Color.GREEN/*saisiForeColor*/);
+            }
+            else
+            {
+                this.txtJetonsParJoueur.setForegroundColor (saisiForeColor  );
+                this.txtJetonsParJoueur.setPlaceholderColor(placeholderColor);
+            }
+        }
 
         this.txtJetonsPourFinir.setBorder(null);
         this.txtJetonsPourFinir.setBackground(saisiBackColor  );
         this.txtJetonsPourFinir.setForeground(placeholderColor);
-        this.txtNbJoker.setBorder(null);
-        this.txtNbJoker.setCaretColor(saisiForeColor);
-        this.txtNbJoker.setBackground(saisiBackColor);
-        this.txtNbJoker.setForeground(saisiForeColor);
-        this.txtNbJoker.setHorizontalAlignment(JTextField.CENTER);
+        this.txtJetonsPourFinir.setForegroundColor (saisiForeColor  );
+        this.txtJetonsPourFinir.setPlaceholderColor(placeholderColor);
+        this.txtJetonsPourFinir.setHorizontalAlignment(JTextField.CENTER);
 
-        
-        this.txtNbCarteParCoul.setBorder(null);
-        this.txtNbCarteParCoul.setCaretColor(saisiForeColor);
-        this.txtNbCarteParCoul.setBackground(saisiBackColor);
-        this.txtNbCarteParCoul.setForeground(saisiForeColor);
-        this.txtNbCarteParCoul.setHorizontalAlignment(JTextField.CENTER);
+        this.btnPlusJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnPlusJoker.setBackground(btnBackColor);
+        this.btnPlusJoker.setForeground(btnForeColor);
+
+        this.btnMoinsJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnMoinsJoker.setBackground(btnBackColor);
+        this.btnMoinsJoker.setForeground(btnForeColor);
 
         this.btnCouleurs.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnCouleurs.setBackground(btnBackColor);
         this.btnCouleurs.setForeground(btnForeColor);
+
+        this.btnMoinsCoul.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnMoinsCoul.setBackground(btnBackColor);
+        this.btnMoinsCoul.setForeground(btnForeColor);
 
         this.btnPoints.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnPoints.setBackground(btnBackColor);
@@ -785,28 +841,6 @@ public class PGPanelParamJeu extends JPanel
         this.btnMoinsJetonsPourFinir.setBackground(btnBackColor);
         this.btnMoinsJetonsPourFinir.setForeground(btnForeColor);
 
-        this.btnMoinsJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnMoinsJoker.setBackground(btnBackColor);
-        this.btnMoinsJoker.setForeground(btnForeColor);
-
-        this.btnPlusJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnPlusJoker.setBackground(btnBackColor);
-        this.btnPlusJoker.setForeground(btnForeColor);
-
-        this.btnMoinsCoul.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnMoinsCoul.setBackground(btnBackColor);
-        this.btnMoinsCoul.setForeground(btnForeColor);
-	}
-
-	public void majIHM()
-	{
-		this.txtMinNbJoueur.setText("" + this.ctrl.getNbJoueursMin());
-		this.txtMaxNbJoueur.setText("" + this.ctrl.getNbJoueursMax());
-
-		this.txtNbCarteParCoul.setText("" + this.ctrl.getNbCarteCoul      ());
-		this.txtNbJoker       .setText("" + this.ctrl.getNbCarteLocomotive());
-
-		this.txtJetonsParJoueur.setText("" + this.ctrl.getNbJetonJoueur());
-		this.txtJetonsPourFinir.setText("" + this.ctrl.getNbJetonFin   ());
+        this.placeholderAncienTheme = placeholderColor;
 	}
 }
