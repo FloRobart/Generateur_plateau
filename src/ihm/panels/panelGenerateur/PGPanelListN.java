@@ -107,12 +107,7 @@ public class PGPanelListN extends JPanel
 				}
 				else
 				{
-					txtNom      .setText      (""   );
-					txtPosX     .setText      (""   );
-					txtPosY     .setText      (""   );
-					txtPosNomX  .setText      (""   );
-					txtPosNomY  .setText      (""   );
-					btnCouleur  .setBackground(Color.WHITE);
+					effacerForm();
 				}
             }
         });
@@ -272,6 +267,16 @@ public class PGPanelListN extends JPanel
                     .addComponent(btnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
+    }
+
+    protected void effacerForm() 
+    {
+        txtNom      .setText      (""   );
+        txtPosX     .setText      (""   );
+        txtPosY     .setText      (""   );
+        txtPosNomX  .setText      (""   );
+        txtPosNomY  .setText      (""   );
+        btnCouleur  .setBackground(Color.WHITE);
     }
 
     private void txtNomActionPerformed      (ActionEvent e)

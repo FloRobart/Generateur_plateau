@@ -50,11 +50,13 @@ public class PGPanelListO extends  JPanel
     private JLabel            lblPoint;
     private JLabel            lblRecto;
     private JLabel            lblVerso;
-    private JScrollPane       jspNoeud;
+    private JScrollPane       jspObjectif;
     private TextFieldOnlyInteger txtPoint;
 
     private List<Noeud>       lstNoeudA;
     private List<Noeud>       lstNoeudB;
+
+    private List<CarteObjectif> lstObj;
 
     
 
@@ -64,7 +66,7 @@ public class PGPanelListO extends  JPanel
     public PGPanelListO(Controleur ctrl)
     {
         this.ctrl               = ctrl;
-        this.jspNoeud           = new  JScrollPane      ();
+        this.jspObjectif           = new  JScrollPane      ();
         this.jListObj           = new  JList<CarteObjectif>();
         this.btnAjouter         = new  JButton          ();
         this.btnSupprimer       = new  JButton          ();
@@ -80,8 +82,7 @@ public class PGPanelListO extends  JPanel
         this.btnImgVerso        = new  JButton          ();
         this.lstNoeudA          = ctrl.getNoeuds();
         this.lstNoeudB          = ctrl.getNoeuds();
-
-        List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
+        this.lstObj             = ctrl.getCarteObjectif();
         
         /*JListObj */
         this.jListObj.setModel(new AbstractListModel<CarteObjectif>() 
@@ -118,7 +119,7 @@ public class PGPanelListO extends  JPanel
 		});
 
         /*Ajout de la JlistObjectif dans un JScrollPane */
-        this.jspNoeud.setViewportView(jListObj);
+        this.jspObjectif.setViewportView(jListObj);
 
         //btn Ajouter
         this.btnAjouter.setText("Ajouter");
@@ -204,7 +205,7 @@ public class PGPanelListO extends  JPanel
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jspNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jspObjectif, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -254,7 +255,7 @@ public class PGPanelListO extends  JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPoint)))
-                    .addComponent(jspNoeud, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jspObjectif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,9 +285,10 @@ public class PGPanelListO extends  JPanel
 
     private void btnSupprimerActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
+        CarteObjectif carte = this.lstObj.get(this.jListObj.getSelectedIndex());
         this.ctrl.supprimerObjectif(carte.getNoeud1().getNom(), carte.getNoeud2().getNom());
         this.ctrl.getIHM().majListes(); 
+        this.majIHM();
     }
 
     public void majIHM() 
@@ -297,22 +299,79 @@ public class PGPanelListO extends  JPanel
             public int getSize() { return cartes.size(); }
             public CarteObjectif getElementAt(int i) { return cartes.get(i); }
         });
-
-        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
-        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
     }
 
     private void comboBoxListNoeudActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud1(carte.getNoeud1());
+        Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+		boolean erreur = false;
+
+        /*if (noeud1.equals(noeud2))
+        {
+            JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+            erreur = true;
+        }
+       /*else
+        {
+            for (CarteObjectif c : this.ctrl.getCarteObjectif())
+            {
+                if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
+                    (c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
+                {
+                    JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    erreur = true;
+                    break;
+                }
+            }
+        }*/
+
+        if (!erreur)
+        {
+            this.jListObj.getSelectedValue().setNoeud1(noeud1);
+            this.ctrl.majIHMPlateau();
+        }
+        else
+            this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
+        
+        
         this.majIHM();
     }
 
     private void comboBoxListNoeudBctionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud2(carte.getNoeud2());
+        Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+		boolean erreur = false;
+
+        /*if (noeud1.equals(noeud2))
+        {
+            JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+            erreur = true;
+        }
+        /*else
+        {
+            for (CarteObjectif c : this.ctrl.getCarteObjectif())
+            {
+                if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
+                    (c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
+                {
+                    JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    erreur = true;
+                    break;
+                }
+            }
+        }*/
+
+        if (!erreur)
+        {
+            this.jListObj.getSelectedValue().setNoeud1(noeud1);
+            this.ctrl.majIHMPlateau();
+        }
+        else
+            this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
+        
+        
         this.majIHM();
     }
 
