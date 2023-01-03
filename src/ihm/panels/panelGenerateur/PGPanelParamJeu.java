@@ -666,10 +666,8 @@ public class PGPanelParamJeu extends JPanel
 
     private void btnCouleursActionPerformed   (ActionEvent e) { new FrameCouleur(this.ctrl); }
     private void btnPointsActionPerformed     (ActionEvent e) { new FramePoint  (this.ctrl); }
-    
-    private void btnCartesWagonActionPerformed(java.awt.event.ActionEvent evt) {                                               
-         new FrameCreerCarteWagon(this.ctrl);
-    }      
+    private void btnCartesWagonActionPerformed(ActionEvent e) { new FrameCreerCarteWagon(this.ctrl); }   
+	   
     /**
      * Applique le thème à tout les composants du panel
      */
