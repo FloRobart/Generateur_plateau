@@ -175,10 +175,6 @@ public class MenuBarre extends JMenuBar implements ActionListener
 		this.menuiPreferencesThemesClair .addActionListener(this);
 		this.menuiPreferencesThemesSombre.addActionListener(this);
 		this.menuiPreferencesThemesDark  .addActionListener(this);
-
-
-		/* Applique le thèmes à tout les composants */
-		this.appliquerTheme();
 	}
 
 	public void actionPerformed(ActionEvent e) 

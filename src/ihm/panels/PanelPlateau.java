@@ -70,9 +70,6 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
         this.lblImagePlateau = new JLabel("");
         this.add(lblImagePlateau);
-
-        /* Application du theme */
-        this.appliquerTheme();
         
         //Drag and Drop features
         this.initTransferHandle();
