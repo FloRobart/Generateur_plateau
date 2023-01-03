@@ -7,11 +7,9 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.print.attribute.standard.DialogOwner;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -217,7 +214,7 @@ public class PGPanelListO extends  JPanel
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblNoeudB)
                         .addGap(33, 33, 33)
-                        .addComponent(comboBoxListNoeudB, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBoxListNoeudB,0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblPoint)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -290,6 +287,9 @@ public class PGPanelListO extends  JPanel
             public int getSize() { return cartes.size(); }
             public CarteObjectif getElementAt(int i) { return cartes.get(i); }
         });
+
+        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
+        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
     }
 
     private void btnSupprimerActionPerformed      (ActionEvent evt)
@@ -301,14 +301,14 @@ public class PGPanelListO extends  JPanel
     private void comboBoxListNoeudActionPerformed(ActionEvent evt)
     {
         CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud1((this.lstNoeudA.get(this.comboBoxListNoeudA.getSelectedIndex()+1)));
+        carte.setNoeud1((Noeud) this.comboBoxListNoeudA.getSelectedItem());
         this.majIHM();
     }
 
     private void comboBoxListNoeudBctionPerformed(ActionEvent evt)
     {
         CarteObjectif carte = this.jListObj.getSelectedValue();
-        carte.setNoeud2((this.lstNoeudB.get(this.comboBoxListNoeudB.getSelectedIndex()+1)));
+        carte.setNoeud2((Noeud) this.comboBoxListNoeudB.getSelectedItem());
         this.majIHM();
     }
 

@@ -4,36 +4,26 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Toolkit;
 import java.util.List;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
-import metier.CarteObjectif;
 import metier.Noeud;
 
 public class PanelAjoutObjectif extends JPanel
@@ -80,14 +70,15 @@ public class PanelAjoutObjectif extends JPanel
         lblRecto.setForeground(Color.WHITE);
         lblVerso = new JLabel("Verso");
         lblVerso.setForeground(Color.WHITE);
-
        
         this.txtPoint = new TextFieldWithHint("Point", ctrl);
         this.txtPoint.setBackground(new Color(58, 60, 76));
         this.txtPoint.setForeground(Color.GRAY);
 
-        this.txtPoint.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
+        this.txtPoint.addKeyListener(new KeyAdapter() 
+        {
+            public void keyPressed(KeyEvent ke) 
+            {
                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE || ke.getKeyChar() == KeyEvent.VK_DELETE ) {
                   txtPoint.setEditable(true);
                }else
@@ -96,7 +87,7 @@ public class PanelAjoutObjectif extends JPanel
                }
                
             }
-         });
+        });
 
         this.lstNoeudA = this.ctrl.getMetier().getNoeuds();
         this.lstNoeudB = this.ctrl.getMetier().getNoeuds();
@@ -165,7 +156,6 @@ public class PanelAjoutObjectif extends JPanel
                 }
             }
         });
-
 
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
@@ -262,7 +252,6 @@ public class PanelAjoutObjectif extends JPanel
             erreur = true;
         }
 
-        
         if(!erreur)
         {
             this.ctrl.ajouterObjectif(nom1, nom2, point, recto, verso);
@@ -281,6 +270,4 @@ public class PanelAjoutObjectif extends JPanel
         this.imgRecto = null;
         this.imgVerso = null;
     }
-
-
 }
