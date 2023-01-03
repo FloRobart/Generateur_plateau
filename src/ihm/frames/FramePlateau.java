@@ -211,6 +211,6 @@ public class FramePlateau extends JFrame
 
 	public void envoyerCouleur(Color c, String nomPanel)
 	{
-		// à compléter
+		this.panelGenerateur.envoyerCouleur(c, nomPanel);
 	}
 }

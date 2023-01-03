@@ -3,6 +3,7 @@ package ihm.panels.panelGenerateur;
 import controleur.Controleur;
 
 import javax.swing.JTabbedPane;
+import java.awt.Color;
 
 
 public class PGPanelExplorer extends javax.swing.JPanel
@@ -68,6 +69,13 @@ public class PGPanelExplorer extends javax.swing.JPanel
 	public void selectNoeud(int index)
 	{
 		this.pGPanelListN.selectNoeud(index);
-		
+	}
+
+	public void envoyerCouleur(Color c, String nomPanel)
+	{
+		if (nomPanel.contains("PGPanelListA"))
+		{
+			this.pGPanelListA.envoyerCouleur(c);
+		}
 	}
 }
