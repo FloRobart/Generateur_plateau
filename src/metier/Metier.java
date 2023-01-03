@@ -86,7 +86,9 @@ public class Metier
 		this.imageVersoCouleur     = null;
 		this.imageRectoLocomotive  = null;
 		this.lstImagesRectoCouleur = new ArrayList<BufferedImage>();
-		this.lstPoints             = new ArrayList<Integer>();
+		this.lstPoints             = new ArrayList<Integer>() {{ add(1); add(2); add(4); add(7); }};
+
+		
 
 		this.imageVersoObjectif = null;
 		this.carteObjectif      = new ArrayList<CarteObjectif>();
@@ -370,15 +372,21 @@ public class Metier
 	/**
 	 * @param index : ajout d'un score dans la liste des scores
 	 */
-	public void setNbPoint(int index) 
+	public void ajouterPoint() 
 	{
-		this.lstPoints.add(index);
+		this.lstPoints.add(this.lstPoints.size() + 1);
 	}
 
     public void supprimerPoint() 
 	{
-		this.lstPoints.remove(this.lstPoints.size()-1);
+		if (this.lstPoints.size() > 1)
+			this.lstPoints.remove(this.lstPoints.size()-1);
     }
+
+	public void setPoint(int index, int point) 
+	{
+		this.lstPoints.set(index, point);
+	}
 
 	/* --------------------------- */
 	/*       Lecture XML           */
@@ -445,14 +453,15 @@ public class Metier
 			}
 			
 			/* <tableau-lstPoints */
-			 List<Element> listlstPoints = plateau.getChild("tableau-lstPoints").getChildren("distance");
-			 Iterator<Element> itlstPoints = listlstPoints.iterator();
+			this.lstPoints = new ArrayList<Integer>();
+			List<Element> listlstPoints = plateau.getChild("tableau-lstPoints").getChildren("distance");
+			Iterator<Element> itlstPoints = listlstPoints.iterator();
 
-			 while(itlstPoints.hasNext())
-			 {
-				 Element point = (Element)itlstPoints.next();
-				 this.lstPoints.add(Integer.parseInt(point.getText()));
-			 }
+			while(itlstPoints.hasNext())
+			{
+				Element point = (Element)itlstPoints.next();
+				this.lstPoints.add(Integer.parseInt(point.getText()));
+			}
 
 			/* <liste-lstNoeuds> */
 			Noeud.reinitialiserId();

@@ -2,6 +2,7 @@
 
 ./src/ihm/customComponent/TextFieldWithHint.java
 ./src/ihm/customComponent/TextFieldOnlyInteger.java
+./src/ihm/customComponent/GrillePoints.java
 
 ./src/ihm/frames/FrameCouleur.java
 ./src/ihm/frames/FrameCouleurChooser.java

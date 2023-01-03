@@ -139,11 +139,10 @@ public class Controleur
 
 	/**
 	 * Ajouter une ligne au tableau des scores
-	 * @param index : Index de la ligne
 	 */
-	public void setNbPoint(int index) 
+	public void ajouterPoint() 
 	{
-		this.metier.setNbPoint(index);
+		this.metier.ajouterPoint();
 	}
 
 	/**
@@ -153,6 +152,11 @@ public class Controleur
 	{
 		this.metier.supprimerPoint();
     }
+
+	public void setPoint(int index, int val) 
+	{
+		this.metier.setPoint(index, val);
+	}
 
 	/**
 	 * Ajouter un objectif
