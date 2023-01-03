@@ -61,4 +61,14 @@ public class PanelGenerateur extends JPanel
         this.pGPanelAjouterElements.appliquerTheme();
         this.pGPanelExplorer       .appliquerTheme();
     }
+
+	public void majListes()
+	{
+		this.pGPanelExplorer.majListes();
+	}
+
+	public void selectNoeud(int index)
+	{
+		this.pGPanelExplorer.selectNoeud(index);
+	}
 }

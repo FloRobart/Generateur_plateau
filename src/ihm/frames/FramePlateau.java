@@ -199,6 +199,16 @@ public class FramePlateau extends JFrame
 		this.panelPlateau.setImageFond(img);
 	}
 
+	public void majListes()
+	{
+		this.panelGenerateur.majListes();
+	}
+
+	public void selectNoeud(int index)
+	{
+		this.panelGenerateur.selectNoeud(index);
+	}
+
 	public void envoyerCouleur(Color c, String nomPanel)
 	{
 		// à compléter

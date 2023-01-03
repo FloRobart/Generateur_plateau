@@ -53,6 +53,7 @@ public class PGPanelListN extends JPanel
     {   
         this.ctrl = ctrl;
 
+		List<Noeud> lstNoeuds = ctrl.getNoeuds();
         this.lstNoeud       = new JScrollPane         (    );
         this.listNoeuds     = new JList<Noeud>        (    );
         this.lblNom         = new JLabel              (    );
@@ -71,8 +72,6 @@ public class PGPanelListN extends JPanel
 
         this.listNoeuds.setModel(new AbstractListModel<Noeud>()
         {
-            List<Noeud> lstNoeuds = ctrl.getNoeuds();
-
             public int getSize()
             {
                 return lstNoeuds.size();
@@ -90,12 +89,28 @@ public class PGPanelListN extends JPanel
             public void valueChanged(ListSelectionEvent e)
             {
                 Noeud noeudSelected = listNoeuds.getSelectedValue();
-                txtNom      .setText      (noeudSelected.getNom    ()   );
-                txtPosX     .setText      (noeudSelected.getX      ()+"");
-                txtPosY     .setText      (noeudSelected.getY      ()+"");
-                txtPosNomX  .setText      (noeudSelected.getXNom   ()+"");
-                txtPosNomY  .setText      (noeudSelected.getYNom   ()+"");
-                btnCouleur  .setBackground(noeudSelected.getCouleur()   );
+
+				if (noeudSelected == null && lstNoeuds.size() != 0) 
+					noeudSelected = lstNoeuds.get(0);
+				
+				if (noeudSelected != null)
+				{
+					txtNom      .setText      (noeudSelected.getNom    ()   );
+					txtPosX     .setText      (noeudSelected.getX      ()+"");
+					txtPosY     .setText      (noeudSelected.getY      ()+"");
+					txtPosNomX  .setText      (noeudSelected.getXNom   ()+"");
+					txtPosNomY  .setText      (noeudSelected.getYNom   ()+"");
+					btnCouleur  .setBackground(noeudSelected.getCouleur()   );
+				}
+				else
+				{
+					txtNom      .setText      (""   );
+					txtPosX     .setText      (""   );
+					txtPosY     .setText      (""   );
+					txtPosNomX  .setText      (""   );
+					txtPosNomY  .setText      (""   );
+					btnCouleur  .setBackground(Color.WHITE);
+				}
             }
         });
 
@@ -260,6 +275,8 @@ public class PGPanelListN extends JPanel
     {
         Noeud noeud = this.listNoeuds.getSelectedValue();
         noeud.setNom(this.txtNom.getText());
+
+		this.majIHM();
         this.ctrl.majIHMPlateau();
     }
     private void txtPosXActionPerformed     (ActionEvent e)
@@ -295,7 +312,13 @@ public class PGPanelListN extends JPanel
         this.listNoeuds.getSelectedValue().setCouleur(newColor);
         this.ctrl.majIHMPlateau();
     }
-    private void btnSupprimerActionPerformed(ActionEvent e){}
+    private void btnSupprimerActionPerformed(ActionEvent e)
+	{
+		int index = this.listNoeuds.getSelectedIndex();
+
+        this.ctrl.supprimerNoeud(index);
+		this.majIHM();
+	}
 
 
     private void btnAjouterActionPerformed(ActionEvent e)
@@ -383,4 +406,27 @@ public class PGPanelListN extends JPanel
         this.txtPosNomY    .setBackground(saisiBackColor);
         this.txtPosNomY    .setDisabledTextColor(new Color(255, 0, 0));
     }
+
+	public void majIHM()
+	{
+		this.listNoeuds.setModel(new AbstractListModel<Noeud>()
+        {
+            List<Noeud> lstNoeuds = ctrl.getNoeuds();
+
+            public int getSize()
+            {
+                return lstNoeuds.size();
+            }
+
+            public Noeud getElementAt(int index)
+            {
+                return lstNoeuds.get(index);
+            }
+        });
+	}
+
+	public void selectNoeud(int index)
+	{
+		this.listNoeuds.setSelectedIndex(index);
+	}
 }

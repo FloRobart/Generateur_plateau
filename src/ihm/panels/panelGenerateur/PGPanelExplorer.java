@@ -57,4 +57,17 @@ public class PGPanelExplorer extends javax.swing.JPanel
         this.pGPanelListN.appliquerTheme();
         this.pGPanelListO.appliquerTheme();
     }
+
+	public void majListes()
+	{
+		//this.pGPanelListA.majListes();
+		this.pGPanelListN.majIHM();
+		//this.pGPanelListO.majListes();
+	}
+
+	public void selectNoeud(int index)
+	{
+		this.pGPanelListN.selectNoeud(index);
+		
+	}
 }
