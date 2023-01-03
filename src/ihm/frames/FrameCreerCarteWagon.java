@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
-import ihm.panels.PanelVisualisationWagon;
 
 
 
@@ -36,7 +35,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
     private JPanel panelParametrageCarte;
     private JPanel panelVisualisationCarte;
-    private PanelVisualisationWagon panelVisualisation;
     private JPanel panelActionCarte;
 
     private List lstCarte;
@@ -71,8 +69,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.panelParametrageCarte = new JPanel();
         this.panelParametrageCarte.setLayout(new GridLayout(5,1));
 
-        this.panelVisualisation = new PanelVisualisationWagon();
-
         this.panelVisualisationCarte = new JPanel();
         this.lblCarteWagon = new JLabel("");
 
@@ -105,8 +101,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.btnChoisirCouleur.addActionListener(this);
 
         //Ajout des composants
-        this.panelVisualisation.add(this.panelVisualisationCarte);
-
         this.panelVisualisationCarte.add(this.lblCarteWagon);
 
         this.panelParametrageCarte.add(this.lstCarte);
@@ -120,7 +114,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.panelActionCarte.add(this.btnQuitter, BorderLayout.SOUTH);
 
         this.add(this.panelParametrageCarte, BorderLayout.WEST);
-        this.add(this.panelVisualisation, BorderLayout.CENTER);
         this.add(this.panelActionCarte, BorderLayout.SOUTH);
 
         this.appliquerTheme();
