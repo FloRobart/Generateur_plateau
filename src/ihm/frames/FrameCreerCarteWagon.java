@@ -10,15 +10,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 import java.awt.image.BufferedImage;
-import java.awt.Color;
+
 
 import controleur.Controleur;
 public class FrameCreerCarteWagon extends JFrame implements ActionListener
@@ -34,6 +39,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
     private JButton btnAjouter;
     private JButton btnSupprimer;
+    private JButton btnQuitter;
 
     private JButton btnVerso;
     private JButton btnLocomotive;
@@ -41,6 +47,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
     private JButton btnChoisirCouleur;
 
     private JLabel lblCarteWagon;
+    private Image image;
 
     public FrameCreerCarteWagon(Controleur ctrl)
     {
@@ -73,6 +80,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.btnAjouter = new JButton("Ajouter");
         this.btnSupprimer = new JButton("Supprimer");
+        this.btnQuitter = new JButton("Quitter");
 
         this.btnVerso = new JButton("Carte verso");
         this.btnLocomotive = new JButton("Carte Locomotive");
@@ -84,6 +92,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.btnAjouter.addActionListener(this);
         this.btnSupprimer.addActionListener(this);
+        this.btnQuitter.addActionListener(this);
+
         this.btnVerso.addActionListener(this);
         this.btnLocomotive.addActionListener(this);
         this.btnChoisirImage.addActionListener(this);
@@ -108,6 +118,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.panelActionCarte.add(this.btnAjouter, BorderLayout.SOUTH);
         this.panelActionCarte.add(this.btnSupprimer, BorderLayout.SOUTH);
+        this.panelActionCarte.add(this.btnQuitter, BorderLayout.SOUTH);
 
         this.add(this.panelParametrageCarte, BorderLayout.WEST);
         this.add(this.panelVisualisatonCarte, BorderLayout.CENTER);
@@ -135,18 +146,26 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 // Importation du panel en image
                 //this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()
                 //this.panelVisualisatonCarte.getHeight(), this.panelVisualisatonCarte.getWidth()
-                Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
+                /*Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
                 BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
                 Graphics2D    g2d   = image.createGraphics();
-                RoundRectangle2D fig = new RoundRectangle2D.Double(0, 100, this.panelVisualisatonCarte.getHeight(), this.panelVisualisatonCarte.getWidth(), 25, 25);
-                g2d.fill(fig);
-                this.panelVisualisatonCarte.print(g2d);
+                RoundRectangle2D fig = new RoundRectangle2D.Double(100, 100, this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth(), 25, 25);
+                g2d.fill(fig);*/
+                BufferedImage imageIO = new BufferedImage(10, 50, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = imageIO.createGraphics();
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 0, 10, 50);
+                g2d.drawString("Image invalide", 0, 10);
                 g2d.dispose();
+                /*this.panelVisualisatonCarte.setSize(this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth());
+                this.panelVisualisatonCarte.print(g2d);
+                this.panelVisualisatonCarte.setSize(500, 500);*/
+                //g2d.dispose();
 
                 // Enregistrement du fichier dans le répertoire choisi
                 try 
                 {
-                    ImageIO.write(image, "png", new File(".\\donnees\\images\\cartes_joueurs\\wagon\\" + nomFichier + ".png"));
+                    ImageIO.write(imageIO, "png", new File(".\\donnees\\images\\cartes_joueurs\\wagon\\" + nomFichier + ".png"));
                     JOptionPane.showMessageDialog(this, "Exportation réussi dans le dossier wagon");
                 } 
                 catch (IOException ex) 
@@ -156,6 +175,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 }
             }
 
+            //En dessous est le vrai code final pour la méthode ajouter, ne pas toucher !!
             /*
             // Importation du panel en image
             Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
@@ -173,8 +193,10 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         {
             //Supprime la carte de la liste
             this.lstCarte.remove(this.lstCarte.getSelectedIndex());
-            //this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
+            this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
         }
+
+        if ( e.getSource() == btnQuitter )  { this.dispose(); }
 
         if ( e.getSource() == this.btnChoisirCouleur )
         {
@@ -205,6 +227,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                     this.lblCarteWagon.setIcon(new ImageIcon(img));
                 } catch (IOException ex) {ex.printStackTrace();}
             }
+            this.repaint();
         }
     }
 }

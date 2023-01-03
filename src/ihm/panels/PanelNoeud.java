@@ -16,6 +16,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import java.awt.BorderLayout;
 import controleur.Controleur;
+import ihm.customComponent.TextFieldOnlyInteger;
 import metier.Noeud;
 
 import java.awt.event.KeyAdapter;
@@ -31,11 +32,11 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 
     private JList<String> listNoeuds;
     
-    private JTextField txtPosX;
-    private JTextField txtPosY;
-    private JTextField txtNom;
-    private JTextField txtPosNomX;
-    private JTextField txtPosNomY;
+    private TextFieldOnlyInteger txtPosX;
+    private TextFieldOnlyInteger txtPosY;
+    private TextFieldOnlyInteger txtNom;
+    private TextFieldOnlyInteger txtPosNomX;
+    private TextFieldOnlyInteger txtPosNomY;
     private JButton    btnCouleur;
 
     private JButton    btnAjouter;
@@ -82,7 +83,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         GroupLayout layout = new GroupLayout(panelInfos);
         panelInfos.setLayout(layout);
 
-        this.txtPosX = new JTextField();
+        this.txtPosX = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtPosX.setBackground(new Color(58, 60, 76));
         this.txtPosX.setForeground(Color.GRAY);
 
@@ -99,7 +100,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
          });
 
 
-        this.txtPosY = new JTextField(8);
+        this.txtPosY = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtPosY.setBackground(new Color(58, 60, 76));
         this.txtPosY.setForeground(Color.GRAY);
         this.txtPosY.addKeyListener(new KeyAdapter() {
@@ -115,11 +116,11 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
          });
 
 
-        this.txtNom = new JTextField(8);
+        this.txtNom = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtNom.setBackground(new Color(58, 60, 76));
         this.txtNom.setForeground(Color.GRAY);
 
-        this.txtPosNomX = new JTextField();
+        this.txtPosNomX = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtPosNomX.setBackground(new Color(58, 60, 76));
         this.txtPosNomX.setForeground(Color.GRAY);
 
@@ -137,7 +138,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 
 
 
-        this.txtPosNomY = new JTextField(8);
+        this.txtPosNomY = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtPosNomY.setBackground(new Color(58, 60, 76));
         this.txtPosNomY.setForeground(Color.GRAY);
 
