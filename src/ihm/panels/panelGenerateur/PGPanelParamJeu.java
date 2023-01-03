@@ -83,8 +83,8 @@ public class PGPanelParamJeu extends JPanel
         this.lblJetonsWagons          = new JLabel();
 		this.lblJetonsParJoueur       = new JLabel();
         this.lblJetonsPourFinir       = new JLabel();
-        this.txtMinNbJoueur           = new TextFieldOnlyInteger(""+this.ctrl.getNbJoueursMin     (), ctrl);
-        this.txtMaxNbJoueur           = new TextFieldOnlyInteger(""+this.ctrl.getNbJoueursMax     (), ctrl);
+        this.txtMinNbJoueur           = new TextFieldOnlyInteger("Min", ctrl);
+        this.txtMaxNbJoueur           = new TextFieldOnlyInteger("Max", ctrl);
         this.txtNbJoker               = new TextFieldOnlyInteger(""+this.ctrl.getNbCarteLocomotive(), ctrl);
         this.txtNbCarteParCoul        = new TextFieldOnlyInteger(""+this.ctrl.getNbCarteCoul      (), ctrl);
 		this.txtJetonsParJoueur       = new TextFieldOnlyInteger(""+this.ctrl.getNbJetonJoueur    (), ctrl);
@@ -819,47 +819,28 @@ public class PGPanelParamJeu extends JPanel
         this.txtMaxNbJoueur.setHorizontalAlignment(JTextField.RIGHT);
 
         this.txtNbJoker.setBorder(null);
+        this.txtNbJoker.setCaretColor(saisiForeColor);
         this.txtNbJoker.setBackground(saisiBackColor  );
-        this.txtNbJoker.setForeground(placeholderColor);
-        this.txtNbJoker.setForegroundColor (saisiForeColor  );
-        this.txtNbJoker.setPlaceholderColor(placeholderColor);
         this.txtNbJoker.setHorizontalAlignment(JTextField.CENTER);
+        this.verifColorTxt(this.txtNbJoker);
 
         this.txtNbCarteParCoul.setBorder(null);
+        this.txtNbCarteParCoul.setCaretColor(saisiForeColor);
         this.txtNbCarteParCoul.setBackground(saisiBackColor  );
-        this.txtNbCarteParCoul.setForeground(placeholderColor);
-        this.txtNbCarteParCoul.setForegroundColor (saisiForeColor  );
-        this.txtNbCarteParCoul.setPlaceholderColor(placeholderColor);
         this.txtNbCarteParCoul.setHorizontalAlignment(JTextField.CENTER);
+        this.verifColorTxt(this.txtNbCarteParCoul);
 
         this.txtJetonsParJoueur.setBorder(null);
         this.txtJetonsParJoueur.setCaretColor(saisiForeColor);
         this.txtJetonsParJoueur.setBackground(saisiBackColor);
         this.txtJetonsParJoueur.setHorizontalAlignment(JTextField.CENTER);
-        if (this.placeholderAncienTheme == null)
-        {
-            this.txtJetonsParJoueur.setForegroundColor (saisiForeColor);
-            this.txtJetonsParJoueur.setPlaceholderColor(placeholderColor);
-        }
-        else
-        {
-            if (!this.txtJetonsParJoueur.getForeground().equals(this.placeholderAncienTheme))
-            {
-                this.txtJetonsParJoueur.setForeground(saisiForeColor);
-            }
-            else
-            {
-                this.txtJetonsParJoueur.setForegroundColor (saisiForeColor  );
-                this.txtJetonsParJoueur.setPlaceholderColor(placeholderColor);
-            }
-        }
+        this.verifColorTxt(this.txtJetonsParJoueur);
 
         this.txtJetonsPourFinir.setBorder(null);
+        this.txtJetonsPourFinir.setCaretColor(saisiForeColor);
         this.txtJetonsPourFinir.setBackground(saisiBackColor  );
-        this.txtJetonsPourFinir.setForeground(placeholderColor);
-        this.txtJetonsPourFinir.setForegroundColor (saisiForeColor  );
-        this.txtJetonsPourFinir.setPlaceholderColor(placeholderColor);
         this.txtJetonsPourFinir.setHorizontalAlignment(JTextField.CENTER);
+        this.verifColorTxt(this.txtJetonsPourFinir);
 
         this.btnPlusJoker.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnPlusJoker.setBackground(btnBackColor);
@@ -907,4 +888,29 @@ public class PGPanelParamJeu extends JPanel
 
         this.placeholderAncienTheme = placeholderColor;
 	}
+
+    private void verifColorTxt(TextFieldWithHint TextField)
+    {
+        Color saisiForeColor   = this.ctrl.getTheme().get("saisies"   ).get(0);
+        Color placeholderColor = this.ctrl.getTheme().get("saisies"   ).get(2);
+ 
+
+        if (this.placeholderAncienTheme == null)
+        {
+            TextField.setForegroundColor (saisiForeColor);
+            TextField.setPlaceholderColor(placeholderColor);
+        }
+        else
+        {
+            if (!TextField.getForeground().equals(this.placeholderAncienTheme))
+            {
+                TextField.setForeground(saisiForeColor);
+            }
+            else
+            {
+                TextField.setForegroundColor (saisiForeColor  );
+                TextField.setPlaceholderColor(placeholderColor);
+            }
+        }
+    }
 }
