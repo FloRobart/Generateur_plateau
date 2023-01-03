@@ -3,7 +3,7 @@ package ihm.frames;
 import javax.swing.JFrame;
 import controleur.Controleur;
 import ihm.panels.PanelAjoutObjectif;
-import ihm.panels.PanelArrete;
+import ihm.panels.PanelArete;
 import ihm.panels.PanelNoeud;
 /*
  * FrameModif.java
@@ -20,7 +20,7 @@ public class FrameModif extends JFrame
         new PanelNoeud(ctrl);
         //this.add(this.panelNoeud);
 
-        new PanelArrete(ctrl);
+        new PanelArete(ctrl);
         //this.add(this.panelArrete);
 
         new PanelAjoutObjectif(ctrl);

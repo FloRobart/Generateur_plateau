@@ -13,14 +13,20 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controleur.Controleur;
-import ihm.customComponent.TextFieldWithHint;
+import ihm.customComponent.TextFieldOnlyInteger;
+import ihm.panels.PanelAjoutObjectif;
+import metier.CarteObjectif;
+import metier.Noeud;
 
 
 public class PGPanelListO extends  JPanel
@@ -30,16 +36,21 @@ public class PGPanelListO extends  JPanel
     private JButton           btnImgRecto;
     private JButton           btnImgVerso;
     private JButton           btnSupprimer;
-    private JComboBox<String> comboBoxListNoeudA;
-    private JComboBox<String> comboBoxListNoeudB;
-    private JList<String>     jList1;
+    private JComboBox<Noeud>  comboBoxListNoeudA;
+    private JComboBox<Noeud>  comboBoxListNoeudB;
+    private JList<CarteObjectif> jListObj;
     private JLabel            lblNoeudA;
     private JLabel            lblNoeudB;
     private JLabel            lblPoint;
     private JLabel            lblRecto;
     private JLabel            lblVerso;
     private JScrollPane       jspNoeud;
-    private TextFieldWithHint txtPoint;
+    private TextFieldOnlyInteger txtPoint;
+
+    private List<Noeud>       lstNoeudA;
+    private List<Noeud>       lstNoeudB;
+
+    
 
     /**
      * Creates new form PGPanelListO
@@ -48,29 +59,59 @@ public class PGPanelListO extends  JPanel
     {
         this.ctrl               = ctrl;
         this.jspNoeud           = new  JScrollPane      ();
-        this.jList1             = new  JList<String>    ();
+        this.jListObj           = new  JList<CarteObjectif>();
         this.btnAjouter         = new  JButton          ();
         this.btnSupprimer       = new  JButton          ();
-        this.comboBoxListNoeudB = new  JComboBox<String>();
+        this.comboBoxListNoeudB = new  JComboBox<Noeud> ();
         this.lblNoeudA          = new  JLabel           ();
         this.lblNoeudB          = new  JLabel           ();
-        this.comboBoxListNoeudA = new  JComboBox<String>();
-        this.txtPoint           = new  TextFieldWithHint("Point", ctrl);
+        this.comboBoxListNoeudA = new  JComboBox<Noeud> ();
+        this.txtPoint           = new  TextFieldOnlyInteger(ctrl);
         this.lblPoint           = new  JLabel           ();
         this.lblRecto           = new  JLabel           ();
         this.lblVerso           = new  JLabel           ();
         this.btnImgRecto        = new  JButton          ();
         this.btnImgVerso        = new  JButton          ();
+        this.lstNoeudA          = ctrl.getNoeuds();
+        this.lstNoeudB          = ctrl.getNoeuds();
 
+        List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
 
-        this.jList1.setModel(new  AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "item 6", "item 7", "item 8" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        /*JListObj */
+        this.jListObj.setModel(new  AbstractListModel<CarteObjectif>() {
+            public int getSize() { return lstObj.size(); }
+            public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
         });
-        this.jspNoeud.setViewportView(jList1);
 
-        
+        this.jListObj.addListSelectionListener(new ListSelectionListener() 
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent e) 
+            {
+                CarteObjectif objSelected = jListObj.getSelectedValue();
+
+                if(objSelected == null && lstObj.size() != 0)
+                    objSelected = lstObj.get(0);
+                
+                if(objSelected != null)
+                {
+                    comboBoxListNoeudA.setSelectedItem(objSelected.getNoeud1());
+                    comboBoxListNoeudB.setSelectedItem(objSelected.getNoeud2());
+                    txtPoint.setText("" + objSelected.getPoints());
+                }
+                else
+                {
+                    effacerForm();
+                } 
+            }
+        });
+
+        this.jListObj.setSelectedIndex(0);
+
+        /*Ajout de la JlistObjectif dans un JScrollPane */
+        this.jspNoeud.setViewportView(jListObj);
+
+        //btn Ajouter
         this.btnAjouter.setText("Ajouter");
         this.btnAjouter.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
@@ -78,6 +119,7 @@ public class PGPanelListO extends  JPanel
             }
         });
 
+        //btn Supprimer
         this.btnSupprimer.setText("Supprimer");
         this.btnSupprimer.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
@@ -85,24 +127,30 @@ public class PGPanelListO extends  JPanel
             }
         });
 
-        this.comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        this.comboBoxListNoeudB.addActionListener(new  ActionListener() {
-            public void actionPerformed( ActionEvent evt) {
-                comboBoxListNoeudBActionPerformed(evt);
-            }
-        });
-
+        
+        //lbl Noeud A et B
         this.lblNoeudA.setText("Noeud A");
         this.lblNoeudA.setFont(new Font("Segoe UI", 1, 12));
 
         this.lblNoeudB.setText("Noeud B");
         this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12));
 
+        /* comboBoxListNoeud */
+        Noeud[] tabNoeudA = lstNoeudA.toArray(new Noeud[0]);
+        Noeud[] tabNoeudB = lstNoeudB.toArray(new Noeud[0]);
+
         this.comboBoxListNoeudA.setFocusable(false);
-        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(tabNoeudA));
         this.comboBoxListNoeudA.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
-                comboBoxListNoeudAActionPerformed(evt);
+                comboBoxListNoeudActionPerformed(evt);
+            }
+        });
+
+        this.comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(tabNoeudB));
+        this.comboBoxListNoeudB.addActionListener(new  ActionListener() {
+            public void actionPerformed( ActionEvent evt) {
+                comboBoxListNoeudBctionPerformed(evt);
             }
         });
 
@@ -123,7 +171,7 @@ public class PGPanelListO extends  JPanel
 
         this.btnImgRecto.setText("Image");
         this.btnImgRecto.setFocusPainted(false);
-        this.btnImgRecto.addActionListener(new  ActionListener()
+        this.btnImgRecto.addActionListener(new ActionListener()
         {
             public void actionPerformed( ActionEvent evt)
             {
@@ -133,7 +181,7 @@ public class PGPanelListO extends  JPanel
 
         this.btnImgVerso.setText("Image");
         this.btnImgVerso.setFocusPainted(false);
-        this.btnImgVerso.addActionListener(new  ActionListener()
+        this.btnImgVerso.addActionListener(new ActionListener()
         {
             public void actionPerformed( ActionEvent evt)
             {
@@ -162,7 +210,7 @@ public class PGPanelListO extends  JPanel
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblNoeudB)
                         .addGap(33, 33, 33)
-                        .addComponent(comboBoxListNoeudB, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBoxListNoeudB,0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblPoint)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,11 +258,63 @@ public class PGPanelListO extends  JPanel
         this.appliquerTheme();
     }                 
 
-    private void btnAjouterActionPerformed        (ActionEvent evt){}
-    private void btnSupprimerActionPerformed      (ActionEvent evt){}
-    private void comboBoxListNoeudBActionPerformed(ActionEvent evt){}
-    private void comboBoxListNoeudAActionPerformed(ActionEvent evt){}
-    private void txtPointActionPerformed          (ActionEvent evt){}
+    protected void effacerForm() 
+    {
+        this.comboBoxListNoeudA.setSelectedIndex(0);
+        this.comboBoxListNoeudB.setSelectedIndex(0);
+        this.txtPoint.setText("");
+    }
+
+    private void btnAjouterActionPerformed (ActionEvent evt)
+    {
+        JDialog dialog = new JDialog(this.ctrl.getIHM(), "Ajouter un objectif");
+        dialog.setSize(500, 250);
+        dialog.add(new PanelAjoutObjectif(ctrl));
+
+        dialog.setVisible(true);
+        this.majIHM();
+    }
+
+    private void majIHM() 
+    {
+        this.jListObj.setModel(new AbstractListModel<CarteObjectif>()
+        {
+            List<CarteObjectif> cartes = ctrl.getCarteObjectif();
+            public int getSize() { return cartes.size(); }
+            public CarteObjectif getElementAt(int i) { return cartes.get(i); }
+        });
+
+        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
+        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
+    }
+
+    private void btnSupprimerActionPerformed(ActionEvent evt)
+    {
+        CarteObjectif carte = this.jListObj.getSelectedValue();
+        this.ctrl.supprimerObjectif(carte.getNoeud1().getNom(), carte.getNoeud2().getNom());
+        this.majIHM();  
+    }
+    private void comboBoxListNoeudActionPerformed(ActionEvent evt)
+    {
+        CarteObjectif carte = this.jListObj.getSelectedValue();
+        carte.setNoeud1((Noeud) this.comboBoxListNoeudA.getSelectedItem());
+        this.majIHM();
+    }
+
+    private void comboBoxListNoeudBctionPerformed(ActionEvent evt)
+    {
+        CarteObjectif carte = this.jListObj.getSelectedValue();
+        carte.setNoeud2((Noeud) this.comboBoxListNoeudB.getSelectedItem());
+        this.majIHM();
+    }
+
+    private void txtPointActionPerformed(ActionEvent evt)
+    {
+        CarteObjectif carte = this.jListObj.getSelectedValue();
+        carte.setPoints(Integer.parseInt(this.txtPoint.getText()));
+        this.majIHM();
+    }
+
     private void btnImgRectoActionPerformed       (ActionEvent evt){}
     private void btnImgVersoActionPerformed       (ActionEvent evt){}
     
@@ -237,8 +337,8 @@ public class PGPanelListO extends  JPanel
         this.setBackground(background);
 
         /* ScrollPane contenant la liste des noeuds */
-        this.jList1.setForeground(title);
-        this.jList1.setBackground(background);
+        this.jListObj.setForeground(title);
+        this.jListObj.setBackground(background);
         
 
         /* Bouton ajouter */

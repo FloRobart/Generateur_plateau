@@ -3,6 +3,8 @@ package ihm.panels;
 import java.awt.Color;
 import java.awt.BorderLayout;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,37 +15,39 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 
 import controleur.Controleur;
+import ihm.frames.FrameCouleurChooser;
 import metier.Arete;
 import metier.Noeud;
 
 
-public class PanelArrete extends JPanel implements KeyListener, MouseListener
+public class PanelArete extends JPanel
 {
     
     private Controleur        ctrl;
-    private JList<String>     listAretes;
     
     private JComboBox<String> cbA;
     private JComboBox<String> cbB;
+	private JCheckBox         cbVD;
     private JButton           btnCoul1;
     private JButton           btnCoul2;
     private JTextField        txtDistance;
 
     private JButton           btnAjouter;
-    private JButton           btnSupprimer;
 
-    private Color             couleur1;
-    private Color             couleur2;
+    private Color             couleur1 = null;
+    private Color             couleur2 = null;
 
     private ListModel<String> listModel;
     private List<Arete>       aretes;
@@ -51,7 +55,9 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
     private List<Noeud>       lstNoeudA;
     private List<Noeud>       lstNoeudB;
 
-    public PanelArrete(Controleur ctrl)
+	private int couleurAttendu = 1;
+
+    public PanelArete(Controleur ctrl)
     {
         this.ctrl = ctrl;
         this.setBackground(new Color(68, 71, 90));
@@ -67,14 +73,6 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
         for (Arete a : this.aretes) {
             ((DefaultListModel<String>) this.listModel).addElement(a.getNoeud1().getNom() + "-" + a.getNoeud2().getNom());
         }
-        
-        this.listAretes = new JList<String>(this.listModel);
-
-        this.listAretes.setBackground(new Color(58, 60, 76));
-        this.listAretes.setForeground(Color.WHITE);
-
-        JScrollPane scrollPane = new JScrollPane(this.listAretes);
-        panelListe.add(scrollPane);
 
         /*Panel info aretes */
         JPanel panelInfos = new JPanel();
@@ -83,16 +81,17 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
         GroupLayout layout = new GroupLayout(panelInfos);
         panelInfos.setLayout(layout);
 
-        JLabel lblNoeudA, lblNoeudB, lblCoul1, lblCoul2, lblDistance;
+        JLabel lblNoeudA, lblNoeudB, lblVD, lblCoul1, lblCoul2, lblDistance;
         lblNoeudA = new JLabel("Noeud A");
         lblNoeudA.setForeground(Color.WHITE);
         lblNoeudB = new JLabel("Noeud B");
         lblNoeudB.setForeground(Color.WHITE);
+		lblVD = new JLabel("Voix double");
+        lblVD.setForeground(Color.WHITE);
         lblCoul1 = new JLabel("Couleur1");
         lblCoul1.setForeground(Color.WHITE);
         lblCoul2 = new JLabel("Couleur2");
         lblCoul2.setForeground(Color.WHITE);
-
         lblDistance = new JLabel("Distance");
         lblDistance.setForeground(Color.WHITE);
 
@@ -131,6 +130,18 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
         cbA.setVisible(true);
         cbB.setVisible(true);
 
+		this.cbVD = new JCheckBox();
+		this.cbVD.setBackground(new Color(68, 71, 90));
+		this.cbVD.setForeground(Color.WHITE);
+		this.cbVD.setSelected(false);
+        this.cbVD.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cbVDActionPerformed(evt);
+            }
+        });
+
         this.btnCoul1 = new JButton("Couleur");
         this.btnCoul1.setBackground(null);
         add(this.btnCoul1);
@@ -140,6 +151,7 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
 
         this.btnCoul2 = new JButton("Couleur");
         this.btnCoul2.setBackground(null);
+		this.btnCoul2.setEnabled(false);
         add(this.btnCoul2);
         this.btnCoul2.addActionListener(e -> {
             selectColor2();
@@ -151,20 +163,25 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
         GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
 
         hGroup.addGroup(layout.createParallelGroup().
-                addComponent(lblNoeudA).addComponent(lblNoeudB).addComponent(lblCoul1).addComponent(lblCoul2).addComponent(lblDistance));
+                addComponent(lblNoeudA).addComponent(lblVD).addComponent(lblCoul1).addComponent(lblDistance)).addContainerGap(10,10);
         
         hGroup.addGroup(layout.createParallelGroup().
-                addComponent(cbA).addComponent(cbB).addComponent(this.btnCoul1).addComponent(this.btnCoul2).addComponent(txtDistance));
+                addComponent(cbA).addComponent(cbVD).addComponent(btnCoul1).addComponent(txtDistance)).addContainerGap(10,10);
+
+		hGroup.addGroup(layout.createParallelGroup().
+				addComponent(lblNoeudB).addComponent(lblCoul2)).addContainerGap(10,10);
+
+		hGroup.addGroup(layout.createParallelGroup().
+				addComponent(cbB).addComponent(this.btnCoul2)).addContainerGap(10,10);
 
         layout.setHorizontalGroup(hGroup);
 
         GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
 
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudA).addComponent(cbA));
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudB).addComponent(cbB));
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblCoul1).addComponent(this.btnCoul1));
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblCoul2).addComponent(this.btnCoul2));
-        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblDistance).addComponent(txtDistance));
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblNoeudA).addComponent(cbA).addComponent(lblNoeudB).addComponent(cbB)).addContainerGap(10,10);
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblVD).addComponent(this.cbVD)).addContainerGap(10,10);
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblCoul1).addComponent(this.btnCoul1).addComponent(lblCoul2).addComponent(this.btnCoul2)).addContainerGap(10,10);
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblDistance).addComponent(txtDistance)).addContainerGap(10,10);
 
         layout.setVerticalGroup(vGroup);
 
@@ -179,15 +196,7 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
             ajouterArete();
         });
 
-        this.btnSupprimer = new JButton("Supprimer");
-        this.btnSupprimer.setBackground(new Color(58, 60, 76));
-        this.btnSupprimer.setForeground(Color.WHITE);
-        this.btnSupprimer.addActionListener(e -> {
-            supprimerArete();
-        });
-
         panelBoutons.add(this.btnAjouter);
-        panelBoutons.add(this.btnSupprimer);
 
 
         /*Ajout des panels*/
@@ -195,42 +204,119 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
         this.add(panelInfos, BorderLayout.CENTER);
         this.add(panelBoutons, BorderLayout.SOUTH);
 
-        this.listAretes.addMouseListener(this);
             
     }
 
-    /**
-     * Methode permettant de supprimer une arete
-     */
-    private void supprimerArete() 
+	private void cbVDActionPerformed(ActionEvent e)
+	{
+		if (this.cbVD.isSelected())
+		{
+			this.btnCoul2.setEnabled(true);
+		}
+		else
+		{
+			this.btnCoul2.setEnabled(false);
+			this.btnCoul2.setBackground(null);
+		}
+	}
+
+	private void selectColor1() 
     {
-        String[] noms = this.listModel.getElementAt(this.listAretes.getSelectedIndex()).split("-");
+        new FrameCouleurChooser(this.ctrl, this.getClass().getName());
+        this.couleurAttendu = 1;
+    }
 
-        this.ctrl.supprimerArete(noms[0], noms[1]);
-
-        ((DefaultListModel<String>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
-        this.effacerForm();
-    }     
+    private void selectColor2() 
+    {
+        new FrameCouleurChooser(this.ctrl, this.getClass().getName());
+        this.couleurAttendu = 2;
+    }
 
     /**
      * Methode permettant d'ajouter une arete
      */
     private void ajouterArete() 
     {
-        String nom1     = (String) this.cbA.getSelectedItem();
-        String nom2     = (String) this.cbB.getSelectedItem();
-        int    distance = Integer.parseInt(this.txtDistance.getText());
+		boolean erreur = false;
+        List<Noeud> lstNoeud = this.ctrl.getNoeuds();
+		List<Arete> lstArete = this.ctrl.getAretes();
 
-        ((DefaultListModel<String>) this.listModel).addElement(nom1 + "-" + nom2);
-        if(!nom1.equals(nom2))
-        {
-            if(this.couleur2 == null)
-            this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
+		Noeud noeud1 = lstNoeud.get(this.cbA.getSelectedIndex());
+		Noeud noeud2 = lstNoeud.get(this.cbB.getSelectedIndex());
+		int distance = 0;
 
-            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
-        }
-        
-        this.effacerForm();
+		if (noeud1.equals(noeud2))
+		{
+			JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+			this.cbA.setBackground(Color.RED);
+			this.cbB.setBackground(Color.RED);
+			erreur = true;
+		}
+		else
+		{
+			for (Arete a : lstArete)
+			{
+				if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
+				    (a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+				{
+					JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.cbA.setBackground(Color.RED);
+					this.cbB.setBackground(Color.RED);
+					erreur = true;
+					break;
+				}
+			}
+
+			if (!erreur)
+			{
+				this.cbA.setBackground(new Color(68, 71, 90));
+				this.cbB.setBackground(new Color(68, 71, 90));
+			}
+		}
+
+		try
+		{
+			distance = Integer.parseInt(this.txtDistance.getText());
+
+			if (distance > 0)
+				this.txtDistance.setBackground(new Color(58, 60, 76));
+			else
+			{
+				this.txtDistance.setBackground(Color.RED);
+				JOptionPane.showMessageDialog(this, "Veuillez entrer une distance positive", "Erreur", JOptionPane.ERROR_MESSAGE);
+				erreur = true;
+			}
+		}
+		catch (NumberFormatException e)
+		{
+			this.txtDistance.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez entrer une distance valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		if (this.couleur1 == null)
+		{
+			this.btnCoul1.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez choisir une couleur", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		if (this.cbVD.isSelected() && this.couleur2 == null)
+		{
+			this.btnCoul2.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez choisir une couleur pour la deuxieme voie", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		if (!erreur)
+		{
+			if (this.cbVD.isSelected())
+				this.ctrl.ajouterArete(noeud1, noeud2, distance, couleur1, couleur2);
+			else
+				this.ctrl.ajouterArete(noeud1, noeud2, distance, couleur1, null    );
+		
+			this.effacerForm();
+		}        
     }
 
 
@@ -238,58 +324,26 @@ public class PanelArrete extends JPanel implements KeyListener, MouseListener
     {
         this.cbA.setSelectedIndex(0);
         this.cbB.setSelectedIndex(0);
+		this.cbVD.setSelected(false);
         this.btnCoul1.setBackground(null);
+		this.couleur1 = null;
         this.btnCoul2.setBackground(null);
+		this.btnCoul2.setEnabled(false);
+		this.couleur2 = null;
         this.txtDistance.setText("");
     }
 
-    private void selectColor1() 
-    {
-        this.couleur1 = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        this.btnCoul1.setBackground(this.couleur1);
-    }
-    private void selectColor2() 
-    {
-        this.couleur2 = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
-        this.btnCoul2.setBackground(this.couleur2);
-    }
-
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
-    @Override
-    public void keyPressed(KeyEvent e) {}
-    @Override
-    public void keyReleased(KeyEvent e) {}
-
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-    @Override
-    public void mousePressed(MouseEvent e) 
-    {
-        if(e.getSource() == this.listAretes)
-        {
-            String[] noms = this.listModel.getElementAt(this.listAretes.getSelectedIndex()).split("-");
-            
-            for(Arete a : this.aretes)
-            {
-                if(a.getNoeud1().getNom().equals(noms[0]) && a.getNoeud2().getNom().equals(noms[1]))
-                {
-                    this.cbA.setSelectedItem(a.getNoeud1());
-                    this.cbB.setSelectedItem(a.getNoeud2());
-                    this.txtDistance.setText(String.valueOf(a.getDistance()));
-                    this.btnCoul1.setBackground(a.getCouleur1());
-                    this.btnCoul2.setBackground(a.getCouleur2());
-                }
-            }
-        }   
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-    @Override
-    public void mouseExited(MouseEvent e) {}
-    
+	public void envoyerCouleur(Color c)
+	{
+		if (this.couleurAttendu == 1)
+		{
+			this.couleur1 = c;
+			this.btnCoul1.setBackground(c);
+		}
+		else
+		{
+			this.couleur2 = c;
+			this.btnCoul2.setBackground(c);
+		}
+	}
 }
