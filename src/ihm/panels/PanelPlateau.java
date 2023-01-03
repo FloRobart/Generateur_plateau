@@ -273,21 +273,18 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 
 			this.tabNoeud[i] = new Ellipse2D.Double(midX-12, midY-12, 24, 24);
 
+			// contour du nom du noeud
 			FontMetrics metrics = g.getFontMetrics();
 			int width = metrics.stringWidth(noeud.getNom());
-			// contour du nom du noeud
+
 			g2.setColor(Color.WHITE);
 			g2.fillRect(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
 			            midY + noeud.getYNom() - 7, 
-			            width, 
-						14);
+			            width, 14);
 
 			this.tabNomNoeud[i++] = new Rectangle2D.Double(midX + noeud.getXNom() - (noeud.getNom().length() * 3), 
 			                                               midY + noeud.getYNom() - 7, 
-			                                               width, 
-			                                               14);
-
-
+			                                               width, 14);
 
 			// nom du noeud
 			g2.setColor(Color.BLACK);
