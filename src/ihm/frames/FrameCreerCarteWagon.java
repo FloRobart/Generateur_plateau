@@ -19,12 +19,14 @@ import java.awt.Image;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.JList;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.event.ListSelectionEvent;
@@ -243,14 +245,23 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.btnEnregistrer.setForeground(btnForeColor);
         this.btnEnregistrer.setBackground(btnBackColor);
+        this.btnEnregistrer.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         this.btnQuitter.setForeground(btnForeColor);
         this.btnQuitter.setBackground(btnBackColor);
+        this.btnQuitter.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         this.btnChoisirImage.setForeground(btnForeColor);
         this.btnChoisirImage.setBackground(btnBackColor);
+        this.btnChoisirImage.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
+        this.lblCarteWagon.setOpaque(false);
         this.lblCarteWagon.setForeground(labelForeColor);
-        this.lblCarteWagon.setBackground(labelBackColor);
+
+        this.panelVisualisationCarte.setForeground(labelForeColor);
+        this.panelVisualisationCarte.setBackground(background);
+
+        this.panelVisualisation.setForeground(labelForeColor);
+        this.panelVisualisation.setBackground(background);
     }
 }

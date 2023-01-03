@@ -54,6 +54,9 @@ public class PGPanelExplorer extends javax.swing.JPanel
     {
         this.setBackground(this.ctrl.getTheme().get("background").get(0));
 
+        this.jTabbedPane1.setForeground(this.ctrl.getTheme().get("titles").get(0));
+        this.jTabbedPane1.setBackground(this.ctrl.getTheme().get("titles").get(1));
+
         this.pGPanelListA.appliquerTheme();
         this.pGPanelListN.appliquerTheme();
         this.pGPanelListO.appliquerTheme();

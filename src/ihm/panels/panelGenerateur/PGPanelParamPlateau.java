@@ -24,7 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 
 import controleur.Controleur;
@@ -377,7 +376,7 @@ public class PGPanelParamPlateau extends JPanel
         this.btnChoisirCouleur.setBackground(btnBackColor);
         this.btnChoisirCouleur.setForeground(btnForeColor); 
 
-        /* Bouton de choix de la police */
+        /* combo box de choix de la police */
         this.ddlstChoisirFont.setOpaque    (true);
         this.ddlstChoisirFont.setBorder    (null);
         this.ddlstChoisirFont.setForeground(btnForeColor);
