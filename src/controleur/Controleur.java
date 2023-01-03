@@ -172,20 +172,20 @@ public class Controleur
 	 * @param nom2 : Nom du second noeud
 	 * @param point : Nombre de points
 	 */
-	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto, BufferedImage verso) 
+	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto) 
 	{
-		this.metier.ajouterObjectif(nom1, nom2, point, recto, verso);
+		this.metier.ajouterObjectif(nom1, nom2, point, recto);
 		this.ihm.majListes();
+		this.ihm.selectObjectif(this.metier.getCarteObjectif().size()-1);
 	}
 
 	/**
 	 * Supprimer un objectif
-	 * @param string : Nom du premier noeud
-	 * @param string2 : Nom du second noeud
+	 * @param co : Carte Objectif à supprimer
 	 */
-    public void supprimerObjectif(String noeud1, String noeud2) 
+    public void supprimerObjectif(CarteObjectif co) 
 	{
-		this.metier.supprimerObjectif(noeud1, noeud2);
+		this.metier.supprimerObjectif(co);
 		this.ihm.majListes();
     }
 

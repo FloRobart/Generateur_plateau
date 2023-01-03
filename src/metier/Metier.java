@@ -128,11 +128,11 @@ public class Metier
 			this.lstImagesRectoCouleur.add(null);
 		}
 
-		/*this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
+		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(2),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(2), this.lstNoeuds.get(3),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(3), 15, null));
-*/
+
 		String themeUsed = this.getThemeUsed();
 		this.chargerThemes(themeUsed);
 	}
@@ -325,7 +325,7 @@ public class Metier
 	 * @param nom2 : nom du noeud 2
 	 * @param point : nombre de point que rapporte l'objectif
 	 */
-	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto, BufferedImage verso) 
+	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto) 
 	{
 		Noeud nA=null;
 		Noeud nB=null;
@@ -347,19 +347,11 @@ public class Metier
 
 	/**
 	 * Supprime un objectif
-	 * @param nom1 : nom du noeud 1
-	 * @param nom2 : nom du noeud 2
+	 * @param co : Carte Objectif à supprimer
 	 */
-    public void supprimerObjectif(String nom1, String nom2) 
+    public void supprimerObjectif(CarteObjectif co) 
 	{
-		for(CarteObjectif c : this.carteObjectif)
-		{
-			if (c.getNoeud1().getNom().equals(nom1) && c.getNoeud2().getNom().equals(nom2))
-			{
-				this.carteObjectif.remove(c);
-				return;
-			}
-		}
+		this.carteObjectif.remove(co);
     }
 
 	/**

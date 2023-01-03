@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -56,7 +57,7 @@ public class PGPanelListO extends  JPanel
 
     private List<Noeud>       lstNoeuds;
     private List<CarteObjectif> lstObj;
-
+	private boolean estUneMaj = false;
     
 
     /**
@@ -89,6 +90,8 @@ public class PGPanelListO extends  JPanel
             public int getSize() { return lstObj.size(); }
             public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
         });
+		if (lstObj.size() != 0)
+			this.jListObj.setSelectedIndex(0);
 
         this.jListObj.addListSelectionListener(new ListSelectionListener()
         {
@@ -96,17 +99,19 @@ public class PGPanelListO extends  JPanel
             public void valueChanged(ListSelectionEvent e)
             {
 				CarteObjectif objSelected = jListObj.getSelectedValue();
+				lstObj = ctrl.getCarteObjectif();
 
 				if (objSelected == null && lstObj.size() != 0) 
 					objSelected = lstObj.get(0);
 				
 				if (objSelected != null)
 				{
+					estUneMaj = true;
         			comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud1()));
         			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud2()));
+					estUneMaj = false;
 
 					txtPoint.setText("" + objSelected.getPoints());
-					
 				}
 				else
 				{
@@ -147,6 +152,8 @@ public class PGPanelListO extends  JPanel
         Noeud[] tabNoeudB = lstNoeuds.toArray(new Noeud[0]);
 
         this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
+		if (lstObj.size() != 0)
+			this.comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(lstObj.get(0).getNoeud1()));
         this.comboBoxListNoeudA.addActionListener(new ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudActionPerformed(evt);
@@ -154,12 +161,16 @@ public class PGPanelListO extends  JPanel
         });
 
         this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(tabNoeudB));
+		if (lstObj.size() != 0)
+			this.comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(lstObj.get(0).getNoeud2()));
         this.comboBoxListNoeudB.addActionListener(new ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudBctionPerformed(evt);
             }
         });
 
+		if (lstObj.size() != 0)
+			this.txtPoint.setText("" + lstObj.get(0).getPoints());
         this.txtPoint.addActionListener(new  ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 txtPointActionPerformed(evt);
@@ -287,93 +298,101 @@ public class PGPanelListO extends  JPanel
     private void btnSupprimerActionPerformed(ActionEvent evt)
     {
         CarteObjectif objSelected = this.jListObj.getSelectedValue();
-        this.ctrl.supprimerArete(objSelected.getNoeud1().getNom(), objSelected.getNoeud2().getNom());
+        this.ctrl.supprimerObjectif(objSelected);
         this.jListObj.updateUI();
         this.ctrl.majIHMPlateau();
     }
 
     public void majIHM() 
     {    
+		CarteObjectif selectedItem = this.jListObj.getSelectedValue();
         this.jListObj.setModel(new AbstractListModel<CarteObjectif>()
         {
             List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
             public int getSize() { return lstObj.size(); }
             public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
         });
+
+		jListObj.setSelectedValue(selectedItem, true);
     }
 
     private void comboBoxListNoeudActionPerformed(ActionEvent evt)
     {
-        Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
-		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
-		boolean erreur = false;
+		if (this.ctrl.getCarteObjectif().size() != 0)
+		{
+			Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+			Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+			boolean erreur = false;
 
-        /*if (noeud1.equals(noeud2))
-        {
-            JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
-            erreur = true;
-        }
-       /*else
-        {
-            for (CarteObjectif c : this.ctrl.getCarteObjectif())
-            {
-                if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
-                    (c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
-                {
-                    JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    erreur = true;
-                    break;
-                }
-            }
-        }*/
+			if (!estUneMaj)
+			{
+				if (noeud1.equals(noeud2))
+				{
+					JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+					erreur = true;
+				}
+				else
+				{
+					for (CarteObjectif c : this.ctrl.getCarteObjectif())
+					{
+						if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
+							(c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
+						{
+							JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+							erreur = true;
+							break;
+						}
+					}
+				}
 
-        if (!erreur)
-        {
-            this.jListObj.getSelectedValue().setNoeud1(noeud1);
-            this.ctrl.majIHMPlateau();
-        }
-        else
-            this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
+				if (!erreur)
+					this.jListObj.getSelectedValue().setNoeud1(noeud1);
+				else
+					this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
+				
+				this.majIHM();
+			}
+		}
         
-        
-        this.majIHM();
     }
 
     private void comboBoxListNoeudBctionPerformed(ActionEvent evt)
     {
-        Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
-		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
-		boolean erreur = false;
+        if (this.ctrl.getCarteObjectif().size() != 0)
+		{
+			Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+			Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+			boolean erreur = false;
 
-        /*if (noeud1.equals(noeud2))
-        {
-            JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
-            erreur = true;
-        }
-        /*else
-        {
-            for (CarteObjectif c : this.ctrl.getCarteObjectif())
-            {
-                if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
-                    (c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
-                {
-                    JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-                    erreur = true;
-                    break;
-                }
-            }
-        }*/
+			if (!estUneMaj)
+			{
+				if (noeud1.equals(noeud2))
+				{
+					JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+					erreur = true;
+				}
+				else
+				{
+					for (CarteObjectif c : this.ctrl.getCarteObjectif())
+					{
+						if ((c.getNoeud1().equals(noeud1) && c.getNoeud2().equals(noeud2)) ||
+							(c.getNoeud1().equals(noeud2) && c.getNoeud2().equals(noeud1))   )
+						{
+							JOptionPane.showMessageDialog(this, "La carte objectif existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+							erreur = true;
+							break;
+						}
+					}
+				}
 
-        if (!erreur)
-        {
-            this.jListObj.getSelectedValue().setNoeud1(noeud1);
-            this.ctrl.majIHMPlateau();
-        }
-        else
-            this.comboBoxListNoeudA.setSelectedItem(this.jListObj.getSelectedValue().getNoeud1());
-        
-        
-        this.majIHM();
+				if (!erreur)
+					this.jListObj.getSelectedValue().setNoeud2(noeud2);
+				else
+					this.comboBoxListNoeudB.setSelectedItem(this.jListObj.getSelectedValue().getNoeud2());
+				
+				this.majIHM();
+			}
+		}
     }
 
     private void txtPointActionPerformed(ActionEvent evt)
@@ -391,7 +410,6 @@ public class PGPanelListO extends  JPanel
 				else
 				{
 					this.jListObj.getSelectedValue().setPoints(point);
-					this.ctrl.majIHMPlateau();
 				}
 			}
 			catch (NumberFormatException ex)
@@ -404,42 +422,63 @@ public class PGPanelListO extends  JPanel
 
     private void btnImgRectoActionPerformed(ActionEvent evt)
     {
-        String path = "";
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) 
-        {
-            File file = chooser.getSelectedFile();
-            path = file.getAbsolutePath();
-            try
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setMultiSelectionEnabled(false);
+
+		int result = fc.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION  && fc.getSelectedFile().getPath() != null)
+		{
+			try
+			{
+				File fichier = fc.getSelectedFile();
+				String extention = fichier.getName().substring(fichier.getName().lastIndexOf('.') + 1);
+
+				if (extention.equals("jpg") || extention.equals("gif") || 
+				    extention.equals("png") || extention.equals("jpeg")  )
+				{
+					BufferedImage img = ImageIO.read(fichier);
+					this.jListObj.getSelectedValue().setImageRecto(img);
+				}
+				else
+					JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format JPG, GIF, PNG ou JPEG", "Erreur", JOptionPane.ERROR_MESSAGE);         
+			}
+            catch(IOException ex)
             {
-                CarteObjectif carte = this.jListObj.getSelectedValue();
-                carte.setImageRecto(ImageIO.read(new File(path)));
-            } catch (IOException e1) {e1.printStackTrace();}
-            
-            this.majIHM();
+                JOptionPane.showMessageDialog(this, "Le fichier choisi n'est pas une image supportée", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
+
     private void btnImgVersoActionPerformed(ActionEvent evt)
     {
-        String path = "";
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) 
-        {
-            File file = chooser.getSelectedFile();
-            path = file.getAbsolutePath();
-            try
+        JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("JPG & JPEG & GIF & PNG Images", "jpg", "gif", "png", "jpeg"));
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setMultiSelectionEnabled(false);
+
+		int result = fc.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION  && fc.getSelectedFile().getPath() != null)
+		{
+			try
+			{
+				File fichier = fc.getSelectedFile();
+				String extention = fichier.getName().substring(fichier.getName().lastIndexOf('.') + 1);
+
+				if (extention.equals("jpg") || extention.equals("gif") || 
+				    extention.equals("png") || extention.equals("jpeg")  )
+				{
+					BufferedImage img = ImageIO.read(fichier);
+					this.ctrl.setImageVersoObjectif(img);
+				}
+				else
+					JOptionPane.showMessageDialog(this, "Le fichier choisi doit-être au format JPG, GIF, PNG ou JPEG", "Erreur", JOptionPane.ERROR_MESSAGE);         
+			}
+            catch(IOException ex)
             {
-                CarteObjectif carte = this.jListObj.getSelectedValue();
-                carte.setImageRecto(ImageIO.read(new File(path)));
-            } catch (IOException e1) {e1.printStackTrace();}
-            
-            this.majIHM();
+                JOptionPane.showMessageDialog(this, "Le fichier choisi n'est pas une image supportée", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
