@@ -26,8 +26,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controleur.Controleur;
 
-
-
 public class FrameCreerCarteWagon extends JFrame implements ActionListener
 {
     private Controleur ctrl;
@@ -35,6 +33,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
     private JPanel panelParametrageCarte;
     private JPanel panelVisualisationCarte;
+    private JPanel panelVisualisation;
     private JPanel panelActionCarte;
 
     private List lstCarte;
@@ -69,6 +68,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.panelParametrageCarte = new JPanel();
         this.panelParametrageCarte.setLayout(new GridLayout(5,1));
 
+        this.panelVisualisation = new JPanel();
+
         this.panelVisualisationCarte = new JPanel();
         this.lblCarteWagon = new JLabel("");
 
@@ -101,6 +102,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.btnChoisirCouleur.addActionListener(this);
 
         //Ajout des composants
+        this.panelVisualisation.add(this.panelVisualisationCarte);
+
         this.panelVisualisationCarte.add(this.lblCarteWagon);
 
         this.panelParametrageCarte.add(this.lstCarte);
@@ -114,6 +117,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.panelActionCarte.add(this.btnQuitter, BorderLayout.SOUTH);
 
         this.add(this.panelParametrageCarte, BorderLayout.WEST);
+        this.add(this.panelVisualisation, BorderLayout.CENTER);
         this.add(this.panelActionCarte, BorderLayout.SOUTH);
 
         this.appliquerTheme();
@@ -211,7 +215,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                     img = ImageIO.read(new File(filePath));
                     if ( img.getWidth() > 500 ||  img.getHeight() > 500 )
                     {
-                        Image image = img.getScaledInstance((int)this.dimEcran.getWidth(), (int)this.dimEcran.getHeight(), Image.SCALE_DEFAULT);
+                        Image image = img.getScaledInstance((int) this.dimEcran.getWidth()* 8/10, (int)this.dimEcran.getHeight()* 8/10, Image.SCALE_DEFAULT);
                         this.lblCarteWagon.setIcon(new ImageIcon(image));
                         this.panelVisualisationCarte.setSize(image.getWidth(fileChooser), image.getHeight(fileChooser));
                     }
