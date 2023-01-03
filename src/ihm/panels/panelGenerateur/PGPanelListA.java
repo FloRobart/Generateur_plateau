@@ -410,6 +410,10 @@ public class PGPanelListA extends JPanel
         this.jListAretes.setModel(this.listModel);
 
         this.effacerForm();*/
+        Arete areteSelected = this.jListAretes.getSelectedValue();
+        this.ctrl.supprimerArete(areteSelected.getNoeud1().getNom(), areteSelected.getNoeud2().getNom());
+        this.jListAretes.updateUI();
+        this.ctrl.majIHMPlateau();
     }
 
     private void cb2SensActionPerformed(ActionEvent e)
