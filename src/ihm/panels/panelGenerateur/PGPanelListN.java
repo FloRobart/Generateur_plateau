@@ -357,15 +357,19 @@ public class PGPanelListN extends JPanel
         this.listNoeuds    .setBackground         (background    );
         this.listNoeuds    .setSelectionForeground(background    );
 
+        this.lblNom        .setBorder(null);
         this.lblNom        .setOpaque(false);
         this.lblNom        .setForeground(labelForeColor);
 
+        this.lblPosition   .setBorder(null);
         this.lblPosition   .setOpaque(false);
         this.lblPosition   .setForeground(labelForeColor);
 
+        this.lblPositionNom.setBorder(null);
         this.lblPositionNom.setOpaque(false);
         this.lblPositionNom.setForeground(labelForeColor);
 
+        this.lblCouleur    .setBorder(null);
         this.lblCouleur    .setOpaque(false);
         this.lblCouleur    .setForeground(labelForeColor);
 

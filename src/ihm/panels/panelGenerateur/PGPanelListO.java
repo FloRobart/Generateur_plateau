@@ -325,7 +325,6 @@ public class PGPanelListO extends  JPanel
         Color background       = theme.get("background").get(0);
         Color title            = theme.get("titles"    ).get(0);
         Color labelForeColor   = theme.get("labels"    ).get(0);
-		Color labelBackColor   = theme.get("labels"    ).get(1);
         Color saisiForeColor   = theme.get("saisies"   ).get(0);
 		Color saisiBackColor   = theme.get("saisies"   ).get(1);
         Color placeholderColor = theme.get("saisies"   ).get(2);
@@ -358,13 +357,13 @@ public class PGPanelListO extends  JPanel
 
         /* Label noeuds A */
         this.lblNoeudA         .setBorder(null);
+        this.lblNoeudA         .setOpaque(false);
         this.lblNoeudA         .setForeground(labelForeColor);
-        this.lblNoeudA         .setBackground(labelBackColor);
 
         /* Label noeuds B */
         this.lblNoeudB         .setBorder(null);
+        this.lblNoeudB         .setOpaque(false);
         this.lblNoeudB         .setForeground(labelForeColor);
-        this.lblNoeudB         .setBackground(labelBackColor);
 
         /* Liste des noeuds B */
         this.comboBoxListNoeudA.setBorder(null);
@@ -380,27 +379,28 @@ public class PGPanelListO extends  JPanel
 
         /* Label des points */
         this.lblPoint          .setBorder(null);
+        this.lblPoint          .setOpaque(false);
         this.lblPoint          .setForeground(labelForeColor);
-        this.lblPoint          .setBackground(labelBackColor);
+        
 
         /* Label recto */
         this.lblRecto          .setBorder(null);
+        this.lblRecto          .setOpaque(false);
         this.lblRecto          .setForeground(labelForeColor);
-        this.lblRecto          .setBackground(labelBackColor);
 
         /* Label verso */
         this.lblVerso          .setBorder(null);
+        this.lblVerso          .setOpaque(false);
         this.lblVerso          .setForeground(labelForeColor);
-        this.lblVerso          .setBackground(labelBackColor);
 
         /* Bouton image recto */
-        this.btnImgRecto       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnImgRecto       .setForeground(btnForeColor);
         this.btnImgRecto       .setBackground(btnBackColor);
+        this.btnImgRecto       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         /* Bouton image verso */
-        this.btnImgVerso       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnImgVerso       .setForeground(btnForeColor);
         this.btnImgVerso       .setBackground(btnBackColor);
+        this.btnImgVerso       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
     }
 }
