@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import controleur.Controleur;
@@ -143,10 +144,12 @@ public class FramePlateau extends JFrame
 	{
 		// Ouvrir le menu pour choisir un répertoire de sauvegarde
 		JFileChooser choose = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		choose.setFileFilter(new FileNameExtensionFilter("Création d'une image au format " + formatImage, formatImage));
 
 		String filePath = "";
 
 		int res = choose.showSaveDialog(null);
+		
 
 		if (res == JFileChooser.APPROVE_OPTION) 
 		{
