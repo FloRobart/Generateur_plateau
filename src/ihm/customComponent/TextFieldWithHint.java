@@ -15,7 +15,7 @@ public class TextFieldWithHint extends JTextField implements FocusListener
     private boolean showingHint;
     private Color foregroundColor;
     private Color placeholderColor;
-    public TextFieldWithHint()
+    public TextFieldWithHint(Controleur ctrl)
     {
         super();
         this.hint = "";

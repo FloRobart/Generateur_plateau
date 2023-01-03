@@ -34,6 +34,8 @@ public class FramePlateau extends JFrame
 
 	private MenuBarre menuBarre;
 
+	private JScrollPane scrollPane;
+
 
 	public FramePlateau(Controleur ctrl)
 	{
@@ -43,7 +45,7 @@ public class FramePlateau extends JFrame
 
 		this.setTitle("Générateur de plateau");
 		this.setLocation(0, 0);
-		this.setSize(dimEcran.width, dimEcran.height); // Définition une taille minimum
+		this.setSize(dimEcran.width, dimEcran.height); // Définition d'une taille minimum (obligatoire)
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.menuBarre = new MenuBarre(this.ctrl);
@@ -58,8 +60,8 @@ public class FramePlateau extends JFrame
         panel.add(this.panelPlateau);
 
 		this.panelGenerateur = new PanelGenerateur(this.ctrl);
-		JScrollPane scrollPane = new JScrollPane(this.panelGenerateur);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		this.scrollPane = new JScrollPane(this.panelGenerateur);
+		this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		//Create a split pane with the two scroll panes in it.
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, panel);
@@ -74,6 +76,8 @@ public class FramePlateau extends JFrame
 
 		this.add(splitPane);
 		this.setVisible ( true );
+
+		this.appliquerTheme();
 	}
 
 	//Méthodes 
@@ -177,6 +181,8 @@ public class FramePlateau extends JFrame
 	 */
 	public void appliquerTheme()
 	{
+		this.scrollPane.getVerticalScrollBar().setBackground(this.ctrl.getTheme().get("background").get(0));
+
 		this.menuBarre.appliquerTheme();
 		this.panelGenerateur.appliquerTheme();
 		this.panelPlateau.appliquerTheme();

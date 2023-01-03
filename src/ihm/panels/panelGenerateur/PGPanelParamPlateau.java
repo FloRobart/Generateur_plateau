@@ -357,7 +357,7 @@ public class PGPanelParamPlateau extends JPanel
 
         /* Bouton de choix de la police */
         this.ddlstChoisirFont.setOpaque    (true);
-        this.ddlstChoisirFont.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.ddlstChoisirFont.setBorder    (null);
         this.ddlstChoisirFont.setForeground(btnForeColor);
         this.ddlstChoisirFont.setBackground(btnBackColor);
 	}
