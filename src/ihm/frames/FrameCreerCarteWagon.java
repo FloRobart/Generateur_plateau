@@ -45,7 +45,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
     private List lstCarte;
 
     private JButton btnEnregistrer;
-    private JButton btnSupprimer;
     private JButton btnQuitter;
     private JButton btnChoisirImage;
 
@@ -60,9 +59,8 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         //Paramètres de la frame
         this.setTitle("Concepteur de cartes wagon");
         this.dimEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(0, 0);
-        this.setSize(dimEcran.width, dimEcran.height); // Définition d'une taille minimum (obligatoire)
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Ouvre la fenêtre en pleine écran
+        this.setLocation(dimEcran.width/10, dimEcran.height/10);
+        this.setSize(dimEcran.width* 8/10, dimEcran.height* 8/10); // Définition d'une taille minimum (obligatoire)
         this.setLayout( new BorderLayout());
 
         //Creation des composants
@@ -96,7 +94,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.lstCarte.add("Locomotive");
 
         this.btnEnregistrer  = new JButton("Enregistrer");
-        this.btnSupprimer    = new JButton("Supprimer");
         this.btnQuitter      = new JButton("Quitter");
 
         this.btnChoisirImage = new JButton("Choisissez l'image de la carte");
@@ -105,7 +102,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.lstCarte.addActionListener(this);
 
         this.btnEnregistrer.addActionListener(this);
-        this.btnSupprimer.addActionListener(this);
         this.btnQuitter.addActionListener(this);
 
         this.btnChoisirImage.addActionListener(this);
@@ -119,7 +115,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.panelParametrageCarte.add(this.btnChoisirImage);
 
         this.panelActionCarte.add(this.btnEnregistrer, BorderLayout.SOUTH);
-        this.panelActionCarte.add(this.btnSupprimer, BorderLayout.SOUTH);
         this.panelActionCarte.add(this.btnQuitter, BorderLayout.SOUTH);
 
         this.add(this.panelParametrageCarte, BorderLayout.WEST);
@@ -142,15 +137,14 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
             { 
                 BufferedImage img = this.ctrl.getImageVersoCouleur();
                 this.lblCarteWagon.setIcon(new ImageIcon(img));
-                this.panelVisualisationCarte.setSize(img.getWidth(), img.getHeight());
-                this.panelVisualisationCarte.setBackground(this.ctrl.getCouleurs().get(this.lstCarte.getSelectedIndex()));
+                this.panelVisualisationCarte.setBackground(null);
             }
 
             if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur+1 ) 
             { 
                 BufferedImage img = this.ctrl.getImageRectoLocomotive();
                 this.lblCarteWagon.setIcon(new ImageIcon(img));
-                this.panelVisualisationCarte.setSize(img.getWidth(), img.getHeight());
+                this.panelVisualisationCarte.setBackground(null);
             }
 
             if ( this.lstCarte.getSelectedIndex() != this.indiceMaxlstCouleur && this.lstCarte.getSelectedIndex() != this.indiceMaxlstCouleur+1 ) 
@@ -159,7 +153,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 {
                     BufferedImage img = this.ctrl.getImagesRectoCouleur().get(this.lstCarte.getSelectedIndex());
                     this.lblCarteWagon.setIcon(new ImageIcon(img));
-                    this.panelVisualisationCarte.setSize(img.getWidth(), img.getHeight());
+                    this.panelVisualisationCarte.setBackground(this.ctrl.getCouleurs().get(this.lstCarte.getSelectedIndex()));
                 }
             }
         }
@@ -173,29 +167,14 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
             this.panelVisualisationCarte.print(g2d);
             g2d.dispose();
 
-            if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur+1 )
+            if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur )
                 this.ctrl.setImageVersoCouleur(image);
 
-            else if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur )
+            else if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur+1 )
                 this.ctrl.setImageRectoLocomotive(image);
 
             else
                 this.ctrl.setImageRectoCouleur(this.lstCarte.getSelectedIndex(), image);
-        }
-
-        if ( e.getSource() == this.btnSupprimer )
-        {
-            //Supprime la carte de la liste
-            this.lstCarte.remove(this.lstCarte.getSelectedIndex());
-            if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur+1 )
-                this.ctrl.supprimerImageVersoCouleur();
-
-            if (this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur )
-                this.ctrl.supprimerImageRectoLocomotive();
-
-            else
-                this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
-
         }
 
         if ( e.getSource() == this.btnQuitter )  { this.dispose(); }
@@ -264,9 +243,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.btnEnregistrer.setForeground(btnForeColor);
         this.btnEnregistrer.setBackground(btnBackColor);
-
-        this.btnSupprimer.setForeground(btnForeColor);
-        this.btnSupprimer.setBackground(btnBackColor);
 
         this.btnQuitter.setForeground(btnForeColor);
         this.btnQuitter.setBackground(btnBackColor);
