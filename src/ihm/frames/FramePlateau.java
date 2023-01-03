@@ -32,10 +32,7 @@ public class FramePlateau extends JFrame
 	private PanelGenerateur panelGenerateur;
 	private PanelPlateau panelPlateau;
 
-	private FrameObjectif frameObjectif;
-	private FramePoint    framePoint;
-
-	private MenuBarre     menuBarre;
+	private MenuBarre menuBarre;
 
 
 	public FramePlateau(Controleur ctrl)
@@ -74,9 +71,6 @@ public class FramePlateau extends JFrame
 		panel.setMinimumSize(new Dimension(0, 0));
 		this.panelGenerateur.setMinimumSize(new Dimension(0, 0));
 		scrollPane.setMinimumSize(new Dimension(0,0));
-		/*frames modif */
-		this.frameObjectif = new FrameObjectif(this.ctrl);
-		this.framePoint = new FramePoint(this.ctrl);
 
 		this.add(splitPane);
 		this.setVisible ( true );
@@ -197,33 +191,6 @@ public class FramePlateau extends JFrame
 	public void setImageFond(BufferedImage img)
 	{
 		this.panelPlateau.setImageFond(img);
-	}
-
-
-	/**
-	 * Affiche la frame demandée
-	 * @param frame : "couleur" ou "objectif" ou "point"
-	 */
-	public void afficher(String frame) 
-	{
-		switch (frame) 
-		{
-			case "couleur" :
-				{
-					this.frameObjectif.setVisible(false);
-					this.framePoint.setVisible(false);
-				}
-			case "objectif" : 
-				{
-					this.frameObjectif.setVisible(true);
-					this.framePoint.setVisible(false);
-				}
-			case "points" : 
-				{
-					this.frameObjectif.setVisible(false);
-					this.framePoint.setVisible(true);
-				}
-		}
 	}
 
 	public void envoyerCouleur(Color c, String nomPanel)

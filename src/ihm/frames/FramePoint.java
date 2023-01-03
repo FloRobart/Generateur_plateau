@@ -90,7 +90,7 @@ public class FramePoint extends JFrame implements ActionListener
 
         this.add(this.panelPoint, BorderLayout.CENTER);
         this.add(panelButton, BorderLayout.SOUTH);
-        this.setVisible(false);
+        this.setVisible(true);
 
         this.btnAjouter.addActionListener(this);
         this.btnSupprimer.addActionListener(this);

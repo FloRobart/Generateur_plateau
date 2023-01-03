@@ -6,6 +6,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -27,23 +28,23 @@ import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
 import ihm.frames.FrameCouleur;
 import ihm.frames.FrameCreerCarteWagon;
+import ihm.frames.FramePoint;
 
 
 public class PGPanelParamJeu extends JPanel
 {
 	private Controleur ctrl;
-	private int        nbCarteWagon = 0;
-	private int        nbJoker      = 0;
+
+	private TextFieldWithHint txtMaxNbJoueur;
+    private TextFieldWithHint txtMinNbJoueur;
 
     private JButton    btnCouleurs;
     private JButton    btnMoinsCoul;
     private JButton    btnMoinsJoker;
-    private JButton    btnObjectifs;
     private JButton    btnPlusCoul;
     private JButton    btnPlusJoker;
     private JButton    btnPoints;
-    private JButton    btnChoisirImg;
-    private JButton    btnMoinsJetonsParCouleur;    
+    private JButton    btnMoinsJetonsParJoueur;    
     private JButton    btnMoinsJetonsPourFinir;
     private JButton    btnPlusJetonsParJoueur;
     private JButton    btnPlusJetonsPourFinir;
@@ -55,17 +56,14 @@ public class PGPanelParamJeu extends JPanel
     private JLabel     lblNbJoueurs;
     private JLabel     lblParamJeu;
     private JLabel     lblCartesWagon;
-    private JLabel lblJetonsPourFinir;
-    private JLabel lblJetonsWagons;
-    private JLabel lblJetonsParJoueur;
-    private JLabel lblJetonsWagon;
+    private JLabel     lblJetonsPourFinir;
+    private JLabel     lblJetonsWagons;
+    private JLabel     lblJetonsParJoueur;
+    private JLabel     lblJetonsWagon;
     private JTextField txtNbCarteParCoul;
     private JTextField txtNbJoker;
-
-    private TextFieldWithHint txtMaxNbJoueur;
-    private TextFieldWithHint txtMinJoueur;
-    private TextFieldWithHint txtJetonsPourFinir;
-    private TextFieldWithHint txtJetonsParJoueur;
+    private JTextField txtJetonsPourFinir;
+    private JTextField txtJetonsParJoueur;
 
 
 	/**
@@ -76,35 +74,33 @@ public class PGPanelParamJeu extends JPanel
     {
 		this.ctrl = ctrl;
 
-        this.lblParamJeu          = new JLabel    ();
-        this.lblNbJoueurs         = new JLabel    ();
-        this.lblModif             = new JLabel    ();
-        this.lblMultiCoul         = new JLabel    ();
-        this.lblNbCarteParCoul    = new JLabel    ();
-        this.lblImgCarte          = new JLabel    ();
-        this.lblCartesWagon       = new JLabel    ();
-        this.lblJetonsWagons      = new JLabel();
-        this.txtMinJoueur         = new TextFieldWithHint("Min", ctrl);
-        this.txtMaxNbJoueur       = new TextFieldWithHint("Max", ctrl);
-        this.txtNbJoker           = new JTextField();
-        this.txtNbCarteParCoul    = new JTextField();
-        this.btnPlusJoker         = new JButton   ();
-        this.btnCouleurs          = new JButton   ();
-        this.btnPoints            = new JButton   ();
-        this.btnObjectifs         = new JButton   ();
-        this.btnPlusCoul          = new JButton   ();
-        this.btnMoinsJoker        = new JButton   ();
-        this.btnMoinsCoul         = new JButton   ();
-        this.btnChoisirImg        = new JButton   ();
-        this.lblJetonsParJoueur   = new JLabel();
-        this.lblJetonsPourFinir   = new JLabel();
-        this.txtJetonsParJoueur    = new TextFieldWithHint("10", ctrl);
-        this.txtJetonsPourFinir   = new TextFieldWithHint("10", ctrl);
-        this.btnCartesWagon       = new JButton();
-        this.btnMoinsJetonsParCouleur = new JButton()      ;
-        this.btnMoinsJetonsPourFinir  = new JButton()      ;
-        this.btnPlusJetonsParJoueur   = new JButton()      ;
-        this.btnPlusJetonsPourFinir   = new JButton()      ;
+        this.lblParamJeu              = new JLabel();
+        this.lblNbJoueurs             = new JLabel();
+        this.lblModif                 = new JLabel();
+        this.lblMultiCoul             = new JLabel();
+        this.lblNbCarteParCoul        = new JLabel();
+        this.lblImgCarte              = new JLabel();
+        this.lblCartesWagon           = new JLabel();
+        this.lblJetonsWagons          = new JLabel();
+		this.lblJetonsParJoueur       = new JLabel();
+        this.lblJetonsPourFinir       = new JLabel();
+        this.txtMinNbJoueur           = new TextFieldWithHint("Min", ctrl);
+        this.txtMaxNbJoueur           = new TextFieldWithHint("Max", ctrl);
+        this.txtNbJoker               = new JTextField();
+        this.txtNbCarteParCoul        = new JTextField();
+		this.txtJetonsParJoueur       = new JTextField();
+        this.txtJetonsPourFinir       = new JTextField();
+        this.btnPlusJoker             = new JButton();
+        this.btnCouleurs              = new JButton();
+        this.btnPoints                = new JButton();
+        this.btnPlusCoul              = new JButton();
+        this.btnMoinsJoker            = new JButton();
+        this.btnMoinsCoul             = new JButton();
+        this.btnCartesWagon           = new JButton();
+        this.btnMoinsJetonsParJoueur  = new JButton();
+        this.btnMoinsJetonsPourFinir  = new JButton();
+        this.btnPlusJetonsParJoueur   = new JButton();
+        this.btnPlusJetonsPourFinir   = new JButton();
 
         this.lblParamJeu.setText(" Parametre du jeu");
 
@@ -126,7 +122,17 @@ public class PGPanelParamJeu extends JPanel
         this.lblCartesWagon.setText("Cartes wagon");
         this.lblCartesWagon.setFont(new Font("Segoe UI", 1, 12));
 
-        this.txtMinJoueur.addActionListener(new ActionListener()
+		this.lblJetonsPourFinir.setForeground(new java.awt.Color(255, 255, 255));
+        this.lblJetonsPourFinir.setText("pour finir");
+
+        this.lblJetonsParJoueur.setForeground(new java.awt.Color(255, 255, 255));
+        this.lblJetonsParJoueur.setText("par joueur");
+
+        this.lblJetonsWagons.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        this.lblJetonsWagons.setForeground(new java.awt.Color(255, 255, 255));
+        this.lblJetonsWagons.setText("Jetons wagon");
+
+        this.txtMinNbJoueur.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
@@ -143,7 +149,6 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.txtNbJoker.setText("10");
         this.txtNbJoker.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -153,7 +158,6 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.txtNbCarteParCoul.setText("10");
         this.txtNbCarteParCoul.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -161,22 +165,20 @@ public class PGPanelParamJeu extends JPanel
                 txtNbCarteParCoulActionPerformed(e);
             }
         });
-        txtJetonsPourFinir.setBackground(new java.awt.Color(53, 55, 70));
-        txtJetonsPourFinir.setForeground(new java.awt.Color(255, 255, 255));
-        txtJetonsPourFinir.setText("10");
-        txtJetonsPourFinir.setBorder(null);
-        txtJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
+        this.txtJetonsPourFinir.setBackground(new java.awt.Color(53, 55, 70));
+        this.txtJetonsPourFinir.setForeground(new java.awt.Color(255, 255, 255));
+        this.txtJetonsPourFinir.setBorder(null);
+        this.txtJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtJetonsPourFinirActionPerformed(evt);
             }
 
         });
 
-        txtJetonsParJoueur.setBackground(new java.awt.Color(53, 55, 70));
-        txtJetonsParJoueur.setForeground(new java.awt.Color(255, 255, 255));
-        txtJetonsParJoueur.setText("10");
-        txtJetonsParJoueur.setBorder(null);
-        txtJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
+        this.txtJetonsParJoueur.setBackground(new java.awt.Color(53, 55, 70));
+        this.txtJetonsParJoueur.setForeground(new java.awt.Color(255, 255, 255));
+        this.txtJetonsParJoueur.setBorder(null);
+        this.txtJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtJetonsParJoueurActionPerformed(evt);
             }
@@ -204,14 +206,7 @@ public class PGPanelParamJeu extends JPanel
         });
 
 
-        this.btnObjectifs.setText("Objectifs");
-        this.btnObjectifs.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                btnObjectifsActionPerformed(e);
-            }
-        });
+        
 
 
         this.btnPlusCoul.setText("   +   ");
@@ -257,64 +252,46 @@ public class PGPanelParamJeu extends JPanel
             }
         });
 
-
-        this.btnChoisirImg.setText("Définir image");
-        this.btnChoisirImg.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                btnChoisirImgActionPerformed(e);
-            }
-        });
-        btnPlusJetonsParJoueur.setText("   +   ");
-        btnPlusJetonsParJoueur.setToolTipText("+");
-        btnPlusJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
+        this.btnPlusJetonsParJoueur.setText("   +   ");
+        this.btnPlusJetonsParJoueur.setToolTipText("+");
+        this.btnPlusJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlusJetonsParJoueurActionPerformed(evt);
             }
         });
 
-        btnPlusJetonsPourFinir.setText("   +   ");
-        btnPlusJetonsPourFinir.setToolTipText("+");
-        btnPlusJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
+        this.btnPlusJetonsPourFinir.setText("   +   ");
+        this.btnPlusJetonsPourFinir.setToolTipText("+");
+        this.btnPlusJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlusJetonsPourFinirActionPerformed(evt);
             }
         });
 
-        btnMoinsJetonsParCouleur.setText("   -   ");
-        btnMoinsJetonsParCouleur.setToolTipText("-");
-        btnMoinsJetonsParCouleur.addActionListener(new java.awt.event.ActionListener() {
+        this.btnMoinsJetonsParJoueur.setText("   -   ");
+        this.btnMoinsJetonsParJoueur.setToolTipText("-");
+        this.btnMoinsJetonsParJoueur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoinsJetonsParCouleurActionPerformed(evt);
+                btnMoinsJetonsParJoueurActionPerformed(evt);
             }
         });
 
-        btnMoinsJetonsPourFinir.setText("   -   ");
-        btnMoinsJetonsPourFinir.setToolTipText("-");
-        btnMoinsJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
+        this.btnMoinsJetonsPourFinir.setText("   -   ");
+        this.btnMoinsJetonsPourFinir.setToolTipText("-");
+        this.btnMoinsJetonsPourFinir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoinsJetonsPourFinirActionPerformed(evt);
             }
         });
-        btnCartesWagon.setBackground(new java.awt.Color(40, 42, 54));
-        btnCartesWagon.setForeground(new java.awt.Color(255, 255, 255));
-        btnCartesWagon.setText("Cartes");
-        btnCartesWagon.setBorder(null);
-        btnCartesWagon.addActionListener(new java.awt.event.ActionListener() {
+        this.btnCartesWagon.setBackground(new java.awt.Color(40, 42, 54));
+        this.btnCartesWagon.setForeground(new java.awt.Color(255, 255, 255));
+        this.btnCartesWagon.setText("Cartes");
+        this.btnCartesWagon.setBorder(null);
+        this.btnCartesWagon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCartesWagonActionPerformed(evt);
             }
         });
-        lblJetonsPourFinir.setForeground(new java.awt.Color(255, 255, 255));
-        lblJetonsPourFinir.setText("pour finir");
-
-        lblJetonsParJoueur.setForeground(new java.awt.Color(255, 255, 255));
-        lblJetonsParJoueur.setText("par joueur");
-
-        lblJetonsWagons.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblJetonsWagons.setForeground(new java.awt.Color(255, 255, 255));
-        lblJetonsWagons.setText("Jetons wagon");
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -331,7 +308,7 @@ public class PGPanelParamJeu extends JPanel
                             .addComponent(lblNbJoueurs)
                             .addComponent(lblCartesWagon))
                         .addGap(15, 15, 15)
-                        .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMinNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -344,7 +321,7 @@ public class PGPanelParamJeu extends JPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnMoinsJetonsParCouleur)
+                                    .addComponent(btnMoinsJetonsParJoueur)
                                     .addComponent(btnMoinsJetonsPourFinir))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +360,7 @@ public class PGPanelParamJeu extends JPanel
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNbJoueurs)
-                    .addComponent(txtMinJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMinNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaxNbJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +387,7 @@ public class PGPanelParamJeu extends JPanel
                     .addComponent(lblJetonsParJoueur)
                     .addComponent(txtJetonsParJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPlusJetonsParJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMoinsJetonsParCouleur, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnMoinsJetonsParJoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblJetonsPourFinir)
@@ -426,118 +403,271 @@ public class PGPanelParamJeu extends JPanel
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-
-
         this.appliquerTheme();
+		this.majIHM();
     }
 
+	// nb joueurs
+    private void txtMinJoueurActionPerformed(ActionEvent e) 
+	{
+		if (this.txtMinNbJoueur.getText().length() > 0)
+		{
+			try
+			{
+				int val = Integer.parseInt(this.txtMinNbJoueur.getText());
+				if (val < 0 || val >= this.ctrl.getNbJoueursMax())
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et inférieur au nombre maximum de joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtMinNbJoueur.setText("" + this.ctrl.getNbJoueursMin());
+				}
+				else
+				{
+					this.ctrl.setNbJoueursMin(val);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtMinNbJoueur.setText("" + this.ctrl.getNbJoueursMin());
+			}
+		}
+	}
 
-    private void txtMinJoueurActionPerformed        (ActionEvent e) {}
-    private void txtMaxNbJoueurActionPerformed      (ActionEvent e) {}
-    private void txtNbJokerActionPerformed          (ActionEvent e) {}
-    private void txtNbCarteParCoulActionPerformed   (ActionEvent e) {}
+    private void txtMaxNbJoueurActionPerformed(ActionEvent e) 
+	{
+		if (this.txtMaxNbJoueur.getText().length() > 0)
+		{
+			try
+			{
+				int val = Integer.parseInt(this.txtMaxNbJoueur.getText());
+				if (val < 0 || val <= this.ctrl.getNbJoueursMin())
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre minimum de joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtMaxNbJoueur.setText("" + this.ctrl.getNbJoueursMax());
+				}
+				else
+				{
+					this.ctrl.setNbJoueursMax(val);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtMaxNbJoueur.setText("" + this.ctrl.getNbJoueursMax());
+			}
+		}
+	}
 
 
-    private void btnCouleursActionPerformed (ActionEvent e) { new FrameCouleur(this.ctrl); }
-    private void btnPointsActionPerformed   (ActionEvent e) { this.ctrl.afficher("points"  ); }
-    private void btnObjectifsActionPerformed(ActionEvent e) { this.ctrl.afficher("objectif"); }
+	// nb cartes couleurs
+    private void txtNbJokerActionPerformed(ActionEvent e) 
+	{
+		if (this.txtNbJoker.getText().length() > 0)
+		{
+			try
+			{
+				int val = Integer.parseInt(this.txtNbJoker.getText());
+				if (val < 0 || val <= this.ctrl.getNbCarteCoul())
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre de cartes couleurs", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtNbJoker.setText("" + this.ctrl.getNbCarteLocomotive());
+				}
+				else
+				{
+					this.ctrl.setNbCarteLocomotive(val);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtNbJoker.setText("" + this.ctrl.getNbCarteLocomotive());
+			}
+		}
+	}
 
+    private void txtNbCarteParCoulActionPerformed(ActionEvent e) 
+	{
+		if (this.txtNbCarteParCoul.getText().length() > 0)
+		{
+			try
+			{
+				int val = Integer.parseInt(this.txtNbCarteParCoul.getText());
+				if (val < 0 || val >= this.ctrl.getNbCarteLocomotive())
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et inférieur au nombre de carte multicouleurs", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtNbCarteParCoul.setText("" + this.ctrl.getNbCarteCoul());
+				}
+				else
+				{
+					this.ctrl.setNbCarteCoul(val);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtNbCarteParCoul.setText("" + this.ctrl.getNbCarteCoul());
+			}
+		}
+	}
 
-    private void btnMoinsCoulActionPerformed(ActionEvent e) 
-	{ 
-		this.nbCarteWagon = Integer.parseInt(this.txtNbCarteParCoul.getText());
-		if (this.nbCarteWagon > 0)
-		{	
-			this.nbCarteWagon--;
-			this.txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
+	private void btnMoinsJokerActionPerformed(ActionEvent e)
+	{
+		int nbJoker = this.ctrl.getNbCarteLocomotive();
+		if (nbJoker - 1 > 0 && nbJoker - 1 > this.ctrl.getNbCarteCoul())
+		{
+			nbJoker--;
+			this.txtNbJoker.setText(Integer.toString(nbJoker));
+			this.ctrl.setNbCarteLocomotive(nbJoker);
 		}
 		else
-		{
-			this.nbCarteWagon = 0;
-			this.txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
-		}
-    }
-    
-
-    private void txtJetonsParJoueurActionPerformed(ActionEvent evt) {
-    }
-    private void btnPlusCoulActionPerformed(ActionEvent e)
-	{
-		this.nbCarteWagon = Integer.parseInt(this.txtNbCarteParCoul.getText());
-		this.nbCarteWagon++;
-		this.txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
-
-		if (this.nbCarteWagon < 0)
-		{
-			this.nbCarteWagon = 0;
-			this.txtNbCarteParCoul.setText(Integer.toString(this.nbCarteWagon));
-		}
-    }
-
-
-    private void btnMoinsJokerActionPerformed(ActionEvent e)
-	{
-		this.nbJoker = Integer.parseInt(this.txtNbJoker.getText());
-		if (this.nbJoker > 0)
-		{
-			this.nbJoker--;
-			this.txtNbJoker.setText(Integer.toString(this.nbJoker));
-		}
-		else
-		{
-			this.nbJoker = 0;
-			this.txtNbJoker.setText(Integer.toString(this.nbJoker));
-		}
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre de cartes couleurs", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
 
 
     private void btnPlusJokerActionPerformed(ActionEvent e)
 	{
-		this.nbJoker = Integer.parseInt(this.txtNbJoker.getText());
-		this.nbJoker++;
-		this.txtNbJoker.setText(Integer.toString(this.nbJoker));
+		int nbJoker = this.ctrl.getNbCarteLocomotive();
+		nbJoker++;
 
-		if (this.nbJoker < 0)
+		this.txtNbJoker.setText(Integer.toString(nbJoker));
+		this.ctrl.setNbCarteLocomotive(nbJoker);
+    }
+    
+
+
+    private void btnMoinsCoulActionPerformed(ActionEvent e) 
+	{ 
+		int nbCarteWagon = this.ctrl.getNbCarteCoul();
+
+		if (nbCarteWagon - 1 > 0)
 		{
-			this.nbJoker = 0;
-			this.txtNbJoker.setText(Integer.toString(this.nbJoker));
+			nbCarteWagon--;
+			this.txtNbCarteParCoul.setText(Integer.toString(nbCarteWagon));
+			this.ctrl.setNbCarteCoul(nbCarteWagon);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+    }
+    
+
+    
+    private void btnPlusCoulActionPerformed(ActionEvent e)
+	{
+		int nbCarteWagon = this.ctrl.getNbCarteCoul();
+		if (nbCarteWagon + 1 < this.ctrl.getNbCarteLocomotive())
+		{
+			nbCarteWagon++;
+			this.txtNbCarteParCoul.setText(Integer.toString(nbCarteWagon));
+			this.ctrl.setNbCarteCoul(nbCarteWagon);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre inférieur au nombre de carte multicouleurs", "Erreur", JOptionPane.ERROR_MESSAGE);
+    }
+
+	// nb jetons
+	private void txtJetonsParJoueurActionPerformed(ActionEvent evt) 
+	{
+		if (this.txtJetonsParJoueur.getText().length() > 0)
+		{
+			try
+			{
+				int val = Integer.parseInt(this.txtJetonsParJoueur.getText());
+				if (val < 0 || val <= this.ctrl.getNbJetonFin())
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre de jeton pour finir la partie", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtJetonsParJoueur.setText("" + this.ctrl.getNbJetonJoueur());
+				}
+				else
+				{
+					this.ctrl.setNbJetonJoueur(val);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtJetonsParJoueur.setText("" + this.ctrl.getNbJetonJoueur());
+			}
 		}
     }
 
+	private void txtJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                                   
+        if (this.txtJetonsPourFinir.getText().length() > 0)
+		{
+			try
+			{
+				int val = Integer.parseInt(this.txtJetonsPourFinir.getText());
+				if (val < 0 || val >= this.ctrl.getNbJetonJoueur())
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et inférieur au nombre de jeton par joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtJetonsPourFinir.setText("" + this.ctrl.getNbJetonFin());
+				}
+				else
+				{
+					this.ctrl.setNbJetonFin(val);
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtJetonsPourFinir.setText("" + this.ctrl.getNbJetonFin());
+			}
+		}
+    }    
 
-    private void btnChoisirImgActionPerformed(ActionEvent e)
-    {                                         
-        new FrameCreerCarteWagon(this.ctrl);
-    }
+	private void btnPlusJetonsParJoueurActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                                       
+        int nbJeton = this.ctrl.getNbJetonJoueur();
+		nbJeton++;
 
+		this.txtJetonsParJoueur.setText(Integer.toString(nbJeton));
+		this.ctrl.setNbJetonJoueur(nbJeton);
+	}                                                      
 
-    private void txtJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }                                                  
-
-    private void txtJetonsParJoeurActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
-    }                                                 
-
-    private void btnPlusJetonsParJoueurActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
+    private void btnPlusJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                                       
+        int nbJeton = this.ctrl.getNbJetonFin();
+		if (nbJeton + 1 < this.ctrl.getNbJetonJoueur())
+		{
+			nbJeton++;
+			this.txtJetonsPourFinir.setText(Integer.toString(nbJeton));
+			this.ctrl.setNbJetonFin(nbJeton);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre inférieur au nombre de jeton par joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
     }                                                      
 
-    private void btnPlusJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
-    }                                                      
-
-    private void btnMoinsJetonsParCouleurActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        // TODO add your handling code here:
+    private void btnMoinsJetonsParJoueurActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                                         
+        int nbJeton = this.ctrl.getNbJetonJoueur();
+		if (nbJeton - 1 > 0 && nbJeton - 1 > this.ctrl.getNbJetonFin())
+		{
+			nbJeton--;
+			this.txtJetonsParJoueur.setText(Integer.toString(nbJeton));
+			this.ctrl.setNbJetonJoueur(nbJeton);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et supérieur au nombre de jeton pour finir la partie", "Erreur", JOptionPane.ERROR_MESSAGE);
     }                                                        
 
-    private void btnMoinsJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
-    }                                                       
+    private void btnMoinsJetonsPourFinirActionPerformed(java.awt.event.ActionEvent evt) 
+	{                                                        
+        int nbJeton = this.ctrl.getNbJetonFin();
 
-    private void btnCartesWagonActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-    }      
+		if (nbJeton - 1 > 0)
+		{
+			nbJeton--;
+			this.txtJetonsPourFinir.setText(Integer.toString(nbJeton));
+			this.ctrl.setNbJetonFin(nbJeton);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
+    }                   
+
+    private void btnCouleursActionPerformed   (ActionEvent e) { new FrameCouleur(this.ctrl); }
+    private void btnPointsActionPerformed     (ActionEvent e) { new FramePoint  (this.ctrl); }
+    private void btnCartesWagonActionPerformed(ActionEvent e) { } //ajouter la frame wagon
+
     /**
      * Applique le thème à tout les composants du panel
      */
@@ -588,11 +718,11 @@ public class PGPanelParamJeu extends JPanel
         this.lblCartesWagon.setBackground(labelBackColor);
         this.lblCartesWagon.setForeground(labelForeColor);
 
-        this.txtMinJoueur.setBorder(null);
-        this.txtMinJoueur.setBackground(saisiBackColor  );
-        this.txtMinJoueur.setForeground(placeholderColor);
-        this.txtMinJoueur.setForegroundColor (saisiForeColor  );
-        this.txtMinJoueur.setPlaceholderColor(placeholderColor);
+        this.txtMinNbJoueur.setBorder(null);
+        this.txtMinNbJoueur.setBackground(saisiBackColor  );
+        this.txtMinNbJoueur.setForeground(placeholderColor);
+        this.txtMinNbJoueur.setForegroundColor (saisiForeColor  );
+        this.txtMinNbJoueur.setPlaceholderColor(placeholderColor);
 
         this.txtMaxNbJoueur.setBorder(null);
         this.txtMaxNbJoueur.setBackground(saisiBackColor  );
@@ -603,14 +733,10 @@ public class PGPanelParamJeu extends JPanel
         this.txtJetonsParJoueur.setBorder(null);
         this.txtJetonsParJoueur.setBackground(saisiBackColor  );
         this.txtJetonsParJoueur.setForeground(placeholderColor);
-        this.txtJetonsParJoueur.setForegroundColor (saisiForeColor  );
-        this.txtJetonsParJoueur.setPlaceholderColor(placeholderColor);
 
         this.txtJetonsPourFinir.setBorder(null);
         this.txtJetonsPourFinir.setBackground(saisiBackColor  );
         this.txtJetonsPourFinir.setForeground(placeholderColor);
-        this.txtJetonsPourFinir.setForegroundColor (saisiForeColor  );
-        this.txtJetonsPourFinir.setPlaceholderColor(placeholderColor);
         this.txtNbJoker.setBorder(null);
         this.txtNbJoker.setCaretColor(saisiForeColor);
         this.txtNbJoker.setBackground(saisiBackColor);
@@ -632,9 +758,9 @@ public class PGPanelParamJeu extends JPanel
         this.btnPoints.setBackground(btnBackColor);
         this.btnPoints.setForeground(btnForeColor);
 
-        this.btnObjectifs.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnObjectifs.setBackground(btnBackColor);
-        this.btnObjectifs.setForeground(btnForeColor);
+        this.btnCartesWagon.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnCartesWagon.setBackground(btnBackColor);
+        this.btnCartesWagon.setForeground(btnForeColor);
 
         this.btnPlusCoul.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnPlusCoul.setBackground(btnBackColor);
@@ -648,9 +774,9 @@ public class PGPanelParamJeu extends JPanel
         this.btnPlusJetonsPourFinir.setBackground(btnBackColor);
         this.btnPlusJetonsPourFinir.setForeground(btnForeColor);
 
-        this.btnMoinsJetonsParCouleur.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnMoinsJetonsParCouleur.setBackground(btnBackColor);
-        this.btnMoinsJetonsParCouleur.setForeground(btnForeColor);
+        this.btnMoinsJetonsParJoueur.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.btnMoinsJetonsParJoueur.setBackground(btnBackColor);
+        this.btnMoinsJetonsParJoueur.setForeground(btnForeColor);
         
         this.btnMoinsJetonsPourFinir.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnMoinsJetonsPourFinir.setBackground(btnBackColor);
@@ -667,9 +793,17 @@ public class PGPanelParamJeu extends JPanel
         this.btnMoinsCoul.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnMoinsCoul.setBackground(btnBackColor);
         this.btnMoinsCoul.setForeground(btnForeColor);
+	}
 
-        this.btnChoisirImg.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        this.btnChoisirImg.setBackground(btnBackColor);
-        this.btnChoisirImg.setForeground(btnForeColor);
+	public void majIHM()
+	{
+		this.txtMinNbJoueur.setText("" + this.ctrl.getNbJoueursMin());
+		this.txtMaxNbJoueur.setText("" + this.ctrl.getNbJoueursMax());
+
+		this.txtNbCarteParCoul.setText("" + this.ctrl.getNbCarteCoul      ());
+		this.txtNbJoker       .setText("" + this.ctrl.getNbCarteLocomotive());
+
+		this.txtJetonsParJoueur.setText("" + this.ctrl.getNbJetonJoueur());
+		this.txtJetonsPourFinir.setText("" + this.ctrl.getNbJetonFin   ());
 	}
 }

@@ -137,25 +137,6 @@ public class Controleur
 		this.ihm.appliquerTheme();
 	}
 
-	
-
-	
-
-	/**
-	 * permet d'afficher la bonne frame en fonction du paramètre qui lui est passé
-	 * @param frame : String permettant d'identifer la frame à afficher
-	 */
-	public void afficher(String frame) 
-	{
-		switch (frame)
-		{
-			case "couleur"  : this.ihm.afficher("couleur" ); break;
-			case "objectif" : this.ihm.afficher("objectif"); break;	
-			case "points"   : this.ihm.afficher("points"  ); break;
-			default         : break;
-		}
-	}
-
 	/**
 	 * Ajouter une ligne au tableau des scores
 	 * @param index : Index de la ligne

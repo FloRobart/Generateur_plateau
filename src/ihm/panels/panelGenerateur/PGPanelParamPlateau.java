@@ -183,6 +183,7 @@ public class PGPanelParamPlateau extends JPanel
 
 
         this.appliquerTheme();
+		this.majIHM();
     }
 
 
@@ -358,5 +359,11 @@ public class PGPanelParamPlateau extends JPanel
         this.ddlstChoisirFont.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.ddlstChoisirFont.setForeground(btnForeColor);
         this.ddlstChoisirFont.setBackground(btnBackColor);
+	}
+
+	public void majIHM()
+	{
+		this.txtX.setText("" + this.ctrl.getTaillePlateau()[0]);
+        this.txtY.setText("" + this.ctrl.getTaillePlateau()[1]);
 	}
 }
