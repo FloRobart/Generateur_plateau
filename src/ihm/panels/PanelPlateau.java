@@ -454,7 +454,7 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
                         int x, y;
                         x = (int) event.getLocation().getX();
                         y = (int) event.getLocation().getY();  
-						PanelPlateau.this.ctrl.ajouterNoeud("Noeud Nouveau", x, y, 0, -20, Color.BLACK);            
+						PanelPlateau.this.ctrl.ajouterNoeud("", x, y, 0, -20, Color.BLACK);            
                         p.revalidate();
                         p.repaint();
                         event.dropComplete(true);
