@@ -59,6 +59,8 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     private int yDiff;
     private Point startPoint;
 
+    private Noeud selectionNoeud;
+
 
     public PanelPlateau(Controleur ctrl)
     {
@@ -79,6 +81,14 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
     public void appliquerTheme()
     {
         this.setBackground(this.ctrl.getTheme().get("background").get(0));
+    }
+
+    public void selectNoeud(int noeud)
+    {
+        for(Noeud n : this.ctrl.getNoeuds())
+            if(n.getId() == noeud + 1)
+                this.selectionNoeud = n;
+        this.repaint();
     }
 
     private void initTransferHandle() 
@@ -247,7 +257,10 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 			int midY = noeud.getY();
 
 			// contour du noeud
-			g2.setColor(Color.BLACK);
+            if (noeud == selectionNoeud)
+                g2.setColor(Color.RED);
+            else
+			    g2.setColor(Color.BLACK);
 			g2.fillOval(midX-12, midY-12, 24, 24);
 
 			// noeud
