@@ -148,13 +148,7 @@ public class FrameCouleur extends JFrame implements ActionListener
 		HashMap<String, List<Color>> theme = this.ctrl.getTheme();
 
 		Color background       = theme.get("background").get(0);
-        Color titleForeColor   = theme.get("titles"    ).get(0);
-		Color titleBackColor   = theme.get("titles"    ).get(1);
         Color labelForeColor   = theme.get("labels"    ).get(0);
-		Color labelBackColor   = theme.get("labels"    ).get(1);
-        Color saisiForeColor   = theme.get("saisies"   ).get(0);
-		Color saisiBackColor   = theme.get("saisies"   ).get(1);
-        Color placeholderColor = theme.get("saisies"   ).get(2);
         Color btnForeColor     = theme.get("bottuns"   ).get(0);
 		Color btnBackColor     = theme.get("bottuns"   ).get(1);
 

@@ -58,9 +58,6 @@ public class PGPanelListA extends JPanel
     private List<Noeud>       lstNoeuds;
     private List<Arete>       lstAretes;
 
-    private Color couleur1;
-    private Color couleur2;
-
 	private int couleurAttendu = 1;
 	private boolean estUneMaj = false;
 
@@ -584,13 +581,11 @@ public class PGPanelListA extends JPanel
 		{
 			if (this.couleurAttendu == 1)
 			{
-				this.couleur1 = c;
 				this.btnCouleur1.setBackground(c);
 				this.jListAretes.getSelectedValue().setCouleur1(c);
 			}
 			else
 			{
-				this.couleur2 = c;
 				this.btnCouleur2.setBackground(c);
 				this.jListAretes.getSelectedValue().setCouleur2(c);
 			}

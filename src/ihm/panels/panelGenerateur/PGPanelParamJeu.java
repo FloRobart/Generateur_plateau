@@ -56,7 +56,6 @@ public class PGPanelParamJeu extends JPanel
     private JLabel     lblJetonsPourFinir;
     private JLabel     lblJetonsWagons;
     private JLabel     lblJetonsParJoueur;
-    private JLabel     lblJetonsWagon;
 
     private FrameCouleur         frameCouleur        ;
     private FramePoint           framePoint          ;
