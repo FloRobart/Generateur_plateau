@@ -100,8 +100,14 @@ public class Controleur
 	public void setNbJetonFin       (int val) { this.metier.setNbJetonFin       (val); }
 
 	public void setImageVersoCouleur   (BufferedImage img) { this.metier.setImageVersoCouleur   (img); }
+	public void supprimerImageVersoCouleur() { this.metier.supprimerImageVersoCouleur(); }
+
 	public void setImageRectoLocomotive(BufferedImage img) { this.metier.setImageRectoLocomotive(img); }
+	public void supprimerImageRectoLocomotive(){ this.metier.supprimerImageRectoLocomotive(); }
+
 	public void setImageRectoCouleur(int ind, BufferedImage img) { this.metier.setImageRectoCouleur(ind, img); }
+	public void supprimerImageRectoCouleur(int indice){ this.metier.supprimerImageRectoCouleur(indice); }
+
 	public void setImageVersoObjectif  (BufferedImage img) { this.metier.setImageVersoObjectif  (img); }
 
 	public void setPositionNoeud(int id, int x, int y)

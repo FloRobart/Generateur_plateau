@@ -206,6 +206,8 @@ public class Metier
 	public void setImageRectoLocomotive(BufferedImage img) { this.imageRectoLocomotive = img; }
 	public void setImageRectoCouleur(int ind, BufferedImage img) { this.lstImagesRectoCouleur.set(ind, img); }
 
+	public void supprimerImageVersoCouleur()		{this.imageVersoCouleur = null;}
+	public void supprimerImageRectoLocomotive()		{this.imageRectoLocomotive = null;}
 	public void supprimerImageRectoCouleur(int ind) { this.lstImagesRectoCouleur.remove(ind); }
 
 	public void setImageVersoObjectif(BufferedImage img) { this.imageVersoObjectif = img; }
