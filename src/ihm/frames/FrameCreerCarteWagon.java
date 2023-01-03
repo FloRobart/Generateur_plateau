@@ -146,26 +146,20 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
                 // Importation du panel en image
                 //this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()
                 //this.panelVisualisatonCarte.getHeight(), this.panelVisualisatonCarte.getWidth()
-                /*Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
+                Dimension     d     = new Dimension (this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth()) ;
                 BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
                 Graphics2D    g2d   = image.createGraphics();
-                RoundRectangle2D fig = new RoundRectangle2D.Double(100, 100, this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth(), 25, 25);
-                g2d.fill(fig);*/
-                BufferedImage imageIO = new BufferedImage(10, 50, BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g2d = imageIO.createGraphics();
-                g2d.setColor(Color.WHITE);
-                g2d.fillRect(0, 0, 10, 50);
-                g2d.drawString("Image invalide", 0, 10);
-                g2d.dispose();
+
                 /*this.panelVisualisatonCarte.setSize(this.lblCarteWagon.getIcon().getIconHeight(), this.lblCarteWagon.getIcon().getIconWidth());
                 this.panelVisualisatonCarte.print(g2d);
                 this.panelVisualisatonCarte.setSize(500, 500);*/
-                //g2d.dispose();
+                this.panelVisualisatonCarte.print(g2d);
+                g2d.dispose();
 
                 // Enregistrement du fichier dans le répertoire choisi
                 try 
                 {
-                    ImageIO.write(imageIO, "png", new File(".\\donnees\\images\\cartes_joueurs\\wagon\\" + nomFichier + ".png"));
+                    ImageIO.write(image, "png", new File(".\\donnees\\images\\cartes_joueurs\\wagon\\" + nomFichier + ".png"));
                     JOptionPane.showMessageDialog(this, "Exportation réussi dans le dossier wagon");
                 } 
                 catch (IOException ex) 
@@ -193,7 +187,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         {
             //Supprime la carte de la liste
             this.lstCarte.remove(this.lstCarte.getSelectedIndex());
-            this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
+            //this.ctrl.supprimerImageRectoCouleur(this.lstCarte.getSelectedIndex());
         }
 
         if ( e.getSource() == btnQuitter )  { this.dispose(); }

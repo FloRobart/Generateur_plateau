@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.DefaultComboBoxModel;
 
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
@@ -28,14 +29,14 @@ import ihm.customComponent.TextFieldWithHint;
 
 public class PGPanelParamPlateau extends JPanel
 {
-    private JButton    btnChoisirCouleur;
-    private JButton    btnParcourirImg;
-	private JComboBox  ddlstChoisirFont;
-    private JLabel     lblCouleurFond;
-    private JLabel     lblDimension;
-    private JLabel     lblParamPlateau;
-    private JLabel     lblPolice;
-    private JLabel     lblbImageFond;
+    private JButton           btnChoisirCouleur;
+    private JButton           btnParcourirImg;
+	private JComboBox<String> ddlstChoisirFont;
+    private JLabel            lblCouleurFond;
+    private JLabel            lblDimension;
+    private JLabel            lblParamPlateau;
+    private JLabel            lblPolice;
+    private JLabel            lblbImageFond;
     private TextFieldWithHint txtX;
     private TextFieldWithHint txtY;
 
@@ -55,7 +56,7 @@ public class PGPanelParamPlateau extends JPanel
         this.txtY              = new TextFieldWithHint("Y", ctrl);
         this.btnParcourirImg   = new JButton          ();
         this.btnChoisirCouleur = new JButton          ();
-        this.ddlstChoisirFont  = new JComboBox        ();
+        this.ddlstChoisirFont  = new JComboBox<String>();
 
 
         /* Titre (Parametre du Plateau) */
@@ -116,7 +117,7 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Liste de choix de la police */
-		this.ddlstChoisirFont.setModel(new javax.swing.DefaultComboBoxModel(new String[] 
+		this.ddlstChoisirFont.setModel(new DefaultComboBoxModel<String>(new String[] 
 			{ "Arial", "Calibri", "Comic Sans MS", "Courier New", "Georgia", "Impact", 
 			"Lucida Console", "Lucida Sans Unicode", "Tahoma", "Times New Roman", 
 			"Trebuchet MS", "Verdana" }));
@@ -356,7 +357,7 @@ public class PGPanelParamPlateau extends JPanel
 
         /* Bouton de choix de la police */
         this.ddlstChoisirFont.setOpaque    (true);
-        this.ddlstChoisirFont.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.ddlstChoisirFont.setBorder    (null);
         this.ddlstChoisirFont.setForeground(btnForeColor);
         this.ddlstChoisirFont.setBackground(btnBackColor);
 	}

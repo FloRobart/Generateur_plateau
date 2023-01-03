@@ -32,16 +32,16 @@ public class PGPanelListN extends JPanel
 {
     private Controleur ctrl;
 
-    private JButton           btnAjouter;
-    private JButton           btnCouleur;
-    private JButton           btnSupprimer;
-    private JList<Noeud>      listNoeuds;
-    private JLabel            lblCouleur;
-    private JLabel            lblNom;
-    private JLabel            lblPosition;
-    private JLabel            lblPositionNom;
-    private JScrollPane       lstNoeud;
-    private JTextField txtNom;
+    private JButton              btnAjouter;
+    private JButton              btnCouleur;
+    private JButton              btnSupprimer;
+    private JList<Noeud>         listNoeuds;
+    private JLabel               lblCouleur;
+    private JLabel               lblNom;
+    private JLabel               lblPosition;
+    private JLabel               lblPositionNom;
+    private JScrollPane          lstNoeud;
+    private JTextField           txtNom;
     private TextFieldOnlyInteger txtPosNomX;
     private TextFieldOnlyInteger txtPosNomY;
     private TextFieldOnlyInteger txtPosX;
@@ -53,20 +53,20 @@ public class PGPanelListN extends JPanel
     {   
         this.ctrl = ctrl;
 
-        this.lstNoeud       = new JScrollPane      (     );
-        this.listNoeuds     = new JList<Noeud>     (     );
-        this.lblNom         = new JLabel           (     );
-        this.lblPosition    = new JLabel           (     );
-        this.lblPositionNom = new JLabel           (     );
-        this.lblCouleur     = new JLabel           (     );
-        this.txtNom         = new JTextField();
-        this.txtPosY        = new TextFieldOnlyInteger();
-        this.txtPosX        = new TextFieldOnlyInteger();
-        this.txtPosNomX     = new TextFieldOnlyInteger();
-        this.txtPosNomY     = new TextFieldOnlyInteger();
-        this.btnCouleur     = new JButton          (     );
-        this.btnAjouter     = new JButton          (     );
-        this.btnSupprimer   = new JButton          (     );
+        this.lstNoeud       = new JScrollPane         (    );
+        this.listNoeuds     = new JList<Noeud>        (    );
+        this.lblNom         = new JLabel              (    );
+        this.lblPosition    = new JLabel              (    );
+        this.lblPositionNom = new JLabel              (    );
+        this.lblCouleur     = new JLabel              (    );
+        this.txtNom         = new JTextField          (    );
+        this.txtPosY        = new TextFieldOnlyInteger(ctrl);
+        this.txtPosX        = new TextFieldOnlyInteger(ctrl);
+        this.txtPosNomX     = new TextFieldOnlyInteger(ctrl);
+        this.txtPosNomY     = new TextFieldOnlyInteger(ctrl);
+        this.btnCouleur     = new JButton             (    );
+        this.btnAjouter     = new JButton             (    );
+        this.btnSupprimer   = new JButton             (    );
 
 
         this.listNoeuds.setModel(new AbstractListModel<Noeud>()
@@ -83,20 +83,22 @@ public class PGPanelListN extends JPanel
                 return lstNoeuds.get(index);
             }
         });
-        this.listNoeuds.addListSelectionListener(new ListSelectionListener() {
 
+        this.listNoeuds.addListSelectionListener(new ListSelectionListener()
+        {
             @Override
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged(ListSelectionEvent e)
+            {
                 Noeud noeudSelected = listNoeuds.getSelectedValue();
-                txtNom      .setText(noeudSelected.getNom());
-                txtPosX     .setText(noeudSelected.getX()+"");
-                txtPosY     .setText(noeudSelected.getY()+"");
-                txtPosNomX  .setText(noeudSelected.getXNom()+"");
-                txtPosNomY  .setText(noeudSelected.getYNom()+"");
-                btnCouleur.setBackground(noeudSelected.getCouleur());
+                txtNom      .setText      (noeudSelected.getNom    ()   );
+                txtPosX     .setText      (noeudSelected.getX      ()+"");
+                txtPosY     .setText      (noeudSelected.getY      ()+"");
+                txtPosNomX  .setText      (noeudSelected.getXNom   ()+"");
+                txtPosNomY  .setText      (noeudSelected.getYNom   ()+"");
+                btnCouleur  .setBackground(noeudSelected.getCouleur()   );
             }
-            
         });
+
         this.listNoeuds.setSelectedIndex(0);
 
         this.lstNoeud.setViewportView(listNoeuds);
@@ -114,32 +116,42 @@ public class PGPanelListN extends JPanel
         this.lblCouleur.setFont(new Font("Segoe UI", 1, 12));
 
         this.txtNom.setColumns(9);
-        this.txtNom.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.txtNom.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 txtNomActionPerformed(evt);
             }
         });
 
-        this.txtPosY.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.txtPosY.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 txtPosYActionPerformed(evt);
             }
         });
 
-        this.txtPosX.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.txtPosX.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 txtPosXActionPerformed(evt);
             }
         });
 
-        this.txtPosNomX.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.txtPosNomX.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 txtPosNomXActionPerformed(evt);
             }
         });
 
-        this.txtPosNomY.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.txtPosNomY.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 txtPosNomYActionPerformed(evt);
             }
         });
@@ -147,24 +159,30 @@ public class PGPanelListN extends JPanel
         this.btnCouleur.setText(" ");
         this.btnCouleur.setOpaque(true);
         this.btnCouleur.setFocusPainted(false);
-        this.btnCouleur.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.btnCouleur.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 btnCouleurActionPerformed(evt);
             }
         });
 
         this.btnAjouter.setText("Ajouter");
         this.btnAjouter.setFocusPainted(false);
-        this.btnAjouter.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.btnAjouter.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 btnAjouterActionPerformed(evt);
             }
         });
 
         this.btnSupprimer.setText("Supprimer");
         this.btnSupprimer.setFocusPainted(false);
-        this.btnSupprimer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        this.btnSupprimer.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 btnSupprimerActionPerformed(evt);
             }
         });
@@ -308,9 +326,9 @@ public class PGPanelListN extends JPanel
         this.lstNoeud      .setForeground(labelForeColor);
         this.lstNoeud      .setBackground(labelBackColor);
 
-        this.listNoeuds        .setForeground         (saisiForeColor);
-        this.listNoeuds        .setBackground         (background    );
-        this.listNoeuds        .setSelectionForeground(background    );
+        this.listNoeuds    .setForeground         (saisiForeColor);
+        this.listNoeuds    .setBackground         (background    );
+        this.listNoeuds    .setSelectionForeground(background    );
         this.lblNom        .setForeground(labelForeColor);
         this.lblNom        .setBackground(labelBackColor);
 
