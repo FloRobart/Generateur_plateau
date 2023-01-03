@@ -536,7 +536,7 @@ public class PGPanelParamJeu extends JPanel
     }                                                       
 
     private void btnCartesWagonActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+         new FrameCreerCarteWagon(this.ctrl);
     }      
     /**
      * Applique le thème à tout les composants du panel
