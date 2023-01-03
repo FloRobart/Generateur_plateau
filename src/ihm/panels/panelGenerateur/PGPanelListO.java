@@ -263,13 +263,16 @@ public class PGPanelListO extends  JPanel
         this.appliquerTheme();
     }                 
 
+    /**
+     * Effacer les champs du formulaire suite à l'ajout d'un objectif
+     */
     protected void effacerForm() 
     {
         this.comboBoxListNoeudA.setSelectedIndex(0);
         this.comboBoxListNoeudB.setSelectedIndex(0);
         this.txtPoint.setText("");
     }
-
+    
     private void btnAjouterActionPerformed (ActionEvent evt)
     {
         JDialog dialog = new JDialog(this.ctrl.getIHM(), "Ajouter un objectif");
