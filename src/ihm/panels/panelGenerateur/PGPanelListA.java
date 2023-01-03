@@ -311,7 +311,7 @@ public class PGPanelListA extends JPanel
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(this.lblDistance)
-                        .addGap(34, 34, 34)
+                        .addGap(25, 25, 25)
                         .addComponent(this.txtDistance, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()

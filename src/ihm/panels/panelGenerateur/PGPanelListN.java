@@ -32,6 +32,8 @@ public class PGPanelListN extends JPanel
 {
     private Controleur ctrl;
 
+    private PanelNoeud           panelNoeud;
+
     private JButton              btnAjouter;
     private JButton              btnCouleur;
     private JButton              btnSupprimer;
@@ -68,6 +70,7 @@ public class PGPanelListN extends JPanel
         this.btnCouleur     = new JButton             (    );
         this.btnAjouter     = new JButton             (    );
         this.btnSupprimer   = new JButton             (    );
+        this.panelNoeud     = null;
 
 
         this.listNoeuds.setModel(new AbstractListModel<Noeud>()
@@ -327,7 +330,7 @@ public class PGPanelListN extends JPanel
     {
         JDialog dialog = new JDialog(this.ctrl.getIHM(),"Ajouter Noeud");
         dialog.setSize(400,200);
-        dialog.add(new PanelNoeud(ctrl));
+        dialog.add(this.panelNoeud = new PanelNoeud(ctrl));
 
         dialog.setVisible(true);
     }
@@ -335,6 +338,8 @@ public class PGPanelListN extends JPanel
 
     public void appliquerTheme()
     {
+        if (this.panelNoeud != null) { this.panelNoeud.appliquerTheme(); }
+
         HashMap<String, List<Color>> theme = this.ctrl.getTheme();
 
         Color background       = theme.get("background").get(0);
@@ -354,29 +359,30 @@ public class PGPanelListN extends JPanel
         this.listNoeuds    .setForeground         (saisiForeColor);
         this.listNoeuds    .setBackground         (background    );
         this.listNoeuds    .setSelectionForeground(background    );
+
+        this.lblNom        .setOpaque(false);
         this.lblNom        .setForeground(labelForeColor);
-        this.lblNom        .setBackground(labelBackColor);
 
+        this.lblPosition   .setOpaque(false);
         this.lblPosition   .setForeground(labelForeColor);
-        this.lblPosition   .setBackground(labelBackColor);
 
+        this.lblPositionNom.setOpaque(false);
         this.lblPositionNom.setForeground(labelForeColor);
-        this.lblPositionNom.setBackground(labelBackColor);
 
+        this.lblCouleur    .setOpaque(false);
         this.lblCouleur    .setForeground(labelForeColor);
-        this.lblCouleur    .setBackground(labelBackColor);
 
-        this.btnCouleur    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnCouleur    .setForeground(btnForeColor);
         this.btnCouleur    .setBackground(btnBackColor);
+        this.btnCouleur    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
-        this.btnAjouter    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnAjouter    .setForeground(btnForeColor);
         this.btnAjouter    .setBackground(btnBackColor);
+        this.btnAjouter    .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
-        this.btnSupprimer  .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnSupprimer  .setForeground(btnForeColor);
         this.btnSupprimer  .setBackground(btnBackColor);
+        this.btnSupprimer  .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         this.txtNom        .setOpaque(true);
         this.txtNom        .setBorder(null);
