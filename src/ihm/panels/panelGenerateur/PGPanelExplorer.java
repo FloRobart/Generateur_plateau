@@ -63,7 +63,7 @@ public class PGPanelExplorer extends javax.swing.JPanel
 	{
 		this.pGPanelListA.majIHM();
 		this.pGPanelListN.majIHM();
-		//this.pGPanelListO.majListes();
+		this.pGPanelListO.majIHM();
 	}
 
 	public void selectNoeud(int index)
@@ -77,6 +77,12 @@ public class PGPanelExplorer extends javax.swing.JPanel
 		this.jTabbedPane1.setSelectedIndex(1);
 		this.pGPanelListA.selectArete(index);
 	}
+
+    public void selectObjectif(int index)
+    {
+        this.jTabbedPane1.setSelectedIndex(2);
+        this.pGPanelListO.selectObjectif(index);
+    }
 
 	public void envoyerCouleur(Color c, String nomPanel)
 	{

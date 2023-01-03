@@ -106,8 +106,6 @@ public class PGPanelListO extends  JPanel
             }
         });
 
-        this.jListObj.setSelectedIndex(0);
-
         /*Ajout de la JlistObjectif dans un JScrollPane */
         this.jspNoeud.setViewportView(jListObj);
 
@@ -254,7 +252,6 @@ public class PGPanelListO extends  JPanel
                 )
         );
 
-
         this.appliquerTheme();
     }                 
 
@@ -269,14 +266,21 @@ public class PGPanelListO extends  JPanel
     {
         JDialog dialog = new JDialog(this.ctrl.getIHM(), "Ajouter un objectif");
         dialog.setSize(500, 250);
+        dialog.setLocationRelativeTo(this.ctrl.getIHM());
         dialog.add(new PanelAjoutObjectif(ctrl));
-
+        dialog.pack();
         dialog.setVisible(true);
-        this.majIHM();
     }
 
-    private void majIHM() 
+    private void btnSupprimerActionPerformed(ActionEvent evt)
     {
+        CarteObjectif carte = this.jListObj.getSelectedValue();
+        this.ctrl.supprimerObjectif(carte.getNoeud1().getNom(), carte.getNoeud2().getNom());
+        this.ctrl.getIHM().majListes(); 
+    }
+
+    public void majIHM() 
+    {    
         this.jListObj.setModel(new AbstractListModel<CarteObjectif>()
         {
             List<CarteObjectif> cartes = ctrl.getCarteObjectif();
@@ -288,12 +292,6 @@ public class PGPanelListO extends  JPanel
         this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<Noeud>(this.ctrl.getNoeuds().toArray(new Noeud[0])));
     }
 
-    private void btnSupprimerActionPerformed(ActionEvent evt)
-    {
-        CarteObjectif carte = this.jListObj.getSelectedValue();
-        this.ctrl.supprimerObjectif(carte.getNoeud1().getNom(), carte.getNoeud2().getNom());
-        this.majIHM();  
-    }
     private void comboBoxListNoeudActionPerformed(ActionEvent evt)
     {
         CarteObjectif carte = this.jListObj.getSelectedValue();
@@ -402,5 +400,10 @@ public class PGPanelListO extends  JPanel
         this.btnImgVerso       .setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         this.btnImgVerso       .setForeground(btnForeColor);
         this.btnImgVerso       .setBackground(btnBackColor);
+    }
+
+    public void selectObjectif(int index) 
+    {
+        this.jListObj.setSelectedIndex(index);
     }
 }
