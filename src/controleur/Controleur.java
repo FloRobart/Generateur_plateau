@@ -206,10 +206,13 @@ public class Controleur
 	 * Supprimer un noeud
 	 * @param nom : Nom du noeud
 	 */
-    public void supprimerNoeud(int index) 
+    public boolean supprimerNoeud(int index) 
 	{
-		this.metier.supprimerNoeud(index);
-		this.ihm.majIHM();
+		boolean res = this.metier.supprimerNoeud(index);
+	
+		if (res) this.ihm.majIHM();
+		
+		return res;
     }
 
 	/**

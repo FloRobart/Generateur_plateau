@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class PGPanelListA extends JPanel
     private ListModel<Arete> listModel;
 
 	private int couleurAttendu = 1;
+	private boolean estUneMaj = false;
 
 
     /**
@@ -104,6 +106,7 @@ public class PGPanelListA extends JPanel
 
         /* jListAretes */
 		List<Arete> lstAretes = ctrl.getAretes();
+		List<Noeud> lstNoeuds = ctrl.getNoeuds();
         for (Arete a : lstAretes) {
             ((DefaultListModel<Arete>) this.listModel).addElement(a);
         }
@@ -136,8 +139,12 @@ public class PGPanelListA extends JPanel
 				{
 					List<Noeud> lstNoeuds = ctrl.getNoeuds();
 
+					estUneMaj = true;
         			comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(areteSelected.getNoeud1()));
         			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(areteSelected.getNoeud2()));
+					estUneMaj = false;
+
+
 					txtDistance.setText("" + areteSelected.getDistance());
 					btnCouleur1.setBackground(areteSelected.getCouleur1());
 
@@ -154,7 +161,7 @@ public class PGPanelListA extends JPanel
 				}
 				else
 				{
-					//this.effacerForm();
+					effacerForm();
 				}
 			}
 		});
@@ -193,6 +200,7 @@ public class PGPanelListA extends JPanel
   
 
         this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
+		this.comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(lstAretes.get(0).getNoeud1()));
         this.comboBoxListNoeudA.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -202,6 +210,7 @@ public class PGPanelListA extends JPanel
         });
 
         this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(tabNoeudB));
+		this.comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(lstAretes.get(0).getNoeud2()));
         this.comboBoxListNoeudB.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -405,7 +414,7 @@ public class PGPanelListA extends JPanel
 				int distance = Integer.parseInt(this.txtDistance.getText());
 				if (distance < 0)
 				{
-					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et inférieur au nombre de jeton par joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0", "Erreur", JOptionPane.ERROR_MESSAGE);
 					this.txtDistance.setText("" + this.jListAretes.getSelectedValue().getDistance());
 				}
 				else
@@ -434,8 +443,81 @@ public class PGPanelListA extends JPanel
         }
     }
 
-    private void comboBoxListNoeudBActionPerformed(ActionEvent e){}
-    private void comboBoxListNoeudAActionPerformed(ActionEvent e){}
+	private void comboBoxListNoeudAActionPerformed(ActionEvent e)
+	{
+		Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+		boolean erreur = false;
+		
+		if (!estUneMaj)
+		{
+			if (noeud1.equals(noeud2))
+			{
+				JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+				erreur = true;
+			}
+			else
+			{
+				for (Arete a : this.ctrl.getAretes())
+				{
+					if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
+						(a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+					{
+						JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+						erreur = true;
+						break;
+					}
+				}
+			}
+
+			if (!erreur)
+			{
+				this.jListAretes.getSelectedValue().setNoeud1(noeud1);
+				this.ctrl.majIHMPlateau();
+			}
+			else
+				this.comboBoxListNoeudA.setSelectedItem(this.jListAretes.getSelectedValue().getNoeud1());
+		}
+	}
+
+    private void comboBoxListNoeudBActionPerformed(ActionEvent e)
+	{
+		Noeud noeud1 = (Noeud) this.comboBoxListNoeudA.getSelectedItem();
+		Noeud noeud2 = (Noeud) this.comboBoxListNoeudB.getSelectedItem();
+		boolean erreur = false;
+
+		if (!estUneMaj)
+		{
+			if (noeud1.equals(noeud2))
+			{
+				JOptionPane.showMessageDialog(this, "Les 2 noeuds doivent-êtres différents", "Erreur", JOptionPane.ERROR_MESSAGE);
+				erreur = true;
+			}
+			else
+			{
+				for (Arete a : this.ctrl.getAretes())
+				{
+					if ((a.getNoeud1().equals(noeud1) && a.getNoeud2().equals(noeud2)) ||
+						(a.getNoeud1().equals(noeud2) && a.getNoeud2().equals(noeud1))   )
+					{
+						JOptionPane.showMessageDialog(this, "L'arête existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+						erreur = true;
+						break;
+					}
+				}
+			}
+
+			if (!erreur)
+			{
+				this.jListAretes.getSelectedValue().setNoeud2(noeud2);
+				this.ctrl.majIHMPlateau();
+			}
+			else
+				this.comboBoxListNoeudB.setSelectedItem(this.jListAretes.getSelectedValue().getNoeud2());
+		}
+	}
+
+    
 
     private void effacerForm() 
     {
@@ -533,12 +615,16 @@ public class PGPanelListA extends JPanel
 			{
 				this.couleur1 = c;
 				this.btnCouleur1.setBackground(c);
+				this.jListAretes.getSelectedValue().setCouleur1(c);
 			}
 			else
 			{
 				this.couleur2 = c;
 				this.btnCouleur2.setBackground(c);
+				this.jListAretes.getSelectedValue().setCouleur2(c);
 			}
+
+			this.ctrl.majIHMPlateau();
 		}
 
 		if (nomPanel.contains("PanelArete"))
