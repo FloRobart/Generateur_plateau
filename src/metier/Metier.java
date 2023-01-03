@@ -82,13 +82,11 @@ public class Metier
 		this.nbJetonJoueur     = 50;
 		this.nbJetonFin        = 2;
 
-		this.lstCouleurs           = new ArrayList<Color>();
+		this.lstCouleurs           = new ArrayList<Color>() {{ add(Color.RED); add(Color.BLUE); add(Color.GREEN); }};
 		this.imageVersoCouleur     = null;
 		this.imageRectoLocomotive  = null;
-		this.lstImagesRectoCouleur = new ArrayList<BufferedImage>();
+		this.lstImagesRectoCouleur = new ArrayList<BufferedImage>() {{ add(null); add(null); add(null);}};
 		this.lstPoints             = new ArrayList<Integer>() {{ add(1); add(2); add(4); add(7); }};
-
-		
 
 		this.imageVersoObjectif = null;
 		this.carteObjectif      = new ArrayList<CarteObjectif>();
@@ -96,43 +94,6 @@ public class Metier
 		this.lstAretes          = new ArrayList<Arete>();
 
 		this.hmColorThemes = new HashMap<String, List<Color>>();
-
-		// Valeurs de test
-		this.taillePlateau[0] = 800;
-		this.taillePlateau[1] = 800;
-
-		this.couleurPlateau = Color.BLUE;
-		try 
-		{
-			this.imagePlateau = ImageIO.read(new File("./bin/donnees/images/France.png"));
-		}
-		catch (Exception e) { e.printStackTrace(); }
-
-		this.lstNoeuds.add(new Noeud("Le Havre", 306, 152,   0, -20, Color.CYAN ));
-		this.lstNoeuds.add(new Noeud("Lyon"    , 559, 467,  43, -20, Color.RED  ));
-		this.lstNoeuds.add(new Noeud("Nantes"  , 179, 365, -35, -20, Color.CYAN ));
-		this.lstNoeuds.add(new Noeud("Paris"   , 445, 235,  55,   0, Color.GREEN));
-
-		this.lstAretes.add(new Arete(this.lstNoeuds.get(0), this.lstNoeuds.get(3), 2, Color.BLUE , Color.GRAY));
-		this.lstAretes.add(new Arete(this.lstNoeuds.get(2), this.lstNoeuds.get(1), 5, Color.RED  , Color.BLUE));
-		this.lstAretes.add(new Arete(this.lstNoeuds.get(3), this.lstNoeuds.get(2), 4, Color.GREEN, null      ));
-		this.lstAretes.add(new Arete(this.lstNoeuds.get(3), this.lstNoeuds.get(1), 4, Color.PINK , null      ));
-		
-		this.lstCouleurs.add(Color.BLUE);
-		this.lstCouleurs.add(Color.RED);
-		this.lstCouleurs.add(Color.YELLOW);
-		this.lstCouleurs.add(Color.GREEN);
-		this.lstCouleurs.add(Color.PINK);
-		for (int i = 0; i < this.lstCouleurs.size(); i++)
-		{
-			this.lstImagesRectoCouleur.add(null);
-		}
-
-		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
-		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(2),  5, null));
-		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(2), this.lstNoeuds.get(3),  5, null));
-		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(3), 15, null));
-
 		String themeUsed = this.getThemeUsed();
 		this.chargerThemes(themeUsed);
 	}
@@ -413,6 +374,7 @@ public class Metier
 			Element plateau = racine.getChild("plateau");
 			
 			/* <liste-lstCouleurs> */
+			this.lstCouleurs = new ArrayList<Color>();
 			List<Element> listlstCouleurs = plateau.getChild("liste-lstCouleurs").getChildren("couleur");
 			Iterator<Element> itlstCouleurs = listlstCouleurs.iterator();
 			
@@ -426,6 +388,7 @@ public class Metier
 			this.imageVersoCouleur = this.base64ToImage(plateau.getChild("liste-image-cartes")
 										.getChild("image-verso").getText());
 
+			this.lstImagesRectoCouleur = new ArrayList<BufferedImage>();
 			List<Element> listImagesCartes = plateau.getChild("liste-image-cartes").getChildren("image-recto");
 			Iterator<Element> itImagesCartes = listImagesCartes.iterator();
 

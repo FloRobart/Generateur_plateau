@@ -5,6 +5,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import ihm.frames.FramePlateau;
 import metier.Arete;
 import metier.Metier;
@@ -28,7 +30,17 @@ public class Controleur
 	// Methodes
     public void nouveau() 
     {
-        this.metier = new Metier(this);
+		this.metier = new Metier(this);
+			
+		if (this.ihm != null)
+			this.ihm.dispose();
+
+		this.ihm = new FramePlateau(this);
+	}
+
+	public void ouvrir() 
+	{
+		this.metier = new Metier(this);
         
         if (this.ihm != null)
             this.ihm.dispose();

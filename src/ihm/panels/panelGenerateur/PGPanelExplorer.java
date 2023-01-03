@@ -29,7 +29,7 @@ public class PGPanelExplorer extends javax.swing.JPanel
 
         this.jTabbedPane1.setName("");
         this.jTabbedPane1.addTab("Noeud"    , this.pGPanelListN);
-        this.jTabbedPane1.addTab("Arrêtes"  , this.pGPanelListA);
+        this.jTabbedPane1.addTab("Arêtes"   , this.pGPanelListA);
         this.jTabbedPane1.addTab("Objectifs", this.pGPanelListO);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
