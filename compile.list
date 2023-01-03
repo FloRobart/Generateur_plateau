@@ -15,7 +15,7 @@
 ./src/ihm/menuBarre/MenuBarre.java
 
 ./src/ihm/panels/PanelAjoutObjectif.java
-./src/ihm/panels/PanelArrete.java
+./src/ihm/panels/PanelArete.java
 ./src/ihm/panels/PanelGenerateur.java
 ./src/ihm/panels/PanelGererObjectif.java
 ./src/ihm/panels/PanelJoueur.java

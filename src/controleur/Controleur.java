@@ -180,15 +180,18 @@ public class Controleur
 
 	/**
 	 * Ajouter une arête
-	 * @param nom1 : Nom du premier noeud
-	 * @param nom2 : Nom du second noeud 
+	 * @param n1 : Premier noeud
+	 * @param n2 : Second noeud 
 	 * @param distance : Distance entre les deux noeuds 
 	 * @param couleur1 : Couleur de l'arete 
 	 * @param couleur2 : Couleur 2 de l'arete si double voie 
 	 */
-    public void ajouterArete(String nom1, String nom2, int distance, Color couleur1, Color couleur2) 
+    public void ajouterArete(Noeud n1, Noeud n2, int distance, Color couleur1, Color couleur2) 
 	{
-		this.metier.ajouterArete(nom1, nom2, distance, couleur1, couleur2);
+		this.metier.ajouterArete(n1, n2, distance, couleur1, couleur2);
+		this.ihm.majListes();
+		this.ihm.selectArete(this.metier.getAretes().size()-1);
+		this.ihm.majIHM();
     }
 	/**
 	 * Supprimer une arête

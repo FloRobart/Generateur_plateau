@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +20,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
@@ -36,6 +35,7 @@ import javax.swing.event.ListSelectionListener;
 import controleur.Controleur;
 import ihm.customComponent.TextFieldWithHint;
 import ihm.frames.FrameCouleurChooser;
+import ihm.panels.PanelArete;
 import metier.Arete;
 import metier.Noeud;
 
@@ -49,9 +49,9 @@ public class PGPanelListA extends JPanel
     private JButton           btnCouleur2;
     private JButton           btnSupprimer;
     private JCheckBox         cb2Sens;
-    private JComboBox<Noeud> comboBoxListNoeudA;
-    private JComboBox<Noeud> comboBoxListNoeudB;
-    private JList<Arete>     jListAretes;
+    private JComboBox<Noeud>  comboBoxListNoeudA;
+    private JComboBox<Noeud>  comboBoxListNoeudB;
+    private JList<Arete>      jListAretes;
     private JScrollPane       jScrollPane1;
     private JLabel            lbl2Sens;
     private JLabel            lblCouleur1;
@@ -60,12 +60,13 @@ public class PGPanelListA extends JPanel
     private JLabel            lblNoeudA;
     private JLabel            lblNoeudB;
     private TextFieldWithHint txtDistance;
+	private PanelArete        panelArete; 
 
     private List<Noeud>       lstNoeudA;
     private List<Noeud>       lstNoeudB;
 
-    private Color             couleur1;
-    private Color             couleur2;
+    private Color couleur1;
+    private Color couleur2;
 
     private ListModel<Arete> listModel;
 
@@ -91,6 +92,7 @@ public class PGPanelListA extends JPanel
         this.comboBoxListNoeudB = new JComboBox<Noeud>();
         this.cb2Sens            = new JCheckBox        ();
         this.txtDistance        = new TextFieldWithHint("Distance", ctrl);
+		this.panelArete		    = null;
         this.btnCouleur1        = new JButton          ();
         this.btnCouleur2        = new JButton          ();
         this.btnAjouter         = new JButton          ();
@@ -217,12 +219,20 @@ public class PGPanelListA extends JPanel
             }
         });
 
-        this.txtDistance.addKeyListener(new KeyAdapter() {
+		this.txtDistance.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) 
             {
                txtDistanceKeyPressed(ke);
             }
          });
+
+        this.txtDistance.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                txtDistanceActionPerformed(evt);
+            }
+        });
 
         this.btnCouleur1.setText("Couleur");
         this.btnCouleur1.setFocusPainted(false);
@@ -337,31 +347,6 @@ public class PGPanelListA extends JPanel
                 )
         );
 
-       
-        /*Mouse listener */ 
-        MouseListener mouseListener = new MouseAdapter() {
-            public void mousePressed(MouseEvent e) 
-            {
-                if(e.getSource() == jListAretes)
-                {/*
-                    String[] noms = listModel.getElementAt(jListAretes.getSelectedIndex()).split("-");
-                    
-                    for(Arete a : ctrl.getAretes())
-                    {
-                        if(a.getNoeud1().getNom().equals(noms[0]) && a.getNoeud2().getNom().equals(noms[1]))
-                        {
-                            comboBoxListNoeudA.setSelectedItem(a.getNoeud1());
-                            comboBoxListNoeudB.setSelectedItem(a.getNoeud2());
-                            txtDistance.setText(String.valueOf(a.getDistance()));
-                            btnCouleur1.setBackground(a.getCouleur1());
-                            btnCouleur2.setBackground(a.getCouleur2());
-                            cb2Sens.setSelected(a.is2Sens());
-                        }
-                    }*/
-                }   
-            }
-        };
-        
         this.appliquerTheme();
     }                      
 
@@ -380,36 +365,18 @@ public class PGPanelListA extends JPanel
 
 
     private void btnAjouterActionPerformed(ActionEvent e)
+	{
+		JDialog dialog = new JDialog(this.ctrl.getIHM(),"Ajouter Noeud");
+		dialog.setSize(400,200);
+		this.panelArete = new PanelArete(ctrl);
+		dialog.add(this.panelArete);
+
+		dialog.setVisible(true);
+	}
+
+
+    private void btnSupprimerActionPerformed(ActionEvent e)
     {
-        /*String nom1     = (String) this.comboBoxListNoeudA.getSelectedItem();
-        String nom2     = (String) this.comboBoxListNoeudB.getSelectedItem();
-        int    distance = Integer.parseInt(this.txtDistance.getText());
-        
-        if(!nom1.equals(nom2))
-        {
-            if(!this.cb2Sens.isSelected())
-                this.ctrl.ajouterArete(nom1, nom2, distance, couleur1, null);
-
-            this.ctrl.ajouterArete(nom1, nom2, distance, this.couleur1, this.couleur2);
-        }
-
-        ((DefaultListModel<Arete>) this.listModel).addElement(a.get + " - " + nom2);
-        this.jListAretes.setModel(this.listModel);
-*/
-        this.effacerForm(); 
-    }
-
-
-    private void btnSupprimerActionPerformed      (ActionEvent e)
-    {
-        /*String[] noms = this.listModel.getElementAt(this.jListAretes.getSelectedIndex()).split("-");
-
-        this.ctrl.supprimerArete(noms[0], noms[1]);
-
-        ((DefaultListModel<Arete>) this.listModel).removeElement(noms[0] + "-" + noms[1]);
-        this.jListAretes.setModel(this.listModel);
-
-        this.effacerForm();*/
         Arete areteSelected = this.jListAretes.getSelectedValue();
         this.ctrl.supprimerArete(areteSelected.getNoeud1().getNom(), areteSelected.getNoeud2().getNom());
         this.jListAretes.updateUI();
@@ -426,6 +393,32 @@ public class PGPanelListA extends JPanel
 		{
 			this.btnCouleur2.setEnabled(false);
 			this.btnCouleur2.setBackground(null);
+		}
+	}
+
+	private void txtDistanceActionPerformed(ActionEvent e)
+	{
+		if (this.txtDistance.getText().length() > 0)
+		{
+			try
+			{
+				int distance = Integer.parseInt(this.txtDistance.getText());
+				if (distance < 0)
+				{
+					JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre supérieur à 0 et inférieur au nombre de jeton par joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.txtDistance.setText("" + this.jListAretes.getSelectedValue().getDistance());
+				}
+				else
+				{
+					this.jListAretes.getSelectedValue().setdistance(distance);
+					this.ctrl.majIHMPlateau();
+				}
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Veuillez entrer un nombre entier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				this.txtDistance.setText("" + this.jListAretes.getSelectedValue().getDistance());
+			}
 		}
 	}
     
@@ -532,18 +525,48 @@ public class PGPanelListA extends JPanel
         this.btnSupprimer      .setBackground(btnBackColor);
     }
 
-	public void envoyerCouleur(Color c)
+	public void envoyerCouleur(Color c, String nomPanel)
 	{
-		if (this.couleurAttendu == 1)
+		if (nomPanel.contains("PGPanelListA"))
 		{
-			this.couleur1 = c;
-			this.btnCouleur1.setBackground(c);
+			if (this.couleurAttendu == 1)
+			{
+				this.couleur1 = c;
+				this.btnCouleur1.setBackground(c);
+			}
+			else
+			{
+				this.couleur2 = c;
+				this.btnCouleur2.setBackground(c);
+			}
 		}
-		else
+
+		if (nomPanel.contains("PanelArete"))
 		{
-			this.couleur2 = c;
-			this.btnCouleur2.setBackground(c);
+			this.panelArete.envoyerCouleur(c);
 		}
 	}
 
+	public void majIHM()
+	{
+		this.jListAretes.setModel(new AbstractListModel<Arete>()
+        {
+            List<Arete> lstAretes = ctrl.getAretes();
+
+            public int getSize()
+            {
+                return lstAretes.size();
+            }
+
+            public Arete getElementAt(int index)
+            {
+                return lstAretes.get(index);
+            }
+        });
+	}
+
+	public void selectArete(int index)
+	{
+		this.jListAretes.setSelectedIndex(index);
+	}
 }
