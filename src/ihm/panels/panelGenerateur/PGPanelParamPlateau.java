@@ -122,7 +122,7 @@ public class PGPanelParamPlateau extends JPanel
 
         /* Liste de choix de la police */
 		String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-		this.ddlstChoisirFont = new JComboBox(fonts);
+		this.ddlstChoisirFont = new JComboBox<String>(fonts);
 		this.ddlstChoisirFont.setSelectedItem("Arial");
 
 		this.ddlstChoisirFont.setRenderer(new DefaultListCellRenderer() 
