@@ -51,11 +51,15 @@ public class Controleur
 	public void genererTxt(String type, String nomFichier)
 	{
 		this.ihm.dispose();
+		this.metier.ecrireFichier(nomFichier);
+	}
+
+	public void ecrireFichier(String nomFichier)
+	{
+		this.metier.ecrireFichier(nomFichier);
 	}
 
 	/* Getters */
-	public Metier getMetier() { return this.metier; } // à enlever
-
 	public int[]         getTaillePlateau () { return this.metier.getTaillePlateau (); }
 	public BufferedImage getImagePlateau  () { return this.metier.getImagePlateau  (); }
 	public Color         getCouleurPlateau() { return this.metier.getCouleurPlateau(); }

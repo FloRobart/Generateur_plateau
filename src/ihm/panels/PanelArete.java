@@ -67,7 +67,7 @@ public class PanelArete extends JPanel
         JPanel panelListe = new JPanel();
         panelListe.setBackground(new Color(68, 71, 90));
 
-        this.aretes = this.ctrl.getMetier().getAretes();
+        this.aretes = this.ctrl.getAretes();
         this.listModel = new DefaultListModel<String>();
 
         for (Arete a : this.aretes) {
@@ -112,8 +112,8 @@ public class PanelArete extends JPanel
          });
 
 
-        lstNoeudA = this.ctrl.getMetier().getNoeuds();
-        lstNoeudB = this.ctrl.getMetier().getNoeuds();
+        lstNoeudA = this.ctrl.getNoeuds();
+        lstNoeudB = this.ctrl.getNoeuds();
         
         String[] tabNoeudA = new String[lstNoeudA.size()];
         String[] tabNoeudB = new String[lstNoeudB.size()];

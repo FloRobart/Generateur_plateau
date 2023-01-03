@@ -89,8 +89,8 @@ public class PanelAjoutObjectif extends JPanel
             }
         });
 
-        this.lstNoeudA = this.ctrl.getMetier().getNoeuds();
-        this.lstNoeudB = this.ctrl.getMetier().getNoeuds();
+        this.lstNoeudA = this.ctrl.getNoeuds();
+        this.lstNoeudB = this.ctrl.getNoeuds();
 
         String[] tabNoeudA = new String[lstNoeudA.size()];
         String[] tabNoeudB = new String[lstNoeudB.size()];

@@ -38,7 +38,7 @@ public class PanelModifObjectif extends JPanel
         GroupLayout layout = new GroupLayout(this);
         panelHaut.setLayout(layout);
 
-        List<Noeud> noeuds = this.ctrl.getMetier().getNoeuds();
+        List<Noeud> noeuds = this.ctrl.getNoeuds();
         String[] tabObjectif = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
         String[] tabNoeudA   = new String[noeuds.size()]; //{ "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
         String[] tabNoeudB   = new String[noeuds.size()]; //{ "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
