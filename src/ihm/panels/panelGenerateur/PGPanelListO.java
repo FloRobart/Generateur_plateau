@@ -67,10 +67,10 @@ public class PGPanelListO extends  JPanel
         this.jListObj           = new  JList<CarteObjectif>();
         this.btnAjouter         = new  JButton          ();
         this.btnSupprimer       = new  JButton          ();
-        this.comboBoxListNoeudB = new  JComboBox<Noeud> ();
         this.lblNoeudA          = new  JLabel           ();
         this.lblNoeudB          = new  JLabel           ();
         this.comboBoxListNoeudA = new  JComboBox<Noeud> ();
+        this.comboBoxListNoeudB = new  JComboBox<Noeud> ();
         this.txtPoint           = new  TextFieldOnlyInteger(ctrl);
         this.lblPoint           = new  JLabel           ();
         this.lblRecto           = new  JLabel           ();
@@ -81,37 +81,40 @@ public class PGPanelListO extends  JPanel
         this.lstNoeudB          = ctrl.getNoeuds();
 
         List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
-
+        
         /*JListObj */
-        this.jListObj.setModel(new  AbstractListModel<CarteObjectif>() {
+        this.jListObj.setModel(new AbstractListModel<CarteObjectif>() 
+        {
             public int getSize() { return lstObj.size(); }
             public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
         });
 
-        this.jListObj.addListSelectionListener(new ListSelectionListener() 
+        this.jListObj.addListSelectionListener(new ListSelectionListener()
         {
             @Override
-            public void valueChanged(ListSelectionEvent e) 
+            public void valueChanged(ListSelectionEvent e)
             {
-                CarteObjectif objSelected = jListObj.getSelectedValue();
-    
-                if(objSelected == null && lstObj.size() != 0)
-                    objSelected = lstObj.get(0);
-                
-                if(objSelected != null)
-                {
-                    List<Noeud> lstNoeuds = ctrl.getNoeuds();
-                    comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud1()));
+				CarteObjectif objSelected = jListObj.getSelectedValue();
+
+				if (objSelected == null && lstObj.size() != 0) 
+					objSelected = lstObj.get(0);
+				
+				if (objSelected != null)
+				{
+					List<Noeud> lstNoeuds = ctrl.getNoeuds();
+
+        			comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud1()));
         			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud2()));
 
-                    txtPoint.setText("" + objSelected.getPoints());
-                }
-                else
-                {
-                    effacerForm();
-                } 
-            }
-        });
+					txtPoint.setText("" + objSelected.getPoints());
+					
+				}
+				else
+				{
+					effacerForm();
+				}
+			}
+		});
 
         /*Ajout de la JlistObjectif dans un JScrollPane */
         this.jspNoeud.setViewportView(jListObj);
@@ -144,16 +147,15 @@ public class PGPanelListO extends  JPanel
         Noeud[] tabNoeudA = lstNoeudA.toArray(new Noeud[0]);
         Noeud[] tabNoeudB = lstNoeudB.toArray(new Noeud[0]);
 
-        this.comboBoxListNoeudA.setFocusable(false);
-        this.comboBoxListNoeudA.setModel(new  DefaultComboBoxModel<>(tabNoeudA));
-        this.comboBoxListNoeudA.addActionListener(new  ActionListener() {
+        this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
+        this.comboBoxListNoeudA.addActionListener(new ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudActionPerformed(evt);
             }
         });
 
-        this.comboBoxListNoeudB.setModel(new  DefaultComboBoxModel<>(tabNoeudB));
-        this.comboBoxListNoeudB.addActionListener(new  ActionListener() {
+        this.comboBoxListNoeudB.setModel(new DefaultComboBoxModel<>(tabNoeudB));
+        this.comboBoxListNoeudB.addActionListener(new ActionListener() {
             public void actionPerformed( ActionEvent evt) {
                 comboBoxListNoeudBctionPerformed(evt);
             }
