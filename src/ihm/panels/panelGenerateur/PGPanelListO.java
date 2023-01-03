@@ -98,8 +98,12 @@ public class PGPanelListO extends  JPanel
             @Override
             public void valueChanged(ListSelectionEvent e)
             {
-				CarteObjectif objSelected = jListObj.getSelectedValue();
+				CarteObjectif objSelected = null;
 				lstObj = ctrl.getCarteObjectif();
+
+				try {
+					objSelected = jListObj.getSelectedValue();
+				} catch (Exception ex) {}
 
 				if (objSelected == null && lstObj.size() != 0) 
 					objSelected = lstObj.get(0);
