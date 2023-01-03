@@ -2,6 +2,7 @@ package ihm.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -18,13 +19,18 @@ import java.awt.Image;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -41,7 +47,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
     private JPanel panelActionCarte;
     private JPanel panelCouleur;
 
-    private List lstCarte;
+    private JList lstCarte;
 
     private JButton btnEnregistrer;
     private JButton btnQuitter;
@@ -63,7 +69,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.setLayout( new BorderLayout());
 
         //Creation des composants
-        this.lstCarte = new List();
+        this.lstCarte = new JList();
         
         this.panelParametrageCarte = new JPanel();
         this.panelParametrageCarte.setLayout(new GridLayout(3,1));
@@ -87,21 +93,73 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 
         this.indiceMaxlstCouleur = this.ctrl.getCouleurs().size();
         
-        int indiceCarte = 1;
+        DefaultListModel model = new DefaultListModel();
         for(Color c : this.ctrl.getCouleurs())
         {
-            this.lstCarte.add("Carte " + indiceCarte++);
+            model.addElement("Carte " + c.getRGB());
         }
 
-        this.lstCarte.add("Verso");
-        this.lstCarte.add("Locomotive");
+        model.addElement("CoteVerso");
+        model.addElement("Locomotive");
+		this.lstCarte = new JList(model);
+
+		this.lstCarte.setCellRenderer(new DefaultListCellRenderer() 
+		{
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) 
+			{
+				JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				String str = (String) value;
+				if (str.charAt(5) == ' ')
+				{
+					String color = str.substring(6);
+					label.setBackground(new Color(Integer.parseInt(color)));
+					label.setText(str.substring(0, 5));
+				}
+				
+				return label;
+			}
+		});
 
         this.btnEnregistrer  = new JButton("Enregistrer");
         this.btnQuitter      = new JButton("Quitter");
         this.btnChoisirImage = new JButton("Choisissez l'image de la carte");
 
         //Ajout des composants au ActionListener
-        this.lstCarte.addActionListener(this);
+        this.lstCarte.addListSelectionListener(new ListSelectionListener() 
+		{
+			public void valueChanged(ListSelectionEvent e) 
+			{
+				System.out.println("ligne " + lstCarte.getSelectedIndex());
+            	System.out.println("ligne max " + indiceMaxlstCouleur);
+
+				if ( lstCarte.getSelectedIndex() == indiceMaxlstCouleur ) 
+				{ 
+					BufferedImage img = ctrl.getImageVersoCouleur();
+					lblCarteWagon.setIcon(new ImageIcon(img));
+					panelVisualisationCarte.setBackground(null);
+					panelCouleur.setBackground(null);
+				}
+
+				if ( lstCarte.getSelectedIndex() == indiceMaxlstCouleur+1 ) 
+				{ 
+					BufferedImage img = ctrl.getImageRectoLocomotive();
+					lblCarteWagon.setIcon(new ImageIcon(img));
+					panelVisualisationCarte.setBackground(null);
+					panelCouleur.setBackground(null);
+				}
+
+				if ( lstCarte.getSelectedIndex() != indiceMaxlstCouleur && lstCarte.getSelectedIndex() != indiceMaxlstCouleur+1 ) 
+				{ 
+					if ( ctrl.getImagesRectoCouleur().get(lstCarte.getSelectedIndex()) != null )
+					{
+						BufferedImage img = ctrl.getImagesRectoCouleur().get(lstCarte.getSelectedIndex());
+						lblCarteWagon.setIcon(new ImageIcon(img));
+						panelCouleur.setBackground(ctrl.getCouleurs().get(lstCarte.getSelectedIndex()));
+					}
+					panelCouleur.setBackground(ctrl.getCouleurs().get(lstCarte.getSelectedIndex()));
+				}
+			}
+		});
 
         this.btnEnregistrer.addActionListener(this);
         this.btnQuitter.addActionListener(this);
@@ -131,39 +189,6 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
     //Action performed//*
     public void actionPerformed(ActionEvent e) 
     {
-        if ( e.getSource() == lstCarte )
-        {
-            System.out.println("ligne " + this.lstCarte.getSelectedIndex());
-            System.out.println("ligne max " + this.indiceMaxlstCouleur);
-
-            if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur ) 
-            { 
-                BufferedImage img = this.ctrl.getImageVersoCouleur();
-                this.lblCarteWagon.setIcon(new ImageIcon(img));
-                this.panelVisualisationCarte.setBackground(null);
-                this.panelCouleur.setBackground(null);
-            }
-
-            if ( this.lstCarte.getSelectedIndex() == this.indiceMaxlstCouleur+1 ) 
-            { 
-                BufferedImage img = this.ctrl.getImageRectoLocomotive();
-                this.lblCarteWagon.setIcon(new ImageIcon(img));
-                this.panelVisualisationCarte.setBackground(null);
-                this.panelCouleur.setBackground(null);
-            }
-
-            if ( this.lstCarte.getSelectedIndex() != this.indiceMaxlstCouleur && this.lstCarte.getSelectedIndex() != this.indiceMaxlstCouleur+1 ) 
-            { 
-                if ( this.ctrl.getImagesRectoCouleur().get(this.lstCarte.getSelectedIndex()) != null )
-                {
-                    BufferedImage img = this.ctrl.getImagesRectoCouleur().get(this.lstCarte.getSelectedIndex());
-                    this.lblCarteWagon.setIcon(new ImageIcon(img));
-                    this.panelCouleur.setBackground(this.ctrl.getCouleurs().get(this.lstCarte.getSelectedIndex()));
-                }
-                this.panelCouleur.setBackground(this.ctrl.getCouleurs().get(this.lstCarte.getSelectedIndex()));
-            }
-        }
-
         if ( e.getSource() == btnEnregistrer )
         {
             // Importation du panel en image
