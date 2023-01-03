@@ -349,7 +349,7 @@ public class PGPanelListA extends JPanel
 
     private void btnAjouterActionPerformed(ActionEvent e)
 	{
-		JDialog dialog = new JDialog(this.ctrl.getIHM(),"Ajouter Noeud");
+		JDialog dialog = new JDialog(this.ctrl.getIHM(),"Ajouter Arete");
 		dialog.setSize(400,200);
         dialog.setLocationRelativeTo(this.ctrl.getIHM());
 		this.panelArete = new PanelArete(ctrl);

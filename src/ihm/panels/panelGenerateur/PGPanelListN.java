@@ -338,6 +338,7 @@ public class PGPanelListN extends JPanel
     {
         JDialog dialog = new JDialog(this.ctrl.getIHM(),"Ajouter Noeud");
         dialog.setSize(400,200);
+        dialog.setLocationRelativeTo(this.ctrl.getIHM());
         dialog.add(this.panelNoeud = new PanelNoeud(ctrl));
 
         dialog.setVisible(true);
