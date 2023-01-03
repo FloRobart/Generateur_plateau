@@ -9,11 +9,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -44,9 +46,9 @@ public class PGPanelListA extends JPanel
     private JButton           btnCouleurBA;
     private JButton           btnSupprimer;
     private JCheckBox         cb2Sens;
-    private JComboBox<String> comboBoxListNoeudA;
-    private JComboBox<String> comboBoxListNoeudB;
-    private JList<String>     jListAretes;
+    private JComboBox<Noeud> comboBoxListNoeudA;
+    private JComboBox<Noeud> comboBoxListNoeudB;
+    private JList<Arete>     jListAretes;
     private JScrollPane       jScrollPane1;
     private JLabel            lbl2Sens;
     private JLabel            lblCouleurAB;
@@ -73,15 +75,15 @@ public class PGPanelListA extends JPanel
         this.ctrl               = ctrl;
 
         this.jScrollPane1       = new JScrollPane      ();
-        this.jListAretes        = new JList<String>    ();
+        this.jListAretes        = new JList<Arete>    ();
         this.lblNoeudA          = new JLabel           ();
         this.lblNoeudB          = new JLabel           ();
         this.lbl2Sens           = new JLabel           ();
         this.lblCouleurAB       = new JLabel           ();
         this.lblDistance        = new JLabel           ();
         this.lblCouleurBA       = new JLabel           ();
-        this.comboBoxListNoeudA = new JComboBox<String>();
-        this.comboBoxListNoeudB = new JComboBox<String>();
+        this.comboBoxListNoeudA = new JComboBox<Noeud>();
+        this.comboBoxListNoeudB = new JComboBox<Noeud>();
         this.cb2Sens            = new JCheckBox        ();
         this.txtDistance        = new TextFieldWithHint("Distance", ctrl);
         this.btnCouleurAB       = new JButton          ();
@@ -98,18 +100,18 @@ public class PGPanelListA extends JPanel
         for (Arete a : this.ctrl.getAretes()) {
             ((DefaultListModel<String>) this.listModel).addElement(a.toString());
         }
-        this.jListAretes.setModel(new AbstractListModel<String>()
+        this.jListAretes.setModel(new AbstractListModel<Arete>()
         {
-            ListModel<String> lstAretes = listModel;
+            List<Arete> lstAretes = ctrl.getAretes();
 
             public int getSize()
             {
-                return lstAretes.getSize();
+                return lstAretes.size();
             }
 
-            public String getElementAt(int index)
+            public Arete getElementAt(int index)
             {
-                return lstAretes.getElementAt(index);
+                return lstAretes.get(index);
             }
         });
 
@@ -143,13 +145,9 @@ public class PGPanelListA extends JPanel
         this.lblCouleurBA.setFont(new Font("Segoe UI", 1, 12));
 
         /* comboBoxListNoeudA */
-        String[] tabNoeudA = new String[lstNoeudA.size()];
-        String[] tabNoeudB = new String[lstNoeudB.size()];
-        for (int i = 0; i < lstNoeudA.size(); i++)
-        {
-            tabNoeudA[i] = lstNoeudA.get(i).getNom();
-            tabNoeudB[i] = lstNoeudB.get(i).getNom();
-        }
+        Noeud[] tabNoeudA = lstNoeudA.toArray(new Noeud[0]);
+        Noeud[] tabNoeudB = lstNoeudB.toArray(new Noeud[0]);
+  
 
         this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
         this.comboBoxListNoeudA.addActionListener(new ActionListener()
@@ -243,7 +241,7 @@ public class PGPanelListA extends JPanel
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(this.lblNoeudA)
                             .addGap(32, 32, 32)
-                            .addComponent(this.comboBoxListNoeudA, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(this.comboBoxListNoeudA, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(this.lblNoeudB)
                             .addGap(33, 33, 33)
