@@ -128,11 +128,11 @@ public class Metier
 			this.lstImagesRectoCouleur.add(null);
 		}
 
-		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
+		/*this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(0), this.lstNoeuds.get(1), 10, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(2),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(2), this.lstNoeuds.get(3),  5, null));
 		this.carteObjectif.add(new CarteObjectif(this.lstNoeuds.get(1), this.lstNoeuds.get(3), 15, null));
-
+*/
 		String themeUsed = this.getThemeUsed();
 		this.chargerThemes(themeUsed);
 	}

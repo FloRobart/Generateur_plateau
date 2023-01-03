@@ -38,6 +38,7 @@ import metier.Noeud;
 public class PGPanelListO extends  JPanel
 {
     private Controleur        ctrl;
+    private PanelAjoutObjectif panelAjoutObj;
     private JButton           btnAjouter;
     private JButton           btnImgRecto;
     private JButton           btnImgVerso;
@@ -53,9 +54,7 @@ public class PGPanelListO extends  JPanel
     private JScrollPane       jspObjectif;
     private TextFieldOnlyInteger txtPoint;
 
-    private List<Noeud>       lstNoeudA;
-    private List<Noeud>       lstNoeudB;
-
+    private List<Noeud>       lstNoeuds;
     private List<CarteObjectif> lstObj;
 
     
@@ -66,7 +65,8 @@ public class PGPanelListO extends  JPanel
     public PGPanelListO(Controleur ctrl)
     {
         this.ctrl               = ctrl;
-        this.jspObjectif           = new  JScrollPane      ();
+        this.panelAjoutObj      = null;
+        this.jspObjectif        = new  JScrollPane      ();
         this.jListObj           = new  JList<CarteObjectif>();
         this.btnAjouter         = new  JButton          ();
         this.btnSupprimer       = new  JButton          ();
@@ -80,8 +80,7 @@ public class PGPanelListO extends  JPanel
         this.lblVerso           = new  JLabel           ();
         this.btnImgRecto        = new  JButton          ();
         this.btnImgVerso        = new  JButton          ();
-        this.lstNoeudA          = ctrl.getNoeuds();
-        this.lstNoeudB          = ctrl.getNoeuds();
+        this.lstNoeuds          = ctrl.getNoeuds();
         this.lstObj             = ctrl.getCarteObjectif();
         
         /*JListObj */
@@ -103,8 +102,6 @@ public class PGPanelListO extends  JPanel
 				
 				if (objSelected != null)
 				{
-					List<Noeud> lstNoeuds = ctrl.getNoeuds();
-
         			comboBoxListNoeudA.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud1()));
         			comboBoxListNoeudB.setSelectedIndex(lstNoeuds.indexOf(objSelected.getNoeud2()));
 
@@ -146,8 +143,8 @@ public class PGPanelListO extends  JPanel
         this.lblNoeudB.setFont(new Font("Segoe UI", 1, 12));
 
         /* comboBoxListNoeud */
-        Noeud[] tabNoeudA = lstNoeudA.toArray(new Noeud[0]);
-        Noeud[] tabNoeudB = lstNoeudB.toArray(new Noeud[0]);
+        Noeud[] tabNoeudA = lstNoeuds.toArray(new Noeud[0]);
+        Noeud[] tabNoeudB = lstNoeuds.toArray(new Noeud[0]);
 
         this.comboBoxListNoeudA.setModel(new DefaultComboBoxModel<>(tabNoeudA));
         this.comboBoxListNoeudA.addActionListener(new ActionListener() {
@@ -278,26 +275,27 @@ public class PGPanelListO extends  JPanel
         JDialog dialog = new JDialog(this.ctrl.getIHM(), "Ajouter un objectif");
         dialog.setSize(500, 250);
         dialog.setLocationRelativeTo(this.ctrl.getIHM());
-        dialog.add(new PanelAjoutObjectif(ctrl));
+        this.panelAjoutObj = new PanelAjoutObjectif(this.ctrl);
+        dialog.add(this.panelAjoutObj);
         dialog.pack();
         dialog.setVisible(true);
     }
 
     private void btnSupprimerActionPerformed(ActionEvent evt)
     {
-        CarteObjectif carte = this.lstObj.get(this.jListObj.getSelectedIndex());
-        this.ctrl.supprimerObjectif(carte.getNoeud1().getNom(), carte.getNoeud2().getNom());
-        this.ctrl.getIHM().majListes(); 
-        this.majIHM();
+        CarteObjectif objSelected = this.jListObj.getSelectedValue();
+        this.ctrl.supprimerArete(objSelected.getNoeud1().getNom(), objSelected.getNoeud2().getNom());
+        this.jListObj.updateUI();
+        this.ctrl.majIHMPlateau();
     }
 
     public void majIHM() 
     {    
         this.jListObj.setModel(new AbstractListModel<CarteObjectif>()
         {
-            List<CarteObjectif> cartes = ctrl.getCarteObjectif();
-            public int getSize() { return cartes.size(); }
-            public CarteObjectif getElementAt(int i) { return cartes.get(i); }
+            List<CarteObjectif> lstObj = ctrl.getCarteObjectif();
+            public int getSize() { return lstObj.size(); }
+            public CarteObjectif getElementAt(int i) { return lstObj.get(i); }
         });
     }
 
