@@ -2,6 +2,7 @@ package ihm.panels.panelGenerateur;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -117,10 +118,13 @@ public class PGPanelParamPlateau extends JPanel
         });
 
         /* Liste de choix de la police */
-		this.ddlstChoisirFont.setModel(new DefaultComboBoxModel<String>(new String[] 
-			{ "Arial", "Calibri", "Comic Sans MS", "Courier New", "Georgia", "Impact", 
-			"Lucida Console", "Lucida Sans Unicode", "Tahoma", "Times New Roman", 
-			"Trebuchet MS", "Verdana" }));
+		Font[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+		this.ddlstChoisirFont.setModel(new DefaultComboBoxModel<String>());
+		for (Font font : fonts)
+		{
+			this.ddlstChoisirFont.addItem(font.getFontName());
+		}
+
 		this.ddlstChoisirFont.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
