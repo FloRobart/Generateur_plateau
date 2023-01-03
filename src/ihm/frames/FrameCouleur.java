@@ -42,7 +42,7 @@ public class FrameCouleur extends JFrame implements ActionListener
 		/*----------------------------*/
 		/* Initialisation de la frame */
 		/*----------------------------*/
-		this.setTitle("Modifier les couleurs");
+		this.setTitle("Choix des couleurs disponibles dans la partie (arêtes et cartes wagon)");
 		this.setSize(300, nbLig * 65 + 50);
 		this.setLocation(500, 300);
 		this.setLayout(new BorderLayout());
