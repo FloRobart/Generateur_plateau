@@ -95,10 +95,10 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         });
         this.lstCarte.setPreferredSize(new Dimension(60, 40));
         //
-        this.lstCarte.addListSelectionListener(new ListSelectionListener()
-        {
-            @Override
-            public void valueChanged(ListSelectionEvent e)
+        //this.lstCarte.addListSelectionListener(new ListSelectionListener()
+       // {
+         //   @Override
+           /* public void valueChanged(ListSelectionEvent e)
             {
 				String carteSelected = lstCarte.getSelectedValue();
 
@@ -134,7 +134,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
 					effacerForm();
 				}
 			}
-		});
+		});*/
         //
         this.btnEnregistrer   = new JButton("Enregistrer");
         this.btnSupprimer = new JButton("Supprimer");
@@ -145,7 +145,7 @@ public class FrameCreerCarteWagon extends JFrame implements ActionListener
         this.btnChoisirImage   = new JButton("Choisissez l'image de la carte");
 
         //Ajout des composants au ActionListener
-        this.lstCarte.addActionListener(this);
+        //this.lstCarte.addActionListener(this);
 
         this.btnEnregistrer.addActionListener(this);
         this.btnSupprimer.addActionListener(this);
