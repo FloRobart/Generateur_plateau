@@ -203,4 +203,14 @@ public class FramePlateau extends JFrame
 	{
 		// à compléter
 	}
+
+	public void majListes()
+	{
+		//TODO
+	}
+
+	public void selectNoeud(int index)
+	{
+		//TODO
+	}
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 import ihm.frames.FramePlateau;
 import metier.Arete;
-//import metier.Metier;
 import metier.Metier;
 import metier.Noeud;
 import metier.CarteObjectif;
@@ -222,6 +221,8 @@ public class Controleur
     public void ajouterNoeud(String nom, int posX, int posY, int posNomX, int posNomY, Color couleur) 
 	{
 		this.metier.ajouterNoeud(nom, posX, posY, posNomX, posNomY, couleur);
+		this.ihm.majListes();
+		this.ihm.selectNoeud(this.metier.getNoeuds().size()-1);
     }
 
 	/**

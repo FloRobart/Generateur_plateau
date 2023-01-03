@@ -295,7 +295,15 @@ public class PGPanelListN extends JPanel
         this.listNoeuds.getSelectedValue().setCouleur(newColor);
         this.ctrl.majIHMPlateau();
     }
-    private void btnSupprimerActionPerformed(ActionEvent e){}
+    private void btnSupprimerActionPerformed(ActionEvent e)
+	{
+		/*private void supprimerNoeud() 
+        String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
+        this.ctrl.supprimerNoeud(nom);
+        ((DefaultListModel<String>) this.listModel).removeElement(nom);
+        this.effacerForm();
+		 */
+	}
 
 
     private void btnAjouterActionPerformed(ActionEvent e)

@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -26,26 +27,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-public class PanelNoeud extends JPanel implements KeyListener, MouseListener
+public class PanelNoeud extends JPanel
 {
     private Controleur ctrl;
 
-    private JList<String> listNoeuds;
-    
+	private JTextField           txtNom;
     private TextFieldOnlyInteger txtPosX;
     private TextFieldOnlyInteger txtPosY;
-    private TextFieldOnlyInteger txtNom;
     private TextFieldOnlyInteger txtPosNomX;
     private TextFieldOnlyInteger txtPosNomY;
-    private JButton    btnCouleur;
-
-    private JButton    btnAjouter;
-    private JButton    btnSupprimer;
+    private JButton              btnCouleur;
+    private JButton              btnAjouter;
 
     private Color      couleur;
-
-    private ListModel<String> listModel;
-    private List<Noeud>       noeuds;
 
     public PanelNoeud(Controleur ctrl) 
     {
@@ -55,26 +49,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
 
         /*Panel liste villes */
         JPanel panelListe = new JPanel();
-        panelListe.setBackground(new Color(68, 71, 90));
-
-
-        this.noeuds = this.ctrl.getMetier().getNoeuds();
-        this.listModel = new DefaultListModel<String>();
-
-        for (Noeud n : this.noeuds) {
-            ((DefaultListModel<String>) this.listModel).addElement(n.getNom());
-        }
-        
-        this.listNoeuds = new JList<String>(listModel);
-
-        this.listNoeuds.setBackground(new Color(58, 60, 76));
-        this.listNoeuds.setForeground(Color.WHITE);
-        this.listNoeuds.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        JScrollPane scrollPane = new JScrollPane(this.listNoeuds);
-
-        panelListe.add(scrollPane);
-  
+        panelListe.setBackground(new Color(68, 71, 90));        
         
         /*Panel infos villes */
         JPanel panelInfos = new JPanel();
@@ -82,6 +57,10 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         
         GroupLayout layout = new GroupLayout(panelInfos);
         panelInfos.setLayout(layout);
+
+		this.txtNom = new JTextField(10);
+        this.txtNom.setBackground(new Color(58, 60, 76));
+		this.txtNom.setForeground(Color.WHITE);
 
         this.txtPosX = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtPosX.setBackground(new Color(58, 60, 76));
@@ -114,11 +93,6 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
                
             }
          });
-
-
-        this.txtNom = new TextFieldOnlyInteger("10",this.ctrl);
-        this.txtNom.setBackground(new Color(58, 60, 76));
-        this.txtNom.setForeground(Color.GRAY);
 
         this.txtPosNomX = new TextFieldOnlyInteger("10",this.ctrl);
         this.txtPosNomX.setBackground(new Color(58, 60, 76));
@@ -182,7 +156,7 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         hGroup.addGroup(layout.createParallelGroup().
             addComponent(txtNom).addComponent(txtPosX).addComponent(txtPosNomX).addComponent(btnCouleur));
         
-        hGroup.addGroup(layout.createParallelGroup().
+        hGroup.addGroup(layout.createParallelGroup().addComponent(txtNom).
             addComponent(txtPosY).addComponent(txtPosNomY));
         layout.setHorizontalGroup(hGroup);
 
@@ -212,35 +186,14 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         this.btnAjouter.addActionListener(e -> {
             ajouterNoeud();
         });
-        
-        this.btnSupprimer = new JButton("Supprimer");
-        this.btnSupprimer.setBackground(new Color(58, 60, 76));
-        this.btnSupprimer.setForeground(Color.WHITE);
-        this.btnSupprimer.addActionListener(e -> {
-            supprimerNoeud();
-        });
+
 
         panelBoutons.add(this.btnAjouter);
-        panelBoutons.add(this.btnSupprimer);
 
         /*Ajout des panels*/
         this.add(panelListe, BorderLayout.WEST);
         this.add(panelInfos, BorderLayout.CENTER);
         this.add(panelBoutons, BorderLayout.SOUTH);
-
-        this.listNoeuds.addMouseListener(this);
-
-    }
-
-    /**
-     * Methode permettant de supprimer un noeud
-     */
-    private void supprimerNoeud() 
-    {
-        String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
-        this.ctrl.supprimerNoeud(nom);
-        ((DefaultListModel<String>) this.listModel).removeElement(nom);
-        this.effacerForm();
     }
 
     /**
@@ -261,17 +214,91 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
      */
     private void ajouterNoeud() 
     {
-        String nom = this.txtNom.getText();
-        int posX = Integer.parseInt(this.txtPosX.getText());
-        int posY = Integer.parseInt(this.txtPosY.getText());
-        int posNomX = Integer.parseInt(this.txtPosNomX.getText());
-        int posNomY = Integer.parseInt(this.txtPosNomY.getText());
+		boolean erreur  = false;
+		String  nom     = "";
+		int     posX    = 0;
+		int     posY    = 0;
+		int     posNomX = 0; 
+		int     posNomY = 0;;
 
-        ((DefaultListModel<String>) this.listModel).addElement(nom);
+		// test nom
+		if(this.txtNom.getText().equals(""))
+		{
+			this.txtNom.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez entrer un nom", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+		else
+		{
+			nom = this.txtNom.getText();
+			this.txtNom.setBackground(new Color(58, 60, 76));
+		}
+    
+		// test position X
+		try 
+		{
+			posX = Integer.parseInt(this.txtPosX.getText());
+			this.txtPosX.setBackground(new Color(58, 60, 76));
+		} 
+		catch (NumberFormatException e) 
+		{
+			this.txtPosX.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez entrer une position X valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
 
-        this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
-        this.effacerForm();
-        
+		// test position Y
+		try
+		{
+			posY = Integer.parseInt(this.txtPosY.getText());
+			this.txtPosY.setBackground(new Color(58, 60, 76));
+		}
+		catch (NumberFormatException e)
+		{
+			this.txtPosY.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez entrer une position Y valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		// test position X du nom
+		try
+		{
+			posNomX = Integer.parseInt(this.txtPosNomX.getText());
+			this.txtPosNomX.setBackground(new Color(58, 60, 76));
+		}
+		catch (NumberFormatException e)
+		{
+			this.txtPosNomX.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez entrer une position X du nom valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		// test position Y du nom
+		try
+		{
+			posNomY = Integer.parseInt(this.txtPosNomY.getText());
+			this.txtPosNomY.setBackground(new Color(58, 60, 76));
+		}
+		catch (NumberFormatException e)
+		{
+			this.txtPosNomY.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez entrer une position Y du nom valide", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		// test couleur
+		if(this.couleur == null)
+		{
+			this.btnCouleur.setBackground(Color.RED);
+			JOptionPane.showMessageDialog(this, "Veuillez choisir une couleur", "Erreur", JOptionPane.ERROR_MESSAGE);
+			erreur = true;
+		}
+
+		if(!erreur)
+		{
+			this.ctrl.ajouterNoeud(nom, posX, posY, posNomX, posNomY, this.couleur);
+       		this.effacerForm();
+		}  
     }
 
     private void selectColor() 
@@ -279,42 +306,4 @@ public class PanelNoeud extends JPanel implements KeyListener, MouseListener
         this.couleur = JColorChooser.showDialog(this, "Choisir une couleur", Color.BLACK);
         this.btnCouleur.setBackground(couleur);
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
-    @Override
-    public void keyPressed(KeyEvent e) {}
-    @Override
-    public void keyReleased(KeyEvent e) {}
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-
-    @Override
-    public void mousePressed(MouseEvent e) 
-    {
-        if(e.getSource() == this.listNoeuds)
-        {
-            String nom = this.listModel.getElementAt(this.listNoeuds.getSelectedIndex());
-
-            for(Noeud n : this.noeuds)
-            {
-                if(n.getNom().equals(nom))
-                {
-                    this.txtNom.setText(n.getNom());
-                    this.txtPosX.setText(String.valueOf(n.getX()));
-                    this.txtPosY.setText(String.valueOf(n.getY()));
-                    this.txtPosNomX.setText(String.valueOf(n.getXNom()));
-                    this.txtPosNomY.setText(String.valueOf(n.getYNom()));
-                    this.btnCouleur.setBackground(n.getCouleur());
-                }
-            }
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }
