@@ -105,7 +105,11 @@ public class PGPanelListA extends JPanel
             @Override
             public void valueChanged(ListSelectionEvent e)
             {
-				Arete areteSelected = jListAretes.getSelectedValue();
+				Arete areteSelected = null;
+				try {
+					areteSelected = jListAretes.getSelectedValue();
+				} catch(Exception ex) {}
+				
 
 				if (areteSelected == null && lstAretes.size() != 0) 
 					areteSelected = lstAretes.get(0);

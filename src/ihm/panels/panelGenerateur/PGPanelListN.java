@@ -91,7 +91,10 @@ public class PGPanelListN extends JPanel
             @Override
             public void valueChanged(ListSelectionEvent e)
             {
-                Noeud noeudSelected = listNoeuds.getSelectedValue();
+                Noeud noeudSelected = null;
+				try {
+					noeudSelected = listNoeuds.getSelectedValue();
+				} catch (Exception ex) {}
 
 				if (noeudSelected == null && lstNoeuds.size() != 0) 
 					noeudSelected = lstNoeuds.get(0);
