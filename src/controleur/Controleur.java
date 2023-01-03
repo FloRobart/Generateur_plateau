@@ -204,9 +204,10 @@ public class Controleur
 	 * Supprimer un noeud
 	 * @param nom : Nom du noeud
 	 */
-    public void supprimerNoeud(String nom) 
+    public void supprimerNoeud(int index) 
 	{
-		this.metier.supprimerNoeud(nom);
+		this.metier.supprimerNoeud(index);
+		this.ihm.majIHM();
     }
 
 	/**
@@ -223,7 +224,13 @@ public class Controleur
 		this.metier.ajouterNoeud(nom, posX, posY, posNomX, posNomY, couleur);
 		this.ihm.majListes();
 		this.ihm.selectNoeud(this.metier.getNoeuds().size()-1);
+		this.ihm.majIHM();
     }
+
+	public void selectNoeud(int index)
+	{
+		this.ihm.selectNoeud(index);
+	}
 
 	/**
 	 * Main

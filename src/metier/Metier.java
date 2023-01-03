@@ -268,16 +268,20 @@ public class Metier
 	 * Supprime un Noeud
 	 * @param nom : nom du noeud
 	 */
-    public void supprimerNoeud(String nom) 
+    public void supprimerNoeud(int index) 
 	{
-		for (int i = 0; i < this.lstNoeuds.size(); i++)
+		Noeud n = this.lstNoeuds.get(index);
+
+		for (Iterator<Arete> iterator = this.lstAretes.iterator(); iterator.hasNext();) 
 		{
-			if (this.lstNoeuds.get(i).getNom().equals(nom))
+			Arete a = iterator.next();
+			if(a.getNoeud1() == n || a.getNoeud2() == n) 
 			{
-				this.lstNoeuds.remove(i);
-				return;
+				iterator.remove();
 			}
 		}
+
+		this.lstNoeuds.remove(n);
     }
 
 	/**

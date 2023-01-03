@@ -373,11 +373,17 @@ public class PanelPlateau extends JPanel implements MouseWheelListener, MouseLis
 		{
 			for (int i = 0 ; i < this.tabNoeud.length ; i++)
 				if (this.tabNoeud[i].contains(e.getPoint()))
+				{
 					this.idNoeudDrag = i;
+					this.ctrl.selectNoeud(i);
+				}
 
 			for (int i = 0 ; i < this.tabNomNoeud.length ; i++)
 				if (this.tabNomNoeud[i].contains(e.getPoint()))
+				{
 					this.idNomNoeudDrag = i;
+					this.ctrl.selectNoeud(i);
+				}
 		}
 
 		if (SwingUtilities.isRightMouseButton(e))
