@@ -169,6 +169,7 @@ public class Controleur
 	public void ajouterObjectif(String nom1, String nom2, int point, BufferedImage recto, BufferedImage verso) 
 	{
 		this.metier.ajouterObjectif(nom1, nom2, point, recto, verso);
+		this.ihm.majListes();
 	}
 
 	/**
@@ -176,9 +177,10 @@ public class Controleur
 	 * @param string : Nom du premier noeud
 	 * @param string2 : Nom du second noeud
 	 */
-    public void supprimerObjectif(String string, String string2) 
+    public void supprimerObjectif(String noeud1, String noeud2) 
 	{
-		this.metier.supprimerObjectif(string, string2);
+		this.metier.supprimerObjectif(noeud1, noeud2);
+		this.ihm.majListes();
     }
 
 	/**
