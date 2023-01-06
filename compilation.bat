@@ -7,6 +7,6 @@ IF NOT EXIST "./bin/donnees/" ( mkdir "./bin/donnees/" )
 XCOPY "./donnees" "./bin/donnees" /E /Y >NUL
 
 echo Ca compile...
-call javac -encoding utf8 "@compile.list" && echo Compilation terminée. || echo Erreur de compilation.
+call javac -encoding utf8 "@compile.list" && echo Compilation terminee. || echo Erreur de compilation.
 
 goto :eof
